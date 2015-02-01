@@ -1,0 +1,54 @@
+{
+  "name":            "<%= appName %>",
+  "tilte":           "<%= appTitle %>",
+  "version":         "0.0.0",
+  "description":     "",
+  "main":            "app/index.html",
+  "prefix":          "<%= appSign %>",
+  "private":         true,
+  "dependencies": {},
+  "devDependencies": {
+    "bower-files": "^3.3.0",
+    "connect-livereload": "^0.5.0",
+    "express": "^4.9.8",
+    "grunt": "^0.4.1",
+    "grunt-bower-concat": "^0.4.0",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "^0.4.1",
+    "grunt-contrib-cssmin": "^0.9.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-less": "^1.0.0",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-express": "^1.4.1",
+    "grunt-injector": "^0.6.0",
+    "grunt-ng-annotate": "^0.9.2",
+    "grunt-ngmin": "0.0.3",
+    "grunt-wiredep": "^2.0.0",
+    "jshint-stylish": "^0.2.0",
+    "load-grunt-tasks": "^0.4.0",
+    "protractor": "^1.4.0",
+    "time-grunt": "^0.3.1",
+    "tiny-lr": "^0.1.4",
+    "grunt-contrib-htmlmin": "^0.3.0",
+    "grunt-template": "^0.2.3",
+    "load-grunt-tasks": "^0.4.0"
+  },
+  "scripts":         {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository":      {
+    "type": "git",
+    "url":  ""
+  },
+  "keywords":        [
+    "AngularJS"
+  ],
+  "author":          "<%= author %>",
+  "license":         "MIT",
+  "bugs":            {
+    "url": ""
+  },
+  "homepage":        ""
+}

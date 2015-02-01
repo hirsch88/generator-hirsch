@@ -1,0 +1,6 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'generator-wt-angular' ]; then cd .. && eval "mv $currentfolder generator-wt-angular" && cd generator-wt-angular; fi

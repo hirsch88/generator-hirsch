@@ -1,0 +1,9 @@
+node_modules/
+app/lib
+temp/
+tmp/
+.tmp/
+bin/
+dist/
+.idea
+old/
