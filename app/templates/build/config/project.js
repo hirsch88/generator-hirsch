@@ -18,7 +18,7 @@ module.exports = function(grunt){
          */
         meta: {
             banner: '/**\n' +
-            ' * @appName    <%= pkg.name %>\n' +
+            ' * @appName    <%= pkg.title %>\n' +
             ' * @version    <%= pkg.version %>\n' +
             ' * @date       <%= grunt.template.today("yyyy-mm-dd") %>\n' +
             ' * @copyright  <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +

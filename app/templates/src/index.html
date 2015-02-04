@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="<%= appName %>" class="no-js" lang="en" ng-controller="$<%= appSign %>AppController as app">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title><%= appTitle %></title>
+        <meta name="description" content="<%= description %>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/ico" href="<%= mediaDir %>/favicon.ico"/>
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- injector:css -->
+        <!-- endinjector -->
+    </head>
+    <body>
+
+        <div ng-view></div>
+        
+        <!-- bower:js -->
+        <!-- endbower -->
+        <!-- injector:js -->
+        <!-- endinjector -->
+    </body>
+</html>

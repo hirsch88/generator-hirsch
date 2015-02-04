@@ -1,25 +1,36 @@
 {
-    "devDir":       "app",
+    "srcDir":       "src",
+    "distDir":      "dist",
     "testDir":      "test",
     "buildDir":     "build",
-    "distDir":      "dist",
     "libDir":       "lib",
-    "srcDir":       "src",
-    "cssDir":       "assets/css",
-    "lessDir":      "assets/less",
-    "fontDir":      "assets/fonts",
-    "mediaDir":     "assets/medias",
-    "i18nDir":      "assets/i18n",
+    "coreDir":      "core",
+    "assetsDir":    "assets",
     "tempDir":      ".tmp",
-    "generatedDir": ".tmp/generated",
-    "appFiles":     {
-        "index":     "index.html",
-        "style":     "assets/less/main.less",
-        "js":        "src/**/*.js",
-        "templates": "src/**/*.html",
+    "main":         "index.html",
+    "asset": {
+        "cssDir":    "assets/css",
         "css":       "assets/css/**/*.css",
+        "lessDir":   "assets/less",
         "less":      "assets/less/**/*.less",
-        "i18n":      "assets/i18n/**/*.json",
-        "spec":      "**/*.spec.js"
+        "lessMain":  "assets/less/main.less",
+        "fontDir":   "assets/fonts",
+        "mediaDir":  "assets/medias",
+        "i18nDir":   "assets/i18n",
+        "i18n":      "assets/i18n/**/*.json"
+    },
+    "core":     {
+        "app":       "core/app.js",
+        "scripts":   "core/**/*.js",
+        "templates": "core/**/*.html",
+        "common": {
+            "serviceDir":   "core/common/services",
+            "filterDir":    "core/common/filters",
+            "templateDir":  "core/common/templates",
+            "directiveDir": "core/common/directives"
+        }
+    },
+    "test":{
+        "specs":     "**/*.spec.js"
     }
 }

@@ -1,39 +1,60 @@
 'use strict';
 
-var util = require( 'util' );
 var yeoman = require( 'yeoman-generator' );
 var helper = require( './../helper' );
-var path = require( 'path' );
-var fs = require( 'fs' );
-
+var chalk = require('chalk');
 
 var FactoryGenerator = yeoman.generators.NamedBase.extend( {
-
-    init: function(){
-        console.log( 'You called the factory subgenerator with the argument ' + this.name + '.' );
+    initializing: function() {
+        this.pkg = helper.getPackage();
     },
+    prompting: function() {
+        var done = this.async();
+        var prompts = [
+            {
+                type: 'string',
+                name: 'description',
+                message: 'Please describe your factory.',
+                // default: ''
+            },
+            {
+                type: 'string',
+                name: 'requirements',
+                message: 'Do you have requirements?',
+                // default: ''
+            },
+            {
+                type: 'string',
+                name: 'arguments',
+                message: 'Do you need arguments?',
+                // default: '$q'
+            },
+            
 
-    files: function(){
+            
+        ];
+        this.prompt( prompts, function( props ) {
+            this.description = props.description;
+            this.requirements = props.requirements;
+            this.arguments = props.arguments;
+            done();
+        }.bind( this ) );
+    },
+    writing: function() {
+        var context = helper.getContext(this.name);
+        context.description = this.description;
+        context.requirements = this.requirements;
+        context.arguments = this.arguments;
 
-        // console.log(helper.pkg.name);
-
-        var meta = helper.getMetaData( this.name );
-
-        var context = {
-            name  : meta.fileName,
-            date  : helper.getCreationDate()
-        };
-
-        console.log(process.cwd());
-        var pkg = require(path.join(process.cwd(), 'package.json'));
-        console.log(pkg.name);
-
-        // if( meta.moduleName !== undefined && meta.moduleName !== '' ){
-        //     this.template( "template.js", "app/src/" + meta.modulePath + '/services/' + meta.fileName + '.factory.js', context );
-        // }else{
-        //     this.template( "template.js", "app/src/services/" + meta.fileName + '.factory.js', context );
-        // }
+        var target = 'app/src/common/services/' + context.capitalizedName + '.js';
+        this.fs.copyTpl(
+            this.templatePath( '_template.js' ),
+            this.destinationPath( target ),
+            context
+        );
+    },
+    end: function(){
+        console.log(chalk.bold.blue('Your factory has been created successfully!'));
     }
 } );
-
 module.exports = FactoryGenerator;

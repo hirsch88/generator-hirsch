@@ -11,8 +11,8 @@ module.exports = {
         },
         dist: {
             files: {
-                '<%= distDir %>/<%= cssDir %>/<%= pkg.name %>.min.<%= timestamp %>.css': [ '<%= devDir %>/<%= appFiles.css %>' ],
-                '<%= distDir %>/<%= cssDir %>/lib.min.<%= timestamp %>.css': [ '<%= generatedDir %>/<%= pkg.name %>.css' ]
+                '<%= distDir %>/<%= cssDir %>/<%= pkg.name %>.min.<%= timestamp %>.css': [ '<%= srcDir %>/<%= asset.css %>' ],
+                '<%= distDir %>/<%= cssDir %>/<%= libDir %>.min.<%= timestamp %>.css': [ '<%= tempDir %>/<%= pkg.name %>.css' ]
             }
         }
     }

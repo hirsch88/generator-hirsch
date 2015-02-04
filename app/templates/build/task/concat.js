@@ -16,15 +16,15 @@ module.exports = {
 
         dist_css: {
             src: lib.ext('css').files,
-            dest: '<%= generatedDir %>/<%= pkg.name %>.css'
+            dest: '<%= tempDir %>/<%= pkg.name %>.css'
         },
 
         dist_js: {
             src: [
-     			'<%= devDir %>/<%= srcDir %>/app.js',
-     			'<%= devDir %>/<%= appFiles.js %>'
+     			'<%= srcDir %>/<%= core.app %>',
+     			'<%= srcDir %>/<%= core.scripts %>'
    			],
-            dest: '<%= generatedDir %>/<%= pkg.name %>.js'
+            dest: '<%= tempDir %>/<%= pkg.name %>.js'
         }
     }
 

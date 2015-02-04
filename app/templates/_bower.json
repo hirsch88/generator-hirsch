@@ -4,8 +4,8 @@
   "authors": [
     "<%= author %>"
   ],
-  "description": "",
-  "main": "app/index.html",
+  "description": "<%= description %>",
+  "main": "<%= main %>",
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -16,22 +16,21 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.1",
+    "jquery": "~2.1.3",
+    "bootstrap": "~3.3.2",
     "underscore": "~1.7.0",
-    "font-awesome": "~4.2.0",
-    "moment": "~2.8.3",
+    "font-awesome": "~4.3.0",
+    "moment": "~2.9.0",
     "angular": "~1.3.11",
-    "angular-sanitize": "~1.3.0",
-    "angular-translate": "~2.2.0",
-    "angular-translate-loader-static-files": "~2.2.0",
-    "angular-cookie": "~4.0.2",
-    "angular-messages": "~1.3.0",
-    "angular-route": "~1.3.10",
-    "angular-animate": "~1.3.11",
-    "angular-material": "~0.7.0"
+    "angular-sanitize": "~1.3.11",
+    "angular-messages": "~1.3.11",
+    "angular-route": "~1.3.11",
+    "angular-cookie": "~4.0.6",
+    "angular-translate": "~2.5.2",
+    "angular-translate-loader-static-files": "~2.5.2"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.16",
-    "angular-scenario": "1.2.16"
+    "angular-mocks": "~1.3.11",
+    "angular-scenario": "~1.3.11"
   }
 }

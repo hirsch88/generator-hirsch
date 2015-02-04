@@ -25,13 +25,13 @@ module.exports = {
 
     dist_bower: {
       files: {
-        '<%= distDir %>/<%= srcDir %>/lib.min.<%= timestamp %>.js': lib.ext('js').files
+        '<%= distDir %>/<%= coreDir %>/<%= libDir %>.min.<%= timestamp %>.js': lib.ext('js').files
       }
     },
 
     dist_app: {
       files: {
-        '<%= distDir %>/<%= srcDir %>/<%= pkg.name %>.min.<%= timestamp %>.js': '<%= generatedDir %>/<%= pkg.name %>.js'
+        '<%= distDir %>/<%= coreDir %>/<%= pkg.name %>.min.<%= timestamp %>.js': '<%= tempDir %>/<%= pkg.name %>.js'
       }
     }
 

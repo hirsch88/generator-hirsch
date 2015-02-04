@@ -11,7 +11,7 @@ module.exports = {
         },
         dist:{
         	files:{
-        		'<%= generatedDir %>/<%= pkg.name %>.js': ['<%= generatedDir %>/<%= pkg.name %>.js']
+        		'<%= tempDir %>/<%= pkg.name %>.js': ['<%= tempDir %>/<%= pkg.name %>.js']
         	}
         }
     }

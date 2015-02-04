@@ -10,14 +10,14 @@ module.exports = {
 
         app: {
             options: {
-                ignorePath: 'app/',
+                ignorePath: '<%= srcDir %>/',
                 relative: false,
                 addRootSlash: false
             },
             files: {
-                '<%= devDir %>/<%= appFiles.index %>': [
-                    '<%= devDir %>/<%= appFiles.css %>',
-                    '<%= devDir %>/<%= appFiles.js %>'
+                '<%= srcDir %>/<%= main %>': [
+                    '<%= srcDir %>/<%= asset.css %>',
+                    '<%= srcDir %>/<%= core.scripts %>'
                 ]
             }
         },
@@ -28,9 +28,9 @@ module.exports = {
                 addRootSlash: false
             },
             files: {
-              '<%= distDir %>/<%= appFiles.index %>': [
-                  '<%= distDir %>/<%= appFiles.css %>',
-                  '<%= distDir %>/<%= appFiles.js %>'
+              '<%= distDir %>/<%= main %>': [
+                  '<%= distDir %>/<%= asset.css %>',
+                  '<%= distDir %>/<%= core.scripts %>'
               ]
             }
         }

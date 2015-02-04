@@ -15,11 +15,11 @@ module.exports = {
     wiredep: {
 
         app: {
-            src: '<%= devDir %>/index.html',
-            exclude: [ 'lib/bootstrap/dist/css/bootstrap.css' ]
+            src: '<%= srcDir %>/<%= main %>',
+            // exclude: [ 'lib/bootstrap/dist/css/bootstrap.css' ]
         },
         dist: {
-            src: '<%= distDir %>/index.html',
+            src: '<%= distDir %>/<%= main %>',
             exclude: bowerFiles
         }
     }

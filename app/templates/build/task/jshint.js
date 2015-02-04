@@ -16,14 +16,14 @@ module.exports = {
         app    : {
             src: [
                 //'Gruntfile.js',
-                '<%= devDir %>/<%= appFiles.js =>'
+                '<%= srcDir %>/<%= core.scripts =>'
             ]
         },
         test   : {
             options: {
                 jshintrc: '<%= testDir %>/.jshintrc'
             },
-            src    : ['<%= testDir %>/<%= appFiles.spec =>']
+            src    : ['<%= testDir %>/<%= test.specs =>']
         }
     }
 };
