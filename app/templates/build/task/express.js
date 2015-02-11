@@ -12,7 +12,7 @@ module.exports = {
         localDevServer: {
             options: {
                 port : 3000,
-                bases: '<%= devDir %>/'
+                bases: '<%= srcDir %>/'
             }
         },
         /**

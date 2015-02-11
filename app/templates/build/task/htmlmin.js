@@ -13,16 +13,16 @@ module.exports = {
 
       dist_index:{
         files  : {
-          '<%= distDir %>/index.html': '<%= distDir %>/index.html'
+          '<%= distDir %>/<%= main %>': '<%= distDir %>/<%= main %>'
         }
       },
 
       dist_tpl:{
         files  : [{
           expand: true,
-          cwd   : '<%= devDir %>/<%= srcDir %>',
+          cwd   : '<%= srcDir %>/<%= coreDir %>',
           src   : '**/*.html',
-          dest  : '<%= distDir %>/<%= srcDir %>'
+          dest  : '<%= distDir %>/<%= coreDir %>'
         }]
       }
 

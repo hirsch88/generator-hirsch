@@ -10,25 +10,25 @@ module.exports = {
       files: [
         {
           src   : ['**'],
-          cwd   : '<%= devDir %>/<%= mediaDir %>',
-          dest  : '<%= distDir %>/<%= mediaDir %>/',
+          cwd   : '<%= srcDir %>/<%= asset.mediaDir %>',
+          dest  : '<%= distDir %>/<%= asset.mediaDir %>/',
           expand: true
         },
         {
           src   : ['**'],
-          cwd   : '<%= devDir %>/<%= fontDir %>',
-          dest  : '<%= distDir %>/<%= fontDir %>/',
+          cwd   : '<%= srcDir %>/<%= asset.fontDir %>',
+          dest  : '<%= distDir %>/<%= asset.fontDir %>/',
           expand: true
         },
         {
           src   : ['*.json'],
-          cwd   : '<%= devDir %>/<%= i18nDir %>',
-          dest  : '<%= distDir %>/<%= i18nDir %>/',
+          cwd   : '<%= srcDir %>/<%= asset.i18nDir %>',
+          dest  : '<%= distDir %>/<%= asset.i18nDir %>/',
           expand: true
         },
         {
-          src   : '<%= devDir %>/<%= appFiles.index %>',
-          dest  : '<%= distDir %>/<%= appFiles.index %>'
+          src   : '<%= srcDir %>/<%= main %>',
+          dest  : '<%= distDir %>/<%= main %>'
         }
       ]
     }

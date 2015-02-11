@@ -11,20 +11,20 @@ module.exports = {
 
     	options: {
       		stripBanners: true,
-      		separator: '\n',
+      		separator: '\n'
   		},
 
         dist_css: {
             src: lib.ext('css').files,
-            dest: '<%= generatedDir %>/<%= pkg.name %>.css'
+            dest: '<%= tempDir %>/<%= pkg.name %>.css'
         },
 
         dist_js: {
             src: [
-     			'<%= devDir %>/<%= srcDir %>/app.js',
-     			'<%= devDir %>/<%= appFiles.js %>'
-   			],
-            dest: '<%= generatedDir %>/<%= pkg.name %>.js'
+     			    '<%= srcDir %>/<%= core.app %>',
+     			    '<%= srcDir %>/<%= core.scripts %>'
+   			    ],
+            dest: '<%= tempDir %>/<%= pkg.name %>.js'
         }
     }
 

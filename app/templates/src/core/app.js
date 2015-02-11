@@ -20,8 +20,6 @@
             // Angular modules
             'ngSanitize', // sanitizes html bindings
             'ngMessages', // validation messages
-            'ngMaterial',
-            'ngAnimate',
             'ngRoute',
 
             // 3rd Party Modules
@@ -36,6 +34,7 @@
             // Services
         
             // App modules with business logic
+            '<%= appName %>.home'
 
 
         ])
@@ -44,9 +43,9 @@
      */
         .constant('BASE_URL', 'http://localhost:1338/api/')
         .constant('PATH', {
-            TEMP     : 'src/common/templates/',
-            SERVICE  : 'src/common/services/',
-            DIRECTIVE: 'src/common/directives/'
+            TEMP     : 'core/common/templates/',
+            SERVICE  : 'core/common/services/',
+            DIRECTIVE: 'core/common/directives/'
         })
         .config(CustomAngularConfig)
         .controller('$<%= appSign %>AppController', AppController)
@@ -64,10 +63,10 @@
      * @param $translateProvider
      * @constructor
      */
-    function CustomAngularConfig($routeProvider, $httpProvider, $translateProvider){
+    function CustomAngularConfig($routeProvider, $httpProvider, $translateProvider, $compileProvider){
 
         // Default route
-        $routeProvider.otherwise('/event/dashboard');
+        $routeProvider.otherwise('/home');
 
         // Allows the framework to stor ehe sails cookie from the backend
         $httpProvider.defaults.withCredentials = true;
@@ -81,7 +80,10 @@
         });
         $translateProvider.preferredLanguage('en');
 
-    }
+        // Tools like Protractor and Batarang need this information to run, but you can disable this in production for a significant performance boost with:
+        $compileProvider.debugInfoEnabled(false);
+
+    }   
 
     // /**
     //  * @ngdoc run
@@ -109,9 +111,7 @@
      * @param $mdSidenav
      * @constructor
      */
-    function AppController($scope, $mdSidenav){
-        $scope.toggleSidenav = function(menuId) {
-            $mdSidenav(menuId).toggle();
-        };
+    function AppController($scope){
+
     }
 }());

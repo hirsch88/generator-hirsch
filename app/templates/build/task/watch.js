@@ -8,7 +8,7 @@ module.exports = {
     watch: {
         less: {
             files: [
-                '<%= devDir %>/<%= appFiles.less %>'
+                '<%= srcDir %>/<%= asset.less %>'
             ],
             tasks: [
                 'less'
@@ -19,7 +19,7 @@ module.exports = {
         },
         src: {
             files: [
-                '<%= devDir %>/<%= appFiles.js %>'
+                '<%= srcDir %>/<%= core.scripts %>'
             ],
             tasks: [
                 'jshint:app',

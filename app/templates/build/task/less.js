@@ -10,7 +10,7 @@ module.exports = {
             options: {
             },
             files: {
-                '<%= devDir %>/<%= cssDir %>/<%= pkg.name %>.css': '<%= devDir %>/<%= appFiles.style %>'
+                '<%= srcDir %>/<%= asset.cssDir %>/<%= pkg.name %>.css': '<%= srcDir %>/<%= asset.lessMain %>'
             }
         }
     }

@@ -1,6 +1,7 @@
 'use strict';
 
 var yeoman = require( 'yeoman-generator' );
+var helper = require( './../helper' );
 var chalk = require( 'chalk' );
 var yosay = require( 'yosay' );
 var util = require( 'util' );
@@ -34,6 +35,11 @@ module.exports = yeoman.generators.Base.extend( {
             },
             {
                 type: 'string',
+                name: 'description',
+                message: 'Describe your app: '
+            },
+            {
+                type: 'string',
                 name: 'author',
                 message: 'How is the author?',
                 default: 'Gery Hirschfeld <gery.hirschfeld@w3tec.ch>'
@@ -43,6 +49,7 @@ module.exports = yeoman.generators.Base.extend( {
             this.appTitle = props.appTitle;
             this.appName = props.appName;
             this.appSign = props.appSign;
+            this.description = props.description;
             this.author = props.author;
             if ( this.appName !== path.basename( process.cwd() ) ) {
                 this.destinationRoot( this.appName )
@@ -52,6 +59,7 @@ module.exports = yeoman.generators.Base.extend( {
     },
     writing: {
         app: function() {
+            var path = require(this.templatePath('build/config/paths.json'));
 
             /**
              * Build projext infos
@@ -63,37 +71,68 @@ module.exports = yeoman.generators.Base.extend( {
                 return monthNames[ today.getMonth() ] + ', ' + today.getFullYear();
             }
             var context = {
-                appTitle: this.appTitle,
-                appName: this.appName,
-                appSign: this.appSign,
-                author: this.author,
-                date: getCreationDate()
+                appTitle:       this.appTitle,
+                appName:        this.appName,
+                appSign:        this.appSign,
+                author:         this.author,
+                description:    this.description,
+                date:           getCreationDate(),
+                main:           helper.joinPath([path.srcDir, path.main]),
+                bowerDir:       helper.joinPath([path.srcDir, path.libDir]),
+                mediaDir:       helper.joinPath([path.srcDir, path.asset.mediaDir]),
+                coreDir:        path.coreDir
             };
 
-            /**
-             * Build folder structure
-             */
-            this.mkdir( 'test' );
-            this.mkdir( 'app' );
-            this.mkdir( 'app/assets' );
-            this.mkdir( 'app/assets/medias' );
-            this.mkdir( 'app/assets/css' );
-            this.mkdir( 'app/assets/i18n' );
-            this.mkdir( 'app/assets/fonts' );
-            this.fs.copy( this.templatePath( 'gitkeep' ), this.destinationPath( 'app/assets/fonts/.gitkeep' ) );
-            this.mkdir( 'app/src/common' );
-            this.mkdir( 'app/src/common/services' );
-            this.fs.copy( this.templatePath( 'gitkeep' ), this.destinationPath( 'app/src/common/services/.gitkeep' ) );
-            this.mkdir( 'app/src/common/directives' );
-            this.fs.copy( this.templatePath( 'gitkeep' ), this.destinationPath( 'app/src/common/directives/.gitkeep' ) );
-            this.mkdir( 'app/src/common/templates' );
-            this.fs.copy( this.templatePath( 'gitkeep' ), this.destinationPath( 'app/src/common/templates/.gitkeep' ) );
-            this.mkdir( 'app/src/w3tec' );
-            this.fs.copy( this.templatePath( 'gitkeep' ), this.destinationPath( 'app/src/w3tec/.gitkeep' ) );
+            this.fs.copy(
+                this.templatePath( 'favicon.ico' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.asset.mediaDir]) + '/favicon.ico' )
+            );
+
+            this.mkdir( helper.joinPath([path.srcDir,path.asset.cssDir]));
+
+            this.fs.copy(
+                this.templatePath( '_en.json' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.asset.i18nDir]) + '/en.json' )
+            );
+
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.asset.fontDir]) + '/.gitkeep' )
+            );
+
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.serviceDir]) + '/.gitkeep' )
+            );
+
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.directiveDir]) + '/.gitkeep' )
+            );
+
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.filterDir]) + '/.gitkeep' )
+            );
+
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.templateDir]) + '/.gitkeep' )
+            );
+
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.templateDir]) + '/.gitkeep' )
+            );
+
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.coreDir]) + '/w3tec/.gitkeep' )
+            );
 
             this.directory(
                 this.templatePath('less'),
-                this.destinationPath('app/assets/less')
+                this.destinationPath(helper.joinPath([path.srcDir, path.asset.lessDir]))
             );
 
             this.directory(
@@ -101,32 +140,46 @@ module.exports = yeoman.generators.Base.extend( {
                 this.destinationPath('build')
             );
 
-            this.directory(
-                this.templatePath('test'),
-                this.destinationPath('test')
+            this.mkdir( path.testDir );
+            // ToDo
+            // this.directory(
+            //     this.templatePath('test'),
+            //     this.destinationPath('test')
+            // );
+
+            this.fs.copyTpl(
+                this.templatePath( helper.joinPath([path.srcDir, path.main]) ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.main]) ),context
+            );
+
+            this.fs.copyTpl(
+                this.templatePath( helper.joinPath([path.srcDir, path.core.app]) ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.core.app]) ),context
             );
 
             /**
-             * Templates
+             * Config files
              */
             this.fs.copyTpl( this.templatePath( '_package.json' ), this.destinationPath( 'package.json' ), context );
             this.fs.copyTpl( this.templatePath( '_bower.json' ), this.destinationPath( 'bower.json' ), context );
-            this.fs.copyTpl( this.templatePath( 'app/index.html' ), this.destinationPath( 'app/index.html' ),context );
-            this.fs.copyTpl( this.templatePath( 'app/src/app.js' ), this.destinationPath( 'app/src/app.js' ),context );
+            this.fs.copyTpl( this.templatePath( 'bowerrc' ), this.destinationPath( '.bowerrc' ), context );
+            this.fs.copy( this.templatePath( 'editorconfig' ), this.destinationPath( '.editorconfig' ) );
+            this.fs.copy( this.templatePath( 'gitignore' ), this.destinationPath( '.gitignore' ) );
+            this.fs.copy( this.templatePath( 'Gruntfile.js' ), this.destinationPath( 'Gruntfile.js' ) );
+            this.fs.copy( this.templatePath( '.jshintrc' ), this.destinationPath( '.jshintrc' ) );
 
             /**
-             * Copy Files
+             * Sample data
              */
-            this.fs.copy( this.templatePath( 'editorconfig' ), this.destinationPath( '.editorconfig' ) );
-            // this.fs.copy( this.templatePath( 'jshintrc' ), this.destinationPath( '.jshintrc' ) );
-            this.fs.copy( this.templatePath( 'bowerrc' ), this.destinationPath( '.bowerrc' ) );
-            this.fs.copy( this.templatePath( 'gitignore' ), this.destinationPath( '.gitignore' ) );
-            this.fs.copy( this.templatePath( '_en.json' ), this.destinationPath( 'app/assets/i18n/en.json' ) );
-            this.fs.copy( this.templatePath( 'favicon.ico' ), this.destinationPath( 'app/assets/medias/favicon.ico' ) );
-            this.fs.copy( this.templatePath( 'Gruntfile.js' ), this.destinationPath( 'Gruntfile.js' ) );
-                
-            
-            
+            this.fs.copyTpl(
+                this.templatePath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.js' ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.js' ),context
+            );
+            this.fs.copy(
+                this.templatePath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.html' ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.html' )
+            );
+
 
         }
     },
@@ -135,20 +188,15 @@ module.exports = yeoman.generators.Base.extend( {
             skipInstall: this.options['skip-install'],
             skipMessage: this.options['skip-message']
         });
-
-            // this.on('dependenciesInstalled', function() {
-            //     this.spawnCommand('grunt', ['serve']);
-            //     this.log( 'Run grunt server and you are got to go' );
-            // });
-        
-
-
     },
     end: function(){
         this.log( '' );
-        this.log( '######################################################' );
+        this.log( '#########################################################################################' );
         this.log( '' );
-        this.log( 'Run grunt serve and visit http://localhost:3000' );
+        this.log( chalk.bold.green('Ready to go, have fun!') );
+        this.log( '' );
+        this.log( 'Go to your project folder and run '+ chalk.bold.blue('grunt serve'));
+        this.log('Now visit your app on ' + chalk.bold.blue('http://localhost:3000') );
         this.log( '' );
     }
 } );
