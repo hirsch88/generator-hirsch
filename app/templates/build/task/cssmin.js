@@ -11,8 +11,8 @@ module.exports = {
         },
         dist: {
             files: {
-                '<%= distDir %>/<%= cssDir %>/<%= pkg.name %>.min.<%= timestamp %>.css': [ '<%= srcDir %>/<%= asset.css %>' ],
-                '<%= distDir %>/<%= cssDir %>/<%= libDir %>.min.<%= timestamp %>.css': [ '<%= tempDir %>/<%= pkg.name %>.css' ]
+                '<%= distDir %>/<%= asset.cssDir %>/<%= pkg.name %>.min.<%= timestamp %>.css': [ '<%= srcDir %>/<%= asset.css %>' ],
+                '<%= distDir %>/<%= asset.cssDir %>/<%= libDir %>.min.<%= timestamp %>.css': lib.ext('css').files
             }
         }
     }

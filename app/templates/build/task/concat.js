@@ -11,7 +11,7 @@ module.exports = {
 
     	options: {
       		stripBanners: true,
-      		separator: '\n',
+      		separator: '\n'
   		},
 
         dist_css: {
@@ -21,9 +21,9 @@ module.exports = {
 
         dist_js: {
             src: [
-     			'<%= srcDir %>/<%= core.app %>',
-     			'<%= srcDir %>/<%= core.scripts %>'
-   			],
+     			    '<%= srcDir %>/<%= core.app %>',
+     			    '<%= srcDir %>/<%= core.scripts %>'
+   			    ],
             dest: '<%= tempDir %>/<%= pkg.name %>.js'
         }
     }
