@@ -1,7 +1,7 @@
 {
   "name": "generator-wt-angular",
   "version": "0.0.0",
-  "description": "Yeoman generator",
+  "description": "AngularJS, Bootstrap, Grunt and with an Express server",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "gery.hirschfeld@w3tec.ch/generator-wt-angular",
