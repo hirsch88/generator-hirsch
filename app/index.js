@@ -83,51 +83,51 @@ module.exports = yeoman.generators.Base.extend( {
                 coreDir:        path.coreDir
             };
 
-            this.fs.copy( 
-                this.templatePath( 'favicon.ico' ), 
-                this.destinationPath( helper.joinPath([path.srcDir,path.asset.mediaDir]) + '/favicon.ico' ) 
+            this.fs.copy(
+                this.templatePath( 'favicon.ico' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.asset.mediaDir]) + '/favicon.ico' )
             );
 
-            this.mkdir( helper.joinPath([path.srcDir,path.asset.cssDir])); 
+            this.mkdir( helper.joinPath([path.srcDir,path.asset.cssDir]));
 
-            this.fs.copy( 
-                this.templatePath( '_en.json' ), 
-                this.destinationPath( helper.joinPath([path.srcDir,path.asset.i18nDir]) + '/en.json' ) 
-            );
-             
-            this.fs.copy( 
-                this.templatePath( 'gitkeep' ), 
-                this.destinationPath( helper.joinPath([path.srcDir,path.asset.fontDir]) + '/.gitkeep' ) 
+            this.fs.copy(
+                this.templatePath( '_en.json' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.asset.i18nDir]) + '/en.json' )
             );
 
-            this.fs.copy( 
-                this.templatePath( 'gitkeep' ), 
-                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.serviceDir]) + '/.gitkeep' ) 
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.asset.fontDir]) + '/.gitkeep' )
             );
 
-            this.fs.copy( 
-                this.templatePath( 'gitkeep' ), 
-                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.directiveDir]) + '/.gitkeep' ) 
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.serviceDir]) + '/.gitkeep' )
             );
 
-            this.fs.copy( 
-                this.templatePath( 'gitkeep' ), 
-                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.filterDir]) + '/.gitkeep' ) 
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.directiveDir]) + '/.gitkeep' )
             );
 
-            this.fs.copy( 
-                this.templatePath( 'gitkeep' ), 
-                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.templateDir]) + '/.gitkeep' ) 
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.filterDir]) + '/.gitkeep' )
             );
 
-            this.fs.copy( 
-                this.templatePath( 'gitkeep' ), 
-                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.templateDir]) + '/.gitkeep' ) 
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.templateDir]) + '/.gitkeep' )
             );
 
-            this.fs.copy( 
-                this.templatePath( 'gitkeep' ), 
-                this.destinationPath( helper.joinPath([path.srcDir, path.coreDir]) + '/w3tec/.gitkeep' ) 
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir,path.core.common.templateDir]) + '/.gitkeep' )
+            );
+
+            this.fs.copy(
+                this.templatePath( 'gitkeep' ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.coreDir]) + '/w3tec/.gitkeep' )
             );
 
             this.directory(
@@ -147,16 +147,16 @@ module.exports = yeoman.generators.Base.extend( {
             //     this.destinationPath('test')
             // );
 
-            this.fs.copyTpl( 
-                this.templatePath( helper.joinPath([path.srcDir, path.main]) ), 
-                this.destinationPath( helper.joinPath([path.srcDir, path.main]) ),context 
+            this.fs.copyTpl(
+                this.templatePath( helper.joinPath([path.srcDir, path.main]) ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.main]) ),context
             );
 
-            this.fs.copyTpl( 
-                this.templatePath( helper.joinPath([path.srcDir, path.core.app]) ), 
-                this.destinationPath( helper.joinPath([path.srcDir, path.core.app]) ),context 
+            this.fs.copyTpl(
+                this.templatePath( helper.joinPath([path.srcDir, path.core.app]) ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.core.app]) ),context
             );
-    
+
             /**
              * Config files
              */
@@ -166,27 +166,28 @@ module.exports = yeoman.generators.Base.extend( {
             this.fs.copy( this.templatePath( 'editorconfig' ), this.destinationPath( '.editorconfig' ) );
             this.fs.copy( this.templatePath( 'gitignore' ), this.destinationPath( '.gitignore' ) );
             this.fs.copy( this.templatePath( 'Gruntfile.js' ), this.destinationPath( 'Gruntfile.js' ) );
+            this.fs.copy( this.templatePath( '.jshintrc' ), this.destinationPath( '.jshintrc' ) );
 
             /**
              * Sample data
              */
-            this.fs.copyTpl( 
-                this.templatePath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.js' ), 
-                this.destinationPath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.js' ),context 
+            this.fs.copyTpl(
+                this.templatePath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.js' ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.js' ),context
             );
-            this.fs.copy( 
-                this.templatePath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.html' ), 
-                this.destinationPath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.html' ) 
-            );   
-             
-            
+            this.fs.copy(
+                this.templatePath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.html' ),
+                this.destinationPath( helper.joinPath([path.srcDir, path.coreDir]) + '/home/Home.html' )
+            );
+
+
         }
     },
     install: function() {
         this.installDependencies({
             skipInstall: this.options['skip-install'],
             skipMessage: this.options['skip-message']
-        });        
+        });
     },
     end: function(){
         this.log( '' );

@@ -10,7 +10,7 @@
 module.exports = {
     jshint: {
         options: {
-            jshintrc: '<%= buildDir %>/config/.jshintrc',
+            jshintrc: '.jshintrc',
             reporter: require('jshint-stylish')
         },
         app    : {
