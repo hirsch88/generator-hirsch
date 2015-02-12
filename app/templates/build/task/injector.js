@@ -18,7 +18,7 @@ module.exports = {
       files  : {
         '<%= srcDir %>/<%= main %>': [
           '<%= srcDir %>/<%= asset.css %>',
-          '<%= srcDir %>/<%= core.scripts %>'
+          '<%= srcDir %>/<%= app.scripts %>'
         ]
       }
     },
@@ -31,10 +31,10 @@ module.exports = {
       files  : {
         '<%= distDir %>/<%= main %>': [
           '<%= distDir %>/<%= asset.cssDir %>/lib.min.**.css',
-          '<%= distDir %>/<%= coreDir %>/lib.min.**.js',
+          '<%= distDir %>/<%= appDir %>/lib.min.**.js',
 
           '<%= distDir %>/<%= asset.css %>',
-          '<%= distDir %>/<%= core.scripts %>'
+          '<%= distDir %>/<%= app.scripts %>'
         ]
       }
     }

@@ -1,0 +1,25 @@
+(function() {
+    'use strict';
+
+    angular
+        .module('<%= appName %>.common.service.<%= lowercaseName %>', [
+            '<%= requirements %>'
+        ])
+        .service('$<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Service);
+
+    /**
+     * @name $<%= prefix %><%= capitalizedName %>
+     * @description
+     * <%= description %>
+     */
+    function <%= capitalizedName %>Service(<%= arguments %>) {
+
+        this.method = function() {
+            // code will be here
+        }
+
+
+    }
+
+
+}());

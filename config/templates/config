@@ -1,0 +1,23 @@
+(function(){
+    'use strict';
+
+    angular
+        .module('<%= appName %>.common.config.<%= lowercaseName %>', [
+            '<%= requirements %>'
+        ])
+        .config('$<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Config);
+
+    /**
+     * @name $<%= prefix %><%= capitalizedName %>
+     * @description
+     * <%= description %>
+     */
+    function <%= capitalizedName %>Config(<%= arguments %>) {
+
+        // code will be here
+
+
+    }
+
+
+}());

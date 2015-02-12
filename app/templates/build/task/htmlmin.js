@@ -20,9 +20,9 @@ module.exports = {
       dist_tpl:{
         files  : [{
           expand: true,
-          cwd   : '<%= srcDir %>/<%= coreDir %>',
+          cwd   : '<%= srcDir %>/<%= appDir %>',
           src   : '**/*.html',
-          dest  : '<%= distDir %>/<%= coreDir %>'
+          dest  : '<%= distDir %>/<%= appDir %>'
         }]
       }
 

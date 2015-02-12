@@ -19,7 +19,7 @@ module.exports = {
         },
         src: {
             files: [
-                '<%= srcDir %>/<%= core.scripts %>'
+                '<%= srcDir %>/<%= app.scripts %>'
             ],
             tasks: [
                 'jshint:app',

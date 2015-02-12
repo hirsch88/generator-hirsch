@@ -1,0 +1,19 @@
+(function(){
+    'use strict';
+
+    angular
+        .module('<%= appName %>.common.value.<%= lowercaseName %>', [
+            '<%= requirements %>'
+        ])
+
+         /**
+           * @name $<%= prefix %><%= capitalizedName %>
+           * @description
+           * <%= description %>
+           */
+        .value('$<%= prefix %><%= capitalizedName %>', {
+            'KEY': 'VALUE'
+        });
+
+
+}());

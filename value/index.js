@@ -15,45 +15,27 @@ var FactoryGenerator = yeoman.generators.NamedBase.extend( {
             {
                 type: 'string',
                 name: 'description',
-                message: 'Please describe your factory.'
-            },
-            {
-                type: 'string',
-                name: 'requirements',
-                message: 'Enter your requirements?'
-            },
-            {
-                type: 'string',
-                name: 'arguments',
-                message: 'Enter your arguments?'
+                message: 'Please describe your value.'
             }
-
         ];
         this.prompt( prompts, function( props ) {
             this.description = props.description;
-            this.requirements = props.requirements;
-            this.arguments = props.arguments;
             done();
         }.bind( this ) );
     },
     writing: function() {
-        //var pathConfig = require(this.templatePath('build/config/paths.json'));
-        console.log(this.paths);
-
         var context = helper.getContext(this.name);
         context.description = this.description;
-        context.requirements = this.requirements;
-        context.arguments = this.arguments;
 
-        var target = this.paths.srcDir + '/' + this.paths.core.common.serviceDir +  '/' + context.capitalizedName + '.js';
+        var target = this.paths.srcDir + '/' + this.paths.core.common.valueDir +  '/' + context.capitalizedName + '.js';
         this.fs.copyTpl(
-            this.templatePath( 'factory' ),
+            this.templatePath( 'value' ),
             this.destinationPath( target ),
             context
         );
     },
     end: function(){
-        console.log(chalk.bold.blue('Your factory has been created successfully!'));
+        console.log(chalk.bold.blue('Your value has been created successfully!'));
     }
 } );
 module.exports = FactoryGenerator;

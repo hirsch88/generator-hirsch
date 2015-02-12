@@ -15,7 +15,7 @@ module.exports = {
     wiredep: {
 
         app: {
-            src: '<%= srcDir %>/<%= main %>',
+            src: '<%= srcDir %>/<%= main %>'
             // exclude: [ 'lib/bootstrap/dist/css/bootstrap.css' ]
         },
         dist: {

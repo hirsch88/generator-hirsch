@@ -15,7 +15,7 @@ var FactoryGenerator = yeoman.generators.NamedBase.extend( {
             {
                 type: 'string',
                 name: 'description',
-                message: 'Please describe your factory.'
+                message: 'Please describe your filter.'
             },
             {
                 type: 'string',
@@ -45,15 +45,15 @@ var FactoryGenerator = yeoman.generators.NamedBase.extend( {
         context.requirements = this.requirements;
         context.arguments = this.arguments;
 
-        var target = this.paths.srcDir + '/' + this.paths.core.common.serviceDir +  '/' + context.capitalizedName + '.js';
+        var target = this.paths.srcDir + '/' + this.paths.core.common.filterDir +  '/' + context.capitalizedName + '.js';
         this.fs.copyTpl(
-            this.templatePath( 'factory' ),
+            this.templatePath( 'filter' ),
             this.destinationPath( target ),
             context
         );
     },
     end: function(){
-        console.log(chalk.bold.blue('Your factory has been created successfully!'));
+        console.log(chalk.bold.blue('Your filter has been created successfully!'));
     }
 } );
 module.exports = FactoryGenerator;

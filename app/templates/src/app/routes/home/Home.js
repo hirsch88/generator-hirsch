@@ -14,7 +14,7 @@
 		$routeProvider
 	      .when('/home', {
 	        navigationKey: 'home',
-	        templateUrl  : '<%= coreDir %>/home/Home.html',
+          templateUrl  : AppConfig.buildTemplateUrl('home/Home.html'),
 	        controller   : '$<%= appSign %>HomeController',
 	        controllerAs : 'home'
 	      });
@@ -23,7 +23,6 @@
     /**
      * @ngdoc controller
      * @name HomeController
-     * @param 
      */
 	function HomeController(){
 		var home = this;
