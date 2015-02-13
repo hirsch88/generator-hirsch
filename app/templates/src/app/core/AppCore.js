@@ -37,7 +37,8 @@
    * @constructor
    */
   function Configure($logProvider, $routeProvider, $translateProvider, $compileProvider, $httpProvider) {
-    //
+
+    // Enable debug level messages
     if ($logProvider.debugEnabled) {
       $logProvider.debugEnabled(true);
     }
@@ -63,7 +64,6 @@
     $compileProvider.debugInfoEnabled(false);
 
   }
-
 
 
 }());

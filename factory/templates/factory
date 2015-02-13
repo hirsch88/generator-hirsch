@@ -3,7 +3,7 @@
 
     angular
         .module('<%= appName %>.common.service.<%= lowercaseName %>', [
-            '<%= requirements %>'
+            <%= modules %>
         ])
         .factory('$<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Factory);
 
@@ -12,7 +12,7 @@
      * @description
      * <%= description %>
      */
-    function <%= capitalizedName %>Factory(<%= arguments %>) {
+    function <%= capitalizedName %>Factory(<%= dependencies %>) {
         var factory = {
             key:    'value',
 
