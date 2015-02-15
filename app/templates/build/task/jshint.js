@@ -15,8 +15,7 @@ module.exports = {
         },
         app    : {
             src: [
-                //'Gruntfile.js',
-                '<%= srcDir %>/<%= core.scripts =>'
+                '<%= srcDir %>/<%= app.scripts =>'
             ]
         },
         test   : {

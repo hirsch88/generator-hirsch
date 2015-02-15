@@ -1,36 +1,42 @@
 {
-    "srcDir":       "src",
-    "distDir":      "dist",
-    "testDir":      "test",
-    "buildDir":     "build",
-    "libDir":       "lib",
-    "coreDir":      "core",
-    "assetsDir":    "assets",
-    "tempDir":      ".tmp",
-    "main":         "index.html",
-    "asset": {
-        "cssDir":    "assets/css",
-        "css":       "assets/css/**/*.css",
-        "lessDir":   "assets/less",
-        "less":      "assets/less/**/*.less",
-        "lessMain":  "assets/less/main.less",
-        "fontDir":   "assets/fonts",
-        "mediaDir":  "assets/medias",
-        "i18nDir":   "assets/i18n",
-        "i18n":      "assets/i18n/**/*.json"
-    },
-    "core":     {
-        "app":       "core/app.js",
-        "scripts":   "core/**/*.js",
-        "templates": "core/**/*.html",
-        "common": {
-            "serviceDir":   "core/common/services",
-            "filterDir":    "core/common/filters",
-            "templateDir":  "core/common/templates",
-            "directiveDir": "core/common/directives"
-        }
-    },
-    "test":{
-        "specs":     "**/*.spec.js"
+  "srcDir":    "src",
+  "distDir":   "dist",
+  "testDir":   "test",
+  "buildDir":  "build",
+  "libDir":    "lib",
+  "appDir":    "app",
+  "assetsDir": "assets",
+  "tempDir":   ".tmp",
+  "main":      "index.html",
+  "asset":     {
+    "cssDir":   "assets/css",
+    "css":      "assets/css/**/*.css",
+    "lessDir":  "assets/less",
+    "less":     "assets/less/**/*.less",
+    "lessMain": "assets/less/main.less",
+    "fontDir":  "assets/fonts",
+    "mediaDir": "assets/medias",
+    "i18nDir":  "assets/i18n",
+    "i18n":     "assets/i18n/**/*.json"
+  },
+  "app":       {
+    "main":      "app/app.js",
+    "scripts":   "app/**/*.js",
+    "templates": "app/**/*.html",
+    "coreDir":   "app/core",
+    "commonDir": "app/common",
+    "routesDir": "app/routes",
+    "common":    {
+      "serviceDir":   "app/common/services",
+      "filterDir":    "app/common/filters",
+      "templateDir":  "app/common/templates",
+      "directiveDir": "app/common/directives",
+      "constantDir":  "app/common/constants",
+      "valueDir":     "app/common/values",
+      "configDir":    "app/common/configs"
     }
+  },
+  "test":      {
+    "specs": "**/*.spec.js"
+  }
 }

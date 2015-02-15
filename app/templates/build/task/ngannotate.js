@@ -7,7 +7,7 @@ module.exports = {
 
     ngAnnotate: {
     	options: {
-            singleQuotes: true,
+            singleQuotes: true
         },
         dist:{
         	files:{
