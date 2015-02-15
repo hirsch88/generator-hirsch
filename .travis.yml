@@ -3,4 +3,4 @@ node_js:
   - '0.10'
 before_install:
   - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-wt-angular' ]; then cd .. && eval "mv $currentfolder generator-wt-angular" && cd generator-wt-angular; fi
+  - if [ "$currentfolder" != 'generator-hirsch' ]; then cd .. && eval "mv $currentfolder generator-hirsch" && cd generator-hirsch; fi

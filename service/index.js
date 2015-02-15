@@ -47,7 +47,7 @@ var FactoryGenerator = yeoman.generators.NamedBase.extend( {
 
         var target = this.paths.srcDir + '/' + this.paths.core.common.serviceDir +  '/' + context.capitalizedName + '.js';
         this.fs.copyTpl(
-            this.templatePath( 'service' ),
+            this.templatePath( 'template' ),
             this.destinationPath( target ),
             context
         );

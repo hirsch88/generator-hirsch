@@ -1,4 +1,4 @@
-# generator-wt-angular [![Build Status](https://secure.travis-ci.org/gery.hirschfeld@w3tec.ch/generator-wt-angular.png?branch=master)](https://travis-ci.org/gery.hirschfeld@w3tec.ch/generator-wt-angular)
+# generator-hirsch [![Build Status](https://secure.travis-ci.org/gery.hirschfeld@w3tec.ch/generator-hirsch.png?branch=master)](https://travis-ci.org/gery.hirschfeld@w3tec.ch/generator-hirsch)
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -23,16 +23,16 @@ npm install -g yo
 
 Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
-To install generator-wt-angular from npm, run:
+To install generator-hirsch from npm, run:
 
 ```bash
-npm install -g generator-wt-angular
+npm install -g generator-hirsch
 ```
 
 Finally, initiate the generator:
 
 ```bash
-yo wt-angular
+yo hirsch
 ```
 
 ### Getting To Know Yeoman
