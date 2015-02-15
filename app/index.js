@@ -13,7 +13,7 @@ module.exports = yeoman.generators.Base.extend({
   },
   prompting:    function () {
     var done = this.async();
-    this.log(yosay('Welcome to the marvelous ' + chalk.red('WT-Angular') + ' generator!'));
+    this.log(yosay('Welcome to the marvelous ' + chalk.red('Hirsch') + ' generator!'));
     var prompts = [
       {
         type:    'string',
@@ -128,12 +128,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.fs.copy(
         this.templatePath('gitkeep'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.templateDir]) + '/.gitkeep')
-      );
-
-      this.fs.copy(
-        this.templatePath('gitkeep'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/w3tec/.gitkeep')
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/layout/.gitkeep')
       );
 
       this.directory(

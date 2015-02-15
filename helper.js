@@ -61,7 +61,37 @@ module.exports = {
         var today = new Date();
         var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
         return monthNames[today.getMonth()] + ', ' + today.getFullYear();
+    },
+
+    getHirschIcon: function(){
+        return "      /|       |\
+                  `__\\\\       //__'
+                     ||      ||
+                   \\__`\\     |'__/
+                     `_\\\\   //_'
+                     _.,:---;,._
+                     \\_:     :_/
+                       |@. .@|
+                       |     |
+                       ,\\.-./ \\
+                       ;;`-'   `---__________-----.-.
+                       ;;;                         \\_\\
+                       ';;;                         |
+                        ;    |                      ;
+                         \\   \\     \\        |      /
+                          \\_, \\    /        \\     |\\
+                            |';|  |,,,,,,,,/ \\    \\ \\_
+                            |  |  |           \\   /   |
+                            \\  \\  |           |  / \\  |
+                             | || |           | |   | |
+                             | || |           | |   | |
+                             | || |           | |   | |
+                             |_||_|           |_|   |_|
+                            /_//_/           /_/   /_/
+        ";
     }
+
+
 
 };
 
