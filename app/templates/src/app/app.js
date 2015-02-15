@@ -4,9 +4,9 @@
   /**
    * ******************************************************************************************************
    *
-   *  Main Application '<%= appName %>'
+   *  '<%= appName %>'
    *
-   *  Defines our main application and specify his dependencies
+   *  '<%= description %>'
    *
    *
    *  @author     <%= author %>
@@ -17,16 +17,15 @@
   angular
     .module('app', [
 
+      // Config and core module
       'app.config',
       'app.core',
 
-      // w3tec Modules
-      //'w3tec.core',
-
+      // Layout components
+      'layout.header',
 
       // App modules with business logic
       '<%= appName %>.home'
-
 
     ]);
 

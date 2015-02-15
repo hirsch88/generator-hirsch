@@ -26,11 +26,13 @@
     "coreDir":   "app/core",
     "commonDir": "app/common",
     "routesDir": "app/routes",
+    "layoutDir": "app/layout",
     "common":    {
       "serviceDir":   "app/common/services",
       "filterDir":    "app/common/filters",
       "templateDir":  "app/common/templates",
       "directiveDir": "app/common/directives",
+      "decoratorDir": "app/common/decorators",
       "constantDir":  "app/common/constants",
       "valueDir":     "app/common/values",
       "configDir":    "app/common/configs"

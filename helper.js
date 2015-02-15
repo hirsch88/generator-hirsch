@@ -1,6 +1,7 @@
 'use strict';
 var path = require( 'path' );
 var fs = require( 'fs' );
+var chalk = require('chalk');
 
 module.exports = {
 
@@ -63,32 +64,34 @@ module.exports = {
         return monthNames[today.getMonth()] + ', ' + today.getFullYear();
     },
 
-    getHirschIcon: function(){
-        return "      /|       |\
-                  `__\\\\       //__'
-                     ||      ||
-                   \\__`\\     |'__/
-                     `_\\\\   //_'
-                     _.,:---;,._
-                     \\_:     :_/
-                       |@. .@|
-                       |     |
-                       ,\\.-./ \\
-                       ;;`-'   `---__________-----.-.
-                       ;;;                         \\_\\
-                       ';;;                         |
-                        ;    |                      ;
-                         \\   \\     \\        |      /
-                          \\_, \\    /        \\     |\\
-                            |';|  |,,,,,,,,/ \\    \\ \\_
-                            |  |  |           \\   /   |
-                            \\  \\  |           |  / \\  |
-                             | || |           | |   | |
-                             | || |           | |   | |
-                             | || |           | |   | |
-                             |_||_|           |_|   |_|
-                            /_//_/           /_/   /_/
-        ";
+    hirschSay: function(){
+        var icon = '';
+
+        icon += chalk.bold.grey('     /|        |\\                   \n');
+        icon += chalk.bold.grey('  `__\\\\        //__\'              \n');
+        icon += chalk.bold.grey('      ||      ||') + '         .---------------.     \n';
+        icon += chalk.bold.grey('    \\__`\\     |\'__/') + '      |     ' + chalk.blue('happy') + '     |     \n';
+        icon += chalk.bold.grey('      `_\\\\   //_\ ') + '        |   ' + chalk.bold('<') + chalk.bold.red('CODING') + chalk.bold('/> ') + '  |     \n';
+        icon += '      _.,:---;,._        \'---------------\'    \n';
+        icon += '      \\_:     :_/                              \n';
+        icon += '        |@. .@|                                 \n';
+        icon += '        |     |                                 \n';
+        icon += '         \\' + chalk.red('.-.') + '/            \n';
+        icon += '          ' + chalk.red('`-\'') + '             \n';
+
+
+        return icon;
+                  //    /|       |\
+                  // `__\\       //__'
+                  //    ||      ||
+                  //  \__`\     |'__/
+                  //    `_\\   //_'
+                  //    _.,:---;,._
+                  //    \_:     :_/
+                  //      |@. .@|
+                  //      |     |
+                  //      ,\.-./ \
+                  //      ;;`-' 
     }
 
 
