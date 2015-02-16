@@ -3,23 +3,28 @@
 
     angular
         .module('<%= appName %>.common.service.<%= lowercaseName %>', [
-            '<%= requirements %>'
+            <%= modules %>
         ])
-        .service('$<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Service);
+        .factory('$<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Service);
 
     /**
-     * @name $<%= prefix %><%= capitalizedName %>
-     * @description
-     * <%= description %>
+     * @desc <%= description %>
      */
-    function <%= capitalizedName %>Service(<%= arguments %>) {
+    function <%= capitalizedName %>Service(<%= dependencies %>) {
+        var service = {
+            key:    'value',
 
-        this.method = function() {
+            method: method
+        };
+
+        return service;
+        ////////////////////////
+
+        function method(){
             // code will be here
         }
-
 
     }
 
 
-}());
+}());j

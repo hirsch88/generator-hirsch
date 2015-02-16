@@ -14,7 +14,7 @@ module.exports = {
     },
 
     getPaths: function(){
-        return require( path.join( process.cwd(), 'build/config/paths.json' ) );
+        return require( path.join( process.cwd(), 'grunt/config/paths.json' ) );
     },
 
     getContext: function(name, target){
@@ -22,7 +22,7 @@ module.exports = {
 
         return {
             name: name,
-            lowercaseName: this.firstCharToUpperCase(name),
+            lowercaseName: this.firstCharToLowerCase(name),
             capitalizedName: this.firstCharToUpperCase(name),
             appName: pkg.name,
             prefix: pkg.prefix,
