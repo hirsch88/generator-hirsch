@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('<%= appName %>.common.service.<%= lowercaseName %>', [
+        .module('common.service.<%= lowercaseName %>', [
             <%= modules %>
         ])
         .factory('$<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Service);
@@ -27,4 +27,4 @@
     }
 
 
-}());j
+}());
