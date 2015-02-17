@@ -1,0 +1,29 @@
+(function() {
+    'use strict';
+
+    angular
+        .module('<%= appName %>.<%= module %>', [
+            <%= modules %>
+        ])
+        .config(<%= capitalizedName %>RouteConfig)
+        .controller('$<%= prefix %><%= capitalizedName %>Controller', <%= capitalizedName %>Controller);
+
+    function <%= capitalizedName %>RouteConfig($routeProvider) {
+        $routeProvider
+          .when('/<%= url %>', {
+            navigationKey: '<%= capitalizedName %>',
+            templateUrl:   AppConfig.buildTemplateUrl('<%= path %>/<%= fileName %>.html'),
+            controller:    '$<%= prefix %><%= capitalizedName %>Controller',
+            controllerAs:  '<%= capitalizedName %>'
+          });
+    }
+
+    function <%= capitalizedName %>Controller(<%= dependencies %>) {
+        var vm = this;
+
+        // code goes here...
+
+    }
+
+
+}());

@@ -17,7 +17,7 @@ module.exports = {
         return require( path.join( process.cwd(), 'grunt/config/paths.json' ) );
     },
 
-    getContext: function(name, target){
+    getContext: function(name){
         var pkg = this.getPackage();
 
         return {
@@ -26,21 +26,23 @@ module.exports = {
             capitalizedName: this.firstCharToUpperCase(name),
             appName: pkg.name,
             prefix: pkg.prefix,
-            date: this.getCreationDate(),
-            arguments: this.arguments
+            date: this.getCreationDate()
         };
     },
 
     buildModuleDependencies: function(text){
-      var s = '';
-      var a = text.split(',');
-      for (var i = 0; i < a.length; i++) {
-        s += "'" + a[i] + "'";
-        if (i != a.length - 1) {
-          s += ', ';
+      if(text){
+        var s = '';
+        var a = text.split(',');
+        for (var i = 0; i < a.length; i++) {
+          s += "'" + a[i] + "'";
+          if (i != a.length - 1) {
+            s += ', ';
+          }
         }
+        return s;
       }
-      return s;
+      return '';
     },
 
 

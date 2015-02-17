@@ -34,7 +34,7 @@
     },
 
     buildTemplateUrl: function (url) {
-      return 'app/routes/' + url;
+      return 'app/views/' + url;
     }
 
   };

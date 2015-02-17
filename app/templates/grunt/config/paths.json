@@ -25,7 +25,7 @@
     "templates": "app/**/*.html",
     "coreDir":   "app/core",
     "commonDir": "app/common",
-    "routesDir": "app/routes",
+    "viewDir":   "app/views",
     "layoutDir": "app/layout",
     "common":    {
       "serviceDir":   "app/common/services",
