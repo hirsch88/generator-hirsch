@@ -4,7 +4,7 @@ var yeoman = require('yeoman-generator');
 var helper = require('./../helper');
 var chalk = require('chalk');
 
-var ServiceGenerator = yeoman.generators.NamedBase.extend({
+var FilterGenerator = yeoman.generators.NamedBase.extend({
   initializing: function () {
     this.pkg = helper.getPackage();
     this.paths = helper.getPaths();
@@ -15,17 +15,17 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
       {
         type:    'string',
         name:    'description',
-        message: 'Please describe your Service.'
+        message: 'Describe your Filter'
       },
       {
         type:    'string',
         name:    'modules',
-        message: 'Enter your angular model modules?'
+        message: 'Enter your angular model modules'
       },
       {
         type:    'string',
         name:    'dependencies',
-        message: 'Enter your dependencies?'
+        message: 'Tell me your dependencies'
       }
 
     ];
@@ -43,18 +43,19 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
     this.context.modules = this.modules;
     this.context.dependencies = this.dependencies;
 
-    var target = this.paths.srcDir + '/' + this.paths.app.common.serviceDir + '/' + this.context.capitalizedName + 'Service.js';
+    var target = this.paths.srcDir + '/' + this.paths.app.common.filterDir + '/' + this.context.capitalizedName;
 
     this.fs.copyTpl(
       this.templatePath('template'),
-      this.destinationPath(target),
+      this.destinationPath(target + 'Filter.js'),
       this.context
     );
+
   },
   end:          function () {
     console.log('');
-    console.log(chalk.green('✔ ') + 'Service ' + chalk.green(this.context.capitalizedName) + ' created');
+    console.log(chalk.green('✔ ') + 'Filter ' + chalk.green(this.context.capitalizedName) + ' created');
     console.log('');
   }
 });
-module.exports = ServiceGenerator;
+module.exports = FilterGenerator;

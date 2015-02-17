@@ -4,7 +4,7 @@ var yeoman = require('yeoman-generator');
 var helper = require('./../helper');
 var chalk = require('chalk');
 
-var FactoryGenerator = yeoman.generators.NamedBase.extend({
+var DirectiveGenerator = yeoman.generators.NamedBase.extend({
   initializing: function () {
     this.pkg = helper.getPackage();
     this.paths = helper.getPaths();
@@ -15,17 +15,23 @@ var FactoryGenerator = yeoman.generators.NamedBase.extend({
       {
         type:    'string',
         name:    'description',
-        message: 'Please describe your factory.'
+        message: 'Describe your Directive'
       },
       {
         type:    'string',
         name:    'modules',
-        message: 'Enter your angular model modules?'
+        message: 'Enter your angular model modules'
       },
       {
         type:    'string',
         name:    'dependencies',
-        message: 'Enter your dependencies?'
+        message: 'Tell me your dependencies'
+      },
+      {
+        type:    'string',
+        name:    'restrict',
+        message: 'What kind of restrict to you use',
+        default: 'EA'
       }
 
     ];
@@ -42,19 +48,25 @@ var FactoryGenerator = yeoman.generators.NamedBase.extend({
     this.context.description = this.description;
     this.context.modules = this.modules;
     this.context.dependencies = this.dependencies;
+    this.context.restrict = this.restrict.toUpperCase();
 
-    var target = this.paths.srcDir + '/' + this.paths.app.common.serviceDir + '/' + this.context.capitalizedName + '.js';
-    console.log(target);
+    var target = this.paths.srcDir + '/' + this.paths.app.common.directiveDir + '/' + this.context.capitalizedName;
+
     this.fs.copyTpl(
       this.templatePath('template'),
-      this.destinationPath(target),
+      this.destinationPath(target + 'Directive.js'),
       this.context
+    );
+
+    this.fs.copy(
+      this.templatePath('template.html'),
+      this.destinationPath(target + 'Directive.html')
     );
   },
   end:          function () {
     console.log('');
-    console.log(chalk.bold('Your factory ') + chalk.bold.green(this.context.capitalizedName) + chalk.bold(' has been created successfully!'));
+    console.log(chalk.green('✔ ') + 'Directive ' + chalk.green(this.context.capitalizedName) + ' created');
     console.log('');
   }
 });
-module.exports = FactoryGenerator;
+module.exports = DirectiveGenerator;

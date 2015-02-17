@@ -1,0 +1,30 @@
+(function() {
+    'use strict';
+
+    /**
+     * @desc <%= description %>
+     * @example <<%= prefix %>-<%= lowercaseName %>></<%= prefix %>-<%= lowercaseName %>>
+     */
+    angular
+        .module( 'common.directive.<%= lowercaseName %>', [
+            <%= modules %>
+        ] )
+        .directive( '<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Directive );
+
+    function <%= capitalizedName %>Directive() {
+        return {
+            restrict: '<%= restrict %>',
+            templateUrl: 'app/layout/<%= capitalizedName %>Directive.html',
+            controller: <%= capitalizedName %>Controller,
+            controllerAs: '<%= lowercaseName %>',
+            bindToController: true // because the scope is isolated
+        }
+    }
+
+    function <%= capitalizedName %>Controller(<%= dependencies %>) {
+        var vm = this;
+
+    }
+
+
+}());

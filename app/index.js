@@ -13,7 +13,7 @@ module.exports = yeoman.generators.Base.extend({
   },
   prompting:    function () {
     var done = this.async();
-    this.log(yosay('Welcome to the marvelous ' + chalk.red('WT-Angular') + ' generator!'));
+    this.log(yosay('Welcome to the marvelous ' + chalk.red('Hirsch') + ' generator!'));
     var prompts = [
       {
         type:    'string',
@@ -31,7 +31,7 @@ module.exports = yeoman.generators.Base.extend({
         type:    'string',
         name:    'appSign',
         message: 'Angualar app prefix sign like ng(2chars): ',
-        default: 'wt'
+        default: 'my'
       },
       {
         type:    'string',
@@ -60,10 +60,10 @@ module.exports = yeoman.generators.Base.extend({
   writing:      {
     app: function () {
       this.directory(
-        this.templatePath('build'),
-        this.destinationPath('build')
+        this.templatePath('grunt'),
+        this.destinationPath('grunt')
       );
-      var pathConfig = require(this.templatePath('build/config/paths.json'));
+      var pathConfig = require(this.templatePath('grunt/config/paths.json'));
 
       /**
        * Build projext infos
@@ -84,7 +84,7 @@ module.exports = yeoman.generators.Base.extend({
         date:        getCreationDate(),
         main:        helper.joinPath([pathConfig.srcDir, pathConfig.main]),
         bowerDir:    helper.joinPath([pathConfig.srcDir, pathConfig.libDir]),
-        mediaDir:    helper.joinPath([pathConfig.srcDir, pathConfig.asset.mediaDir]),
+        mediaDir:    helper.joinPath([pathConfig.asset.mediaDir]),
         appDir:      pathConfig.appDir,
         routesDir:   pathConfig.app.routesDir
       };
@@ -121,24 +121,20 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.filterDir]) + '/.gitkeep')
       );
 
-      this.fs.copy(
-        this.templatePath('gitkeep'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.templateDir]) + '/.gitkeep')
-      );
-
-      this.fs.copy(
-        this.templatePath('gitkeep'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.templateDir]) + '/.gitkeep')
-      );
-
-      this.fs.copy(
-        this.templatePath('gitkeep'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/w3tec/.gitkeep')
-      );
-
       this.directory(
         this.templatePath('less'),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.lessDir]))
+      );
+
+
+      this.fs.copy(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])), context
       );
 
 
@@ -205,12 +201,9 @@ module.exports = yeoman.generators.Base.extend({
   },
   end:          function () {
     this.log('');
-    this.log('#########################################################################################');
-    this.log('');
-    this.log(chalk.bold.green('Ready to go, have fun!'));
-    this.log('');
-    this.log('Go to your project folder and run ' + chalk.bold.blue('grunt serve'));
-    this.log('Now visit your app on ' + chalk.bold.blue('http://localhost:3000'));
+    this.log(helper.hirschSay());
+    this.log('Go to your project folder and run ' + chalk.bold.yellow('grunt serve'));
+    this.log('Than visit your app on ' + chalk.bold.yellow('http://localhost:3000'));
     this.log('');
   }
 });

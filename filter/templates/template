@@ -1,0 +1,25 @@
+(function() {
+    'use strict';
+
+    angular
+        .module( 'common.filter.<%= lowercaseName %>', [
+            <%= modules %>
+        ] )
+        .filter('<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Filter);
+
+        function <%= capitalizedName %>Filter(<%= dependencies %>) {
+
+            return Filter;
+
+            function Filter(input) {
+                input = input || '';
+
+                // code goes here
+
+                return input;
+            }
+
+        }
+
+
+}());

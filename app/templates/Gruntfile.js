@@ -16,26 +16,26 @@ module.exports = function(grunt){
   /**
    * Configurable paths for the application
    */
-  var GruntConfig = grunt.file.readJSON('./build/config/paths.json');
-  var ProjectConfig = require('./build/config/project.js')(grunt);
+  var GruntPathConfig = grunt.file.readJSON('./grunt/config/paths.json');
+  var GruntProjectConfig = require('./grunt/config/project.js')(grunt);
 
   /**
    * Config Tasks
    */
-  var ExpressConfig = require('./build/task/express.js');
-  var LessConfig = require('./build/task/less.js');
-  var JshintConfig = require('./build/task/jshint.js');
-  var WiredepConfig = require('./build/task/wiredep.js');
-  var InjectorConfig = require('./build/task/injector.js');
-  var WatchConfig = require('./build/task/watch.js');
+  var ExpressConfig = require('./grunt/task/express.js');
+  var LessConfig = require('./grunt/task/less.js');
+  var JshintConfig = require('./grunt/task/jshint.js');
+  var WiredepConfig = require('./grunt/task/wiredep.js');
+  var InjectorConfig = require('./grunt/task/injector.js');
+  var WatchConfig = require('./grunt/task/watch.js');
 
-  var CleanConfig = require('./build/task/clean.js');
-  var CopyConfig = require('./build/task/copy.js');
-  var ConcatConfig = require('./build/task/concat.js');
-  var NgAnnotateConfig = require('./build/task/ngannotate.js');
-  var UglifyConfig = require('./build/task/uglify.js');
-  var CssMinConfig = require('./build/task/cssmin.js');
-  var HtmlMinConfig = require('./build/task/htmlmin.js');
+  var CleanConfig = require('./grunt/task/clean.js');
+  var CopyConfig = require('./grunt/task/copy.js');
+  var ConcatConfig = require('./grunt/task/concat.js');
+  var NgAnnotateConfig = require('./grunt/task/ngannotate.js');
+  var UglifyConfig = require('./grunt/task/uglify.js');
+  var CssMinConfig = require('./grunt/task/cssmin.js');
+  var HtmlMinConfig = require('./grunt/task/htmlmin.js');
 
 
   /**
@@ -43,8 +43,8 @@ module.exports = function(grunt){
    */
   grunt.config.init(
     grunt.util._.extend(
-      GruntConfig,
-      ProjectConfig,
+      GruntPathConfig,
+      GruntProjectConfig,
       ExpressConfig,
       LessConfig,
       JshintConfig,
