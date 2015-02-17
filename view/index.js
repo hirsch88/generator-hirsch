@@ -15,20 +15,17 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
       {
         type:    'string',
         name:    'description',
-        message: 'Please describe your view.',
-        default: 'Lorem Ipsum Bla bla...'
+        message: 'Please describe your view.'
       },
       {
         type:    'string',
         name:    'modules',
-        message: 'Enter your angular model modules?',
-        default: 'app.utils'
+        message: 'Enter your angular model modules?'
       },
       {
         type:    'string',
         name:    'dependencies',
-        message: 'Enter your dependencies?',
-        default: '$http, $q'
+        message: 'Enter your dependencies?'
       }
     ];
     this.prompt(prompts, function (props) {

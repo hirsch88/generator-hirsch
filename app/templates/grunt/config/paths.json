@@ -32,7 +32,6 @@
       "filterDir":    "app/common/filters",
       "templateDir":  "app/common/templates",
       "directiveDir": "app/common/directives",
-      "decoratorDir": "app/common/decorators",
       "constantDir":  "app/common/constants",
       "valueDir":     "app/common/values",
       "configDir":    "app/common/configs"
