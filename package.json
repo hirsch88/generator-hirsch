@@ -6,8 +6,8 @@
   "main": "app/index.js",
   "repository": "gery.hirschfeld@w3tec.ch/generator-hirsch",
   "author": {
-    "name": "",
-    "email": "",
+    "name": "Gery Hirschfeld",
+    "email": "gery.hirschfeld@w3tec.ch",
     "url": ""
   },
   "engines": {
@@ -17,7 +17,12 @@
     "test": "mocha"
   },
   "files": [
-    "app"
+    "app",
+    "helper.js",
+    "service",
+    "filter",
+    "view",
+    "directive"
   ],
   "keywords": [
     "yeoman-generator"
