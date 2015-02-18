@@ -1,3 +1,7 @@
+/**
+ * <%= capitalizedName %>
+ * @namespace Services
+ */
 (function() {
     'use strict';
 
@@ -5,10 +9,12 @@
         .module('common.service.<%= lowercaseName %>', [
             <%= modules %>
         ])
-        .factory('$<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Service);
+        .factory('<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Service);
 
     /**
+     * @namespace <%= capitalizedName %>
      * @desc <%= description %>
+     * @memberOf Services
      */
     function <%= capitalizedName %>Service(<%= dependencies %>) {
         var service = {
@@ -20,6 +26,11 @@
         return service;
         ////////////////////////
 
+        /**
+         * @name method
+         * @desc this is a method who does stuff
+         * @memberOf Services.<%= capitalizedName %>
+         */
         function method(){
             // code will be here
         }

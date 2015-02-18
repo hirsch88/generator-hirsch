@@ -1,19 +1,28 @@
+/**
+ * <%= capitalizedName %>
+ * @namespace Views
+ */
 (function() {
     'use strict';
 
+    /**
+     * @namespace <%= capitalizedName %>
+     * @desc <%= description %>
+     * @memberOf Views
+     */
     angular
         .module('<%= appName %>.<%= module %>', [
             <%= modules %>
         ])
         .config(<%= capitalizedName %>RouteConfig)
-        .controller('$<%= prefix %><%= capitalizedName %>Controller', <%= capitalizedName %>Controller);
+        .controller('<%= prefix %><%= capitalizedName %>Controller', <%= capitalizedName %>Controller);
 
     function <%= capitalizedName %>RouteConfig($routeProvider) {
         $routeProvider
           .when('/<%= url %>', {
             navigationKey: '<%= capitalizedName %>',
             templateUrl:   AppConfig.buildTemplateUrl('<%= path %>/<%= fileName %>.html'),
-            controller:    '$<%= prefix %><%= capitalizedName %>Controller',
+            controller:    '<%= prefix %><%= capitalizedName %>Controller',
             controllerAs:  '<%= capitalizedName %>'
           });
     }

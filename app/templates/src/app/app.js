@@ -1,25 +1,21 @@
+/**
+ * <%= appTitle %>
+ * @namespace App
+ * @name <%= appName %>
+ * @desc <%= description %>
+ * @author <%= author %>
+ * @date <%= date %>
+ */
 (function () {
   'use strict';
 
-  /**
-   * ******************************************************************************************************
-   *
-   *  '<%= appName %>'
-   *
-   *  '<%= description %>'
-   *
-   *
-   *  @author     <%= author %>
-   *  @date       <%= date %>
-   *
-   * ******************************************************************************************************
-   */
   angular
     .module('app', [
 
       // Config and core module
-      'app.config',
+      'app.util',
       'app.core',
+      'app.config',
 
       // Layout components
       'layout.header',
