@@ -19,7 +19,7 @@
     $routeProvider
       .when('/home', {
         navigationKey: 'home',
-        templateUrl:   AppConfig.buildTemplateUrl('home/Home.html'),
+        templateUrl:   AppUtil.buildTemplateUrl('home/Home.html'),
         controller:    '<%= appSign %>HomeController',
         controllerAs:  'home'
       });

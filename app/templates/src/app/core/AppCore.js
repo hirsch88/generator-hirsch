@@ -22,9 +22,9 @@
       DIRECTIVE:  'app/common/directives/',
       FILTERS:    'app/common/filters/'
     })
-    .config(RouteConfig);
-    .config(LogConfig);
-    .config(HttpConfig);
+    .config(RouteConfig)
+    .config(LogConfig)
+    .config(HttpConfig)
     .config(CompileConfig);
 
 

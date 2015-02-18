@@ -50,7 +50,7 @@
      * @memberOf Configs.AppUtil
      */
     buildTemplateUrl: function (url) {
-      return 'app/views/' + url;
+      return '<%= viewDir %>/' + url;
     }
 
   };

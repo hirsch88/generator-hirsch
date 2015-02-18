@@ -13,7 +13,7 @@
   angular
     .module('app.config', [
       'pascalprecht.translate'
-    ]
+    ])
     .config(TranslateConfig);
 
   /**

@@ -1,7 +1,7 @@
 {
   "name": "generator-hirsch",
-  "version": "0.0.3",
   "description": "AngularJS, Bootstrap, Grunt and with an Express server",
+  "version": "0.0.4",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "gery.hirschfeld@w3tec.ch/generator-hirsch",

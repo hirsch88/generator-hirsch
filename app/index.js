@@ -86,7 +86,7 @@ module.exports = yeoman.generators.Base.extend({
         bowerDir:    helper.joinPath([pathConfig.srcDir, pathConfig.libDir]),
         mediaDir:    helper.joinPath([pathConfig.asset.mediaDir]),
         appDir:      pathConfig.appDir,
-        routesDir:   pathConfig.app.routesDir
+        viewDir:   pathConfig.app.viewDir
       };
 
       this.fs.copy(
@@ -126,7 +126,6 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.lessDir]))
       );
 
-
       this.fs.copy(
         this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html'),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html')
@@ -136,7 +135,6 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])), context
       );
-
 
       this.mkdir(pathConfig.testDir);
       // ToDo
@@ -170,6 +168,10 @@ module.exports = yeoman.generators.Base.extend({
        * Core
        */
       this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppUtil.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppUtil.js'), context
+      );
+      this.fs.copyTpl(
         this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppConfig.js'),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppConfig.js'), context
       );
@@ -182,12 +184,12 @@ module.exports = yeoman.generators.Base.extend({
        * Sample data
        */
       this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.routesDir]) + '/home/Home.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.routesDir]) + '/home/Home.js'), context
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.js'), context
       );
       this.fs.copy(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.routesDir]) + '/home/Home.html'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.routesDir]) + '/home/Home.html')
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html')
       );
 
 
