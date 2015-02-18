@@ -1,16 +1,22 @@
+/**
+ * <%= capitalizedName %>
+ * @namespace Directives
+ */
 (function() {
     'use strict';
 
-    /**
-     * @desc <%= description %>
-     * @example <<%= prefix %>-<%= lowercaseName %>></<%= prefix %>-<%= lowercaseName %>>
-     */
     angular
         .module( 'common.directive.<%= lowercaseName %>', [
             <%= modules %>
         ] )
         .directive( '<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Directive );
 
+    /**
+     * @namespace <%= capitalizedName %>
+     * @desc <%= description %>
+     * @example <<%= prefix %>-<%= lowercaseName %>></<%= prefix %>-<%= lowercaseName %>>
+     * @memberOf Directives
+     */
     function <%= capitalizedName %>Directive() {
         return {
             restrict: '<%= restrict %>',

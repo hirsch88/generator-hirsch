@@ -1,68 +1,72 @@
+/**
+ * App Core
+ * @namespace Configs
+ */
 (function () {
   'use strict';
 
+  /**
+   * @namespace AppCore
+   * @desc Defines the AngularJS Modules and configurates them
+   * @memberOf Configs
+   */
   angular
     .module('app.core', [
-
-      // Angular modules
-      'ngSanitize', // sanitizes html bindings
-      'ngMessages', // validation messages
+      'ngSanitize', 
+      'ngMessages', 
       'ngRoute',
 
-      // 3rd Party Modules
-      'pascalprecht.translate' // translations
-
-
     ])
-    .constant('$pathConstant', {
-      TEMP:       'app/common/templates/',
+    .constant('pathConstant', {
       SERVICE:    'app/common/services/',
       DIRECTIVE:  'app/common/directives/',
-      FILTERS:    'app/common/filters/',
-      DECORATORS: 'app/common/decorators/'
+      FILTERS:    'app/common/filters/'
     })
-    .config(Configure);
+    .config(RouteConfig);
+    .config(LogConfig);
+    .config(HttpConfig);
+    .config(CompileConfig);
 
 
   /**
-   * Configure AngularJS
-   * @description
-   * Custom angular configs
-   *
-   * @param $logProvider
-   * @param $routeProvider
-   * @param $translateProvider
-   * @param $compileProvider
-   * @param $httpProvider
-   * @constructor
+   * @name RouteConfig
+   * @desc Defines the default route
+   * @memberOf Configs.AppCore
    */
-  function Configure($logProvider, $routeProvider, $translateProvider, $compileProvider, $httpProvider) {
+  function RouteConfig($routeProvider) {
+    $routeProvider.otherwise('/home');
+  }
 
-    // Enable debug level messages
+  /**
+   * @name LogConfig
+   * @desc Enable debug level messages
+   * @memberOf Configs.AppCore
+   */
+  function LogConfig($logProvider) {
     if ($logProvider.debugEnabled) {
       $logProvider.debugEnabled(true);
     }
+  }
 
-    // Default route
-    $routeProvider.otherwise('/home');
-
-    // Allows the framework to stor ehe sails cookie from the backend
+  /**
+   * @name HttpConfig
+   * @desc Allows the framework to stor ehe sails cookie from the backend and disable IE ajax request caching
+   * @memberOf Configs.AppCore
+   */
+  function HttpConfig($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
-    //disable IE ajax request caching
     if ($httpProvider.defaults.headers.get) {
       $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
     }
+  }
 
-    // Translation Config
-    $translateProvider.useStaticFilesLoader({
-      prefix: './assets/i18n/',
-      suffix: '.json'
-    });
-    $translateProvider.preferredLanguage('en');
-
-    // Tools like Protractor and Batarang need this information to run, but you can disable this in production for a significant performance boost with:
+  /**
+   * @name CompileConfig
+   * @desc Tools like Protractor and Batarang need this information to run, but you can disable this in production for a significant performance boost with
+   * @memberOf Configs.AppCore
+   */
+  function CompileConfig($compileProvider) {
     $compileProvider.debugInfoEnabled(false);
-
   }
 
 

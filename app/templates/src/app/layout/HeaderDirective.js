@@ -1,14 +1,19 @@
-( function() {
+/**
+ * Header Directive
+ * @namespace Layout
+ */
+(function () {
     'use strict';
 
-    /**
-     * @desc Sets the application Header
-     * @example <<%= appSign %>-header></<%= appSign %>-header>
-     */
     angular
         .module( 'layout.header', [] )
         .directive( '<%= appSign %>Header', Header );
 
+    /**
+     * @name Header
+     * @desc Header element outside of the ngView area
+     * @memberOf Layout
+     */
     function Header() {
         return {
         	restrict: 'EA',
@@ -22,7 +27,6 @@
     function HeaderController() {
     	var vm = this;
     	vm.title = '<%= appTitle %>';
-
     }
 
-}() );
+}());

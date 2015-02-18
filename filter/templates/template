@@ -1,3 +1,7 @@
+/**
+ * <%= capitalizedName %>
+ * @namespace Filters
+ */
 (function() {
     'use strict';
 
@@ -7,19 +11,25 @@
         ] )
         .filter('<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Filter);
 
-        function <%= capitalizedName %>Filter(<%= dependencies %>) {
+    /**
+     * @namespace <%= capitalizedName %>
+     * @desc <%= description %>
+     * @memberOf Filters
+     */
+    function <%= capitalizedName %>Filter(<%= dependencies %>) {
 
-            return Filter;
+        return Filter;
+        ////////////////////////
 
-            function Filter(input) {
-                input = input || '';
+        function Filter(input) {
+            input = input || '';
 
-                // code goes here
+            // code goes here
 
-                return input;
-            }
-
+            return input;
         }
+
+    }
 
 
 }());
