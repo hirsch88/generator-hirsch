@@ -37,6 +37,8 @@ module.exports = function(grunt){
   var CssMinConfig = require('./grunt/task/cssmin.js');
   var HtmlMinConfig = require('./grunt/task/htmlmin.js');
 
+  var JsDocConfig = require('./grunt/task/jsdoc.js');
+  var KarmaConfig = require('./grunt/task/karma.js');
 
   /**
    * Task Configs
@@ -57,7 +59,9 @@ module.exports = function(grunt){
       NgAnnotateConfig,
       UglifyConfig,
       CssMinConfig,
-      HtmlMinConfig
+      HtmlMinConfig,
+      JsDocConfig,
+      KarmaConfig
 
     )
   );
@@ -106,9 +110,31 @@ module.exports = function(grunt){
   ]);
 
   grunt.registerTask('serve:dist', [
-    'deploy', 
-    'express:localDistServer', 
+    'deploy',
+    'express:localDistServer',
     'express-keepalive'
   ]);
+
+  grunt.registerTask('serve:docs', [
+    'express:localDocsServer',
+    'express-keepalive'
+  ]);
+
+  grunt.registerTask('docs', [
+    'clean:docs',
+    'jsdoc:app'
+  ]);
+
+  grunt.registerTask('test:unit', [
+    'karma:unit'
+  ]);
+
+  grunt.registerTask('test:midway', [
+    'karma:midway'
+  ]);
+
+  //grunt.registerTask('test:e2e', [
+  //  'karma:e2e'
+  //]);
 
 };

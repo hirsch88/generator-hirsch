@@ -1,32 +1,44 @@
 /**
- * Header Directive
- * @namespace Layout
+ * @namespace layout
  */
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module( 'layout.header', [] )
-        .directive( '<%= appSign %>Header', Header );
+  angular
+    .module( 'layout.header', [] )
+    .directive( '<%= appSign %>Header', HeaderDirective );
 
-    /**
-     * @name Header
-     * @desc Header element outside of the ngView area
-     * @memberOf Layout
-     */
-    function Header() {
-        return {
-        	restrict: 'EA',
-        	templateUrl: 'app/layout/HeaderDirective.html',
-        	controller: HeaderController,
-        	controllerAs: 'header',
-        	bindToController: true // because the scope is isolated
-        }
+  /**
+   * @memberOf layout
+   * @namespace <%= appSign %>Header
+   *
+   * @description
+   * Header element outside of the ngView area
+   *
+   * @example
+   * <<%= appSign %>-header></<%= appSign %>-header>
+   *
+   * @constructor
+   */
+  function HeaderDirective() {
+    return {
+      restrict: 'EA',
+      templateUrl: 'app/layout/HeaderDirective.html',
+      controller: HeaderController,
+      controllerAs: 'header',
+      bindToController: true // because the scope is isolated
     }
+  }
 
-    function HeaderController() {
-    	var vm = this;
-    	vm.title = '<%= appTitle %>';
-    }
+  /**
+   * @memberOf layout.<%= appSign %>Header
+   * @name HeaderController
+   *
+   * @constructor
+   */
+  function HeaderController(AppUtil) {
+    var vm = this;
+    vm.title = AppUtil.title;
+  }
 
 }());

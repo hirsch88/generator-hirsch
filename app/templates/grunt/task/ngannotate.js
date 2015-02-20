@@ -5,15 +5,15 @@
  */
 module.exports = {
 
-    ngAnnotate: {
-    	options: {
-            singleQuotes: true
-        },
-        dist:{
-        	files:{
-        		'<%= tempDir %>/<%= pkg.name %>.js': ['<%= tempDir %>/<%= pkg.name %>.js']
-        	}
-        }
+  ngAnnotate: {
+    options: {
+      singleQuotes: true
+    },
+    dist:    {
+      files: {
+        '<%= tempDir %>/<%= pkg.name %>.js': ['<%= tempDir %>/<%= pkg.name %>.js']
+      }
     }
+  }
 
 };

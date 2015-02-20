@@ -1,6 +1,7 @@
 {
   "srcDir":    "src",
   "distDir":   "dist",
+  "docsDir":   "docs",
   "testDir":   "test",
   "buildDir":  "build",
   "libDir":    "lib",

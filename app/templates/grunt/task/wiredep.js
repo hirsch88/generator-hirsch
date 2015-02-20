@@ -12,17 +12,17 @@ bowerFiles.push.apply(bowerFiles, lib.ext('css').files);
  */
 module.exports = {
 
-    wiredep: {
+  wiredep: {
 
-        app: {
-            src: '<%= srcDir %>/<%= main %>'
-            // exclude: [ 'lib/bootstrap/dist/css/bootstrap.css' ]
-        },
-        dist: {
-            src: '<%= distDir %>/<%= main %>',
-            exclude: bowerFiles
-        }
+    app:  {
+      src: '<%= srcDir %>/<%= main %>'
+      // exclude: [ 'lib/bootstrap/dist/css/bootstrap.css' ]
+    },
+    dist: {
+      src:     '<%= distDir %>/<%= main %>',
+      exclude: bowerFiles
     }
+  }
 
 };
 

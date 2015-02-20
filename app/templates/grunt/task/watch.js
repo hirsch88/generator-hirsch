@@ -5,42 +5,42 @@
  */
 module.exports = {
 
-    watch: {
-        less: {
-            files: [
-                '<%= srcDir %>/<%= asset.less %>'
-            ],
-            tasks: [
-                'less'
-            ],
-            options: {
-                spawn: false
-            }
-        },
-        src: {
-            files: [
-                '<%= srcDir %>/<%= app.scripts %>'
-            ],
-            tasks: [
-                'jshint:app',
-                'injector:app'
-            ],
-            options: {
-                spawn: false
-            }
-        },
-        bower: {
-            files: [
-                './bower.json'
-            ],
-            tasks: [
-                'wiredep:app'
-            ],
-            options: {
-                spawn: false
-            }
-        }
+  watch: {
+    less:  {
+      files:   [
+        '<%= srcDir %>/<%= asset.less %>'
+      ],
+      tasks:   [
+        'less'
+      ],
+      options: {
+        spawn: false
+      }
+    },
+    src:   {
+      files:   [
+        '<%= srcDir %>/<%= app.scripts %>'
+      ],
+      tasks:   [
+        'jshint:app',
+        'injector:app'
+      ],
+      options: {
+        spawn: false
+      }
+    },
+    bower: {
+      files:   [
+        './bower.json'
+      ],
+      tasks:   [
+        'wiredep:app'
+      ],
+      options: {
+        spawn: false
+      }
     }
+  }
 
 };
 
