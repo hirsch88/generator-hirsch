@@ -2,7 +2,7 @@ var lib = require('bower-files')();
 
 module.exports = function() {
   var conf = {
-    basePath:   '../',
+    basePath:   '',
     frameworks: ['mocha', 'chai'],
     reporters:  ['progress'],
     browsers:   ['Firefox'],
@@ -26,8 +26,8 @@ module.exports = function() {
 
   conf.files = conf.files.concat([
     //App-specific Code
-    'src/app/app.js',
-    'src/app/**/*.js',
+    '<%= appJs %>',
+    '<%= scripts %>',
 
     //Test-Specific Code
     'node_modules/chai/chai.js',

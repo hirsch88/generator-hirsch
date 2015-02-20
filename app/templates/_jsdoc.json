@@ -11,8 +11,7 @@
     "excludePattern": "docs"
   },
   "plugins":   [
-    "plugins/markdown",
-    "node_modules/angular-jsdoc/plugins/ngdoc"
+    "plugins/markdown"
   ],
   "templates": {
     "cleverLinks":           true,

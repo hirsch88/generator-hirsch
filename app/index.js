@@ -4,7 +4,7 @@ var yeoman = require('yeoman-generator');
 var helper = require('./../helper');
 var chalk = require('chalk');
 var yosay = require('yosay');
-var util = require('util');
+//var util = require('util');
 var path = require('path');
 
 module.exports = yeoman.generators.Base.extend({
@@ -13,7 +13,7 @@ module.exports = yeoman.generators.Base.extend({
   },
   prompting:    function () {
     var done = this.async();
-    this.log(yosay('Welcome to the marvelous ' + chalk.red('Hirsch') + ' generator!'));
+    this.log(yosay('Welcome to the marvelous ' + chalk.red('Hirsch') + ' generator! NEW'));
     var prompts = [
       {
         type:    'string',
@@ -83,12 +83,30 @@ module.exports = yeoman.generators.Base.extend({
         description: this.description,
         date:        getCreationDate(),
         main:        helper.joinPath([pathConfig.srcDir, pathConfig.main]),
+        appJs:       helper.joinPath([pathConfig.srcDir, pathConfig.app.main]),
+        scripts:     helper.joinPath([pathConfig.srcDir, pathConfig.app.scripts]),
         bowerDir:    helper.joinPath([pathConfig.srcDir, pathConfig.libDir]),
         mediaDir:    helper.joinPath([pathConfig.asset.mediaDir]),
         appDir:      pathConfig.appDir,
-        viewDir:   pathConfig.app.viewDir
+        viewDir:     pathConfig.app.viewDir
       };
 
+      /**
+       * Project conf files
+       */
+      this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), context);
+      this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), context);
+      this.fs.copyTpl(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'), context);
+
+      this.fs.copy(this.templatePath('_jsdoc.json'), this.destinationPath('jsdoc.json'));
+      this.fs.copy(this.templatePath('editorconfig'), this.destinationPath('.editorconfig'));
+      this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
+      this.fs.copy(this.templatePath('Gruntfile.js'), this.destinationPath('Gruntfile.js'));
+      this.fs.copy(this.templatePath('.jshintrc'), this.destinationPath('.jshintrc'));
+
+      /**
+       * Assets
+       */
       this.fs.copy(
         this.templatePath('favicon.ico'),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.mediaDir]) + '/favicon.ico')
@@ -106,6 +124,42 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.fontDir]) + '/.gitkeep')
       );
 
+      /**
+       * LESS
+       */
+      this.directory(
+        this.templatePath('less'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.lessDir]))
+      );
+
+      /**
+       * Karma Tests
+       */
+      this.directory(
+        this.templatePath('test'),
+        this.destinationPath('test')
+      );
+      this.fs.copyTpl(
+        this.templatePath('karma-shared.conf.js'),
+        this.destinationPath(helper.joinPath([pathConfig.testDir, 'karma-shared.conf.js'])), context
+      );
+
+      /**
+       * AppJs and IndexHtml
+       */
+      this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.main])),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.main])), context
+      );
+
+      this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])), context
+      );
+
+      /**
+       * Common App Filestructure
+       */
       this.fs.copy(
         this.templatePath('gitkeep'),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/.gitkeep')
@@ -121,51 +175,8 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.filterDir]) + '/.gitkeep')
       );
 
-      this.directory(
-        this.templatePath('less'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.lessDir]))
-      );
-
-      this.fs.copy(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html')
-      );
-
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])), context
-      );
-
-      this.mkdir(pathConfig.testDir);
-      // ToDo
-      // this.directory(
-      //     this.templatePath('test'),
-      //     this.destinationPath('test')
-      // );
-
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.main])),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.main])), context
-      );
-
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])), context
-      );
-
       /**
-       * Config files
-       */
-      this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), context);
-      this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), context);
-      this.fs.copyTpl(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'), context);
-      this.fs.copy(this.templatePath('editorconfig'), this.destinationPath('.editorconfig'));
-      this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
-      this.fs.copy(this.templatePath('Gruntfile.js'), this.destinationPath('Gruntfile.js'));
-      this.fs.copy(this.templatePath('.jshintrc'), this.destinationPath('.jshintrc'));
-
-      /**
-       * Core
+       * App Core
        */
       this.fs.copyTpl(
         this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppUtil.js'),
@@ -181,7 +192,20 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       /**
-       * Sample data
+       * Layout Header Direktive
+       */
+      this.fs.copy(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])), context
+      );
+
+      /**
+       * Sample view data and service
        */
       this.fs.copyTpl(
         this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.js'),
@@ -191,15 +215,19 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html'),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html')
       );
+      this.fs.copy(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/MemberService.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/MemberService.js')
+      );
 
 
     }
   },
   install:      function () {
-    this.installDependencies({
-      skipInstall: this.options['skip-install'],
-      skipMessage: this.options['skip-message']
-    });
+    //this.installDependencies({
+    //  skipInstall: this.options['skip-install'],
+    //  skipMessage: this.options['skip-message']
+    //});
   },
   end:          function () {
     this.log('');
