@@ -1,5 +1,5 @@
 /**
- * <%= appTitle %>
+ * <%= appName %>
  * @namespace app
  *
  * @description
@@ -26,7 +26,7 @@
       //'common.service.member',
 
       // App modules with business logic
-      '<%= appName %>.home'
+      'home'
 
 
     ]);

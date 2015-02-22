@@ -1,32 +1,44 @@
 /**
  * <%= capitalizedName %>
- * @namespace Views
+ * @namespace <%= moduleName %>
  */
 (function() {
     'use strict';
 
     /**
+     * @memberOf <%= moduleName %>
      * @namespace <%= capitalizedName %>
-     * @desc <%= description %>
-     * @memberOf Views
+     *
+     * @description
+     * <%= description %>
+     * Route: /<%= url %>
      */
     angular
-        .module('<%= appName %>.<%= module %>', [
+        .module('<%= moduleName %>.<%= lowercaseName %>', [
             <%= modules %>
         ])
         .config(<%= capitalizedName %>RouteConfig)
-        .controller('<%= prefix %><%= capitalizedName %>Controller', <%= capitalizedName %>Controller);
+        .controller('<%= capitalizedName %>Controller', <%= capitalizedName %>Controller);
 
+
+    /**
+     * @memberOf <%= moduleName %>.<%= capitalizedName %>
+     * @name <%= capitalizedName %>RouteConfig
+     */
     function <%= capitalizedName %>RouteConfig($routeProvider) {
         $routeProvider
           .when('/<%= url %>', {
             navigationKey: '<%= capitalizedName %>',
-            templateUrl:   AppConfig.buildTemplateUrl('<%= path %>/<%= fileName %>.html'),
+            templateUrl:   '<%= templateUrl %>',
             controller:    '<%= prefix %><%= capitalizedName %>Controller',
             controllerAs:  '<%= capitalizedName %>'
           });
     }
 
+    /**
+     * @memberOf <%= moduleName %>.<%= capitalizedName %>
+     * @name <%= capitalizedName %>Controller
+     */
     function <%= capitalizedName %>Controller(<%= dependencies %>) {
         var vm = this;
 

@@ -17,14 +17,8 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [
       {
         type:    'string',
-        name:    'appTitle',
-        message: 'How would u like to call your app?',
-        default: path.basename(process.cwd())
-      },
-      {
-        type:    'string',
         name:    'appName',
-        message: 'Angualar app name: ',
+        message: 'How would u like to call your app?',
         default: path.basename(process.cwd())
       },
       {
@@ -43,11 +37,21 @@ module.exports = yeoman.generators.Base.extend({
         name:    'author',
         message: 'How is the author?',
         default: 'Gery Hirschfeld <gery.hirschfeld@w3tec.ch>'
+      },
+      {
+        type:    'list',
+        name:    'appStructure',
+        message: 'Which app structure do you want: ',
+        choices: [
+          'Module-Based',
+          'Route-Based'
+        ],
+        default: 0
       }
     ];
     this.prompt(prompts, function (props) {
-      this.appTitle = props.appTitle;
       this.appName = props.appName;
+      this.appStructure = props.appStructure;
       this.appSign = props.appSign;
       this.description = props.description;
       this.author = props.author;
@@ -76,19 +80,19 @@ module.exports = yeoman.generators.Base.extend({
       }
 
       var context = {
-        appTitle:    this.appTitle,
-        appName:     this.appName,
-        appSign:     this.appSign,
-        author:      this.author,
-        description: this.description,
-        date:        getCreationDate(),
-        main:        helper.joinPath([pathConfig.srcDir, pathConfig.main]),
-        appJs:       helper.joinPath([pathConfig.srcDir, pathConfig.app.main]),
-        scripts:     helper.joinPath([pathConfig.srcDir, pathConfig.app.scripts]),
-        bowerDir:    helper.joinPath([pathConfig.srcDir, pathConfig.libDir]),
-        mediaDir:    helper.joinPath([pathConfig.asset.mediaDir]),
-        appDir:      pathConfig.appDir,
-        viewDir:     pathConfig.app.viewDir
+        appName:      this.appName,
+        appStructure: this.appStructure,
+        appSign:      this.appSign,
+        author:       this.author,
+        description:  this.description,
+        date:         getCreationDate(),
+        main:         helper.joinPath([pathConfig.srcDir, pathConfig.main]),
+        appJs:        helper.joinPath([pathConfig.srcDir, pathConfig.app.main]),
+        scripts:      helper.joinPath([pathConfig.srcDir, pathConfig.app.scripts]),
+        bowerDir:     helper.joinPath([pathConfig.srcDir, pathConfig.libDir]),
+        mediaDir:     helper.joinPath([pathConfig.asset.mediaDir]),
+        appDir:       pathConfig.appDir,
+        viewDir:      pathConfig.app.viewDir
       };
 
       /**
@@ -207,27 +211,57 @@ module.exports = yeoman.generators.Base.extend({
       /**
        * Sample view data and service
        */
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.js'), context
-      );
-      this.fs.copy(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html')
-      );
       this.fs.copy(
         this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/MemberService.js'),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/MemberService.js')
       );
 
+      if (this.appStructure === 'Route-Based') {
+        /**
+         * Route Based
+         */
+        this.fs.copyTpl(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.js'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.js'), context
+        );
+        this.fs.copy(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html')
+        );
+
+
+      } else {
+        /**
+         * Module Based
+         */
+        this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.appDir, 'home']));
+        this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.appDir, 'home/common']));
+        this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.appDir, 'home/views']));
+
+        this.fs.copy(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/HomeModule.js'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/HomeModule.js')
+        );
+
+        this.fs.copyTpl(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/Home.js'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/Home.js'), context
+        );
+        this.fs.copy(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/Home.html'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/Home.html')
+        );
+
+      }
+
 
     }
   },
   install:      function () {
-    //this.installDependencies({
-    //  skipInstall: this.options['skip-install'],
-    //  skipMessage: this.options['skip-message']
-    //});
+    this.installDependencies({
+      skipInstall: this.options['skip-install'],
+      skipMessage: ''
+    });
   },
   end:          function () {
     this.log('');

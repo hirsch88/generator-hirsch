@@ -1,20 +1,22 @@
 /**
  * <%= capitalizedName %>
- * @namespace Services
+ * @namespace <%= moduleName %>
  */
 (function() {
     'use strict';
 
     angular
-        .module('common.service.<%= lowercaseName %>', [
+        .module('<%= moduleName %>.<%= lowercaseName %>', [
             <%= modules %>
         ])
-        .factory('<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Service);
+        .factory('<%= capitalizedName %>', <%= capitalizedName %>Service);
 
     /**
+     * @memberOf <%= moduleName %>
      * @namespace <%= capitalizedName %>
-     * @desc <%= description %>
-     * @memberOf Services
+     *
+     * @description
+     * <%= description %>
      */
     function <%= capitalizedName %>Service(<%= dependencies %>) {
         var service = {
@@ -29,7 +31,7 @@
         /**
          * @name method
          * @desc this is a method who does stuff
-         * @memberOf Services.<%= capitalizedName %>
+         * @memberOf <%= moduleName %>.<%= capitalizedName %>
          */
         function method(){
             // code will be here

@@ -1,20 +1,22 @@
 /**
  * <%= capitalizedName %>
- * @namespace Filters
+ * @namespace <%= moduleName %>
  */
 (function() {
     'use strict';
 
     angular
-        .module( 'common.filter.<%= lowercaseName %>', [
+        .module('<%= moduleName %>.<%= lowercaseName %>', [
             <%= modules %>
-        ] )
-        .filter('<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Filter);
+        ])
+        .filter('<%= capitalizedName %>', <%= capitalizedName %>Filter);
 
     /**
+     * @memberOf <%= moduleName %>
      * @namespace <%= capitalizedName %>
-     * @desc <%= description %>
-     * @memberOf Filters
+     *
+     * @description
+     * <%= description %>
      */
     function <%= capitalizedName %>Filter(<%= dependencies %>) {
 

@@ -1,28 +1,31 @@
 /**
  * <%= capitalizedName %>
- * @namespace Directives
+ * @namespace <%= moduleName %>
  */
 (function() {
     'use strict';
 
     angular
-        .module( 'common.directive.<%= lowercaseName %>', [
+        .module('<%= moduleName %>.<%= lowercaseName %>', [
             <%= modules %>
-        ] )
+        ])
         .directive( '<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Directive );
 
     /**
+     * @memberOf <%= moduleName %>
      * @namespace <%= capitalizedName %>
-     * @desc <%= description %>
+     *
+     * @description
+     * <%= description %>
+     *
      * @example <<%= prefix %>-<%= lowercaseName %>></<%= prefix %>-<%= lowercaseName %>>
-     * @memberOf Directives
      */
     function <%= capitalizedName %>Directive() {
         return {
-            restrict: '<%= restrict %>',
-            templateUrl: 'app/layout/<%= capitalizedName %>Directive.html',
-            controller: <%= capitalizedName %>Controller,
-            controllerAs: '<%= lowercaseName %>',
+            restrict:         '<%= restrict %>',
+            templateUrl:      '<%= templateUrl %>',
+            controller:       <%= capitalizedName %>Controller,
+            controllerAs:     '<%= lowercaseName %>',
             bindToController: true // because the scope is isolated
         }
     }

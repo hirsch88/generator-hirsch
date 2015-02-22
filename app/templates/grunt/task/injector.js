@@ -18,6 +18,8 @@ module.exports = {
       files:   {
         '<%= srcDir %>/<%= main %>': [
           '<%= srcDir %>/<%= asset.css %>',
+          '<%= srcDir %>/<%= app.main %>',
+          '<%= srcDir %>/<%= app.modules %>',
           '<%= srcDir %>/<%= app.scripts %>'
         ]
       }

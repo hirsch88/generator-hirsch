@@ -6,8 +6,15 @@ var chalk = require('chalk');
 
 var FilterGenerator = yeoman.generators.NamedBase.extend({
   initializing: function () {
+    var done = this.async();
     this.pkg = helper.getPackage();
     this.paths = helper.getPaths();
+
+    this.isModuleBased = helper.isFileStructureModuleBased(this.pkg);
+    this.modules = helper.getModulesFromFileStructure(this, function(){
+      done();
+    });
+
   },
   prompting:    function () {
     var done = this.async();
@@ -15,27 +22,31 @@ var FilterGenerator = yeoman.generators.NamedBase.extend({
       {
         type:    'string',
         name:    'description',
-        message: 'Describe your Filter'
+        message: 'Please describe your filter.'
       },
       {
         type:    'string',
         name:    'modules',
-        message: 'Enter your angular model modules'
+        message: 'Enter your angular dependencies modules?'
       },
       {
         type:    'string',
         name:    'dependencies',
-        message: 'Tell me your dependencies'
+        message: 'Enter your dependencies injects?'
       }
-
     ];
+
+    helper.getPromtsForModuleBasedFileStructure(this, prompts);
+
     this.prompt(prompts, function (props) {
       this.description = props.description;
       this.dependencies = props.dependencies;
+      this.chosenModule = props.chosenModule || 'common';
       this.modules = helper.buildModuleDependencies(props.modules);
 
       done();
     }.bind(this));
+
   },
   writing:      function () {
     this.context = helper.getContext(this.name);
@@ -43,14 +54,25 @@ var FilterGenerator = yeoman.generators.NamedBase.extend({
     this.context.modules = this.modules;
     this.context.dependencies = this.dependencies;
 
-    var target = this.paths.srcDir + '/' + this.paths.app.common.filterDir + '/' + this.context.capitalizedName;
+    // Target
+    var target = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.chosenModule;
+    if (this.chosenModule !== 'common') {
+      target += '/common';
+    }
+    target += '/filters/' + this.context.capitalizedName + 'Filter.js';
+
+    // Module name
+    this.context.moduleName = this.chosenModule;
+    if (this.chosenModule !== 'common') {
+      this.context.moduleName += '.common';
+    }
+    this.context.moduleName += '.filters';
 
     this.fs.copyTpl(
       this.templatePath('template'),
-      this.destinationPath(target + 'Filter.js'),
+      this.destinationPath(target),
       this.context
     );
-
   },
   end:          function () {
     console.log('');

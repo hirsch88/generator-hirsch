@@ -22,6 +22,7 @@ module.exports = {
     dist_js: {
       src:  [
         '<%= srcDir %>/<%= app.main %>',
+        '<%= srcDir %>/<%= app.modules %>',
         '<%= srcDir %>/<%= app.scripts %>'
       ],
       dest: '<%= tempDir %>/<%= pkg.name %>.js'

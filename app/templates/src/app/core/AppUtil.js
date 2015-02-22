@@ -21,7 +21,7 @@
    * @see app.util
    */
   var AppUtil = {
-    title: '<%= appTitle %>',
+    title: '<%= appName %>',
     server: {
       local: 'http://localhost:1338/api/',
       prod:  'http://localhost:1338/api/'

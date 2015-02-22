@@ -1,4 +1,5 @@
 /**
+ * @memberOf home
  * @namespace home
  *
  * @description
@@ -8,14 +9,12 @@
   'use strict';
 
   angular
-    .module('home', [
-      'common.service.member'
-    ])
+    .module('home')
     .config(HomeRouteConfig)
     .controller('HomeController', HomeController);
 
   /**
-   * @memberOf home
+   * @memberOf home.home
    * @name HomeRouteConfig
    *
    * @param $routeProvider
@@ -25,14 +24,14 @@
     $routeProvider
       .when('/home', {
         navigationKey: 'home',
-        templateUrl:   AppUtil.buildTemplateUrl('home/Home.html'),
+        templateUrl:   'app/home/views/Home.html',
         controller:    'HomeController',
         controllerAs:  'home'
       });
   }
 
   /**
-   * @memberOf home
+   * @memberOf home.home
    * @name HomeController
    *
    * @param MemberService {Object}
