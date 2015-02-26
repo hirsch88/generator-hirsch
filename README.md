@@ -1,4 +1,4 @@
-# generator-hirsch [![Build Status](https://secure.travis-ci.org/gery.hirschfeld@w3tec.ch/generator-hirsch.png?branch=master)](https://travis-ci.org/gery.hirschfeld@w3tec.ch/generator-hirsch)
+# generator-hirsch#BETA [![Build Status](https://secure.travis-ci.org/gery.hirschfeld@w3tec.ch/generator-hirsch.png?branch=master)](https://travis-ci.org/gery.hirschfeld@w3tec.ch/generator-hirsch)
 
 > [Yeoman](http://yeoman.io) generator
 
