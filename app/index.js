@@ -4,7 +4,7 @@ var yeoman = require('yeoman-generator');
 var helper = require('./../helper');
 var chalk = require('chalk');
 var yosay = require('yosay');
-var util = require('util');
+//var util = require('util');
 var path = require('path');
 
 module.exports = yeoman.generators.Base.extend({
@@ -13,18 +13,12 @@ module.exports = yeoman.generators.Base.extend({
   },
   prompting:    function () {
     var done = this.async();
-    this.log(yosay('Welcome to the marvelous ' + chalk.red('Hirsch') + ' generator!'));
+    this.log(yosay('Welcome to the marvelous ' + chalk.red('Hirsch') + ' generator! NEW'));
     var prompts = [
       {
         type:    'string',
-        name:    'appTitle',
-        message: 'How would u like to call your app?',
-        default: path.basename(process.cwd())
-      },
-      {
-        type:    'string',
         name:    'appName',
-        message: 'Angualar app name: ',
+        message: 'How would u like to call your app?',
         default: path.basename(process.cwd())
       },
       {
@@ -43,11 +37,21 @@ module.exports = yeoman.generators.Base.extend({
         name:    'author',
         message: 'How is the author?',
         default: 'Gery Hirschfeld <gery.hirschfeld@w3tec.ch>'
+      },
+      {
+        type:    'list',
+        name:    'appStructure',
+        message: 'Which app structure do you want: ',
+        choices: [
+          'Module-Based',
+          'Route-Based'
+        ],
+        default: 0
       }
     ];
     this.prompt(prompts, function (props) {
-      this.appTitle = props.appTitle;
       this.appName = props.appName;
+      this.appStructure = props.appStructure;
       this.appSign = props.appSign;
       this.description = props.description;
       this.author = props.author;
@@ -76,19 +80,37 @@ module.exports = yeoman.generators.Base.extend({
       }
 
       var context = {
-        appTitle:    this.appTitle,
-        appName:     this.appName,
-        appSign:     this.appSign,
-        author:      this.author,
-        description: this.description,
-        date:        getCreationDate(),
-        main:        helper.joinPath([pathConfig.srcDir, pathConfig.main]),
-        bowerDir:    helper.joinPath([pathConfig.srcDir, pathConfig.libDir]),
-        mediaDir:    helper.joinPath([pathConfig.asset.mediaDir]),
-        appDir:      pathConfig.appDir,
-        viewDir:   pathConfig.app.viewDir
+        appName:      this.appName,
+        appStructure: this.appStructure,
+        appSign:      this.appSign,
+        author:       this.author,
+        description:  this.description,
+        date:         getCreationDate(),
+        main:         helper.joinPath([pathConfig.srcDir, pathConfig.main]),
+        appJs:        helper.joinPath([pathConfig.srcDir, pathConfig.app.main]),
+        scripts:      helper.joinPath([pathConfig.srcDir, pathConfig.app.scripts]),
+        bowerDir:     helper.joinPath([pathConfig.srcDir, pathConfig.libDir]),
+        mediaDir:     helper.joinPath([pathConfig.asset.mediaDir]),
+        appDir:       pathConfig.appDir,
+        viewDir:      pathConfig.app.viewDir
       };
 
+      /**
+       * Project conf files
+       */
+      this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), context);
+      this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), context);
+      this.fs.copyTpl(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'), context);
+
+      this.fs.copy(this.templatePath('_jsdoc.json'), this.destinationPath('jsdoc.json'));
+      this.fs.copy(this.templatePath('editorconfig'), this.destinationPath('.editorconfig'));
+      this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
+      this.fs.copy(this.templatePath('Gruntfile.js'), this.destinationPath('Gruntfile.js'));
+      this.fs.copy(this.templatePath('.jshintrc'), this.destinationPath('.jshintrc'));
+
+      /**
+       * Assets
+       */
       this.fs.copy(
         this.templatePath('favicon.ico'),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.mediaDir]) + '/favicon.ico')
@@ -106,6 +128,42 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.fontDir]) + '/.gitkeep')
       );
 
+      /**
+       * LESS
+       */
+      this.directory(
+        this.templatePath('less'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.lessDir]))
+      );
+
+      /**
+       * Karma Tests
+       */
+      this.directory(
+        this.templatePath('test'),
+        this.destinationPath('test')
+      );
+      this.fs.copyTpl(
+        this.templatePath('karma-shared.conf.js'),
+        this.destinationPath(helper.joinPath([pathConfig.testDir, 'karma-shared.conf.js'])), context
+      );
+
+      /**
+       * AppJs and IndexHtml
+       */
+      this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.main])),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.main])), context
+      );
+
+      this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])), context
+      );
+
+      /**
+       * Common App Filestructure
+       */
       this.fs.copy(
         this.templatePath('gitkeep'),
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/.gitkeep')
@@ -121,85 +179,95 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.filterDir]) + '/.gitkeep')
       );
 
-      this.directory(
-        this.templatePath('less'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.lessDir]))
+      /**
+       * App Core
+       */
+      this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appUtil.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appUtil.js'), context
+      );
+      this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appConfig.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appConfig.js'), context
+      );
+      this.fs.copyTpl(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appCore.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appCore.js'), context
+      );
+
+      /**
+       * Layout Header Direktive
+       */
+      this.fs.copy(
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/header.module.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/header.module.js')
       );
 
       this.fs.copy(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/HeaderDirective.html')
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/common/directives/header.directive.html'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/common/directives/header.directive.html')
       );
 
       this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/HeaderDirective.js'])), context
-      );
-
-      this.mkdir(pathConfig.testDir);
-      // ToDo
-      // this.directory(
-      //     this.templatePath('test'),
-      //     this.destinationPath('test')
-      // );
-
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.main])),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.main])), context
-      );
-
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])), context
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/common/directives/header.directive.js'])),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/common/directives/header.directive.js'])), context
       );
 
       /**
-       * Config files
+       * Sample view data and service
        */
-      this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), context);
-      this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), context);
-      this.fs.copyTpl(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'), context);
-      this.fs.copy(this.templatePath('editorconfig'), this.destinationPath('.editorconfig'));
-      this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
-      this.fs.copy(this.templatePath('Gruntfile.js'), this.destinationPath('Gruntfile.js'));
-      this.fs.copy(this.templatePath('.jshintrc'), this.destinationPath('.jshintrc'));
-
-      /**
-       * Core
-       */
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppUtil.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppUtil.js'), context
-      );
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppConfig.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppConfig.js'), context
-      );
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppCore.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/AppCore.js'), context
-      );
-
-      /**
-       * Sample data
-       */
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.js'), context
-      );
       this.fs.copy(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/Home.html')
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/member.service.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/member.service.js')
       );
+
+      if (this.appStructure === 'Route-Based') {
+        /**
+         * Route Based
+         */
+        this.fs.copyTpl(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/home.js'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/home.js'), context
+        );
+        this.fs.copy(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/home.html'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/home.html')
+        );
+
+
+      } else {
+        /**
+         * Module Based
+         */
+        this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.appDir, 'home']));
+        this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.appDir, 'home/common']));
+        this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.appDir, 'home/views']));
+
+        this.fs.copy(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/home.module.js'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/home.module.js')
+        );
+
+        this.fs.copyTpl(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/home.js'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/home.js'), context
+        );
+        this.fs.copy(
+          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/home.html'),
+          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/home.html')
+        );
+
+      }
 
 
     }
   },
   install:      function () {
-    this.installDependencies({
-      skipInstall: this.options['skip-install'],
-      skipMessage: this.options['skip-message']
-    });
+    this.installDependencies();
+    //{
+    //  skipInstall: '', //this.options['skip-install'],
+    //  skipMessage: ''
+    //});
   },
   end:          function () {
     this.log('');

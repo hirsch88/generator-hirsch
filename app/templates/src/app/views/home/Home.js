@@ -1,33 +1,55 @@
 /**
- * Home View
- * @namespace View
+ * @namespace home
+ *
+ * @description
+ * Startview
  */
 (function () {
   'use strict';
 
-  /**
-   * @namespace Home
-   * @desc Startview
-   * @memberOf View
-   */
-  angular.module('<%= appName %>.home', [])
+  angular
+    .module('home', [
+      'common.service.member'
+    ])
     .config(HomeRouteConfig)
-    .controller('<%= appSign %>HomeController', HomeController);
+    .controller('HomeController', HomeController);
 
-  
+  /**
+   * @memberOf home
+   * @name HomeRouteConfig
+   *
+   * @param $routeProvider
+   * @constructor
+   */
   function HomeRouteConfig($routeProvider) {
     $routeProvider
       .when('/home', {
         navigationKey: 'home',
-        templateUrl:   AppUtil.buildTemplateUrl('home/Home.html'),
-        controller:    '<%= appSign %>HomeController',
+        templateUrl:   AppUtil.buildTemplateUrl('home/home.html'),
+        controller:    'HomeController',
         controllerAs:  'home'
       });
   }
 
-  function HomeController() {
-    var home = this;
-    home.title = '<%= appTitle %>';
+  /**
+   * @memberOf home
+   * @name HomeController
+   *
+   * @param MemberService {Object}
+   * @constructor
+   */
+  function HomeController(members, appUtil) {
+    var vm = this;
+    vm.title = appUtil.title;
+
+    vm.list = [];
+    members.get()
+      .then(function (result) {
+        vm.list = result;
+      });
+
+    vm.buildFullName = members.getFullName;
+
   }
 
 }());

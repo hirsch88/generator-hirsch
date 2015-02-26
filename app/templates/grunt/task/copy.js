@@ -9,26 +9,26 @@ module.exports = {
     dist: {
       files: [
         {
-          src   : ['**'],
-          cwd   : '<%= srcDir %>/<%= asset.mediaDir %>',
-          dest  : '<%= distDir %>/<%= asset.mediaDir %>/',
+          src:    ['**'],
+          cwd:    '<%= srcDir %>/<%= asset.mediaDir %>',
+          dest:   '<%= distDir %>/<%= asset.mediaDir %>/',
           expand: true
         },
         {
-          src   : ['**'],
-          cwd   : '<%= srcDir %>/<%= asset.fontDir %>',
-          dest  : '<%= distDir %>/<%= asset.fontDir %>/',
+          src:    ['**'],
+          cwd:    '<%= srcDir %>/<%= asset.fontDir %>',
+          dest:   '<%= distDir %>/<%= asset.fontDir %>/',
           expand: true
         },
         {
-          src   : ['*.json'],
-          cwd   : '<%= srcDir %>/<%= asset.i18nDir %>',
-          dest  : '<%= distDir %>/<%= asset.i18nDir %>/',
+          src:    ['*.json'],
+          cwd:    '<%= srcDir %>/<%= asset.i18nDir %>',
+          dest:   '<%= distDir %>/<%= asset.i18nDir %>/',
           expand: true
         },
         {
-          src   : '<%= srcDir %>/<%= main %>',
-          dest  : '<%= distDir %>/<%= main %>'
+          src:  '<%= srcDir %>/<%= main %>',
+          dest: '<%= distDir %>/<%= main %>'
         }
       ]
     }

@@ -1,22 +1,38 @@
 /**
- * App Core
- * @namespace Configs
+ * @memberOf app
+ * @namespace app.core
+ *
+ * @requires ngSanitize
+ * @requires ngMessages
+ * @requires ngRoute
+ *
+ * @description
+ * Defines the AngularJS Modules and configures them
+ *
  */
 (function () {
   'use strict';
 
-  /**
-   * @namespace AppCore
-   * @desc Defines the AngularJS Modules and configurates them
-   * @memberOf Configs
-   */
   angular
     .module('app.core', [
-      'ngSanitize', 
-      'ngMessages', 
-      'ngRoute',
-
+      'ngSanitize',
+      'ngMessages',
+      'ngRoute'
     ])
+
+  /**
+   * @constant
+   * @memberOf app.core
+   * @name pathConstant
+   * @type {Object}
+   *
+   * @description
+   * Defines some paths of the application
+   *
+   * @property {String} SERVICE - Common service path
+   * @property {String} DIRECTIVE - Common directive/components path
+   * @property {String} FILTERS - Common filter path
+   */
     .constant('pathConstant', {
       SERVICE:    'app/common/services/',
       DIRECTIVE:  'app/common/directives/',
@@ -29,18 +45,26 @@
 
 
   /**
+   * @memberOf app.core
    * @name RouteConfig
-   * @desc Defines the default route
-   * @memberOf Configs.AppCore
+   *
+   * @description
+   * Defines the default route
+   *
+   * @constructor
    */
   function RouteConfig($routeProvider) {
     $routeProvider.otherwise('/home');
   }
 
   /**
+   * @memberOf app.core
    * @name LogConfig
-   * @desc Enable debug level messages
-   * @memberOf Configs.AppCore
+   *
+   * @description
+   * Enable debug level messages
+   *
+   * @constructor
    */
   function LogConfig($logProvider) {
     if ($logProvider.debugEnabled) {
@@ -49,9 +73,13 @@
   }
 
   /**
+   * @memberOf app.core
    * @name HttpConfig
-   * @desc Allows the framework to stor ehe sails cookie from the backend and disable IE ajax request caching
-   * @memberOf Configs.AppCore
+   *
+   * @description
+   * Allows the framework to stor ehe sails cookie from the backend and disable IE ajax request caching
+   *
+   * @constructor
    */
   function HttpConfig($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
@@ -61,9 +89,13 @@
   }
 
   /**
+   * @memberOf app.core
    * @name CompileConfig
-   * @desc Tools like Protractor and Batarang need this information to run, but you can disable this in production for a significant performance boost with
-   * @memberOf Configs.AppCore
+   *
+   * @description
+   * Tools like Protractor and Batarang need this information to run, but you can disable this in production for a significant performance boost with
+   *
+   * @constructor
    */
   function CompileConfig($compileProvider) {
     $compileProvider.debugInfoEnabled(false);

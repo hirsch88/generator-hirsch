@@ -1,10 +1,13 @@
 /**
- * <%= appTitle %>
- * @namespace App
- * @name <%= appName %>
- * @desc <%= description %>
+ * <%= appName %>
+ * @namespace app
+ *
+ * @description
+ * <%= description %>
+ *
  * @author <%= author %>
  * @date <%= date %>
+ * @version 0.0.0
  */
 (function () {
   'use strict';
@@ -18,10 +21,13 @@
       'app.config',
 
       // Layout components
-      'layout.header',
+      'layout',
+
+      //'common.service.member',
 
       // App modules with business logic
-      '<%= appName %>.home'
+      'home'
+
 
     ]);
 

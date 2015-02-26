@@ -1,33 +1,36 @@
 /**
  * <%= capitalizedName %>
- * @namespace Directives
+ * @namespace <%= modulePath %>
  */
 (function() {
     'use strict';
 
     angular
-        .module( 'common.directive.<%= lowercaseName %>', [
+        .module('<%= modulePath %>.<%= lowercaseName %>', [
             <%= modules %>
-        ] )
-        .directive( '<%= prefix %><%= capitalizedName %>', <%= capitalizedName %>Directive );
+        ])
+        .directive( '<%= prefix %><%= moduleName %><%= capitalizedName %>', <%= moduleName %><%= capitalizedName %> );
 
     /**
-     * @namespace <%= capitalizedName %>
-     * @desc <%= description %>
-     * @example <<%= prefix %>-<%= lowercaseName %>></<%= prefix %>-<%= lowercaseName %>>
-     * @memberOf Directives
+     * @memberOf <%= modulePath %>
+     * @namespace <%= moduleName %><%= capitalizedName %>
+     *
+     * @description
+     * <%= description %>
+     *
+     * @example <<%= prefix %>-<%= lowerModuleName %>-<%= lowercaseName %>></<%= prefix %>-<%= lowerModuleName %>-<%= lowercaseName %>>
      */
-    function <%= capitalizedName %>Directive() {
+    function <%= moduleName %><%= capitalizedName %>() {
         return {
-            restrict: '<%= restrict %>',
-            templateUrl: 'app/layout/<%= capitalizedName %>Directive.html',
-            controller: <%= capitalizedName %>Controller,
-            controllerAs: '<%= lowercaseName %>',
+            restrict:         '<%= restrict %>',
+            templateUrl:      '<%= templateUrl %>',
+            controller:       <%= moduleName %><%= capitalizedName %>Controller,
+            controllerAs:     '<%= lowerModuleName %><%= lowercaseName %>',
             bindToController: true // because the scope is isolated
         }
     }
 
-    function <%= capitalizedName %>Controller(<%= dependencies %>) {
+    function <%= moduleName %><%= capitalizedName %>Controller(<%= dependencies %>) {
         var vm = this;
 
     }

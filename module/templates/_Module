@@ -1,0 +1,16 @@
+/**
+ * @namespace <%= lowercaseName %>
+ *
+ * @description
+ * <%= description %>
+ */
+(function () {
+  'use strict';
+
+  angular
+    .module('<%= lowercaseName %>', [
+      <%= modules %>
+    ]);
+
+
+})();

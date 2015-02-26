@@ -9,26 +9,28 @@ module.exports = {
 
   injector: {
 
-    app : {
+    app:  {
       options: {
-        ignorePath  : '<%= srcDir %>/',
-        relative    : false,
+        ignorePath:   '<%= srcDir %>/',
+        relative:     false,
         addRootSlash: false
       },
-      files  : {
+      files:   {
         '<%= srcDir %>/<%= main %>': [
           '<%= srcDir %>/<%= asset.css %>',
+          '<%= srcDir %>/<%= app.main %>',
+          '<%= srcDir %>/<%= app.modules %>',
           '<%= srcDir %>/<%= app.scripts %>'
         ]
       }
     },
     dist: {
       options: {
-        ignorePath  : 'dist/',
-        relative    : false,
+        ignorePath:   'dist/',
+        relative:     false,
         addRootSlash: false
       },
-      files  : {
+      files:   {
         '<%= distDir %>/<%= main %>': [
           '<%= distDir %>/<%= asset.cssDir %>/lib.min.**.css',
           '<%= distDir %>/<%= appDir %>/lib.min.**.js',

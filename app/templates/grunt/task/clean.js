@@ -5,17 +5,22 @@
  */
 module.exports = {
 
-    clean: {
-        temp  : {
-            src: [
-                '<%= tempDir %>'
-            ]
-        },
-        dist: {
-            src: [
-                '<%= distDir %>'
-            ]
-        }
+  clean: {
+    temp: {
+      src: [
+        '<%= tempDir %>'
+      ]
+    },
+    dist: {
+      src: [
+        '<%= distDir %>'
+      ]
+    },
+    docs: {
+      src: [
+        '<%= docsDir %>'
+      ]
     }
+  }
 
 };

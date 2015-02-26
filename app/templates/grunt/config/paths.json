@@ -1,14 +1,15 @@
 {
-  "srcDir":    "src",
-  "distDir":   "dist",
-  "testDir":   "test",
-  "buildDir":  "build",
-  "libDir":    "lib",
-  "appDir":    "app",
-  "assetsDir": "assets",
-  "tempDir":   ".tmp",
-  "main":      "index.html",
-  "asset":     {
+  "srcDir":         "src",
+  "distDir":        "dist",
+  "docsDir":        "docs",
+  "testDir":        "test",
+  "buildDir":       "build",
+  "libDir":         "lib",
+  "appDir":         "app",
+  "assetsDir":      "assets",
+  "tempDir":        ".tmp",
+  "main":           "index.html",
+  "asset":          {
     "cssDir":   "assets/css",
     "css":      "assets/css/**/*.css",
     "lessDir":  "assets/less",
@@ -19,8 +20,9 @@
     "i18nDir":  "assets/i18n",
     "i18n":     "assets/i18n/**/*.json"
   },
-  "app":       {
+  "app":            {
     "main":      "app/app.js",
+    "modules":   "app/**/*Module.js",
     "scripts":   "app/**/*.js",
     "templates": "app/**/*.html",
     "coreDir":   "app/core",
@@ -37,7 +39,10 @@
       "configDir":    "app/common/configs"
     }
   },
-  "test":      {
+  "test":           {
     "specs": "**/*.spec.js"
-  }
+  },
+  "ignoredModules": [
+    "core"
+  ]
 }
