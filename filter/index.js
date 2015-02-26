@@ -59,7 +59,7 @@ var FilterGenerator = yeoman.generators.NamedBase.extend({
     if (this.chosenModule !== 'common') {
       target += '/common';
     }
-    target += '/filters/' + this.context.capitalizedName + 'Filter.js';
+    target += '/filters/' + this.context.lowercaseName + '.filter.js';
 
     // Module name
     this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);

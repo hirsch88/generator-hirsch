@@ -59,7 +59,7 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
     if (this.chosenModule !== 'common') {
       target += '/common';
     }
-    target += '/services/' + this.context.capitalizedName + 'Service.js';
+    target += '/services/' + this.context.lowercaseName + '.service.js';
 
     // Module name
     this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);

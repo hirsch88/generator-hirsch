@@ -23,7 +23,7 @@
   function HeaderDirective() {
     return {
       restrict: 'EA',
-      templateUrl: 'app/layout/HeaderDirective.html',
+      templateUrl: 'app/layout/header.directive.html',
       controller: HeaderController,
       controllerAs: 'header',
       bindToController: true // because the scope is isolated
@@ -36,9 +36,9 @@
    *
    * @constructor
    */
-  function HeaderController(AppUtil) {
+  function HeaderController(appUtil) {
     var vm = this;
-    vm.title = AppUtil.title;
+    vm.title = appUtil.title;
   }
 
 }());

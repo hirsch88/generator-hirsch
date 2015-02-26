@@ -9,7 +9,7 @@
         .module('<%= modulePath %>.<%= lowercaseName %>', [
             <%= modules %>
         ])
-        .factory('<%= moduleName %><%= capitalizedName %>', <%= moduleName %><%= capitalizedName %>Service);
+        .factory('<%= moduleName %><%= capitalizedName %>', <%= moduleName %><%= capitalizedName %>);
 
     /**
      * @memberOf <%= modulePath %>
@@ -18,7 +18,7 @@
      * @description
      * <%= description %>
      */
-    function <%= moduleName %><%= capitalizedName %>Service(<%= dependencies %>) {
+    function <%= moduleName %><%= capitalizedName %>(<%= dependencies %>) {
         var service = {
             key:    'value',
 

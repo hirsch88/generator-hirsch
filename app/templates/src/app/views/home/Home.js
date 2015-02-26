@@ -25,7 +25,7 @@
     $routeProvider
       .when('/home', {
         navigationKey: 'home',
-        templateUrl:   AppUtil.buildTemplateUrl('home/Home.html'),
+        templateUrl:   AppUtil.buildTemplateUrl('home/home.html'),
         controller:    'HomeController',
         controllerAs:  'home'
       });
@@ -38,17 +38,17 @@
    * @param MemberService {Object}
    * @constructor
    */
-  function HomeController(MemberService, AppUtil) {
+  function HomeController(members, appUtil) {
     var vm = this;
-    vm.title = AppUtil.title;
+    vm.title = appUtil.title;
 
     vm.list = [];
-    MemberService.get()
+    members.get()
       .then(function (result) {
         vm.list = result;
       });
 
-    vm.buildFullName = MemberService.getFullName;
+    vm.buildFullName = members.getFullName;
 
   }
 

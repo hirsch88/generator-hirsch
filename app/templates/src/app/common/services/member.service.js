@@ -7,7 +7,7 @@
 
   angular
     .module('common.service.member', [])
-    .factory('MemberService', MemberService);
+    .factory('members', members);
 
   var data = [
     {
@@ -30,7 +30,7 @@
 
   /**
    * @memberOf services
-   * @name MemberService
+   * @name members
    * @alias myMember
    *
    * @description
@@ -41,7 +41,7 @@
    * @returns {Object}
    * @constructor
    */
-  function MemberService($http, $q) {
+  function members($http, $q) {
     var service = {
       key: 'value',
 
@@ -53,7 +53,7 @@
     ////////////////////////
 
     /**
-     * @memberOf services.MemberService
+     * @memberOf services.members
      * @method get
      *
      * @description
@@ -78,7 +78,7 @@
     }
 
     /**
-     * @memberOf services.MemberService
+     * @memberOf services.members
      * @method getFullName
      *
      * @param member {Object} - Should have the properties fname and lname

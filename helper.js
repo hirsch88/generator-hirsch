@@ -2,6 +2,7 @@
 var path = require('path');
 var fs = require('fs');
 var chalk = require('chalk');
+var glob = require('glob');
 
 module.exports = {
 

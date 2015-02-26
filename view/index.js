@@ -83,7 +83,7 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
 
     // Target
     var target = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.chosenModule;
-    target += '/views/' + this.context.capitalizedName;
+    target += '/views/' + this.context.lowercaseName;
     this.context.templateUrl = target + '.html';
 
     // Module name

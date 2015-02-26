@@ -9,7 +9,7 @@
         .module('<%= modulePath %>.<%= lowercaseName %>', [
             <%= modules %>
         ])
-        .filter('<%= moduleName %><%= capitalizedName %>', <%= moduleName %><%= capitalizedName %>Filter);
+        .filter('<%= moduleName %><%= capitalizedName %>', <%= moduleName %><%= capitalizedName %>);
 
     /**
      * @memberOf <%= modulePath %>
@@ -18,7 +18,7 @@
      * @description
      * <%= description %>
      */
-    function <%= moduleName %><%= capitalizedName %>Filter(<%= dependencies %>) {
+    function <%= moduleName %><%= capitalizedName %>(<%= dependencies %>) {
 
         return Filter;
         ////////////////////////

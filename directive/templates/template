@@ -9,7 +9,7 @@
         .module('<%= modulePath %>.<%= lowercaseName %>', [
             <%= modules %>
         ])
-        .directive( '<%= prefix %><%= moduleName %><%= capitalizedName %>', <%= moduleName %><%= capitalizedName %>Directive );
+        .directive( '<%= prefix %><%= moduleName %><%= capitalizedName %>', <%= moduleName %><%= capitalizedName %> );
 
     /**
      * @memberOf <%= modulePath %>
@@ -20,7 +20,7 @@
      *
      * @example <<%= prefix %>-<%= lowerModuleName %>-<%= lowercaseName %>></<%= prefix %>-<%= lowerModuleName %>-<%= lowercaseName %>>
      */
-    function <%= moduleName %><%= capitalizedName %>Directive() {
+    function <%= moduleName %><%= capitalizedName %>() {
         return {
             restrict:         '<%= restrict %>',
             templateUrl:      '<%= templateUrl %>',

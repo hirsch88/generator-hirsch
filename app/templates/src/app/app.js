@@ -21,7 +21,7 @@
       'app.config',
 
       // Layout components
-      'layout.header',
+      'layout',
 
       //'common.service.member',
 

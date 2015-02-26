@@ -20,7 +20,7 @@
    * @name AppUtil
    * @see app.util
    */
-  var AppUtil = {
+  var appUtil = {
     title: '<%= appName %>',
     server: {
       local: 'http://localhost:1338/api/',
@@ -75,8 +75,8 @@
 
   angular
     .module('app.util', [])
-    .value('AppUtil', AppUtil);
+    .value('appUtil', appUtil);
 
-  window.AppUtil = AppUtil;
+  window.appUtil = appUtil;
 
 }(window));
