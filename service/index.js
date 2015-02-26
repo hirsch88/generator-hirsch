@@ -62,11 +62,12 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
     target += '/services/' + this.context.capitalizedName + 'Service.js';
 
     // Module name
-    this.context.moduleName = this.chosenModule;
+    this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);
+    this.context.modulePath = this.chosenModule;
     if (this.chosenModule !== 'common') {
-      this.context.moduleName += '.common';
+      this.context.modulePath += '.common';
     }
-    this.context.moduleName += '.services';
+    this.context.modulePath += '.services';
 
     this.fs.copyTpl(
       this.templatePath('template'),

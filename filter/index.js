@@ -62,11 +62,12 @@ var FilterGenerator = yeoman.generators.NamedBase.extend({
     target += '/filters/' + this.context.capitalizedName + 'Filter.js';
 
     // Module name
-    this.context.moduleName = this.chosenModule;
+    this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);
+    this.context.modulePath = this.chosenModule;
     if (this.chosenModule !== 'common') {
-      this.context.moduleName += '.common';
+      this.context.modulePath += '.common';
     }
-    this.context.moduleName += '.filters';
+    this.context.modulePath += '.filters';
 
     this.fs.copyTpl(
       this.templatePath('template'),

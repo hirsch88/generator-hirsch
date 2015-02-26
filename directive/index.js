@@ -72,11 +72,13 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
     this.context.templateUrl = target + 'Directive.html';
 
     // Module name
-    this.context.moduleName = this.chosenModule;
+    this.context.lowerModuleName = helper.firstCharToLowerCase(this.chosenModule);
+    this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);
+    this.context.modulePath = this.chosenModule;
     if (this.chosenModule !== 'common') {
-      this.context.moduleName += '.common';
+      this.context.modulePath += '.common';
     }
-    this.context.moduleName += '.directives';
+    this.context.modulePath += '.directives';
 
     this.fs.copyTpl(
       this.templatePath('template'),

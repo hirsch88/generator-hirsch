@@ -1,45 +1,45 @@
 /**
  * <%= capitalizedName %>
- * @namespace <%= moduleName %>
+ * @namespace <%= modulePath %>
  */
 (function() {
     'use strict';
 
     /**
-     * @memberOf <%= moduleName %>
-     * @namespace <%= capitalizedName %>
+     * @memberOf <%= modulePath %>
+     * @namespace <%= lowercaseName %>
      *
      * @description
      * <%= description %>
      * Route: /<%= url %>
      */
     angular
-        .module('<%= moduleName %>.<%= lowercaseName %>', [
+        .module('<%= modulePath %>.<%= lowercaseName %>', [
             <%= modules %>
         ])
-        .config(<%= capitalizedName %>RouteConfig)
-        .controller('<%= capitalizedName %>Controller', <%= capitalizedName %>Controller);
+        .config(<%= moduleName %><%= capitalizedName %>RouteConfig)
+        .controller('<%= moduleName %><%= capitalizedName %>Controller', <%= moduleName %><%= capitalizedName %>Controller);
 
 
     /**
-     * @memberOf <%= moduleName %>.<%= capitalizedName %>
+     * @memberOf <%= modulePath %>.<%= lowercaseName %>
      * @name <%= capitalizedName %>RouteConfig
      */
-    function <%= capitalizedName %>RouteConfig($routeProvider) {
+    function <%= moduleName %><%= capitalizedName %>RouteConfig($routeProvider) {
         $routeProvider
-          .when('/<%= url %>', {
-            navigationKey: '<%= capitalizedName %>',
+          .when('/<%= moduleName %>/<%= url %>', {
+            navigationKey: '<%= moduleName %><%= capitalizedName %',
             templateUrl:   '<%= templateUrl %>',
-            controller:    '<%= prefix %><%= capitalizedName %>Controller',
-            controllerAs:  '<%= capitalizedName %>'
+            controller:    '<%= moduleName %><%= capitalizedName %>Controller',
+            controllerAs:  '<%= moduleName %><%= capitalizedName %'
           });
     }
 
     /**
-     * @memberOf <%= moduleName %>.<%= capitalizedName %>
+     * @memberOf <%= modulePath %>.<%= lowercaseName %>
      * @name <%= capitalizedName %>Controller
      */
-    function <%= capitalizedName %>Controller(<%= dependencies %>) {
+    function <%= moduleName %><%= capitalizedName %>Controller(<%= dependencies %>) {
         var vm = this;
 
         // code goes here...

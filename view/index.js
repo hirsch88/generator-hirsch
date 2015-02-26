@@ -81,34 +81,28 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
 
     }
 
-
-
     // Target
     var target = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.chosenModule;
-    if (this.chosenModule !== 'common') {
-      target += '/common';
-    }
     target += '/views/' + this.context.capitalizedName;
     this.context.templateUrl = target + '.html';
 
     // Module name
-    this.context.moduleName = this.chosenModule;
+    this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);
+    this.context.modulePath = this.chosenModule;
     if (this.chosenModule === 'common') {
-      this.context.moduleName += '.views';
+      this.context.modulePath += '.views';
     }
 
-    console.log(this);
+    this.fs.copyTpl(
+      this.templatePath('template'),
+      this.destinationPath(target + '.js'),
+      this.context
+    );
 
-    //this.fs.copyTpl(
-    //  this.templatePath('template'),
-    //  this.destinationPath(target + '.js'),
-    //  this.context
-    //);
-    //
-    //this.fs.copy(
-    //  this.templatePath('template.html'),
-    //  this.destinationPath(target + '.html')
-    //);
+    this.fs.copy(
+      this.templatePath('template.html'),
+      this.destinationPath(target + '.html')
+    );
 
   },
   end:          function () {
