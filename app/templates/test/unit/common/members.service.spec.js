@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Unit: MemberService', function () {
+describe('Unit: members', function () {
 
   beforeEach(module('app'));
 
-  it('should contain an MemberService service',
+  it('should contain an members service',
     inject(function (MemberService) {
       expect(MemberService).not.to.equal(null);
     })
   );
 
-  it('should have a working MemberService',
-    inject(['MemberService',function(ms) {
+  it('should have a working members',
+    inject(['members',function(ms) {
 
       expect(ms.get).not.to.equal(null);
       expect(ms.getFullName).not.to.equal(null);
@@ -19,7 +19,7 @@ describe('Unit: MemberService', function () {
   );
 
   it('should have a working service that build fullnames',
-    inject(['MemberService',function(ms) {
+    inject(['members',function(ms) {
 
       var fullname = ms.getFullName({
         fname: 'Horst',

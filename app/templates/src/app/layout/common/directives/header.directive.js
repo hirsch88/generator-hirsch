@@ -5,7 +5,7 @@
   'use strict';
 
   angular
-    .module( 'layout.header', [] )
+    .module( 'common.directive.header', [] )
     .directive( '<%= appSign %>Header', HeaderDirective );
 
   /**
@@ -23,7 +23,7 @@
   function HeaderDirective() {
     return {
       restrict: 'EA',
-      templateUrl: 'app/layout/header.directive.html',
+      templateUrl: 'app/layout/common/directives/header.directive.html',
       controller: HeaderController,
       controllerAs: 'header',
       bindToController: true // because the scope is isolated

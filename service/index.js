@@ -11,7 +11,7 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
     this.paths = helper.getPaths();
 
     this.isModuleBased = helper.isFileStructureModuleBased(this.pkg);
-    this.modules = helper.getModulesFromFileStructure(this, function(){
+    this.modules = helper.getModulesFromFileStructure(this, function () {
       done();
     });
 
@@ -55,14 +55,15 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
     this.context.dependencies = this.dependencies;
 
     // Target
-    var target = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.chosenModule;
+    var appTarget = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.chosenModule;
     if (this.chosenModule !== 'common') {
-      target += '/common';
+      appTarget += '/common';
     }
-    target += '/services/' + this.context.lowercaseName + '.service.js';
+    appTarget += '/services/' + this.context.lowercaseName + '.service.js';
 
     // Module name
-    this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);
+    this.context.moduleName = (this.chosenModule !== 'common') ? this.chosenModule : '';
+    this.context.capitalizedName = (this.chosenModule !== 'common') ? this.context.capitalizedName : this.context.lowercaseName;
     this.context.modulePath = this.chosenModule;
     if (this.chosenModule !== 'common') {
       this.context.modulePath += '.common';
@@ -71,9 +72,25 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
 
     this.fs.copyTpl(
       this.templatePath('template'),
-      this.destinationPath(target),
+      this.destinationPath(appTarget),
       this.context
     );
+
+
+    // Test Target
+    var testTarget = this.paths.testDir + '/unit/' + this.chosenModule;
+    if (this.chosenModule !== 'common') {
+      testTarget += '/common';
+    }
+    testTarget += '/services/' + this.context.lowercaseName + '.service.spec.js';
+
+    this.fs.copyTpl(
+      this.templatePath('unit.spec'),
+      this.destinationPath(testTarget),
+      this.context
+    );
+
+
   },
   end:          function () {
     console.log('');

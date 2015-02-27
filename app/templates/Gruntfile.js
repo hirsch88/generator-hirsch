@@ -87,7 +87,7 @@ module.exports = function(grunt){
     'express-keepalive'
   ]);
 
-  grunt.registerTask('deploy', [
+  grunt.registerTask('dist', [
     'build',
 
     'clean:temp',

@@ -117,8 +117,8 @@ module.exports = {
     icon += '      \\_:     :_/                              \n';
     icon += '        |@. .@|                                 \n';
     icon += '        |     |                                 \n';
-    icon += '         \\' + chalk.red('.-.') + '/            \n';
-    icon += '          ' + chalk.red('`-\'') + '             \n';
+    icon += '         \\.-./            \n';
+    icon += '          `-\'             \n';
 
 
     return icon;
