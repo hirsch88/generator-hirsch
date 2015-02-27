@@ -41,8 +41,17 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
     var target = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.context.lowercaseName + '/' + this.context.lowercaseName;
 
     this.fs.copyTpl(
-      this.templatePath('_Module'),
+      this.templatePath('module'),
       this.destinationPath(target + '.module.js'),
+      this.context
+    );
+
+    // Test Target
+    var testTarget = this.paths.testDir + '/midway/' + this.context.lowercaseName + '/' + this.context.lowercaseName;
+
+    this.fs.copyTpl(
+      this.templatePath('midway.spec'),
+      this.destinationPath(testTarget + '.module.spec.js'),
       this.context
     );
 
