@@ -77,7 +77,7 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
     );
 
 
-    // Target
+    // Test Target
     var testTarget = this.paths.testDir + '/unit/' + this.chosenModule;
     if (this.chosenModule !== 'common') {
       testTarget += '/common';
