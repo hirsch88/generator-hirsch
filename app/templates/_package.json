@@ -44,7 +44,6 @@
     "karma-firefox-launcher":   "^0.1.4",
     "karma-mocha":              "^0.1.10",
     "karma-ng-scenario":        "^0.1.0",
-    "karma-phantomjs-launcher": "^0.1.4",
     "jsdoc":                    "^3.3.0-beta1"
   },
   "scripts":         {

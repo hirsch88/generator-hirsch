@@ -21,15 +21,17 @@
     "i18n":     "assets/i18n/**/*.json"
   },
   "app":            {
-    "main":      "app/app.js",
-    "modules":   "app/**/*Module.js",
-    "scripts":   "app/**/*.js",
-    "templates": "app/**/*.html",
-    "coreDir":   "app/core",
-    "commonDir": "app/common",
-    "viewDir":   "app/views",
-    "layoutDir": "app/layout",
-    "common":    {
+    "main":       "app/app.js",
+    "modules":    "app/**/*.module.js",
+    "services":   "app/**/*.service.js",
+    "directives": "app/**/*.directive.js",
+    "scripts":    "app/**/*.js",
+    "templates":  "app/**/*.html",
+    "coreDir":    "app/core",
+    "commonDir":  "app/common",
+    "viewDir":    "app/views",
+    "layoutDir":  "app/layout",
+    "common":     {
       "serviceDir":   "app/common/services",
       "filterDir":    "app/common/filters",
       "templateDir":  "app/common/templates",

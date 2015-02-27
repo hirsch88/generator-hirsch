@@ -199,8 +199,8 @@ module.exports = yeoman.generators.Base.extend({
        * Layout Header Direktive
        */
       this.fs.copy(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/header.module.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/header.module.js')
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/layout.module.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/layout.module.js')
       );
 
       this.fs.copy(
@@ -263,11 +263,11 @@ module.exports = yeoman.generators.Base.extend({
     }
   },
   install:      function () {
-    this.installDependencies();
-    //{
-    //  skipInstall: '', //this.options['skip-install'],
-    //  skipMessage: ''
-    //});
+    this.installDependencies({
+      skipInstall: this.options['skip-install'],
+      skipMessage: ''
+    });
+
   },
   end:          function () {
     this.log('');
