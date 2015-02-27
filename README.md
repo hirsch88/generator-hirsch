@@ -1,46 +1,112 @@
-# generator-hirsch#BETA [![Build Status](https://secure.travis-ci.org/gery.hirschfeld@w3tec.ch/generator-hirsch.png?branch=master)](https://travis-ci.org/gery.hirschfeld@w3tec.ch/generator-hirsch)
+# generator-hirsch 
+
+[![NPM version](https://img.shields.io/npm/v/generator-hirsch.svg?style=flat)](https://www.npmjs.com/package/generator-hirsch)
 
 > [Yeoman](http://yeoman.io) generator
 
+> Create a module or route based AngularJS Application. 
 
-## Getting Started
 
-### What is Yeoman?
 
-Trick question. It's not a thing. It's this guy:
+## Prerequisites
+1. Install [Node.js](http://nodejs.org) 
+	- on OSX use [homebrew](http://brew.sh) `brew install node`
+	- on Windows use [chocolatey](https://chocolatey.org/) `choco install nodejs`
+	
+2. Install Yeoman `npm install -g yo`
 
-![](http://i.imgur.com/JHaAlBJ.png)
+3. Install these NPM packages globally
 
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
+    ```
+    npm install -g bower grunt nodemon        
+    ```
 
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
+## Get Started
+1. Install generator-hirsch
+    ```
+    npm install -g generator-hirsch
+    ```
 
-```bash
-npm install -g yo
-```
+2. Create a new folder and change directory to it
+    ```
+    mkdir myApp
+    cd myApp
+    ```
 
-### Yeoman Generators
+3. Run the generator
+    ```
+    yo hirsch
+    ```
+    
+## Exploring Hirsch
+### Templating
+- `yo hirsch:module myModule`
+	
+	Adds a new module to your project and also the karma tests
+	
+- `yo hirsch:service myService`
+	
+	Adds a new service to the chosen module of your project and also some karma tests
 
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
+- `yo hirsch:filter myFilter`
+	
+	Adds a new filter to the chosen module of your project and also some karma tests
 
-To install generator-hirsch from npm, run:
+- `yo hirsch:directive myDirective`
+	
+	Adds a new directive to the chosen module of your project and also some karma tests
 
-```bash
-npm install -g generator-hirsch
-```
+### Task Listing
+#### Building
+- `grunt`
+	
+	Injects all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
+	
+- `grunt build`
+	
+	Injects all JS files into your index.html and generates a css from your less
+	
+- `grunt index`
+	
+	Injects all JS files into your index.html
+	
+- `grunt style`
+	
+	Generates a css from your less
+	
+- `grunt dist`
+	
+	This generates a minified app
+	
+- `grunt docs`
+	
+	Generates a jsdocs
+		
+#### Servers
+- `grunt serve`
+	
+	Starts a express server at localhost:3000 to visit your app
+	
+- `grunt serve:dist`
+	
+	Starts a express server at localhost:4000 to visit your dist
+	
+- `grunt serve:docs`
+	
+	Starts a express server at localhost:4000 to visit your docs
 
-Finally, initiate the generator:
-
-```bash
-yo hirsch
-```
-
-### Getting To Know Yeoman
-
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
-
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
-
+#### Testing
+- `grunt test`
+	
+	Runs all your karma tests
+	
+- `grunt test:unit`
+	
+	Runs all your unit karma tests
+	    
+- `grunt test:midway`
+	
+	Runs all your midway karma tests
 
 ## License
 
