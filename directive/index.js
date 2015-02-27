@@ -74,6 +74,7 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
     // Module name
     this.context.lowerModuleName = helper.firstCharToLowerCase(this.chosenModule);
     this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);
+
     this.context.modulePath = this.chosenModule;
     if (this.chosenModule !== 'common') {
       this.context.modulePath += '.common';
@@ -89,6 +90,20 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
     this.fs.copy(
       this.templatePath('template.html'),
       this.destinationPath(target + '.directive.html')
+    );
+
+
+    // Test Target
+    var testTarget = this.paths.testDir + '/unit/' + this.chosenModule;
+    if (this.chosenModule !== 'common') {
+      testTarget += '/common';
+    }
+    testTarget += '/directives/' + this.context.lowercaseName + '.directive.spec.js';
+
+    this.fs.copyTpl(
+      this.templatePath('unit.spec'),
+      this.destinationPath(testTarget),
+      this.context
     );
 
   },

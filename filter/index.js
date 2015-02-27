@@ -64,6 +64,7 @@ var FilterGenerator = yeoman.generators.NamedBase.extend({
     // Module name
     this.context.moduleName = (this.chosenModule !== 'common') ? this.chosenModule : '';
     this.context.capitalizedName = (this.chosenModule !== 'common') ? this.context.capitalizedName : this.context.lowercaseName;
+
     this.context.modulePath = this.chosenModule;
     if (this.chosenModule !== 'common') {
       this.context.modulePath += '.common';
