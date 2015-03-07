@@ -22,12 +22,12 @@
      */
     function <%= moduleName %><%= capitalizedName %>() {
         return {
-            restrict:         '<%= restrict %>',
-            templateUrl:      '<%= templateUrl %>',
+            restrict:         '<%= restrict %>',<% if (hasTemplate) { %>
+            templateUrl:      '<%= templateUrl %>',<% } %>
             controller:       <%= moduleName %><%= capitalizedName %>Controller,
             controllerAs:     '<%= lowerModuleName %><%= lowercaseName %>',
             bindToController: true // because the scope is isolated
-        }
+        };
     }
 
     function <%= moduleName %><%= capitalizedName %>Controller(<%= dependencies %>) {
