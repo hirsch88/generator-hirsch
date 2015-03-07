@@ -1,5 +1,6 @@
 node_modules/
-app/lib
+app/lib/
+src/lib/
 temp/
 tmp/
 .tmp/

@@ -22,18 +22,26 @@
      */
     function <%= moduleName %><%= capitalizedName %>() {
         return {
-            restrict:         '<%= restrict %>',
-            templateUrl:      '<%= templateUrl %>',
+            restrict:         '<%= restrict %>',<% if (hasTemplate) { %>
+            templateUrl:      '<%= templateUrl %>',<% } %><% if (hasController) { %>
             controller:       <%= moduleName %><%= capitalizedName %>Controller,
-            controllerAs:     '<%= lowerModuleName %><%= lowercaseName %>',
-            bindToController: true // because the scope is isolated
-        }
-    }
+            controllerAs:     '<%= lowerModuleName %><%= capitalizedName %>',
+            bindToController: true<% } %><% if (hasLinkFnc && hasController) { %>,<% } %><% if (hasLinkFnc) { %>
+            link:             <%= lowerModuleName %><%= capitalizedName %>Link<% } %>
 
+        };
+        <% if (hasLinkFnc) { %>
+        function <%= lowerModuleName %><%= capitalizedName %>Link(scope, element, attrs) {
+            
+            // code will be here ...
+
+        }<% } %>
+    }
+    <% if (hasController) { %>
     function <%= moduleName %><%= capitalizedName %>Controller(<%= dependencies %>) {
         var vm = this;
 
-    }
+    }<% } %>
 
 
 }());

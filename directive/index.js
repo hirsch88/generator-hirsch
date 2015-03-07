@@ -39,6 +39,24 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
         name:    'restrict',
         message: 'What kind of restrict to you use',
         default: 'EA'
+      },
+      {
+        type:    'confirm',
+        name:    'hasTemplate',
+        message: 'Do you need a TEMPLATE file?',
+        default: 'true'
+      },
+      {
+        type:    'confirm',
+        name:    'hasController',
+        message: 'Do you need a CONTROLLER file?',
+        default: 'true'
+      },
+      {
+        type:    'confirm',
+        name:    'hasLinkFnc',
+        message: 'Do you need a LINK function file?',
+        default: 'false'
       }
     ];
 
@@ -48,6 +66,9 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
       this.description = props.description;
       this.dependencies = props.dependencies;
       this.restrict = props.restrict;
+      this.hasTemplate = props.hasTemplate;
+      this.hasController = props.hasController;
+      this.hasLinkFnc = props.hasLinkFnc;
       this.chosenModule = props.chosenModule || 'common';
       this.modules = helper.buildModuleDependencies(props.modules);
 
@@ -61,6 +82,9 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
     this.context.modules = this.modules;
     this.context.dependencies = this.dependencies;
     this.context.restrict = this.restrict.toUpperCase();
+    this.context.hasTemplate = this.hasTemplate;
+    this.context.hasController = this.hasController;
+    this.context.hasLinkFnc = this.hasLinkFnc;
 
     // Target
     var target = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.chosenModule;
@@ -70,6 +94,7 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
     target += '/directives/' + this.context.lowercaseName;
 
     this.context.templateUrl = target + '.directive.html';
+    this.context.templateUrl = this.context.templateUrl.replace('src/', '');
 
     // Module name
     this.context.lowerModuleName = helper.firstCharToLowerCase(this.chosenModule);
@@ -87,10 +112,12 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
       this.context
     );
 
-    this.fs.copy(
-      this.templatePath('template.html'),
-      this.destinationPath(target + '.directive.html')
-    );
+    if(this.hasTemplate){
+      this.fs.copy(
+        this.templatePath('template.html'),
+        this.destinationPath(target + '.directive.html')
+      );
+    }
 
 
     // Test Target
