@@ -1,6 +1,6 @@
 {
   "name": "generator-hirsch",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
@@ -21,6 +21,7 @@
     "helper.js",
     "service",
     "filter",
+    "module",
     "view",
     "directive"
   ],
