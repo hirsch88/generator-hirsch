@@ -36,7 +36,8 @@
     .constant('pathConstant', {
       SERVICE:   'app/common/services/',
       DIRECTIVE: 'app/common/directives/',
-      FILTERS:   'app/common/filters/'
+      FILTERS:   'app/common/filters/',
+      TEMPLATES: 'app/common/templates/'
     })
     .config(RouteConfig)
     .config(LogConfig)

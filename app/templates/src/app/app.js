@@ -1,12 +1,12 @@
 /**
- * gulpApp
+ * <%= prompts.appName %>
  * @namespace app
  *
  * @description
+ * <%= prompts.description %>
  *
- *
- * @author Gery Hirschfeld <gery.hirschfeld@w3tec.ch>
- * @date March, 2015
+ * @author <%= prompts.author %>
+ * @date <%= date %>
  * @version 0.0.0
  */
 (function () {
@@ -22,7 +22,7 @@
       // Layout components
       'layout',
 
-      //'common.service.member',
+      'common.service.member',
 
       // App modules with business logic
       'home'

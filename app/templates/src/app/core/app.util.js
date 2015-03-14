@@ -21,7 +21,7 @@
    * @see app.util
    */
   var appUtil = {
-    title:  'gulpApp',
+    title:  '<%= prompts.appName %>',
     server: {
       local: 'http://localhost:1338/api/',
       prod:  'http://localhost:1338/api/'

@@ -6,7 +6,7 @@
 
   angular
     .module( 'common.directive.header', [] )
-    .directive( 'gaHeader', HeaderDirective );
+    .directive( '<%= prompts.prefix %>Header', HeaderDirective );
 
   /**
    * @memberOf layout
@@ -16,7 +16,7 @@
    * Header element outside of the ngView area
    *
    * @example
-   * <ga-header></ga-header>
+   * <<%= prompts.prefix %>-header></<%= prompts.prefix %>-header>
    *
    * @constructor
    */
@@ -31,7 +31,7 @@
   }
 
   /**
-   * @memberOf layout.gaHeader
+   * @memberOf layout.<%= prompts.prefix %>Header
    * @name HeaderController
    *
    * @constructor
