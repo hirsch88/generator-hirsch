@@ -183,16 +183,16 @@ module.exports = yeoman.generators.Base.extend({
        * App Core
        */
       this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appUtil.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appUtil.js'), context
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/app.util.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/app.util.js'), context
       );
       this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appConfig.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appConfig.js'), context
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/app.config.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/app.config.js'), context
       );
       this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appCore.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appCore.js'), context
+        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/app.core.js'),
+        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/app.core.js'), context
       );
 
       /**

@@ -9,30 +9,30 @@
         .module('<%= modulePath %>.<%= lowercaseName %>', [
             <%= modules %>
         ])
-        .directive( '<%= prefix %><%= moduleName %><%= capitalizedName %>', <%= moduleName %><%= capitalizedName %> );
+        .directive( '<%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>', <%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>Directive );
 
     /**
      * @memberOf <%= modulePath %>
-     * @namespace <%= moduleName %><%= capitalizedName %>
+     * @namespace <%= modulePath %>.<%= lowercaseName %>
      *
      * @description
      * <%= description %>
      *
      * @example <<%= prefix %>-<%= lowerModuleName %>-<%= lowercaseName %>></<%= prefix %>-<%= lowerModuleName %>-<%= lowercaseName %>>
      */
-    function <%= moduleName %><%= capitalizedName %>() {
+    function <%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>Directive() {
         return {
             restrict:         '<%= restrict %>',<% if (hasTemplate) { %>
             templateUrl:      '<%= templateUrl %>',<% } %><% if (hasController) { %>
             controller:       <%= moduleName %><%= capitalizedName %>Controller,
             controllerAs:     '<%= lowerModuleName %><%= capitalizedName %>',
             bindToController: true<% } %><% if (hasLinkFnc && hasController) { %>,<% } %><% if (hasLinkFnc) { %>
-            link:             <%= lowerModuleName %><%= capitalizedName %>Link<% } %>
+            link:             <%= moduleName %><%= capitalizedName %>Link<% } %>
 
         };
         <% if (hasLinkFnc) { %>
-        function <%= lowerModuleName %><%= capitalizedName %>Link(scope, element, attrs) {
-            
+        function <%= moduleName %><%= capitalizedName %>Link(scope, element, attrs) {
+
             // code will be here ...
 
         }<% } %>

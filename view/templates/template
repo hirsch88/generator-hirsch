@@ -17,29 +17,30 @@
         .module('<%= modulePath %>.<%= lowercaseName %>', [
             <%= modules %>
         ])
-        .config(<%= capitalizedName %>RouteConfig)
-        .controller('<%= modulePath %><%= capitalizedName %>Controller', <%= capitalizedName %>Controller);
+        .config(RouteConfig)
+        .controller('<%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>Controller', <%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>Controller);
 
 
     /**
      * @memberOf <%= modulePath %>.<%= lowercaseName %>
-     * @name <%= capitalizedName %>RouteConfig
+     * @name RouteConfig
      */
-    function <%= capitalizedName %>RouteConfig($routeProvider) {
+    function RouteConfig($routeProvider) {
         $routeProvider
-          .when('/<%= modulePath %>/<%= url %>', {
-            navigationKey: '<%= modulePath %><%= capitalizedName %>',
-            templateUrl:   '<%= templateUrl %>',
-            controller:    '<%= modulePath %><%= capitalizedName %>Controller',
-            controllerAs:  '<%= modulePath %><%= capitalizedName %>'
+            .when('/<%= modulePath %>/<%= url %>', {
+                session: true
+                navigationKey: '<%= modulePath %>',
+                templateUrl:   '<%= templateUrl %>',
+                controller:    '<%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>Controller',
+                controllerAs:  '<%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>'
           });
     }
 
     /**
      * @memberOf <%= modulePath %>.<%= lowercaseName %>
-     * @name <%= capitalizedName %>Controller
+     * @name <%= capitalizedModuleName %><%= capitalizedName %>Controller
      */
-    function <%= capitalizedName %>Controller(<%= dependencies %>) {
+    function <%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>Controller(<%= dependencies %>) {
         var vm = this;
 
         // code goes here...

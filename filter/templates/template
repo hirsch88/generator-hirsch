@@ -9,16 +9,16 @@
         .module('<%= modulePath %>.<%= lowercaseName %>', [
             <%= modules %>
         ])
-        .filter('<%= moduleName %><%= capitalizedName %>', <%= moduleName %><%= capitalizedName %>);
+        .filter('<%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>', <%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>Filter);
 
     /**
      * @memberOf <%= modulePath %>
-     * @namespace <%= moduleName %><%= capitalizedName %>
+     * @namespace <%= modulePath %>.<%= lowercaseName %>
      *
      * @description
      * <%= description %>
      */
-    function <%= moduleName %><%= capitalizedName %>(<%= dependencies %>) {
+    function <%= prefix %><%= capitalizedModuleName %><%= capitalizedName %>Filter(<%= dependencies %>) {
 
         return Filter;
         ////////////////////////

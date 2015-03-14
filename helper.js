@@ -56,16 +56,18 @@ module.exports = {
     }
   },
 
-  getContext: function (name) {
+  getContext: function (name, module) {
     var pkg = this.getPackage();
 
     return {
-      name:            name,
-      lowercaseName:   this.firstCharToLowerCase(name),
-      capitalizedName: this.firstCharToUpperCase(name),
-      appName:         pkg.name,
-      prefix:          pkg.prefix,
-      date:            this.getCreationDate()
+      name:                  name,
+      lowercaseName:         this.firstCharToLowerCase(name),
+      lowercaseModuleName:   this.firstCharToLowerCase(module),
+      capitalizedName:       this.firstCharToUpperCase(name),
+      capitalizedModuleName: this.firstCharToUpperCase(module),
+      appName:               pkg.name,
+      prefix:                pkg.prefix,
+      date:                  this.getCreationDate()
     };
   },
 

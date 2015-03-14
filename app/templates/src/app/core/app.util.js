@@ -73,10 +73,6 @@
 
   };
 
-  angular
-    .module('app.util', [])
-    .value('appUtil', appUtil);
-
   window.appUtil = appUtil;
 
 }(window));

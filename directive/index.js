@@ -77,7 +77,7 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
 
   },
   writing:      function () {
-    this.context = helper.getContext(this.name);
+    this.context = helper.getContext(this.name, (this.chosenModule !== 'common') ? this.chosenModule : '');
     this.context.description = this.description;
     this.context.modules = this.modules;
     this.context.dependencies = this.dependencies;
