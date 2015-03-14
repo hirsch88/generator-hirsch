@@ -16,37 +16,36 @@ module.exports = function(grunt){
   /**
    * Configurable paths for the application
    */
-  var GruntPathConfig = grunt.file.readJSON('./grunt/config/paths.json');
-  var GruntProjectConfig = require('./grunt/config/project.js')(grunt);
+  var projectConfig = require('./project.config')();
 
   /**
    * Config Tasks
    */
-  var ExpressConfig = require('./grunt/task/express.js');
-  var LessConfig = require('./grunt/task/less.js');
-  var JshintConfig = require('./grunt/task/jshint.js');
-  var WiredepConfig = require('./grunt/task/wiredep.js');
-  var InjectorConfig = require('./grunt/task/injector.js');
-  var WatchConfig = require('./grunt/task/watch.js');
+  var ExpressConfig = require('./grunt/express');
+  var LessConfig = require('./grunt/less');
+  var JshintConfig = require('./grunt/jshint');
+  var WiredepConfig = require('./grunt/wiredep');
+  var InjectorConfig = require('./grunt/injector');
+  var WatchConfig = require('./grunt/watch');
 
-  var CleanConfig = require('./grunt/task/clean.js');
-  var CopyConfig = require('./grunt/task/copy.js');
-  var ConcatConfig = require('./grunt/task/concat.js');
-  var NgAnnotateConfig = require('./grunt/task/ngannotate.js');
-  var UglifyConfig = require('./grunt/task/uglify.js');
-  var CssMinConfig = require('./grunt/task/cssmin.js');
-  var HtmlMinConfig = require('./grunt/task/htmlmin.js');
+  var CleanConfig = require('./grunt/clean');
+  var CopyConfig = require('./grunt/copy');
+  var ConcatConfig = require('./grunt/concat');
+  var NgAnnotateConfig = require('./grunt/ngannotate');
+  var UglifyConfig = require('./grunt/uglify');
+  var CssMinConfig = require('./grunt/cssmin');
+  var HtmlMinConfig = require('./grunt/htmlmin');
 
-  var JsDocConfig = require('./grunt/task/jsdoc.js');
-  var KarmaConfig = require('./grunt/task/karma.js');
+  var KarmaConfig = require('./grunt/karma');
 
   /**
    * Task Configs
    */
   grunt.config.init(
     grunt.util._.extend(
-      GruntPathConfig,
-      GruntProjectConfig,
+      {
+        projectConfig : projectConfig
+      },
       ExpressConfig,
       LessConfig,
       JshintConfig,
@@ -60,7 +59,6 @@ module.exports = function(grunt){
       UglifyConfig,
       CssMinConfig,
       HtmlMinConfig,
-      JsDocConfig,
       KarmaConfig
 
     )
@@ -115,16 +113,6 @@ module.exports = function(grunt){
     'express-keepalive'
   ]);
 
-  grunt.registerTask('serve:docs', [
-    'express:localDocsServer',
-    'express-keepalive'
-  ]);
-
-  grunt.registerTask('docs', [
-    'clean:docs',
-    'jsdoc:app'
-  ]);
-
   grunt.registerTask('test:unit', [
     'karma:unit'
   ]);
@@ -133,8 +121,5 @@ module.exports = function(grunt){
     'karma:midway'
   ]);
 
-  //grunt.registerTask('test:e2e', [
-  //  'karma:e2e'
-  //]);
 
 };

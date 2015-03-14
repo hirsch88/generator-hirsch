@@ -1,12 +1,12 @@
 /**
- * <%= appName %>
+ * gulpApp
  * @namespace app
  *
  * @description
- * <%= description %>
  *
- * @author <%= author %>
- * @date <%= date %>
+ *
+ * @author Gery Hirschfeld <gery.hirschfeld@w3tec.ch>
+ * @date March, 2015
  * @version 0.0.0
  */
 (function () {

@@ -21,7 +21,7 @@
    * @see app.util
    */
   var appUtil = {
-    title: '<%= appName %>',
+    title:  'gulpApp',
     server: {
       local: 'http://localhost:1338/api/',
       prod:  'http://localhost:1338/api/'
@@ -43,13 +43,10 @@
       switch (window.location.hostname) {
         case 'localhost':
           return this.server.local;
-          break;
-        case 'dev.<%= appName %>':
+        case 'dev.gulpApp':
           return this.server.dev;
-          break;
-        case 'test.<%= appName %>':
+        case 'test.gulpApp':
           return this.server.test;
-          break;
         default:
           return this.server.prod;
       }
@@ -68,7 +65,7 @@
      * @returns {String} template url/path
      */
     buildTemplateUrl: function (url) {
-      return '<%= viewDir %>/' + url;
+      return 'app/views/' + url;
     }
 
   };

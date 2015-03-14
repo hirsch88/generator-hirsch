@@ -34,9 +34,9 @@
    * @property {String} FILTERS - Common filter path
    */
     .constant('pathConstant', {
-      SERVICE:    'app/common/services/',
-      DIRECTIVE:  'app/common/directives/',
-      FILTERS:    'app/common/filters/'
+      SERVICE:   'app/common/services/',
+      DIRECTIVE: 'app/common/directives/',
+      FILTERS:   'app/common/filters/'
     })
     .config(RouteConfig)
     .config(LogConfig)
@@ -93,7 +93,8 @@
    * @name CompileConfig
    *
    * @description
-   * Tools like Protractor and Batarang need this information to run, but you can disable this in production for a significant performance boost with
+   * Tools like Protractor and Batarang need this information to run, but you can disable
+   * this in production for a significant performance boost with
    *
    * @constructor
    */

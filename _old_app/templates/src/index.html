@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+<head>
+  <style>
+    /* This helps the ng-show/ng-hide animations start at the right place. */
+    /* Since Angular has this but needs to load, this gives us the class early. */
+
+    .ng-hide {
+      display: none !important;
+    }
+  </style>
+
+  <title><%= appName %></title>
+  <link rel="shortcut icon" type="image/ico" href="<%= mediaDir %>/favicon.ico"/>
+  <meta name="description" content="<%= description %>">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <base href="/">
+
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- injector:css -->
+  <!-- endinjector -->
+
+</head>
+<body>
+
+<<%= appSign %>-header></<%= appSign %>-header>
+
+<div ng-view></div>
+
+<!-- bower:js -->
+<!-- endbower -->
+<!-- injector:js -->
+<!-- endinjector -->
+
+</body>
+</html>

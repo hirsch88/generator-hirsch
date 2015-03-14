@@ -10,30 +10,59 @@
     }
   </style>
 
-  <title><%= appName %></title>
-  <link rel="shortcut icon" type="image/ico" href="<%= mediaDir %>/favicon.ico"/>
-  <meta name="description" content="<%= description %>">
+  <title>gulpApp</title>
+  <link rel="shortcut icon" type="image/ico" href="assets/medias/favicon.ico"/>
+  <meta name="description" content="">
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
   <base href="/">
 
   <!-- bower:css -->
-  <!-- endbower -->
-  <!-- injector:css -->
-  <!-- endinjector -->
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+  <!-- endinject -->
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="assets/css/gulpApp.css">
+  <!-- endinject -->
 
 </head>
 <body>
 
-<<%= appSign %>-header></<%= appSign %>-header>
+<ga-header></ga-header>
+
 
 <div ng-view></div>
 
 <!-- bower:js -->
-<!-- endbower -->
-<!-- injector:js -->
-<!-- endinjector -->
+<script src="lib/jquery/dist/jquery.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="lib/underscore/underscore.js"></script>
+<script src="lib/moment/moment.js"></script>
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular-sanitize/angular-sanitize.js"></script>
+<script src="lib/angular-messages/angular-messages.js"></script>
+<script src="lib/angular-route/angular-route.js"></script>
+<script src="lib/angular-cookie/angular-cookie.js"></script>
+<script src="lib/angular-translate/angular-translate.js"></script>
+<script src="lib/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="lib/lodash/lodash.js"></script>
+<!-- endinject -->
+
+<!-- inject:js -->
+<script src="app/app.js"></script>
+<script src="app/core/app.config.js"></script>
+<script src="app/core/app.core.js"></script>
+<script src="app/core/app.util.js"></script>
+<script src="app/common/common.module.js"></script>
+<script src="app/common/services/member.service.js"></script>
+<script src="app/home/home.module.js"></script>
+<script src="app/layout/layout.module.js"></script>
+<script src="app/home/views/home.js"></script>
+<script src="app/layout/common/directives/header.directive.js"></script>
+<!-- endinject -->
+
 
 </body>
 </html>

@@ -6,17 +6,17 @@
 
   angular
     .module( 'common.directive.header', [] )
-    .directive( '<%= appSign %>Header', HeaderDirective );
+    .directive( 'gaHeader', HeaderDirective );
 
   /**
    * @memberOf layout
-   * @namespace <%= appSign %>Header
+   * @namespace gaHeader
    *
    * @description
    * Header element outside of the ngView area
    *
    * @example
-   * <<%= appSign %>-header></<%= appSign %>-header>
+   * <ga-header></ga-header>
    *
    * @constructor
    */
@@ -27,16 +27,16 @@
       controller: HeaderController,
       controllerAs: 'header',
       bindToController: true // because the scope is isolated
-    }
+    };
   }
 
   /**
-   * @memberOf layout.<%= appSign %>Header
+   * @memberOf layout.gaHeader
    * @name HeaderController
    *
    * @constructor
    */
-  function HeaderController(appUtil) {
+  function HeaderController() {
     var vm = this;
     vm.title = appUtil.title;
   }

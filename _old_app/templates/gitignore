@@ -1,0 +1,10 @@
+node_modules/
+app/lib/
+src/lib/
+temp/
+tmp/
+.tmp/
+bin/
+dist/
+.idea
+old/
