@@ -18,6 +18,7 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var minifyCSS = require('gulp-minify-css');
 var header = require('gulp-header');
+var install = require('gulp-install');
 
 
 /**
@@ -29,6 +30,17 @@ gulp.task('help', $.taskListing);
 /* ----------------------------------------------------------------
  DEVELOPMENT
  ---------------------------------------------------------------- */
+
+/**
+ * INSTALL
+ * Automatically install npm and bower packages if package.json or
+ * bower.json is found in the gulp file stream respectively
+ */
+gulp.task('install', function () {
+  return gulp
+    .src(['./bower.json', './package.json'])
+    .pipe(install());
+});
 
 /**
  * SERVE

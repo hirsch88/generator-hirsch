@@ -5,10 +5,16 @@ module.exports = function (isGenerator) {
 
   var path = require('path');
 
-  var wiredep = require('wiredep');
-  var bowerFilesJs = (!isGenerator) ? wiredep({})['js'] : [];
-  var bowerFilesCss = (!isGenerator) ? wiredep({})['css'] : [];
   var bowerFiles = (!isGenerator) ? require('main-bower-files') : [];
+  var wiredep = require('wiredep');
+  var bowerFilesJs = [];
+  var bowerFilesCss = [];
+  try {
+    bowerFilesJs = (!isGenerator) ? wiredep({})['js'] : [];
+    bowerFilesCss = (!isGenerator) ? wiredep({})['css'] : [];
+  } catch (e) {
+
+  }
 
   var projectConfig = {
 
