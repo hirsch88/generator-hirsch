@@ -5,7 +5,7 @@ var helper = require('./../helper');
 var chalk = require('chalk');
 var path = require('path');
 
-var ModuleGenerator = yeoman.generators.NamedBase.extend({
+var ServiceGenerator = yeoman.generators.NamedBase.extend({
   /**
    * INITIALIZING
    * Loads the projectConfig into the scope of the generator
@@ -42,8 +42,6 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
         default: this.modules.indexOf('common')
       }
     ];
-
-    //helper.getPromtsForModuleBasedFileStructure(this, prompts);
 
     this.prompt(prompts, function (props) {
       this.description = props.description;
@@ -122,8 +120,8 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
   },
   end:          function () {
     console.log('');
-    console.log(chalk.green('✔ ') + 'Module ' + chalk.green(this.projectConfig.meta.capitalizedName) + ' created');
+    console.log(chalk.green('✔ ') + 'Service ' + chalk.green(this.projectConfig.meta.capitalizedName) + ' created');
     console.log('');
   }
 });
-module.exports = ModuleGenerator;
+module.exports = ServiceGenerator;

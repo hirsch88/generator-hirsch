@@ -52,20 +52,20 @@ module.exports = {
     );
   },
 
-  getContext: function (name, module) {
-    var pkg = this.getPackage();
-
-    return {
-      name:                  name,
-      lowercaseName:         this.firstCharToLowerCase(name),
-      lowercaseModuleName:   this.firstCharToLowerCase(module),
-      capitalizedName:       this.firstCharToUpperCase(name),
-      capitalizedModuleName: this.firstCharToUpperCase(module),
-      appName:               pkg.name,
-      prefix:                pkg.prefix,
-      date:                  this.getCreationDate()
-    };
-  },
+  //getContext: function (name, module) {
+  //  var pkg = this.getPackage();
+  //
+  //  return {
+  //    name:                  name,
+  //    lowercaseName:         this.firstCharToLowerCase(name),
+  //    lowercaseModuleName:   this.firstCharToLowerCase(module),
+  //    capitalizedName:       this.firstCharToUpperCase(name),
+  //    capitalizedModuleName: this.firstCharToUpperCase(module),
+  //    appName:               pkg.name,
+  //    prefix:                pkg.prefix,
+  //    date:                  this.getCreationDate()
+  //  };
+  //},
 
   buildMetaInformations: function (name, module) {
     module = module || '';
