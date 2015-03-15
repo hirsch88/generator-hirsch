@@ -14,8 +14,8 @@ module.exports = {
     return require(path.join(process.cwd(), 'package.json'));
   },
 
-  getPaths: function () {
-    return require(path.join(process.cwd(), 'grunt/config/paths.json'));
+  getProjectConfig: function () {
+    return require(path.join(process.cwd(), 'project.config.js'))();
   },
 
   isFileStructureModuleBased: function (pkg) {
@@ -23,37 +23,33 @@ module.exports = {
   },
 
   getModulesFromFileStructure: function (scope, done) {
-    if (scope.isModuleBased) {
-      fs.readdir(scope.destinationPath(scope.paths.srcDir + '/' + scope.paths.appDir), function (err, files) {
-        if (files) {
-          scope.modules = [];
-          for (var i = 0; i < files.length; i++) {
-            if (files[i].indexOf('.') === -1) {
-              if (scope.paths.ignoredModules.indexOf(files[i]) === -1) {
-                scope.modules.push(files[i]);
-              }
+    fs.readdir(scope.destinationPath(scope.projectConfig.path.srcDir + '/' + scope.projectConfig.path.appDir), function (err, files) {
+      if (files) {
+        scope.modules = [];
+        for (var i = 0; i < files.length; i++) {
+          if (files[i].indexOf('.') === -1) {
+            if (scope.projectConfig.ignoredModules.indexOf(files[i]) === -1) {
+              scope.modules.push(files[i]);
             }
           }
-          done();
-        } else {
-          done();
         }
-      });
-    }
+        done();
+      } else {
+        done();
+      }
+    });
   },
 
   getPromtsForModuleBasedFileStructure: function (scope, prompts) {
-    if (scope.isModuleBased) {
-      prompts.push(
-        {
-          type:    'list',
-          name:    'chosenModule',
-          message: 'Choose the location(modules) for your service: ',
-          choices: scope.modules,
-          default: scope.modules.indexOf('common')
-        }
-      );
-    }
+    prompts.push(
+      {
+        type:    'list',
+        name:    'chosenModule',
+        message: 'Choose the location(modules) for your service: ',
+        choices: scope.modules,
+        default: scope.modules.indexOf('common')
+      }
+    );
   },
 
   getContext: function (name, module) {
@@ -68,6 +64,19 @@ module.exports = {
       appName:               pkg.name,
       prefix:                pkg.prefix,
       date:                  this.getCreationDate()
+    };
+  },
+
+  buildMetaInformations: function (name, module) {
+    module = module || '';
+
+    return {
+      name:                  name,
+      module:                this.firstCharToLowerCase(module),
+      lowercaseName:         this.firstCharToLowerCase(name),
+      lowercaseModuleName:   (module !== 'common') ? this.firstCharToLowerCase(module): '',
+      capitalizedName:       this.firstCharToUpperCase(name),
+      capitalizedModuleName: (module !== 'common') ? this.firstCharToUpperCase(module): ''
     };
   },
 

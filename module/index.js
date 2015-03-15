@@ -3,11 +3,16 @@
 var yeoman = require('yeoman-generator');
 var helper = require('./../helper');
 var chalk = require('chalk');
+var path = require('path');
 
 var ModuleGenerator = yeoman.generators.NamedBase.extend({
+  /**
+   * INITIALIZING
+   * Loads the projectConfig into the scope of the generator
+   */
   initializing: function () {
-    this.pkg = helper.getPackage();
-    this.paths = helper.getPaths();
+    this.projectConfig = helper.getProjectConfig();
+    this.projectConfig.date = helper.getCreationDate();
   },
   prompting:    function () {
     var done = this.async();
@@ -26,39 +31,76 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
     ];
     this.prompt(prompts, function (props) {
       this.description = props.description;
-      this.dependencies = props.dependencies;
-      this.modules = helper.buildModuleDependencies(props.modules);
+      this.description = props.description;
+      this.modules = props.modules;
 
       done();
     }.bind(this));
   },
-  writing:      function () {
-    this.context = helper.getContext(this.name);
-    this.context.description = this.description;
-    this.context.modules = this.modules;
-    this.context.dependencies = this.dependencies;
+  writing:      {
+    /**
+     * PROMPTS
+     * Adds the answers of the user to the project config object
+     */
+    prompts:     function () {
+      var done = this.async();
+      this.projectConfig.prompts = {};
+      this.projectConfig.prompts.description = this.description;
+      this.projectConfig.prompts.modules = helper.buildModuleDependencies(this.modules);
+      this.projectConfig.meta = helper.buildMetaInformations(this.name);
+      done();
+    },
+    /**
+     * DESTINATION
+     * Defines the destination of our new files
+     */
+    destination: function () {
 
-    var target = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.context.lowercaseName + '/' + this.context.lowercaseName;
+      this.targetScript = path.join(
+        this.projectConfig.path.srcDir,
+        this.projectConfig.path.appDir,
+        this.projectConfig.meta.lowercaseName,
+        this.projectConfig.meta.lowercaseName + '.module.js'
+      );
 
-    this.fs.copyTpl(
-      this.templatePath('module'),
-      this.destinationPath(target + '.module.js'),
-      this.context
-    );
+      this.targetTestMidway = path.join(
+        this.projectConfig.path.testDir,
+        'midway',
+        this.projectConfig.meta.lowercaseName,
+        this.projectConfig.meta.lowercaseName + '.module.spec.js'
+      );
 
-    // Test Target
-    var testTarget = this.paths.testDir + '/midway/' + this.context.lowercaseName + '/' + this.context.lowercaseName;
-
-    this.fs.copyTpl(
-      this.templatePath('midway.spec'),
-      this.destinationPath(testTarget + '.module.spec.js'),
-      this.context
-    );
-
+    },
+    /**
+     * TEMPLATE
+     */
+    //template: function () {
+    //
+    //},
+    /**
+     * SCRIPT
+     */
+    script:      function () {
+      this.fs.copyTpl(
+        this.templatePath('script'),
+        this.destinationPath(this.targetScript),
+        this.projectConfig
+      );
+    },
+    /**
+     * TEST
+     */
+    test:        function () {
+      this.fs.copyTpl(
+        this.templatePath('midway.spec'),
+        this.destinationPath(this.targetTestMidway),
+        this.projectConfig
+      );
+    }
   },
   end:          function () {
     console.log('');
-    console.log(chalk.green('✔ ') + 'Module ' + chalk.green(this.context.capitalizedName) + ' created');
+    console.log(chalk.green('✔ ') + 'Module ' + chalk.green(this.projectConfig.meta.capitalizedName) + ' created');
     console.log('');
   }
 });

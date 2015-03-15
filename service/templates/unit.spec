@@ -1,12 +1,12 @@
 'use strict';
 
-describe('Unit: <%= capitalizedModuleName %><%= capitalizedName %>', function () {
+describe('Unit: <%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', function () {
 
   beforeEach(module('app'));
 
-  it('should contain an <%= capitalizedModuleName %><%= capitalizedName %> service',
-    inject(function (<%= capitalizedModuleName %><%= capitalizedName %>) {
-      expect(<%= capitalizedModuleName %><%= capitalizedName %>).not.to.equal(null);
+  it('should contain an <%= meta.capitalizedModuleName %><%= meta.capitalizedName %> service',
+    inject(function (<%= meta.capitalizedModuleName %><%= meta.capitalizedName %>) {
+      expect(<%= meta.capitalizedModuleName %><%= meta.capitalizedName %>).not.to.equal(null);
     })
   );
 
