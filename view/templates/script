@@ -11,7 +11,7 @@
      *
      * @description
      * <%= prompts.description %>
-     * Route: /<%= meta.url %>
+     * Route: /<%= prompts.url %>
      */
     angular
         .module('<%= meta.module %>.<%= meta.lowercaseName %>', [
@@ -27,7 +27,7 @@
      */
     function RouteConfig($routeProvider) {
         $routeProvider
-            .when('/<%= meta.module %>/<%= meta.url %>', {
+            .when('/<%= prompts.url %>', {
                 session: true
                 navigationKey: '<%= meta.module %>',
                 templateUrl:   '<%= meta.templateUrl %>',

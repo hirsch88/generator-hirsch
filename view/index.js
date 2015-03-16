@@ -25,6 +25,11 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
     var prompts = [
       {
         type:    'string',
+        name:    'url',
+        message: 'Tell us the url to which the view shall response to.'
+      },
+      {
+        type:    'string',
         name:    'description',
         message: 'Please describe your view.'
       },
@@ -48,6 +53,7 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
     ];
 
     this.prompt(prompts, function (props) {
+      this.url = props.url;
       this.description = props.description;
       this.dependencies = props.dependencies;
       this.chosenModule = props.chosenModule || 'common';
@@ -64,36 +70,11 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
     prompts:     function () {
       var done = this.async();
       this.projectConfig.prompts = {};
+      this.projectConfig.prompts.url = this.url;
       this.projectConfig.prompts.description = this.description;
       this.projectConfig.prompts.dependencies = this.dependencies;
       this.projectConfig.prompts.modules = helper.buildModuleDependencies(this.modules);
       this.projectConfig.meta = helper.buildMetaInformations(this.name, this.chosenModule);
-
-      this.projectConfig.meta.url = this.name.toLowerCase();
-      var a = this.projectConfig.meta.url.split('/');
-      if (a.length > 1) {
-        var p = '', m = '', c = '';
-        for (var i = 0; i < a.length; i++) {
-          p += helper.firstCharToLowerCase(a[i]);
-          m += helper.firstCharToLowerCase(a[i]);
-          c += helper.firstCharToUpperCase(a[i]);
-
-          if (i < a.length - 1) {
-            p += '/';
-            m += '.';
-          }
-
-        }
-        this.projectConfig.meta.capitalizedName = c;
-        this.projectConfig.meta.lowercaseName = helper.firstCharToLowerCase(c);
-        this.projectConfig.meta.path = p;
-        this.projectConfig.meta.fileName = helper.firstCharToUpperCase(a[a.length - 1]);
-        this.projectConfig.meta.module = m;
-
-      } else {
-        this.projectConfig.meta.path = this.projectConfig.meta.module = this.projectConfig.meta.lowercaseName;
-        this.projectConfig.meta.fileName = this.projectConfig.meta.capitalizedName;
-      }
 
       done();
     },
