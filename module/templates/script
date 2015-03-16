@@ -1,0 +1,16 @@
+/**
+ * @namespace <%= meta.lowercaseName %>
+ *
+ * @description
+ * <%= prompts.description %>
+ */
+(function () {
+  'use strict';
+
+  angular
+    .module('<%= meta.lowercaseName %>', [
+      <%= prompts.modules %>
+    ]);
+
+
+})();

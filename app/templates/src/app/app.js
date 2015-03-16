@@ -1,11 +1,11 @@
 /**
- * <%= appName %>
+ * <%= prompts.appName %>
  * @namespace app
  *
  * @description
- * <%= description %>
+ * <%= prompts.description %>
  *
- * @author <%= author %>
+ * @author <%= prompts.author %>
  * @date <%= date %>
  * @version 0.0.0
  */
@@ -16,14 +16,13 @@
     .module('app', [
 
       // Config and core module
-      'app.util',
       'app.core',
       'app.config',
 
       // Layout components
       'layout',
 
-      //'common.service.member',
+      'common.service.member',
 
       // App modules with business logic
       'home'

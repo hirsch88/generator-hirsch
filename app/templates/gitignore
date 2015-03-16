@@ -4,7 +4,8 @@ src/lib/
 temp/
 tmp/
 .tmp/
-bin/
-dist/
 .idea
 old/
+bower_components/
+.DS_Store
+npm-debug.log

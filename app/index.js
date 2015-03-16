@@ -4,16 +4,24 @@ var yeoman = require('yeoman-generator');
 var helper = require('./../helper');
 var chalk = require('chalk');
 var yosay = require('yosay');
-//var util = require('util');
 var path = require('path');
 
 module.exports = yeoman.generators.Base.extend({
+  /**
+   * INITIALIZING
+   * Loads the projectConfig into the scope of the generator
+   */
   initializing: function () {
-    this.pkg = require('../package.json');
+    this.projectConfig = require('./templates/project.config')(true);
+    this.projectConfig.date = helper.getCreationDate();
   },
+  /**
+   * PROMPTING
+   * Asking some questions
+   */
   prompting:    function () {
     var done = this.async();
-    this.log(yosay('Welcome to the marvelous ' + chalk.red('Hirsch') + ' generator! NEW'));
+    this.log(yosay('Welcome to the marvelous ' + chalk.red('Hirsch') + ' generator!'));
     var prompts = [
       {
         type:    'string',
@@ -23,14 +31,14 @@ module.exports = yeoman.generators.Base.extend({
       },
       {
         type:    'string',
-        name:    'appSign',
-        message: 'Angualar app prefix sign like ng(2chars): ',
+        name:    'prefix',
+        message: 'Angular app prefix sign like ng(2chars):',
         default: 'my'
       },
       {
         type:    'string',
         name:    'description',
-        message: 'Describe your app: '
+        message: 'Describe your application:'
       },
       {
         type:    'string',
@@ -40,234 +48,179 @@ module.exports = yeoman.generators.Base.extend({
       },
       {
         type:    'list',
-        name:    'appStructure',
-        message: 'Which app structure do you want: ',
+        name:    'taskRunner',
+        message: 'Which taskRunner do you want:',
         choices: [
-          'Module-Based',
-          'Route-Based'
+          'Gulp - Automate and enhance your workflow',
+          'GRUNT - The JavaScript Task Runner'
         ],
         default: 0
       }
     ];
+
     this.prompt(prompts, function (props) {
       this.appName = props.appName;
-      this.appStructure = props.appStructure;
-      this.appSign = props.appSign;
+      this.prefix = props.prefix;
       this.description = props.description;
+      this.taskRunner = props.taskRunner;
+      this.hasGulp = this.taskRunner.indexOf('Gulp') > -1;
       this.author = props.author;
       if (this.appName !== path.basename(process.cwd())) {
         this.destinationRoot(this.appName)
       }
+
       done();
     }.bind(this));
   },
+  /**
+   * WRITING
+   * Generates, copys the marvelous application
+   */
   writing:      {
-    app: function () {
-      this.directory(
-        this.templatePath('grunt'),
-        this.destinationPath('grunt')
-      );
-      var pathConfig = require(this.templatePath('grunt/config/paths.json'));
+    /**
+     * PROMPTS
+     * Adds the answers of the user to the project config object
+     */
+    prompts: function () {
+      var done = this.async();
+      this.projectConfig.prompts = {};
+      this.projectConfig.prompts.appName = this.appName;
+      this.projectConfig.prompts.prefix = this.prefix;
+      this.projectConfig.prompts.description = this.description;
+      this.projectConfig.prompts.hasGulp = this.hasGulp;
+      this.projectConfig.prompts.author = this.author;
+      done();
+    },
+    /**
+     * DEV TOOLS
+     * Creates the dev config files for some tools
+     */
+    devTools: function () {
 
-      /**
-       * Build projext infos
-       */
-      function getCreationDate() {
-        var today = new Date();
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-          "November", "December"];
-        return monthNames[today.getMonth()] + ', ' + today.getFullYear();
-      }
-
-      var context = {
-        appName:      this.appName,
-        appStructure: this.appStructure,
-        appSign:      this.appSign,
-        author:       this.author,
-        description:  this.description,
-        date:         getCreationDate(),
-        main:         helper.joinPath([pathConfig.srcDir, pathConfig.main]),
-        appJs:        helper.joinPath([pathConfig.srcDir, pathConfig.app.main]),
-        scripts:      helper.joinPath([pathConfig.srcDir, pathConfig.app.scripts]),
-        bowerDir:     helper.joinPath([pathConfig.srcDir, pathConfig.libDir]),
-        mediaDir:     helper.joinPath([pathConfig.asset.mediaDir]),
-        appDir:       pathConfig.appDir,
-        viewDir:      pathConfig.app.viewDir
-      };
-
-      /**
-       * Project conf files
-       */
-      this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), context);
-      this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), context);
-      this.fs.copyTpl(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'), context);
-
-      this.fs.copy(this.templatePath('_jsdoc.json'), this.destinationPath('jsdoc.json'));
       this.fs.copy(this.templatePath('editorconfig'), this.destinationPath('.editorconfig'));
       this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
-      this.fs.copy(this.templatePath('Gruntfile.js'), this.destinationPath('Gruntfile.js'));
-      this.fs.copy(this.templatePath('.jshintrc'), this.destinationPath('.jshintrc'));
+      this.fs.copy(this.templatePath('jshintrc'), this.destinationPath('.jshintrc'));
+      this.fs.copy(this.templatePath('project.config.js'), this.destinationPath('project.config.js'));
 
+
+      this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.projectConfig);
+      this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.projectConfig);
+      this.fs.copyTpl(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'), this.projectConfig);
+    },
+    /**
+     * TASK RUNNER
+     * Includes the choosen task runner
+     */
+    taskRunner:     function () {
       /**
-       * Assets
+       * GULP
        */
-      this.fs.copy(
-        this.templatePath('favicon.ico'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.mediaDir]) + '/favicon.ico')
-      );
-
-      this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.asset.cssDir]));
-
-      this.fs.copy(
-        this.templatePath('_en.json'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.i18nDir]) + '/en.json')
-      );
-
-      this.fs.copy(
-        this.templatePath('gitkeep'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.fontDir]) + '/.gitkeep')
-      );
-
-      /**
-       * LESS
-       */
-      this.directory(
-        this.templatePath('less'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.asset.lessDir]))
-      );
-
-      /**
-       * Karma Tests
-       */
-      this.directory(
-        this.templatePath('test'),
-        this.destinationPath('test')
-      );
-      this.fs.copyTpl(
-        this.templatePath('karma-shared.conf.js'),
-        this.destinationPath(helper.joinPath([pathConfig.testDir, 'karma-shared.conf.js'])), context
-      );
-
-      /**
-       * AppJs and IndexHtml
-       */
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.main])),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.main])), context
-      );
-
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.main])), context
-      );
-
-      /**
-       * Common App Filestructure
-       */
-      this.fs.copy(
-        this.templatePath('gitkeep'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/.gitkeep')
-      );
-
-      this.fs.copy(
-        this.templatePath('gitkeep'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.directiveDir]) + '/.gitkeep')
-      );
-
-      this.fs.copy(
-        this.templatePath('gitkeep'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.filterDir]) + '/.gitkeep')
-      );
-
-      /**
-       * App Core
-       */
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appUtil.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appUtil.js'), context
-      );
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appConfig.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appConfig.js'), context
-      );
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appCore.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.coreDir]) + '/appCore.js'), context
-      );
-
-      /**
-       * Layout Header Direktive
-       */
-      this.fs.copy(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/layout.module.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/layout.module.js')
-      );
-
-      this.fs.copy(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/common/directives/header.directive.html'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir]) + '/common/directives/header.directive.html')
-      );
-
-      this.fs.copyTpl(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/common/directives/header.directive.js'])),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.layoutDir + '/common/directives/header.directive.js'])), context
-      );
-
-      /**
-       * Sample view data and service
-       */
-      this.fs.copy(
-        this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/member.service.js'),
-        this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.common.serviceDir]) + '/member.service.js')
-      );
-
-      if (this.appStructure === 'Route-Based') {
-        /**
-         * Route Based
-         */
-        this.fs.copyTpl(
-          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/home.js'),
-          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/home.js'), context
-        );
-        this.fs.copy(
-          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/home.html'),
-          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.app.viewDir]) + '/home/home.html')
-        );
-
-
-      } else {
-        /**
-         * Module Based
-         */
-        this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.appDir, 'home']));
-        this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.appDir, 'home/common']));
-        this.mkdir(helper.joinPath([pathConfig.srcDir, pathConfig.appDir, 'home/views']));
-
-        this.fs.copy(
-          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/home.module.js'),
-          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/home.module.js')
-        );
-
-        this.fs.copyTpl(
-          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/home.js'),
-          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/home.js'), context
-        );
-        this.fs.copy(
-          this.templatePath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/home.html'),
-          this.destinationPath(helper.joinPath([pathConfig.srcDir, pathConfig.appDir]) + '/home/views/home.html')
-        );
-
+      if (this.projectConfig.prompts.hasGulp) {
+        this.fs.copy(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'));
       }
 
+      /**
+       * GRUNT
+       */
+      else {
+        this.fs.copy(this.templatePath('Gruntfile.js'), this.destinationPath('Gruntfile.js'));
+        this.directory(
+          this.templatePath('grunt'),
+          this.destinationPath('grunt')
+        );
+      }
+    },
+    /**
+     * BOILERPLATE APPLICATION
+     * Creates the basic of the app and some examples
+     */
+    app:      function () {
+
+      // Assets
+      this.directory(
+        this.templatePath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.assetsDir)),
+        this.destinationPath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.assetsDir))
+      );
+
+      // Index
+      this.fs.copyTpl(
+        this.templatePath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.main)),
+        this.destinationPath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.main)), this.projectConfig
+      );
+
+      // App.js
+      this.fs.copyTpl(
+        this.templatePath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.main)),
+        this.destinationPath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.main)), this.projectConfig
+      );
+
+      // Core files
+      var corePath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.coreDir);
+      this.fs.copy(this.templatePath(path.join(corePath, 'app.config.js')), this.destinationPath(path.join(corePath, 'app.config.js')));
+      this.fs.copy(this.templatePath(path.join(corePath, 'app.core.js')), this.destinationPath(path.join(corePath, 'app.core.js')));
+      this.fs.copyTpl(
+        this.templatePath(path.join(corePath, 'app.util.js')),
+        this.destinationPath(path.join(corePath, 'app.util.js')), this.projectConfig
+      );
+
+      // Layout module
+      var layoutPath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.layoutDir);
+      this.fs.copy(this.templatePath(path.join(layoutPath, 'layout.module.js')), this.destinationPath(path.join(layoutPath, 'layout.module.js')));
+      this.fs.copy(
+        this.templatePath(path.join(layoutPath, 'common', 'directives', 'header.directive.html')),
+        this.destinationPath(path.join(layoutPath, 'common', 'directives', 'header.directive.html'))
+      );
+      this.fs.copyTpl(
+        this.templatePath(path.join(layoutPath, 'common', 'directives', 'header.directive.js')),
+        this.destinationPath(path.join(layoutPath, 'common', 'directives', 'header.directive.js')), this.projectConfig
+      );
+
+      // Common module
+      this.directory(
+        this.templatePath(path.join(
+          this.projectConfig.path.srcDir,
+          this.projectConfig.path.app.commonDir
+        )),
+        this.destinationPath(path.join(
+          this.projectConfig.path.srcDir,
+          this.projectConfig.path.app.commonDir
+        ))
+      );
+
+      // Home module
+      this.directory(
+        this.templatePath(path.join(
+          this.projectConfig.path.srcDir,
+          this.projectConfig.path.appDir,
+          'home'
+        )),
+        this.destinationPath(path.join(
+          this.projectConfig.path.srcDir,
+          this.projectConfig.path.appDir,
+          'home'
+        ))
+      );
+
+
+    },
+    /**
+     * TEST FILES
+     * Includes some test files and as well the configs
+     */
+    test:     function () {
+      this.directory(
+        this.templatePath(this.projectConfig.path.testDir),
+        this.destinationPath(this.projectConfig.path.testDir)
+      );
+
+      this.fs.copy(this.templatePath('karma-shared.conf.js'), this.destinationPath('karma-shared.conf.js'));
+      this.fs.copy(this.templatePath('karma-unit.conf.js'), this.destinationPath('karma-unit.conf.js'));
+      this.fs.copy(this.templatePath('karma-midway.conf.js'), this.destinationPath('karma-midway.conf.js'));
 
     }
   },
   install:      function () {
-    this.installDependencies({
-      skipInstall: this.options['skip-install'],
-      skipMessage: ''
-    });
-
+    this.installDependencies();
   },
   end:          function () {
     this.log('');

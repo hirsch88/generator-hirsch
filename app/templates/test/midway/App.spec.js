@@ -1,6 +1,5 @@
-'use strict';
-
 describe('Midway: Testing Modules', function () {
+
   describe('App Module:', function () {
 
     var module;
@@ -10,6 +9,11 @@ describe('Midway: Testing Modules', function () {
 
     it('should be registered', function () {
       expect(module).not.to.equal(null);
+    });
+
+    it('should be global appUtil', function () {
+      appUtil.should.be.an('object');
+      expect(appUtil.getServerUrl()).to.be.a('string');
     });
 
     describe("Dependencies:", function () {
@@ -23,10 +27,6 @@ describe('Midway: Testing Modules', function () {
       });
 
       //you can also test the module's dependencies
-      it("should have app.util as a dependency", function () {
-        expect(hasModule('app.util')).to.equal(true);
-      });
-
       it("should have app.core as a dependency", function () {
         expect(hasModule('app.core')).to.equal(true);
       });

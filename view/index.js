@@ -3,22 +3,31 @@
 var yeoman = require('yeoman-generator');
 var helper = require('./../helper');
 var chalk = require('chalk');
+var path = require('path');
 
 var ViewGenerator = yeoman.generators.NamedBase.extend({
+  /**
+   * INITIALIZING
+   * Loads the projectConfig into the scope of the generator
+   */
   initializing: function () {
     var done = this.async();
-    this.pkg = helper.getPackage();
-    this.paths = helper.getPaths();
-
-    this.isModuleBased = helper.isFileStructureModuleBased(this.pkg);
+    this.projectConfig = helper.getProjectConfig();
+    this.projectConfig.date = helper.getCreationDate();
+    var scope = this;
     this.modules = helper.getModulesFromFileStructure(this, function () {
+      scope.modules.splice(scope.modules.indexOf('common'), 1);
       done();
     });
-
   },
   prompting:    function () {
     var done = this.async();
     var prompts = [
+      {
+        type:    'string',
+        name:    'url',
+        message: 'Tell us the url to which the view shall response to.'
+      },
       {
         type:    'string',
         name:    'description',
@@ -33,84 +42,98 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
         type:    'string',
         name:    'dependencies',
         message: 'Enter your dependencies injects?'
+      },
+      {
+        type:    'list',
+        name:    'chosenModule',
+        message: 'Choose the location(modules) of your view: ',
+        choices: this.modules,
+        default: 0
       }
     ];
 
-    helper.getPromtsForModuleBasedFileStructure(this, prompts);
-
     this.prompt(prompts, function (props) {
+      this.url = props.url;
       this.description = props.description;
       this.dependencies = props.dependencies;
       this.chosenModule = props.chosenModule || 'common';
-      this.modules = helper.buildModuleDependencies(props.modules);
+      this.modules = props.modules;
 
       done();
     }.bind(this));
-
   },
-  writing:      function () {
-    this.context = helper.getContext(this.name);
-    this.context.description = this.description;
-    this.context.modules = this.modules;
-    this.context.dependencies = this.dependencies;
-    this.context.url = this.context.name.toLowerCase();
+  writing:      {
+    /**
+     * PROMPTS
+     * Adds the answers of the user to the project config object
+     */
+    prompts:     function () {
+      var done = this.async();
+      this.projectConfig.prompts = {};
+      this.projectConfig.prompts.url = this.url;
+      this.projectConfig.prompts.description = this.description;
+      this.projectConfig.prompts.dependencies = this.dependencies;
+      this.projectConfig.prompts.modules = helper.buildModuleDependencies(this.modules);
+      this.projectConfig.meta = helper.buildMetaInformations(this.name, this.chosenModule);
 
-    var a = this.context.name.split('/');
-    if (a.length > 1) {
-      var p = '', m = '', c = '';
-      for (var i = 0; i < a.length; i++) {
-        p += helper.firstCharToLowerCase(a[i]);
-        m += helper.firstCharToLowerCase(a[i]);
-        c += helper.firstCharToUpperCase(a[i]);
+      done();
+    },
+    /**
+     * DESTINATION
+     * Defines the destination of our new files
+     */
+    destination: function () {
 
-        if (i < a.length - 1) {
-          p += '/';
-          m += '.';
-        }
+      var viewPath = path.join(
+        this.projectConfig.path.srcDir,
+        this.projectConfig.path.appDir,
+        this.chosenModule,
+        'views'
+      );
 
-      }
-      this.context.capitalizedName = c;
-      this.context.lowercaseName = helper.firstCharToLowerCase(c);
-      this.context.path = p;
-      this.context.fileName = helper.firstCharToUpperCase(a[a.length - 1]);
-      this.context.module = m;
 
-    } else {
-      this.context.path = this.context.module = this.context.lowercaseName;
-      this.context.fileName = this.context.capitalizedName;
+      this.targetTemplate = path.join(
+        viewPath,
+        this.projectConfig.meta.lowercaseName + '.template.html'
+      );
 
+      this.targetScript = path.join(
+        viewPath,
+        this.projectConfig.meta.lowercaseName + '.controller.js'
+      );
+      this.projectConfig.meta.templateUrl = this.targetTemplate.replace('src/', '');
+
+    },
+    /**
+     * TEMPLATE
+     */
+    template: function () {
+      this.fs.copyTpl(
+        this.templatePath('template'),
+        this.destinationPath(this.targetTemplate),
+        this.projectConfig
+      );
+    },
+    /**
+     * SCRIPT
+     */
+    script:      function () {
+      this.fs.copyTpl(
+        this.templatePath('script'),
+        this.destinationPath(this.targetScript),
+        this.projectConfig
+      );
     }
-
-    // Target
-    var target = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.chosenModule;
-    target += '/views/' + this.context.lowercaseName;
-    this.context.templateUrl = target + '.html';
-    this.context.templateUrl = this.context.templateUrl.replace('src/', '');
-
-    // Module name
-    this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);
-    this.context.modulePath = this.chosenModule;
-    if (this.chosenModule === 'common') {
-      this.context.modulePath += '.views';
-    }
-
-    this.fs.copyTpl(
-      this.templatePath('template'),
-      this.destinationPath(target + '.js'),
-      this.context
-    );
-
-    this.fs.copy(
-      this.templatePath('template.html'),
-      this.destinationPath(target + '.html')
-    );
-
+    /**
+     * TEST
+     */
+    //test:        function () {
+    //}
   },
   end:          function () {
     console.log('');
-    console.log(chalk.green('✔ ') + 'View ' + chalk.green(this.context.capitalizedName) + ' created');
+    console.log(chalk.green('✔ ') + 'View ' + chalk.green(this.projectConfig.meta.capitalizedName) + ' created');
     console.log('');
   }
 });
 module.exports = ViewGenerator;
-

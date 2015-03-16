@@ -1,0 +1,37 @@
+/**
+ * <%= meta.capitalizedName %>
+ * @namespace <%= meta.module %>
+ */
+(function() {
+    'use strict';
+
+    angular
+        .module('<%= meta.module %>.filter.<%= meta.lowercaseName %>', [
+            <%= prompts.modules %>
+        ])
+        .filter('<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Filter);
+
+    /**
+     * @memberOf <%= meta.module %>
+     * @namespace <%= meta.module %>.filter.<%= meta.lowercaseName %>
+     *
+     * @description
+     * <%= prompts.description %>
+     */
+    function <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Filter(<%= prompts.dependencies %>) {
+
+        return Filter;
+        ////////////////////////
+
+        function Filter(input) {
+            input = input || '';
+
+            // code goes here
+
+            return input;
+        }
+
+    }
+
+
+}());

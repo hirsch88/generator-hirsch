@@ -37,7 +37,7 @@
    * @param members {Object}
    * @constructor
    */
-  function HomeController(members, appUtil) {
+  function HomeController(members) {
     var vm = this;
     vm.title = appUtil.title;
 

@@ -1,6 +1,6 @@
 {
   "name": "generator-hirsch",
-  "version": "0.0.8",
+  "version": "1.0.0-beta",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
@@ -31,6 +31,9 @@
   "dependencies": {
     "chalk": "^0.5.0",
     "glob": "^4.4.0",
+    "main-bower-files": "^2.6.2",
+    "path": "^0.11.14",
+    "wiredep": "^2.2.2",
     "yeoman-generator": "^0.18.0",
     "yosay": "^0.3.0"
   },

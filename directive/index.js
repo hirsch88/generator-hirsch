@@ -3,18 +3,18 @@
 var yeoman = require('yeoman-generator');
 var helper = require('./../helper');
 var chalk = require('chalk');
+var path = require('path');
 
 var DirectiveGenerator = yeoman.generators.NamedBase.extend({
+  /**
+   * INITIALIZING
+   * Loads the projectConfig into the scope of the generator
+   */
   initializing: function () {
     var done = this.async();
-    this.pkg = helper.getPackage();
-    this.paths = helper.getPaths();
-
-    this.isModuleBased = helper.isFileStructureModuleBased(this.pkg);
-    this.modules = helper.getModulesFromFileStructure(this, function () {
-      done();
-    });
-
+    this.projectConfig = helper.getProjectConfig();
+    this.projectConfig.date = helper.getCreationDate();
+    this.modules = helper.getModulesFromFileStructure(this, done);
   },
   prompting:    function () {
     var done = this.async();
@@ -57,10 +57,15 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
         name:    'hasLinkFnc',
         message: 'Do you need a LINK function file?',
         default: 'false'
+      },
+      {
+        type:    'list',
+        name:    'chosenModule',
+        message: 'Choose the location(modules) of your directive: ',
+        choices: this.modules,
+        default: this.modules.indexOf('common')
       }
     ];
-
-    helper.getPromtsForModuleBasedFileStructure(this, prompts);
 
     this.prompt(prompts, function (props) {
       this.description = props.description;
@@ -70,73 +75,98 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
       this.hasController = props.hasController;
       this.hasLinkFnc = props.hasLinkFnc;
       this.chosenModule = props.chosenModule || 'common';
-      this.modules = helper.buildModuleDependencies(props.modules);
+      this.modules = props.modules;
 
       done();
     }.bind(this));
-
   },
-  writing:      function () {
-    this.context = helper.getContext(this.name);
-    this.context.description = this.description;
-    this.context.modules = this.modules;
-    this.context.dependencies = this.dependencies;
-    this.context.restrict = this.restrict.toUpperCase();
-    this.context.hasTemplate = this.hasTemplate;
-    this.context.hasController = this.hasController;
-    this.context.hasLinkFnc = this.hasLinkFnc;
+  writing:      {
+    /**
+     * PROMPTS
+     * Adds the answers of the user to the project config object
+     */
+    prompts:     function () {
+      var done = this.async();
+      this.projectConfig.prompts = {};
+      this.projectConfig.prompts.description = this.description;
+      this.projectConfig.prompts.dependencies = this.dependencies;
+      this.projectConfig.prompts.restrict = this.restrict.toUpperCase();
+      this.projectConfig.prompts.hasTemplate = this.hasTemplate;
+      this.projectConfig.prompts.hasController = this.hasController;
+      this.projectConfig.prompts.hasLinkFnc = this.hasLinkFnc;
+      this.projectConfig.prompts.modules = helper.buildModuleDependencies(this.modules);
+      this.projectConfig.meta = helper.buildMetaInformations(this.name, this.chosenModule);
+      done();
+    },
+    /**
+     * DESTINATION
+     * Defines the destination of our new files
+     */
+    destination: function () {
+      var modulePath = (this.chosenModule === 'common')
+        ? this.chosenModule
+        : this.chosenModule + '/common';
 
-    // Target
-    var target = this.paths.srcDir + '/' + this.paths.appDir + '/' + this.chosenModule;
-    if (this.chosenModule !== 'common') {
-      target += '/common';
-    }
-    target += '/directives/' + this.context.lowercaseName;
+      var directivePath = path.join(
+        this.projectConfig.path.srcDir,
+        this.projectConfig.path.appDir,
+        modulePath,
+        'directives'
+      );
 
-    this.context.templateUrl = target + '.directive.html';
-    this.context.templateUrl = this.context.templateUrl.replace('src/', '');
+      this.targetTemplate = path.join(
+        directivePath,
+        this.projectConfig.meta.lowercaseName + '.directive.html'
+      );
 
-    // Module name
-    this.context.lowerModuleName = helper.firstCharToLowerCase(this.chosenModule);
-    this.context.moduleName = helper.firstCharToUpperCase(this.chosenModule);
+      this.targetScript = path.join(
+        directivePath,
+        this.projectConfig.meta.lowercaseName + '.directive.js'
+      );
+      this.projectConfig.meta.templateUrl = this.targetTemplate.replace('src/', '');
 
-    this.context.modulePath = this.chosenModule;
-    if (this.chosenModule !== 'common') {
-      this.context.modulePath += '.common';
-    }
-    this.context.modulePath += '.directives';
+      this.targetTestUnit = path.join(
+        this.projectConfig.path.testDir,
+        'unit',
+        this.chosenModule,
+        this.projectConfig.meta.lowercaseName + '.directive.spec.js'
+      );
 
-    this.fs.copyTpl(
-      this.templatePath('template'),
-      this.destinationPath(target + '.directive.js'),
-      this.context
-    );
-
-    if(this.hasTemplate){
-      this.fs.copy(
-        this.templatePath('template.html'),
-        this.destinationPath(target + '.directive.html')
+    },
+    /**
+     * TEMPLATE
+     */
+    template: function () {
+      this.fs.copyTpl(
+        this.templatePath('template'),
+        this.destinationPath(this.targetTemplate),
+        this.projectConfig
+      );
+    },
+    /**
+     * SCRIPT
+     */
+    script:      function () {
+      this.fs.copyTpl(
+        this.templatePath('script'),
+        this.destinationPath(this.targetScript),
+        this.projectConfig
+      );
+    },
+    /**
+     * TEST
+     */
+    test:        function () {
+      this.fs.copyTpl(
+        this.templatePath('unit.spec'),
+        this.destinationPath(this.targetTestUnit),
+        this.projectConfig
       );
     }
-
-
-    // Test Target
-    var testTarget = this.paths.testDir + '/unit/' + this.chosenModule;
-    if (this.chosenModule !== 'common') {
-      testTarget += '/common';
-    }
-    testTarget += '/directives/' + this.context.lowercaseName + '.directive.spec.js';
-
-    this.fs.copyTpl(
-      this.templatePath('unit.spec'),
-      this.destinationPath(testTarget),
-      this.context
-    );
-
   },
   end:          function () {
     console.log('');
-    console.log(chalk.green('✔ ') + 'Directive ' + chalk.green(this.context.capitalizedName) + ' created');
+    console.log(chalk.green('✔ ') + 'Directive ' + chalk.green(this.projectConfig.meta.capitalizedName) + ' created');
     console.log('');
   }
 });

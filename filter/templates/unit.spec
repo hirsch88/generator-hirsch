@@ -1,11 +1,11 @@
 'use strict';
 
-describe('Unit: <%= moduleName %><%= capitalizedName %>', function () {
+describe('Unit: <%= meta.module %><%= meta.capitalizedName %>', function () {
 
   beforeEach(module('app'));
 
-  it('should have a <%= moduleName %><%= capitalizedName %> filter', inject(function($filter) {
-    expect($filter('<%= moduleName %><%= capitalizedName %>')).not.to.equal(null);
+  it('should have a <%= meta.capitalizedModuleName %><%= meta.capitalizedName %> filter', inject(function($filter) {
+    expect($filter('<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>')).not.to.equal(null);
   }));
 
 });
