@@ -17,7 +17,7 @@
         .module('<%= meta.module %>.<%= meta.lowercaseName %>', [
             <%= prompts.modules %>
         ])
-        .config(RouteConfig)
+        .config(StateConfig)
         .controller('<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller', <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller);
 
 
@@ -25,16 +25,23 @@
      * @memberOf <%= meta.module %>.<%= meta.lowercaseName %>
      * @name RouteConfig
      */
-    function RouteConfig($routeProvider) {
-        $routeProvider
-            .when('/<%= prompts.url %>', {
-                session: true
-                navigationKey: '<%= meta.module %>',
-                templateUrl:   '<%= meta.templateUrl %>',
-                controller:    '<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller',
-                controllerAs:  '<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>'
-          });
+    function StateConfig($stateProvider) {
+      $stateProvider
+        .state('admin.<%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', {
+          url:           '/<%= prompts.url %>',
+          session:       true,
+          navigationKey: '<%= meta.module %>',
+          views:         {
+            'content': {
+              templateUrl:  '<%= meta.templateUrl %>',
+              controller:    '<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller',
+              controllerAs:  '<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>'
+            }
+          }
+
+        });
     }
+
 
     /**
      * @memberOf <%= meta.module %>.<%= meta.lowercaseName %>

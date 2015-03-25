@@ -16,8 +16,12 @@
     .module('app', [
 
       // Config and core module
+      'app.util',
       'app.core',
       'app.config',
+      'app.logger',
+      'app.router',
+      'app.run',
 
       // Layout components
       'layout',
