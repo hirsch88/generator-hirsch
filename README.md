@@ -18,7 +18,7 @@
 3. Install these NPM packages globally
 
     ```
-    npm install -g bower grunt nodemon        
+    npm install -g bower gulp nodemon        
     ```
 
 ## Get Started
@@ -58,53 +58,42 @@
 
 ### Task Listing
 #### Building
-- `grunt`
+- `gulp`
 	
 	Injects all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
 	
-- `grunt build`
+- `gulp build`
 	
 	Injects all JS files into your index.html and generates a css from your less
 	
-- `grunt index`
+- `gulp index`
 	
 	Injects all JS files into your index.html
 	
-- `grunt style`
+- `gulp style`
 	
 	Generates a css from your less
 	
-- `grunt dist`
+- `gulp dist`
 	
 	This generates a minified app
 	
-- `grunt docs`
-	
-	Generates a jsdocs
 		
 #### Servers
-- `grunt serve`
+- `gulp serve`
 	
 	Starts a express server at localhost:3000 to visit your app
-	
-- `grunt serve:dist`
-	
-	Starts a express server at localhost:4000 to visit your dist
-	
-- `grunt serve:docs`
-	
-	Starts a express server at localhost:4000 to visit your docs
 
 #### Testing
-- `grunt test`
+- `gulp test`
 	
 	Runs all your karma tests
 	
-- `grunt test:unit`
+- `gulp test:unit`
 	
 	Runs all your unit karma tests
 	    
-- `grunt test:midway`
+- `gulp test:midway`
 	
 	Runs all your midway karma tests
 
