@@ -94,12 +94,12 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
 
       this.targetTemplate = path.join(
         viewPath,
-        this.projectConfig.meta.lowercaseName + '.template.html'
+        this.projectConfig.meta.lowercaseName + '.html'
       );
 
       this.targetScript = path.join(
         viewPath,
-        this.projectConfig.meta.lowercaseName + '.controller.js'
+        this.projectConfig.meta.lowercaseName + '.js'
       );
       this.projectConfig.meta.templateUrl = this.targetTemplate.replace('src/', '');
 

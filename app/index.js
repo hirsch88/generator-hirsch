@@ -45,16 +45,6 @@ module.exports = yeoman.generators.Base.extend({
         name:    'author',
         message: 'How is the author?',
         default: 'Gery Hirschfeld <gery.hirschfeld@w3tec.ch>'
-      },
-      {
-        type:    'list',
-        name:    'taskRunner',
-        message: 'Which taskRunner do you want:',
-        choices: [
-          'Gulp - Automate and enhance your workflow',
-          'GRUNT - The JavaScript Task Runner'
-        ],
-        default: 0
       }
     ];
 
@@ -62,8 +52,6 @@ module.exports = yeoman.generators.Base.extend({
       this.appName = props.appName;
       this.prefix = props.prefix;
       this.description = props.description;
-      this.taskRunner = props.taskRunner;
-      this.hasGulp = this.taskRunner.indexOf('Gulp') > -1;
       this.author = props.author;
       if (this.appName !== path.basename(process.cwd())) {
         this.destinationRoot(this.appName)
@@ -87,7 +75,6 @@ module.exports = yeoman.generators.Base.extend({
       this.projectConfig.prompts.appName = this.appName;
       this.projectConfig.prompts.prefix = this.prefix;
       this.projectConfig.prompts.description = this.description;
-      this.projectConfig.prompts.hasGulp = this.hasGulp;
       this.projectConfig.prompts.author = this.author;
       done();
     },
@@ -106,29 +93,8 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.projectConfig);
       this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.projectConfig);
       this.fs.copyTpl(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'), this.projectConfig);
-    },
-    /**
-     * TASK RUNNER
-     * Includes the choosen task runner
-     */
-    taskRunner:     function () {
-      /**
-       * GULP
-       */
-      if (this.projectConfig.prompts.hasGulp) {
-        this.fs.copy(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'));
-      }
 
-      /**
-       * GRUNT
-       */
-      else {
-        this.fs.copy(this.templatePath('Gruntfile.js'), this.destinationPath('Gruntfile.js'));
-        this.directory(
-          this.templatePath('grunt'),
-          this.destinationPath('grunt')
-        );
-      }
+      this.fs.copy(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'));
     },
     /**
      * BOILERPLATE APPLICATION
@@ -158,6 +124,9 @@ module.exports = yeoman.generators.Base.extend({
       var corePath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.coreDir);
       this.fs.copy(this.templatePath(path.join(corePath, 'app.config.js')), this.destinationPath(path.join(corePath, 'app.config.js')));
       this.fs.copy(this.templatePath(path.join(corePath, 'app.core.js')), this.destinationPath(path.join(corePath, 'app.core.js')));
+      this.fs.copy(this.templatePath(path.join(corePath, 'app.logger.js')), this.destinationPath(path.join(corePath, 'app.logger.js')));
+      this.fs.copy(this.templatePath(path.join(corePath, 'app.router.js')), this.destinationPath(path.join(corePath, 'app.router.js')));
+      this.fs.copy(this.templatePath(path.join(corePath, 'app.run.js')), this.destinationPath(path.join(corePath, 'app.run.js')));
       this.fs.copyTpl(
         this.templatePath(path.join(corePath, 'app.util.js')),
         this.destinationPath(path.join(corePath, 'app.util.js')), this.projectConfig
@@ -166,13 +135,24 @@ module.exports = yeoman.generators.Base.extend({
       // Layout module
       var layoutPath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.layoutDir);
       this.fs.copy(this.templatePath(path.join(layoutPath, 'layout.module.js')), this.destinationPath(path.join(layoutPath, 'layout.module.js')));
+      
+      this.fs.copyTpl(
+        this.templatePath(path.join(layoutPath, 'views', 'admin.html')),
+        this.destinationPath(path.join(layoutPath, 'views', 'admin.html')), this.projectConfig
+      );
+      this.fs.copy(this.templatePath(path.join(layoutPath, 'views', 'admin.js')), this.destinationPath(path.join(layoutPath, 'views', 'admin.js')));
+
+      this.fs.copy(this.templatePath(path.join(layoutPath, 'views', 'public.html')), this.destinationPath(path.join(layoutPath, 'views', 'public.html')));
+      this.fs.copy(this.templatePath(path.join(layoutPath, 'views', 'public.js')), this.destinationPath(path.join(layoutPath, 'views', 'public.js')));
+
+
       this.fs.copy(
-        this.templatePath(path.join(layoutPath, 'common', 'directives', 'header.directive.html')),
-        this.destinationPath(path.join(layoutPath, 'common', 'directives', 'header.directive.html'))
+        this.templatePath(path.join(layoutPath, 'directives', 'header.directive.html')),
+        this.destinationPath(path.join(layoutPath, 'directives', 'header.directive.html'))
       );
       this.fs.copyTpl(
-        this.templatePath(path.join(layoutPath, 'common', 'directives', 'header.directive.js')),
-        this.destinationPath(path.join(layoutPath, 'common', 'directives', 'header.directive.js')), this.projectConfig
+        this.templatePath(path.join(layoutPath, 'directives', 'header.directive.js')),
+        this.destinationPath(path.join(layoutPath, 'directives', 'header.directive.js')), this.projectConfig
       );
 
       // Common module
@@ -225,7 +205,7 @@ module.exports = yeoman.generators.Base.extend({
   end:          function () {
     this.log('');
     this.log(helper.hirschSay());
-    this.log('Go to your project folder and run ' + chalk.bold.yellow('grunt serve'));
+    this.log('Go to your project folder and run ' + chalk.bold.yellow('gulp serve'));
     this.log('Than visit your app on ' + chalk.bold.yellow('http://localhost:3000'));
     this.log('');
   }

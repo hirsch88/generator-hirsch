@@ -18,6 +18,9 @@
       // Config and core module
       'app.core',
       'app.config',
+      'app.logger',
+      'app.router',
+      'app.run',
 
       // Layout components
       'layout',

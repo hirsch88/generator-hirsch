@@ -16,8 +16,7 @@
   angular
     .module('app.core', [
       'ngSanitize',
-      'ngMessages',
-      'ngRoute'
+      'ngMessages'
     ])
 
   /**
@@ -39,24 +38,9 @@
       FILTERS:   'app/common/filters/',
       TEMPLATES: 'app/common/templates/'
     })
-    .config(RouteConfig)
     .config(LogConfig)
     .config(HttpConfig)
     .config(CompileConfig);
-
-
-  /**
-   * @memberOf app.core
-   * @name RouteConfig
-   *
-   * @description
-   * Defines the default route
-   *
-   * @constructor
-   */
-  function RouteConfig($routeProvider) {
-    $routeProvider.otherwise('/home');
-  }
 
   /**
    * @memberOf app.core

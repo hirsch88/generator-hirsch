@@ -10,23 +10,23 @@
 
   angular
     .module('home')
-    .config(HomeRouteConfig)
+    .config(StateConfig)
     .controller('HomeController', HomeController);
 
-  /**
-   * @memberOf home.home
-   * @name HomeRouteConfig
-   *
-   * @param $routeProvider
-   * @constructor
-   */
-  function HomeRouteConfig($routeProvider) {
-    $routeProvider
-      .when('/home', {
+  function StateConfig($stateProvider) {
+    $stateProvider
+      .state('admin.home', {
+        url:           '/home',
+        session:       true,
         navigationKey: 'home',
-        templateUrl:   'app/home/views/home.html',
-        controller:    'HomeController',
-        controllerAs:  'home'
+        views:         {
+          'content': {
+            templateUrl:  'app/home/views/home.html',
+            controller:   'HomeController',
+            controllerAs: 'home'
+          }
+        }
+
       });
   }
 
@@ -39,7 +39,7 @@
    */
   function HomeController(members) {
     var vm = this;
-    vm.title = appUtil.title;
+    vm.title = AppUtil.title;
 
     vm.list = [];
     members.get()

@@ -6,39 +6,39 @@
 
   angular
     .module( 'common.directive.header', [] )
-    .directive( '<%= appSign %>Header', HeaderDirective );
+    .directive( '<%= prompts.prefix %>Header', HeaderDirective );
 
   /**
    * @memberOf layout
-   * @namespace <%= appSign %>Header
+   * @namespace gaHeader
    *
    * @description
    * Header element outside of the ngView area
    *
    * @example
-   * <<%= appSign %>-header></<%= appSign %>-header>
+   * <<%= prompts.prefix %>-header></<%= prompts.prefix %>-header>
    *
    * @constructor
    */
   function HeaderDirective() {
     return {
       restrict: 'EA',
-      templateUrl: 'app/layout/common/directives/header.directive.html',
+      templateUrl: 'app/layout/directives/header.directive.html',
       controller: HeaderController,
       controllerAs: 'header',
       bindToController: true // because the scope is isolated
-    }
+    };
   }
 
   /**
-   * @memberOf layout.<%= appSign %>Header
+   * @memberOf layout.<%= prompts.prefix %>Header
    * @name HeaderController
    *
    * @constructor
    */
-  function HeaderController(appUtil) {
+  function HeaderController() {
     var vm = this;
-    vm.title = appUtil.title;
+    vm.title = AppUtil.title;
   }
 
 }());
