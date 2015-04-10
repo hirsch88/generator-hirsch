@@ -158,6 +158,8 @@ module.exports = yeoman.generators.Base.extend({
       var corePath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.coreDir);
       this.fs.copy(this.templatePath(path.join(corePath, 'app.config.js')), this.destinationPath(path.join(corePath, 'app.config.js')));
       this.fs.copy(this.templatePath(path.join(corePath, 'app.core.js')), this.destinationPath(path.join(corePath, 'app.core.js')));
+      this.fs.copy(this.templatePath(path.join(corePath, 'app.logger.js')), this.destinationPath(path.join(corePath, 'app.logger.js')));
+      this.fs.copy(this.templatePath(path.join(corePath, 'app.router.js')), this.destinationPath(path.join(corePath, 'app.router.js')));
       this.fs.copyTpl(
         this.templatePath(path.join(corePath, 'app.util.js')),
         this.destinationPath(path.join(corePath, 'app.util.js')), this.projectConfig

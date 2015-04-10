@@ -20,7 +20,7 @@
    * @name AppUtil
    * @see app.util
    */
-  var appUtil = {
+  var AppUtil = {
     title:  '<%= prompts.appName %>',
     server: {
       local: 'http://localhost:1338/api/',
@@ -70,6 +70,6 @@
 
   };
 
-  window.appUtil = appUtil;
+  window.AppUtil = AppUtil;
 
 }(window));

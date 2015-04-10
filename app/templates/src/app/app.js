@@ -16,7 +16,6 @@
     .module('app', [
 
       // Config and core module
-      'app.util',
       'app.core',
       'app.config',
       'app.logger',

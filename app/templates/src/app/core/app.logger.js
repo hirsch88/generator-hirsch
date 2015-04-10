@@ -8,7 +8,7 @@
   /**
    * @name logger
    */
-  function loggerService($log, appUtil) {
+  function loggerService($log) {
 
     function Logger(name) {
       this.name = name;
@@ -27,7 +27,7 @@
     };
 
     Logger.prototype._log = function (type, text, object) {
-      if (appUtil.getEnvironment() !== 'prod') {
+      if (AppUtil.getEnvironment() !== 'prod') {
 
         object = (_.isObject(text) || _.isArray(text))
           ? text
