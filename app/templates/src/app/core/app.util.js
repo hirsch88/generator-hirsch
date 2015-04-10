@@ -21,10 +21,10 @@
    * @see app.util
    */
   var AppUtil = {
-    title:  '<%= prompts.appName %>',
+    title:  'admin',
     server: {
-      local: 'http://localhost:1338/api/',
-      prod:  'http://localhost:1338/api/'
+      local: 'http://localhost:1337/api/',
+      prod:  'http://localhost:1337/api/'
     },
 
     /**
@@ -43,12 +43,21 @@
       switch (window.location.hostname) {
         case 'localhost':
           return this.server.local;
-        case 'dev.gulpApp':
-          return this.server.dev;
-        case 'test.gulpApp':
-          return this.server.test;
         default:
           return this.server.prod;
+      }
+    },
+
+    /**
+     * @memberOf app.util
+     * @method getEnvironment
+     */
+    getEnvironment: function () {
+      switch (window.location.hostname) {
+        case 'localhost':
+          return 'dev';
+        default:
+          return 'prod';
       }
     },
 
@@ -66,6 +75,22 @@
      */
     buildTemplateUrl: function (url) {
       return 'app/views/' + url;
+    },
+
+    /**
+     * @memberOf app.util
+     * @method joinPath
+     *
+     * @description
+     * Joins the array to url path
+     *
+     * @example AppUtil.joinPath(['events','abos']) // -> 'events/abos'
+     *
+     * @param array {Array} Part of the url
+     * @returns {String} url
+     */
+    joinPath: function (array) {
+      return array.join('/');
     }
 
   };

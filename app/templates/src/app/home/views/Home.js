@@ -39,7 +39,7 @@
    */
   function HomeController(members) {
     var vm = this;
-    vm.title = appUtil.title;
+    vm.title = AppUtil.title;
 
     vm.list = [];
     members.get()

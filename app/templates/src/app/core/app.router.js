@@ -30,7 +30,7 @@
    * @constructor
    */
   function RouterConfig($urlRouterProvider) {
-    $urlRouterProvider.otherwise('/not-found');
+    $urlRouterProvider.otherwise('/home');
   }
 
   /**
