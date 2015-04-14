@@ -86,7 +86,7 @@
 #### Servers
 - `gulp serve`
 	
-	Starts a express server at localhost:3000 to visit your app
+	Starts a server at localhost:3000 to visit your app
 
 #### Testing
 - `gulp test`
