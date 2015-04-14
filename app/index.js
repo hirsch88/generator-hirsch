@@ -135,7 +135,7 @@ module.exports = yeoman.generators.Base.extend({
       // Layout module
       var layoutPath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.layoutDir);
       this.fs.copy(this.templatePath(path.join(layoutPath, 'layout.module.js')), this.destinationPath(path.join(layoutPath, 'layout.module.js')));
-      
+
       this.fs.copyTpl(
         this.templatePath(path.join(layoutPath, 'views', 'admin.html')),
         this.destinationPath(path.join(layoutPath, 'views', 'admin.html')), this.projectConfig
@@ -193,9 +193,9 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(this.projectConfig.path.testDir)
       );
 
-      this.fs.copy(this.templatePath('karma-shared.conf.js'), this.destinationPath('karma-shared.conf.js'));
-      this.fs.copy(this.templatePath('karma-unit.conf.js'), this.destinationPath('karma-unit.conf.js'));
-      this.fs.copy(this.templatePath('karma-midway.conf.js'), this.destinationPath('karma-midway.conf.js'));
+      this.fs.copy(this.templatePath('karma-shared.config.js'), this.destinationPath('karma-shared.config.js'));
+      this.fs.copy(this.templatePath('karma-unit.config.js'), this.destinationPath('karma-unit.config.js'));
+      this.fs.copy(this.templatePath('karma-midway.config.js'), this.destinationPath('karma-midway.config.js'));
 
     }
   },
