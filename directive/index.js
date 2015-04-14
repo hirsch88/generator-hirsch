@@ -37,7 +37,7 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
       {
         type:    'string',
         name:    'restrict',
-        message: 'What kind of restrict to you use',
+        message: 'What kind of restrict to you use E,C or A',
         default: 'EA'
       },
       {
@@ -116,12 +116,16 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
 
       this.targetTemplate = path.join(
         directivePath,
-        this.projectConfig.meta.lowercaseName + '.directive.html'
+        this.projectConfig.pkg.prefix +
+        this.projectConfig.meta.capitalizedModuleName +
+        this.projectConfig.meta.capitalizedName + '.directive.html'
       );
 
       this.targetScript = path.join(
         directivePath,
-        this.projectConfig.meta.lowercaseName + '.directive.js'
+        this.projectConfig.pkg.prefix +
+        this.projectConfig.meta.capitalizedModuleName +
+        this.projectConfig.meta.capitalizedName + '.directive.js'
       );
       this.projectConfig.meta.templateUrl = this.targetTemplate.replace('src/', '');
 
@@ -129,19 +133,23 @@ var DirectiveGenerator = yeoman.generators.NamedBase.extend({
         this.projectConfig.path.testDir,
         'unit',
         this.chosenModule,
-        this.projectConfig.meta.lowercaseName + '.directive.spec.js'
+        this.projectConfig.pkg.prefix +
+        this.projectConfig.meta.capitalizedModuleName +
+        this.projectConfig.meta.capitalizedName + '.directive.spec.js'
       );
 
     },
     /**
      * TEMPLATE
      */
-    template: function () {
-      this.fs.copyTpl(
-        this.templatePath('template'),
-        this.destinationPath(this.targetTemplate),
-        this.projectConfig
-      );
+    template:    function () {
+      if (this.hasTemplate) {
+        this.fs.copyTpl(
+          this.templatePath('template'),
+          this.destinationPath(this.targetTemplate),
+          this.projectConfig
+        );
+      }
     },
     /**
      * SCRIPT
