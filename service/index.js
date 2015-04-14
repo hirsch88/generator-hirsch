@@ -80,14 +80,18 @@ var ServiceGenerator = yeoman.generators.NamedBase.extend({
         this.projectConfig.path.appDir,
         modulePath,
         'services',
-        this.projectConfig.meta.lowercaseName + '.service.js'
+        this.projectConfig.pkg.prefix +
+        this.projectConfig.meta.capitalizedModuleName +
+        this.projectConfig.meta.capitalizedName + '.service.js'
       );
 
       this.targetTestUnit = path.join(
         this.projectConfig.path.testDir,
         'unit',
         this.chosenModule,
-        this.projectConfig.meta.lowercaseName + '.service.spec.js'
+        this.projectConfig.pkg.prefix +
+        this.projectConfig.meta.capitalizedModuleName +
+        this.projectConfig.meta.capitalizedName + '.service.spec.js'
       );
 
     },

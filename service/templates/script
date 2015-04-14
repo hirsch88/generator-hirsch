@@ -6,7 +6,7 @@
     'use strict';
 
     angular
-        .module('<%= meta.module %>.service.<%= meta.lowercaseName %>', [
+        .module('<%= meta.module %>.service.<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', [
             <%= prompts.modules %>
         ])
         .factory('<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Service);
