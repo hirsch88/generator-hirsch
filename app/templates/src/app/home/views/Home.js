@@ -9,7 +9,9 @@
   'use strict';
 
   angular
-    .module('home')
+    .module('home.home',[
+
+    ])
     .config(StateConfig)
     .controller('HomeController', HomeController);
 
