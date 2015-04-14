@@ -1,12 +1,12 @@
 'use strict';
 
-describe('Unit: <%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', function () {
+describe('Unit: <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', function () {
 
   beforeEach(module('app'));
 
-  it('should contain an <%= meta.capitalizedModuleName %><%= meta.capitalizedName %> service',
-    inject(function (<%= meta.capitalizedModuleName %><%= meta.capitalizedName %>) {
-      expect(<%= meta.capitalizedModuleName %><%= meta.capitalizedName %>).not.to.equal(null);
+  it('should contain an <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %> service',
+    inject(function (<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>) {
+      expect(<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>).not.to.equal(null);
     })
   );
 
