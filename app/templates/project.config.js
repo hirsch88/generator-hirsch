@@ -29,7 +29,7 @@ module.exports = function (isGenerator) {
             ' * @version        <%= pkg.version %>\n' +
             ' * @author         <%= pkg.author %>\n' +
             ' * @license        <%= pkg.license %>\n' +
-    ' */\n',
+            ' */\n',
 
     /**
      * MODULES

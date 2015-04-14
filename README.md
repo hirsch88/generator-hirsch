@@ -44,6 +44,10 @@
 	
 	Adds a new module to your project and also the karma tests
 	
+- `yo hirsch:view myNewView`
+  	
+  Adds a new view template and a controller in the view directory of the chosen module
+	
 - `yo hirsch:service myService`
 	
 	Adds a new service to the chosen module of your project and also some karma tests
@@ -82,7 +86,7 @@
 #### Servers
 - `gulp serve`
 	
-	Starts a express server at localhost:3000 to visit your app
+	Starts a server at localhost:3000 to visit your app
 
 #### Testing
 - `gulp test`

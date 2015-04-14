@@ -107,7 +107,7 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
     /**
      * TEMPLATE
      */
-    template: function () {
+    template:    function () {
       this.fs.copyTpl(
         this.templatePath('template'),
         this.destinationPath(this.targetTemplate),

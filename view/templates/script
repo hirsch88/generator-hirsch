@@ -3,56 +3,56 @@
  * @namespace <%= meta.module %>
  */
 (function() {
-    'use strict';
+  'use strict';
 
-    /**
-     * @memberOf <%= meta.module %>
-     * @namespace <%= meta.lowercaseName %>
-     *
-     * @description
-     * <%= prompts.description %>
-     * Route: /<%= prompts.url %>
-     */
-    angular
-        .module('<%= meta.module %>.<%= meta.lowercaseName %>', [
-            <%= prompts.modules %>
-        ])
-        .config(StateConfig)
-        .controller('<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller', <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller);
+  /**
+   * @memberOf <%= meta.module %>
+   * @namespace <%= meta.lowercaseName %>
+   *
+   * @description
+   * <%= prompts.description %>
+   * Route: /<%= prompts.url %>
+   */
+  angular
+    .module('<%= meta.module %>.<%= meta.lowercaseName %>', [
+      <%= prompts.modules %>
+    ])
+    .config(StateConfig)
+    .controller('<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller', <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller);
 
 
-    /**
-     * @memberOf <%= meta.module %>.<%= meta.lowercaseName %>
-     * @name RouteConfig
-     */
-    function StateConfig($stateProvider) {
-      $stateProvider
-        .state('admin.<%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', {
-          url:           '/<%= prompts.url %>',
-          session:       true,
-          navigationKey: '<%= meta.module %>',
-          views:         {
-            'content': {
-              templateUrl:  '<%= meta.templateUrl %>',
-              controller:    '<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller',
-              controllerAs:  '<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>'
-            }
+  /**
+   * @memberOf <%= meta.module %>.<%= meta.lowercaseName %>
+   * @name RouteConfig
+   */
+  function StateConfig($stateProvider) {
+    $stateProvider
+      .state('admin.<%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', {
+        url:           '/<%= prompts.url %>',
+        session:       true,
+        navigationKey: '<%= meta.module %>',
+        views:         {
+          'content': {
+            templateUrl:  '<%= meta.templateUrl %>',
+            controller:   '<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller',
+            controllerAs: '<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>'
           }
+        }
 
-        });
-    }
+      });
+  }
 
 
-    /**
-     * @memberOf <%= meta.module %>.<%= meta.lowercaseName %>
-     * @name <%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller
-     */
-    function <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller(<%= prompts.dependencies %>) {
-        var vm = this;
+  /**
+   * @memberOf <%= meta.module %>.<%= meta.lowercaseName %>
+   * @name <%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller
+   */
+  function <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Controller(<%= prompts.dependencies %>) {
+    var vm = this;
 
-        // code goes here...
+    // code goes here...
 
-    }
+  }
 
 
 }());

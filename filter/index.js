@@ -80,14 +80,18 @@ var FilterGenerator = yeoman.generators.NamedBase.extend({
         this.projectConfig.path.appDir,
         modulePath,
         'filters',
-        this.projectConfig.meta.lowercaseName + '.filter.js'
+        this.projectConfig.pkg.prefix +
+        this.projectConfig.meta.capitalizedModuleName +
+        this.projectConfig.meta.capitalizedName + '.filter.js'
       );
 
       this.targetTestUnit = path.join(
         this.projectConfig.path.testDir,
         'unit',
         this.chosenModule,
-        this.projectConfig.meta.lowercaseName + '.filter.spec.js'
+        this.projectConfig.pkg.prefix +
+        this.projectConfig.meta.capitalizedModuleName +
+        this.projectConfig.meta.capitalizedName + '.filter.spec.js'
       );
 
     },

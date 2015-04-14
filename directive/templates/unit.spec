@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Unit: <%= meta.module %><%= meta.capitalizedName %>', function () {
+describe('Unit: <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', function () {
 
   var $compile, $rootScope;
 

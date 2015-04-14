@@ -3,35 +3,35 @@
  * @namespace <%= meta.module %>
  */
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('<%= meta.module %>.filter.<%= meta.lowercaseName %>', [
-            <%= prompts.modules %>
-        ])
-        .filter('<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Filter);
+  angular
+    .module('<%= meta.module %>.filter.<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', [
+      <%= prompts.modules %>
+    ])
+    .filter('<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>', <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Filter);
 
-    /**
-     * @memberOf <%= meta.module %>
-     * @namespace <%= meta.module %>.filter.<%= meta.lowercaseName %>
-     *
-     * @description
-     * <%= prompts.description %>
-     */
-    function <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Filter(<%= prompts.dependencies %>) {
+  /**
+   * @memberOf <%= meta.module %>
+   * @namespace <%= meta.module %>.filter.<%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>
+   *
+   * @description
+   * <%= prompts.description %>
+   */
+  function <%= pkg.prefix %><%= meta.capitalizedModuleName %><%= meta.capitalizedName %>Filter(<%= prompts.dependencies %>) {
 
-        return Filter;
-        ////////////////////////
+    return Filter;
+    ////////////////////////
 
-        function Filter(input) {
-            input = input || '';
+    function Filter(input) {
+      input = input || '';
 
-            // code goes here
+      // code goes here
 
-            return input;
-        }
-
+      return input;
     }
+
+  }
 
 
 }());
