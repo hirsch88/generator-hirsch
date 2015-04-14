@@ -9,7 +9,9 @@
 
   angular
     .module('home', [
-      'common.service.member'
+      'common.service.member',
+
+      'home.home'
     ]);
 
 
