@@ -56,7 +56,8 @@
 
   "globals": {
     "angular": false,
-    "appUtil": false,
+    "AppUtil": false,
+    "_": false,
     "$": false
   }
 }
