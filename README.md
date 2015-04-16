@@ -4,7 +4,9 @@
 
 > [Yeoman](http://yeoman.io) generator
 
-> Create a module or route based AngularJS Application. 
+> Create a module based AngularJS Application. 
+
+> Based on the famous style guide from John Papa [angular-styleguide](https://github.com/johnpapa/angular-styleguide)
 
 
 
@@ -38,7 +40,7 @@
     yo hirsch
     ```
     
-## Exploring Hirsch
+## Exploring Hirsch Templates
 ### Templating
 - `yo hirsch:module myModule`
 	
@@ -66,13 +68,13 @@
 	
 	Injects all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
 	
+- `gulp help`
+	
+	Lists all tasks
+	
 - `gulp build`
 	
 	Injects all JS files into your index.html and generates a css from your less
-	
-- `gulp index`
-	
-	Injects all JS files into your index.html
 	
 - `gulp style`
 	
@@ -83,10 +85,10 @@
 	This generates a minified app
 	
 		
-#### Servers
-- `gulp serve`
+#### Servers (default)
+- `gulp serve` 
 	
-	Starts a server at localhost:3000 to visit your app
+	Opens the browser(localhost:3000 ) with your app and refreshes it when your source code has been modified
 
 #### Testing
 - `gulp test`
@@ -100,6 +102,89 @@
 - `gulp test:midway`
 	
 	Runs all your midway karma tests
+	
+	
+## Styleguide
+I use this style guid for my apps:
+[johnpapa/angular-styleguide](https://github.com/johnpapa/angular-styleguide)
+
+	
+	
+## App Structure
+```
+projectRoot/
+   |
+   +-- dist/ ( minified app version will placed by gulp here with the task 'gulp dist' )
+   |
+   +-- src/
+   |   |
+   |   +-- app/
+   |   |   |  
+   |   |   + common/  
+   |   |   |   |  
+   |   |   |   + directives/  
+   |   |   |   + filters/  
+   |   |   |   + services/  
+   |   |   |   + templates/  
+   |   |   |     
+   |   |   + core/
+   |   |   |   |
+   |   |   |   + app.config.js ( 3rd party modules configurations )
+   |   |   |   + app.core.js ( Defines the AngularJS modules and configures them )
+   |   |   |   + app.router.js ( ui.router middleware )
+   |   |   |   + app.run.js
+   |   |   |   + app.util.js ( Global object to generates the server url for the current environment )
+   |   |   |
+   |   |   + <moduleName>/
+   |   |   |   |
+   |   |   |   + common/
+   |   |   |   |   |
+   |   |   |   |   + directives/  
+   |   |   |   |   + filters/  
+   |   |   |   |   + services/  
+   |   |   |   |   + templates/  
+   |   |   |   |  
+   |   |   |   + views/
+   |   |   |   |   |
+   |   |   |   |   + <viewName>.js
+   |   |   |   |   + <viewName>.html
+   |   |   |   |
+   |   |   |   + <moduleName>.module.js
+   |   |   |
+   |   |   + app.js  
+   |   |
+   |   +-- assets/ 
+   |   |   |
+   |   |   +-- css/
+   |   |   +-- fonts/
+   |   |   +-- i18n/
+   |   |   +-- less/
+   |   |   +-- medias/
+   |   | 
+   |   +-- lib/ ( Bower packages )
+   |   +-- index.html ( "MAIN" - This is the start page of your single-page-application and has some gulp vars )
+   |  
+   +-- test/
+   |   |
+   |   + lib/
+   |   + e2e/
+   |   + midway/
+   |   + unit/
+   |
+   +-- .bowerrc ( defines the location for the bower_components )
+   +-- .gitignore
+   +-- .jshintrc ( JSHint Syntax definiations )
+   +-- bower.json
+   +-- gulpfile.js ( Task Runner )
+   +-- karma-midway.config.js
+   +-- karma-shared.config.js
+   +-- karma-unit.config.js
+   +-- package.json
+   +-- project.config.js ( Path definitions for gulp )
+   +-- README.md ( describes the project and how to set it up )
+  ```
+	
+	
 
 ## License
 
