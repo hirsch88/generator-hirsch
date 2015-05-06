@@ -57,9 +57,28 @@ gulp.task('serve', ['index'], function () {
     }
   });
 
+  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.app.templates), ['index', browserSync.reload]);
   gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.asset.less), ['style', browserSync.reload]);
   gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.app.scripts), ['index', browserSync.reload]);
   gulp.watch('./bower.json', ['index', browserSync.reload]);
+
+});
+
+gulp.task('serve-dist', ['dist'], function () {
+
+  browserSync({
+    server: {
+      baseDir: projectConfig.path.distDir,
+      index:   projectConfig.path.main,
+      browser: 'Google Chrome',
+      open:    true
+    }
+  });
+
+  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.app.templates), ['dist', browserSync.reload]);
+  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.asset.less), ['dist', browserSync.reload]);
+  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.app.scripts), ['dist', browserSync.reload]);
+  gulp.watch('./bower.json', ['dist', browserSync.reload]);
 
 });
 
@@ -220,7 +239,7 @@ gulp.task('dist-copy-assets', ['dist-clean'], function () {
 /**
  * MINIFY TASKS
  */
-gulp.task('dist-app', ['dist-minify-app-css', 'dist-minify-app-js']);
+gulp.task('dist-app', ['dist-minify-app-css', 'dist-minify-app-js', 'dist-minify-app-html']);
 
 gulp.task('dist-bower', ['dist-minify-bower-js', 'dist-minify-bower-css']);
 
