@@ -52,10 +52,11 @@
   "browser":       true,
   "node":          true,
   "globals":       {
-    "AppUtil": false,
-    "angular": false,
-    "moment":  false,
-    "_":       false,
-    "$":       false
+    "AppUtil":    false,
+    "AppEvents":  false,
+    "angular":    false,
+    "moment":     false,
+    "_":          false,
+    "$":          false
   }
 }
