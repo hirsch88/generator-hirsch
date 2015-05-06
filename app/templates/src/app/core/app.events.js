@@ -73,7 +73,7 @@
    */
   AppEvents.prototype.trigger = function (event, eventObject) {
     var callbacks = this.eventCallbacks[event];
-    if (angular.isDefined(callbacks)) {
+    if (!_.isUndefined(callbacks)) {
       for (var i = 0; i < callbacks.length; i++) {
         callbacks[i].func(eventObject);
       }
