@@ -73,7 +73,7 @@
    */
   AppEvents.prototype.trigger = function (event, eventObject) {
     var callbacks = this.eventCallbacks[event];
-    if (!_.isUndefined(callbacks)) {
+    if (_.isArray(callbacks)) {
       for (var i = 0; i < callbacks.length; i++) {
         callbacks[i].func(eventObject);
       }
