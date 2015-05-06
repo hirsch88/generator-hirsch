@@ -134,6 +134,7 @@ projectRoot/
    |   |   |   + app.router.js ( ui.router middleware )
    |   |   |   + app.run.js
    |   |   |   + app.util.js ( Global object to generates the server url for the current environment )
+   |   |   |   + app.events.js ( Global event bus )
    |   |   |
    |   |   + <moduleName>/
    |   |   |   |
