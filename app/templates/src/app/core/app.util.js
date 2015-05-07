@@ -91,6 +91,34 @@
      */
     joinPath: function (array) {
       return array.join('/');
+    },
+
+    /**
+     * @memberOf app.util
+     * @method getFunctionName
+     *
+     * @description
+     * Returns the name of a class/function
+     *
+     * @example AppUtil.getFunctionName(variable) // -> 'functionName'
+     *
+
+     * @param object
+     * @param defaultName
+     * @returns {string|*}
+     */
+    getFunctionName: function (object, defaultName) {
+      var nameFromToStringRegex = /^function\s?([^\s(]*)/;
+      var result = '';
+
+      if (typeof object === 'function') {
+        result = object.name || object.toString().match(nameFromToStringRegex)[1];
+
+      } else if (typeof object.constructor === 'function') {
+        result = AppUtil.getFunctionName(object.constructor, defaultName);
+
+      }
+      return result || defaultName;
     }
 
   };
