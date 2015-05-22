@@ -24,27 +24,37 @@ module.exports = yeoman.generators.Base.extend({
     this.log(yosay('Welcome to the marvelous ' + chalk.red('Hirsch') + ' generator!'));
     var prompts = [
       {
-        type:    'string',
         name:    'appName',
         message: 'How would u like to call your app?',
         default: path.basename(process.cwd())
       },
       {
-        type:    'string',
         name:    'prefix',
         message: 'Angular app prefix sign like ng(2chars):',
         default: 'my'
       },
       {
-        type:    'string',
         name:    'description',
         message: 'Describe your application:'
       },
       {
-        type:    'string',
         name:    'author',
-        message: 'How is the author?',
+        message: 'Who is the author?',
         default: 'Gery Hirschfeld <gery.hirschfeld@w3tec.ch>'
+      },
+      {
+        type: 'confirm',
+        name: 'useTypescript',
+        message: 'Do you want to use TypeScript?',
+        default: 'Y'
+      },
+      {
+        when: function (props) {
+          return props.useTypescript;
+        },
+        name: 'typingsPath',
+        message: 'Where do you want to store the type definitions (path relative to root)?',
+        default: 'typings'
       }
     ];
 
@@ -53,6 +63,8 @@ module.exports = yeoman.generators.Base.extend({
       this.prefix = props.prefix;
       this.description = props.description;
       this.author = props.author;
+      this.useTypescript = props.useTypescript;
+      this.typingsPath = props.typingsPath;
       if (this.appName !== path.basename(process.cwd())) {
         this.destinationRoot(this.appName)
       }
@@ -62,7 +74,7 @@ module.exports = yeoman.generators.Base.extend({
   },
   /**
    * WRITING
-   * Generates, copys the marvelous application
+   * Generates, copies the marvelous application
    */
   writing:      {
     /**
@@ -76,6 +88,8 @@ module.exports = yeoman.generators.Base.extend({
       this.projectConfig.prompts.prefix = this.prefix;
       this.projectConfig.prompts.description = this.description;
       this.projectConfig.prompts.author = this.author;
+      this.projectConfig.prompts.useTypescript = this.useTypescript;
+      this.projectConfig.prompts.typingsPath = this.typingsPath;
       done();
     },
     /**
@@ -85,7 +99,7 @@ module.exports = yeoman.generators.Base.extend({
     devTools: function () {
 
       this.fs.copy(this.templatePath('editorconfig'), this.destinationPath('.editorconfig'));
-      this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
+      this.fs.copyTpl(this.templatePath('gitignore'), this.destinationPath('.gitignore'), this.projectConfig);
       this.fs.copy(this.templatePath('jshintrc'), this.destinationPath('.jshintrc'));
       this.fs.copy(this.templatePath('project.config.js'), this.destinationPath('project.config.js'));
 
@@ -95,6 +109,10 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'), this.projectConfig);
 
       this.fs.copy(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'));
+
+      if(this.projectConfig.prompts.useTypescript) {
+        this.fs.copyTpl(this.templatePath('_tsd.json'), this.destinationPath('tsd.json'), this.projectConfig);
+      }
     },
     /**
      * BOILERPLATE APPLICATION
@@ -202,6 +220,26 @@ module.exports = yeoman.generators.Base.extend({
   },
   install:      function () {
     this.installDependencies();
+    if (this.useTypescript) {
+      this.env.runLoop.add('install', function (done) {
+        this.emit('tsdReinstall');
+
+        this.log('Running ' + chalk.yellow.bold('tsd reinstall --save') + '. If this fails run the commands ' +
+          'yourself. TSD must be installed via `npm install -g tsd`.');
+
+        this.spawnCommand('tsd', ['reinstall', '--save'])
+          .on('exit', function (err) {
+            if (err === 127) {
+              this.log.error(
+                'Could not find tsd. Please install with ' +
+                '`npm install -g tsd`.'
+              );
+            }
+            this.emit('tsdReinstall:end');
+            done();
+          }.bind(this));
+      }.bind(this), { once: 'tsd reinstall', run: false });
+    }
   },
   end:          function () {
     this.log('');

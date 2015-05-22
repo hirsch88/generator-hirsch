@@ -9,3 +9,4 @@ old/
 bower_components/
 .DS_Store
 npm-debug.log
+<% if (prompts.useTypescript) { %><%= prompts.typingsPath %>/<% } %>
