@@ -59,6 +59,8 @@ module.exports = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function (props) {
+      var oldDate;
+
       this.appName = props.appName;
       this.prefix = props.prefix;
       this.description = props.description;
@@ -67,6 +69,12 @@ module.exports = yeoman.generators.Base.extend({
       this.typingsPath = props.typingsPath;
       if (this.appName !== path.basename(process.cwd())) {
         this.destinationRoot(this.appName)
+      }
+
+      if(this.useTypescript) {
+        oldDate = this.projectConfig.date;
+        this.projectConfig = require('./templates/project.config.typescript')(true);
+        this.projectConfig.date = oldDate;
       }
 
       done();
@@ -101,17 +109,23 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(this.templatePath('editorconfig'), this.destinationPath('.editorconfig'));
       this.fs.copyTpl(this.templatePath('gitignore'), this.destinationPath('.gitignore'), this.projectConfig);
       this.fs.copy(this.templatePath('jshintrc'), this.destinationPath('.jshintrc'));
-      this.fs.copy(this.templatePath('project.config.js'), this.destinationPath('project.config.js'));
+
+      var projectConfigTemplatePath = this.projectConfig.prompts.useTypescript ?
+                                        'project.config.typescript.js' :
+                                        'project.config.js';
+
+      this.fs.copy(this.templatePath(projectConfigTemplatePath), this.destinationPath('project.config.js'));
 
 
       this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.projectConfig);
       this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.projectConfig);
       this.fs.copyTpl(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'), this.projectConfig);
 
-      this.fs.copy(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'));
+      this.fs.copyTpl(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'), this.projectConfig);
 
       if(this.projectConfig.prompts.useTypescript) {
         this.fs.copyTpl(this.templatePath('_tsd.json'), this.destinationPath('tsd.json'), this.projectConfig);
+        this.fs.copy(this.templatePath('_tsconfig.json'), this.destinationPath('tsconfig.json'));
       }
     },
     /**
@@ -230,10 +244,7 @@ module.exports = yeoman.generators.Base.extend({
         this.spawnCommand('tsd', ['reinstall', '--save'])
           .on('exit', function (err) {
             if (err === 127) {
-              this.log.error(
-                'Could not find tsd. Please install with ' +
-                '`npm install -g tsd`.'
-              );
+              this.log.error('Could not find tsd. Please install with `npm install -g tsd`.');
             }
             this.emit('tsdReinstall:end');
             done();
@@ -245,7 +256,7 @@ module.exports = yeoman.generators.Base.extend({
     this.log('');
     this.log(helper.hirschSay());
     this.log('Go to your project folder and run ' + chalk.bold.yellow('gulp serve'));
-    this.log('Than visit your app on ' + chalk.bold.yellow('http://localhost:3000'));
+    this.log('Then visit your app on ' + chalk.bold.yellow('http://localhost:3000'));
     this.log('');
   }
 });

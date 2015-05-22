@@ -20,6 +20,11 @@ var minifyCSS = require('gulp-minify-css');
 var header = require('gulp-header');
 var install = require('gulp-install');
 
+<% if(prompts.useTypescript) { %>
+  var ts = require('gulp-typescript');
+  var tslint = require('gulp-tslint');
+  var typescript = require('typescript');
+<% } %>
 
 /**
  * TASKLISTING
@@ -85,8 +90,28 @@ gulp.task('serve-dist', ['dist'], function () {
 /**
  * BUILD
  */
-gulp.task('build', ['jshint', 'index']);
+gulp.task('build', [<% if(prompts.useTypescript) { %>'ts', <% }  else { %>'jshint', <% } %>'index']);
+<% if(prompts.useTypescript) { %>
+var tsProject = ts.createProject('tsconfig.json', {
+  typescript: typescript
+});
 
+/**
+ * TS
+ * Lints and compiles all .ts source files in the app.
+ */
+gulp.task('ts', function () {
+  return gulp.src([
+      projectConfig.path.srcDir + '/' + projectConfig.path.app.scripts,
+      projectConfig.path.testDir + '/' + projectConfig.path.app.scripts,
+      '<%= prompts.typingsPath %>/**/*.d.ts'
+    ])
+    .pipe(tslint())
+    .pipe(ts(tsProject))
+    .js
+    .pipe(gulp.dest('.'));
+});
+<% } else { %>
 /**
  * JSHINT
  * Checks the source code with some defined guidelines from the .jshintrc
@@ -98,7 +123,7 @@ gulp.task('jshint', function () {
     .pipe($.jshint.reporter(stylish))
     .pipe($.jshint.reporter('fail'));
 });
-
+<% } %>
 /**
  * INJECT
  * Injects all bower and application scripts into the main index.html file
