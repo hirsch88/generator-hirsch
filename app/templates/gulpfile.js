@@ -102,10 +102,12 @@ var tsProject = ts.createProject('tsconfig.json', {
  */
 gulp.task('ts', function () {
   return gulp.src([
-      projectConfig.path.srcDir + '/' + projectConfig.path.app.scripts,
-      projectConfig.path.testDir + '/' + projectConfig.path.app.scripts,
+      projectConfig.path.srcDir + '/' + projectConfig.path.app.scripts.replace(/\.js$/, '.ts'),
+      projectConfig.path.testDir + '/' + projectConfig.path.app.scripts.replace(/\.js$/, '.ts'),
       '<%= prompts.typingsPath %>/**/*.d.ts'
-    ])
+    ], {
+      base: '.'
+    })
     .pipe(tslint())
     .pipe(ts(tsProject))
     .js

@@ -71,12 +71,6 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationRoot(this.appName)
       }
 
-      if(this.useTypescript) {
-        oldDate = this.projectConfig.date;
-        this.projectConfig = require('./templates/project.config.typescript')(true);
-        this.projectConfig.date = oldDate;
-      }
-
       done();
     }.bind(this));
   },
@@ -110,11 +104,7 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(this.templatePath('gitignore'), this.destinationPath('.gitignore'), this.projectConfig);
       this.fs.copy(this.templatePath('jshintrc'), this.destinationPath('.jshintrc'));
 
-      var projectConfigTemplatePath = this.projectConfig.prompts.useTypescript ?
-                                        'project.config.typescript.js' :
-                                        'project.config.js';
-
-      this.fs.copy(this.templatePath(projectConfigTemplatePath), this.destinationPath('project.config.js'));
+      this.fs.copy(this.templatePath('project.config.js'), this.destinationPath('project.config.js'));
 
 
       this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.projectConfig);
@@ -134,87 +124,67 @@ module.exports = yeoman.generators.Base.extend({
      */
     app:      function () {
 
+      var _this = this;
+      var copyBase = function(copyFunc) {
+        var rest = Array.prototype.slice.call(arguments, 1);
+        return function() {
+          var relPath = path.join.apply(null, Array.prototype.map.call(arguments, function(seg) {
+            return _this.projectConfig.prompts.useTypescript ? seg.replace(/\.js$/, '.ts') : seg;
+          }));
+          copyFunc.apply(null, [_this.templatePath(relPath), _this.destinationPath(relPath)].concat(rest));
+        };
+      }
+
+      var copy = copyBase(this.fs.copy.bind(this.fs));
+      var copyTpl = copyBase(this.fs.copyTpl.bind(this.fs), this.projectConfig);
+      var copyDir = copyBase(this.directory.bind(this));
+
       // Assets
-      this.directory(
-        this.templatePath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.assetsDir)),
-        this.destinationPath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.assetsDir))
-      );
+      copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assetsDir);
 
       // Index
-      this.fs.copyTpl(
-        this.templatePath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.main)),
-        this.destinationPath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.main)), this.projectConfig
-      );
+      copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.main);
 
       // App.js
-      this.fs.copyTpl(
-        this.templatePath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.main)),
-        this.destinationPath(path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.main)), this.projectConfig
-      );
+      copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.app.main);
 
       // Core files
       var corePath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.coreDir);
-      this.fs.copy(this.templatePath(path.join(corePath, 'app.config.js')), this.destinationPath(path.join(corePath, 'app.config.js')));
-      this.fs.copy(this.templatePath(path.join(corePath, 'app.core.js')), this.destinationPath(path.join(corePath, 'app.core.js')));
-      this.fs.copy(this.templatePath(path.join(corePath, 'app.logger.js')), this.destinationPath(path.join(corePath, 'app.logger.js')));
-      this.fs.copy(this.templatePath(path.join(corePath, 'app.router.js')), this.destinationPath(path.join(corePath, 'app.router.js')));
-      this.fs.copy(this.templatePath(path.join(corePath, 'app.run.js')), this.destinationPath(path.join(corePath, 'app.run.js')));
-      this.fs.copy(this.templatePath(path.join(corePath, 'app.events.js')), this.destinationPath(path.join(corePath, 'app.events.js')));
-      this.fs.copyTpl(
-        this.templatePath(path.join(corePath, 'app.util.js')),
-        this.destinationPath(path.join(corePath, 'app.util.js')), this.projectConfig
-      );
+      [
+        'app.config.js',
+        'app.core.js',
+        'app.logger.js',
+        'app.router.js',
+        'app.run.js',
+        'app.events.js'
+      ].forEach(function(file) {
+        copy(corePath, file);
+      });
+
+      copyTpl(corePath, 'app.util.js');
 
       // Layout module
       var layoutPath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.layoutDir);
-      this.fs.copy(this.templatePath(path.join(layoutPath, 'layout.module.js')), this.destinationPath(path.join(layoutPath, 'layout.module.js')));
+      copy(layoutPath, 'layout.module.js');
 
-      this.fs.copyTpl(
-        this.templatePath(path.join(layoutPath, 'views', 'admin.html')),
-        this.destinationPath(path.join(layoutPath, 'views', 'admin.html')), this.projectConfig
-      );
-      this.fs.copy(this.templatePath(path.join(layoutPath, 'views', 'admin.js')), this.destinationPath(path.join(layoutPath, 'views', 'admin.js')));
+      var viewsPath = path.join(layoutPath, 'views');
+      copyTpl(viewsPath, 'admin.html');
+      [
+        'admin.js',
+        'public.html',
+        'public.js'
+      ].forEach(function(file) {
+          copy(viewsPath, file);
+        });
 
-      this.fs.copy(this.templatePath(path.join(layoutPath, 'views', 'public.html')), this.destinationPath(path.join(layoutPath, 'views', 'public.html')));
-      this.fs.copy(this.templatePath(path.join(layoutPath, 'views', 'public.js')), this.destinationPath(path.join(layoutPath, 'views', 'public.js')));
-
-
-      this.fs.copy(
-        this.templatePath(path.join(layoutPath, 'directives', 'header.directive.html')),
-        this.destinationPath(path.join(layoutPath, 'directives', 'header.directive.html'))
-      );
-      this.fs.copyTpl(
-        this.templatePath(path.join(layoutPath, 'directives', 'header.directive.js')),
-        this.destinationPath(path.join(layoutPath, 'directives', 'header.directive.js')), this.projectConfig
-      );
+      copy(layoutPath, 'directives', 'header.directive.html');
+      copyTpl(layoutPath, 'directives', 'header.directive.js');
 
       // Common module
-      this.directory(
-        this.templatePath(path.join(
-          this.projectConfig.path.srcDir,
-          this.projectConfig.path.app.commonDir
-        )),
-        this.destinationPath(path.join(
-          this.projectConfig.path.srcDir,
-          this.projectConfig.path.app.commonDir
-        ))
-      );
+      copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.app.commonDir);
 
       // Home module
-      this.directory(
-        this.templatePath(path.join(
-          this.projectConfig.path.srcDir,
-          this.projectConfig.path.appDir,
-          'home'
-        )),
-        this.destinationPath(path.join(
-          this.projectConfig.path.srcDir,
-          this.projectConfig.path.appDir,
-          'home'
-        ))
-      );
-
-
+      copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, 'home');
     },
     /**
      * TEST FILES
