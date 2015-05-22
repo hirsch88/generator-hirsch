@@ -204,14 +204,15 @@ module.exports = yeoman.generators.Base.extend({
   },
   install:      function () {
     this.installDependencies();
+
+    // download type definitions if TypeScript was enabled
     if (this.useTypescript) {
       this.env.runLoop.add('install', function (done) {
         this.emit('tsdReinstall');
 
-        this.log('Running ' + chalk.yellow.bold('tsd reinstall --save') + '. If this fails run the commands ' +
-          'yourself. TSD must be installed via `npm install -g tsd`.');
+        this.log('Running ' + chalk.yellow.bold('tsd reinstall --save') + '. If this fails run the commands yourself after running `npm install -g tsd`.');
 
-        this.spawnCommand('tsd', ['reinstall', '--save'])
+        this.spawnCommand('node', ['node_modules/tsd/build/cli.js', 'reinstall', '--save'])
           .on('exit', function (err) {
             if (err === 127) {
               this.log.error('Could not find tsd. Please install with `npm install -g tsd`.');
