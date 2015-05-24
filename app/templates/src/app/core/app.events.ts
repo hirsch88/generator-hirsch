@@ -35,7 +35,7 @@ module App.Events {
       return this.eventCallbacks;
     }
 
-    on(event: string, callback: IEventCallback) {
+    on = (event: string, callback: IEventCallback) => {
       var callbacks = this.eventCallbacks[event] || (this.eventCallbacks[event] = []);
       var name = AppUtil.getFunctionName(callback, 'anonymous');
       var index = _.findIndex(callbacks, { name: name });
@@ -50,7 +50,7 @@ module App.Events {
       }
     }
 
-    off(event: string, callback: IEventCallback) {
+    off = (event: string, callback: IEventCallback) => {
       var callbacks = this.eventCallbacks[event];
       if (_.isUndefined(callbacks)) {
         return;
@@ -67,7 +67,7 @@ module App.Events {
       }
     }
 
-    trigger(event: string, eventObject: any) {
+    trigger = (event: string, eventObject: any) => {
       var callbacks = this.eventCallbacks[event];
       if (_.isArray(callbacks)) {
         for (var i = 0; i < callbacks.length; i++) {
