@@ -3,7 +3,7 @@
 module App.Logger {
   'use strict';
 
-  export interface ILoggerService {
+  export interface ILoggerFactory {
     /**
      * Get the logger for the given name.
      */
@@ -56,7 +56,7 @@ module App.Logger {
     .module('app.logger', [])
     .factory(ID.LoggerService, loggerService);
 
-  function loggerService($log: angular.ILogService) {
+  function loggerService($log: angular.ILogService): ILoggerFactory {
     return function (name) {
       return new Logger($log ,name);
     };
