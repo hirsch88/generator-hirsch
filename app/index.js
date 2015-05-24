@@ -152,8 +152,8 @@ module.exports = yeoman.generators.Base.extend({
       // Index
       this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.main);
 
-      this.copyFile(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, '**', '*.js');
-      this.copyFile(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, '**', '*.html');
+      this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, '**', '*.js');
+      this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, '**', '*.html');
     },
     /**
      * TEST FILES
