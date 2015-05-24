@@ -9,9 +9,13 @@ module.exports = function (isGenerator) {
   var wiredep = require('wiredep');
   var bowerFilesJs = [];
   var bowerFilesCss = [];
+  var bowerFilesFonts = [];
   try {
     bowerFilesJs = (!isGenerator) ? wiredep({})['js'] : [];
     bowerFilesCss = (!isGenerator) ? wiredep({})['css'] : [];
+    bowerFilesFonts = (!isGenerator) ? wiredep({}).packages['font-awesome'].main.filter(function (p) {
+      return new RegExp('\\' + path.sep + 'fonts\\' + path.sep).test(p);
+    }) : [];
   } catch (e) {
 
   }
@@ -174,6 +178,9 @@ module.exports = function (isGenerator) {
         ),
         css:  [].concat(
           bowerFilesCss
+        ),
+        fonts: [].concat(
+          bowerFilesFonts
         ),
         main: bowerFiles
       }
