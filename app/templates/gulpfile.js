@@ -252,15 +252,14 @@ gulp.task('dist-clean', function (cb) {
  * COPY
  */
 gulp.task('dist-copy-assets', ['dist-clean'], function () {
-
-  var assestsFiles = [
+  var assetsFiles = [
     path.join(projectConfig.path.srcDir, projectConfig.path.asset.fontDir + '/**/*'),
     path.join(projectConfig.path.srcDir, projectConfig.path.asset.mediaDir + '/**/*'),
     path.join(projectConfig.path.srcDir, projectConfig.path.asset.i18n)
   ];
 
   return gulp
-    .src(assestsFiles, {base: projectConfig.path.srcDir})
+    .src(assetsFiles, {base: projectConfig.path.srcDir})
     .pipe(gulp.dest(projectConfig.path.distDir));
 });
 
@@ -269,7 +268,7 @@ gulp.task('dist-copy-assets', ['dist-clean'], function () {
  */
 gulp.task('dist-app', ['dist-minify-app-css', 'dist-minify-app-js', 'dist-minify-app-html']);
 
-gulp.task('dist-bower', ['dist-minify-bower-js', 'dist-minify-bower-css']);
+gulp.task('dist-bower', ['dist-minify-bower-js', 'dist-minify-bower-css', 'dist-bower-fonts']);
 
 /**
  * MINIFY APP
@@ -311,9 +310,8 @@ gulp.task('dist-minify-app-html', function () {
   var destination = path.join(projectConfig.path.distDir, projectConfig.path.appDir);
 
   return gulp.src(source)
-    .pipe($.htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest(destination))
-
+    .pipe($.htmlmin({ collapseWhitespace: true }))
+    .pipe(gulp.dest(destination));
 });
 
 /**
@@ -344,9 +342,16 @@ gulp.task('dist-minify-bower-css', function () {
   return gulp
     .src(cssFiles, {base: './'})
     .pipe($.concat(newCssFileName))
-    .pipe(minifyCSS({keepBreaks: true}))
+    .pipe(minifyCSS({keepBreaks: true, relativeTo: '../assets'}))
     .pipe(header(projectConfig.banner, {pkg: projectConfig.pkg}))
     .pipe(gulp.dest(projectConfig.path.distDir));
+});
+
+gulp.task('dist-bower-fonts', function () {
+  return gulp
+    .src(projectConfig.bower.files.fonts)
+    .pipe(header(projectConfig.banner, { pkg: projectConfig.pkg }))
+    .pipe(gulp.dest(path.join(projectConfig.path.distDir, projectConfig.path.libDir, projectConfig.path.asset.fontDir)));
 });
 
 /**

@@ -13,9 +13,14 @@ module.exports = function (isGenerator) {
   try {
     bowerFilesJs = (!isGenerator) ? wiredep({})['js'] : [];
     bowerFilesCss = (!isGenerator) ? wiredep({})['css'] : [];
-    bowerFilesFonts = (!isGenerator) ? wiredep({}).packages['font-awesome'].main.filter(function (p) {
-      return new RegExp('\\' + path.sep + 'fonts\\' + path.sep).test(p);
-    }) : [];
+    if (!isGenerator) {
+      bowerFilesFonts = ['font-awesome', 'bootstrap']
+        .map(function (s) { return wiredep({}).packages[s].main; })
+        .reduce(function (a, b) { return a.concat(b); })
+        .filter(function (p) {
+          return new RegExp('\\' + path.sep + 'fonts\\' + path.sep).test(p);
+        });
+    }
   } catch (e) {
 
   }
