@@ -77,7 +77,31 @@ module.exports = yeoman.generators.Base.extend({
    * WRITING
    * Generates, copies the marvelous application
    */
-  writing:      {
+  writing: {
+    /**
+     * INIT
+     * Declare some helper functions
+     */
+    init: function() {
+      var _this = this;
+      var copyBase = function(copyFunc) {
+        var rest = Array.prototype.slice.call(arguments, 1);
+        return function () {
+          var relPath = path.join.apply(null, Array.prototype.map.call(arguments, _this.typescriptFilter));
+          var relTargetPath = path.join.apply(null, Array.prototype.filter.call(arguments, function(seg) {
+            return seg.indexOf('*') < 0;
+          }).map(_this.typescriptFilter));
+          copyFunc.apply(null, [_this.templatePath(relPath), _this.destinationPath(relTargetPath)].concat(rest));
+        };
+      }
+
+      this.copyFile = copyBase(this.fs.copy.bind(this.fs));
+      this.copyTpl = copyBase(this.fs.copyTpl.bind(this.fs), this.projectConfig);
+      this.copyDir = copyBase(this.directory.bind(this));
+      this.typescriptFilter = function (s) {
+        return _this.projectConfig.prompts.useTypescript ? s.replace(/\.js$/, '.ts') : s;
+      };
+    },
     /**
      * PROMPTS
      * Adds the answers of the user to the project config object
@@ -122,78 +146,23 @@ module.exports = yeoman.generators.Base.extend({
      * Creates the basic of the app and some examples
      */
     app:      function () {
-
-      var _this = this;
-      var copyBase = function(copyFunc) {
-        var rest = Array.prototype.slice.call(arguments, 1);
-        return function() {
-          var relPath = path.join.apply(null, Array.prototype.map.call(arguments, function(seg) {
-            return _this.projectConfig.prompts.useTypescript ? seg.replace(/\.js$/, '.ts') : seg;
-          }));
-          copyFunc.apply(null, [_this.templatePath(relPath), _this.destinationPath(relPath)].concat(rest));
-        };
-      }
-
-      var copy = copyBase(this.fs.copy.bind(this.fs));
-      var copyTpl = copyBase(this.fs.copyTpl.bind(this.fs), this.projectConfig);
-      var copyDir = copyBase(this.directory.bind(this));
-
       // Assets
-      copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assetsDir);
+      this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assetsDir);
 
       // Index
-      copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.main);
+      this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.main);
 
-      // App.js
-      copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.app.main);
-
-      // Core files
-      var corePath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.coreDir);
-      [
-        'app.config.js',
-        'app.core.js',
-        'app.logger.js',
-        'app.router.js',
-        'app.run.js',
-        'app.events.js'
-      ].forEach(function(file) {
-        copy(corePath, file);
-      });
-
-      copyTpl(corePath, 'app.util.js');
-
-      // Layout module
-      var layoutPath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.layoutDir);
-      copy(layoutPath, 'layout.module.js');
-
-      var viewsPath = path.join(layoutPath, 'views');
-      copyTpl(viewsPath, 'admin.html');
-      [
-        'admin.js',
-        'public.html',
-        'public.js'
-      ].forEach(function(file) {
-          copy(viewsPath, file);
-        });
-
-      copy(layoutPath, 'directives', 'header.directive.html');
-      copyTpl(layoutPath, 'directives', 'header.directive.js');
-
-      // Common module
-      copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.app.commonDir);
-
-      // Home module
-      copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, 'home');
+      this.copyFile(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, '**', '*.js');
+      this.copyFile(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, '**', '*.html');
     },
     /**
      * TEST FILES
      * Includes some test files and as well the configs
      */
-    test:     function () {
-      this.directory(
-        this.templatePath(this.projectConfig.path.testDir),
-        this.destinationPath(this.projectConfig.path.testDir)
-      );
+    test: function () {
+      this.copyFile(this.projectConfig.path.testDir, this.projectConfig.path.test.specs);
+
+      this.copyFile(this.projectConfig.path.testDir, this.projectConfig.path.libDir, '**', '*.js');
 
       this.fs.copy(this.templatePath('karma-shared.config.js'), this.destinationPath('karma-shared.config.js'));
       this.fs.copy(this.templatePath('karma-unit.config.js'), this.destinationPath('karma-unit.config.js'));

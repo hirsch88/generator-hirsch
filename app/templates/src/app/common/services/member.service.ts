@@ -53,7 +53,11 @@ module App.Common.Services {
     }
   }
 
+  export const ID = {
+    MembersService: 'members'
+  }
+
   angular
     .module('common.service.member', [])
-    .service('members', MembersService);
+    .service(ID.MembersService, MembersService);
 }
