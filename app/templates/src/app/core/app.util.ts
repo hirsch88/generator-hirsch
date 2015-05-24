@@ -1,5 +1,23 @@
 /// <reference path="../../../typings/tsd.d.ts"/>
 
+declare var AppUtil: IAppUtil;
+
+interface IAppUtil {
+  title: string;
+  server: { local: string; prod: string };
+
+  getServerUrl(): string;
+  getEnvironment(): string;
+  buildTemplateUrl(url: string): string;
+  joinPath(segments: Array<string>): string;
+
+  /*
+   Returns the name of a class/function
+   */
+  getFunctionName(object: Function, defaultName?: string): string;
+  getFunctionName(object: FunctionConstructor, defaultName?: string): string;
+}
+
 /**
  * @memberOf app
  * @namespace app.util

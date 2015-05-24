@@ -53,7 +53,7 @@
    *
    * @constructor
    */
-  function LogConfig($logProvider) {
+  function LogConfig($logProvider: angular.ILogProvider) {
     if ($logProvider.debugEnabled) {
       $logProvider.debugEnabled(true);
     }
@@ -68,10 +68,10 @@
    *
    * @constructor
    */
-  function HttpConfig($httpProvider) {
+  function HttpConfig($httpProvider: angular.IHttpProvider) {
     $httpProvider.defaults.withCredentials = true;
-    if ($httpProvider.defaults.headers.get) {
-      $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+    if ($httpProvider.defaults.headers['get']) {
+      $httpProvider.defaults.headers['get']['If-Modified-Since'] = '0';
     }
   }
 
@@ -85,7 +85,7 @@
    *
    * @constructor
    */
-  function CompileConfig($compileProvider) {
+  function CompileConfig($compileProvider: angular.ICompileProvider) {
     $compileProvider.debugInfoEnabled(false);
   }
 

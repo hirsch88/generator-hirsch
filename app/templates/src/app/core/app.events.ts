@@ -1,5 +1,11 @@
 /// <reference path="../../../typings/tsd.d.ts"/>
 
+interface IEventCallback {
+  (eventObj): void;
+}
+
+type EventCallbackArray = Array<{ name: string; func: IEventCallback; }>;
+
 /**
  * @memberOf app
  * @namespace app.events
@@ -31,10 +37,10 @@
    * @param event
    * @param callback
    */
-  AppEvents.prototype.on = function (event, callback) {
-    var callbacks = this.eventCallbacks[event] || (this.eventCallbacks[event] = []);
+  AppEvents.prototype.on = function (event: string, callback: IEventCallback) {
+    var callbacks = <EventCallbackArray>this.eventCallbacks[event] || (this.eventCallbacks[event] = []);
     var name = AppUtil.getFunctionName(callback) || 'anonymous';
-    var index = _(callbacks).findIndex({name: name});
+    var index = _.findIndex(callbacks, { name: name });
 
     if (index === -1) {
       callbacks.push({
@@ -51,14 +57,14 @@
    * @param event
    * @param callback
    */
-  AppEvents.prototype.off = function (event, callback) {
-    var callbacks = this.eventCallbacks[event];
+  AppEvents.prototype.off = function (event: string, callback: IEventCallback) {
+    var callbacks = <EventCallbackArray>this.eventCallbacks[event];
     if (_.isUndefined(callbacks)) {
       return;
     }
 
     var name = AppUtil.getFunctionName(callback) || 'anonymous';
-    var index = _(callbacks).findIndex({name: name});
+    var index = _.findIndex(callbacks, { name: name });
     if (index >= 0) {
       callbacks.splice(index, 1);
     }
@@ -73,8 +79,8 @@
    * @param event
    * @param eventObject
    */
-  AppEvents.prototype.trigger = function (event, eventObject) {
-    var callbacks = this.eventCallbacks[event];
+  AppEvents.prototype.trigger = function (event: string, eventObject) {
+    var callbacks = <EventCallbackArray>this.eventCallbacks[event];
     if (_.isArray(callbacks)) {
       for (var i = 0; i < callbacks.length; i++) {
         callbacks[i].func(eventObject);

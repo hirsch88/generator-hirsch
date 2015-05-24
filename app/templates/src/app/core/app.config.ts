@@ -25,7 +25,7 @@
    *
    * @constructor
    */
-  function TranslateConfig($translateProvider) {
+  function TranslateConfig($translateProvider: angular.translate.ITranslateProvider) {
     $translateProvider.useStaticFilesLoader({
       prefix: './assets/i18n/',
       suffix: '.json'
