@@ -11,7 +11,7 @@
  * @date <%= date %>
  * @version 0.0.0
  */
-(function () {
+module App {
   'use strict';
 
   angular
@@ -19,6 +19,7 @@
 
       // Config and core module
       'app.core',
+      'app.util',
       'app.config',
       'app.logger',
       'app.router',
@@ -31,8 +32,5 @@
 
       // App modules with business logic
       'home'
-
-
     ]);
-
-}());
+}

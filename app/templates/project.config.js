@@ -140,6 +140,7 @@ module.exports = function (isGenerator) {
     return {
       files: [
         path.join(projectConfig.path.srcDir, projectConfig.path.app.main),
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, 'app.util.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, '*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '**/*.js'),

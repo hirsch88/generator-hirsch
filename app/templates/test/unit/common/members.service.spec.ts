@@ -2,7 +2,7 @@
 
 'use strict';
 
-describe('Unit: members', () => {
+describe('Unit: MembersService', () => {
 
   beforeEach(module('app'));
 
@@ -12,7 +12,7 @@ describe('Unit: members', () => {
     }])
   );
 
-  it('should have a working members',
+  it('should have working members',
     angular.mock.inject([App.Common.Services.MembersService.ID, ms => {
       should.exist(ms.get);
       should.exist(ms.getFullName);

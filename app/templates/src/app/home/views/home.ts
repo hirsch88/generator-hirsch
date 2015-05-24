@@ -30,9 +30,9 @@ module App.Home {
     private buildFullName: (member: Common.Services.IMember) => string;
     private list: Common.Services.IMember[];
 
-    static $inject = [Common.Services.MembersService.ID];
-    constructor(private membersService: Common.Services.MembersService) {
-      this.title = AppUtil.title;
+    static $inject = [Util.AppUtil.ID, Common.Services.MembersService.ID];
+    constructor(appUtil: Util.AppUtil, private membersService: Common.Services.MembersService) {
+      this.title = appUtil.title;
       this.buildFullName = this.membersService.getFullName;
 
       this.activate();

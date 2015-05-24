@@ -1,7 +1,5 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 
-declare var AppUtil: App.Util.AppUtil;
-
 module App.Util {
   'use strict';
 
@@ -10,6 +8,8 @@ module App.Util {
    * It is also global, so we can use this outside of the AngularJS Framework
    */
   export class AppUtil {
+    static ID = 'AppUtil';
+
     title = 'admin';
     server = {
       local: 'http://localhost:1337/api/',
@@ -73,6 +73,5 @@ module App.Util {
     };
   }
 
-  // TODO: convert to Angular service
-  window['AppUtil'] = new AppUtil();
+  angular.module('app.util', []).service(AppUtil.ID, AppUtil);
 }

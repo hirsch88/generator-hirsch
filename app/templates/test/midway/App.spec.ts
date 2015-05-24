@@ -2,43 +2,39 @@
 
 'use strict';
 
-describe('Midway: Testing Modules', function () {
+describe('Midway: Testing Modules', () => {
 
-  describe('App Module:', function () {
+  describe('App Module:', () => {
 
     var module;
-    before(function () {
+    before(() => {
       module = angular.module('app');
     });
 
-    it('should be registered', function () {
-      expect(module).not.to.equal(null);
+    it('should be registered', () => {
+      should.exist(module);
     });
 
-    it('should be global appUtil', function () {
-      AppUtil.should.be.an('object');
-      expect(AppUtil.getServerUrl()).to.be.a('string');
-    });
-
-    describe("Dependencies:", function () {
+    describe("Dependencies:", () => {
 
       var deps;
-      var hasModule = function (m) {
-        return deps.indexOf(m) >= 0;
-      };
-      before(function () {
+      var hasModule = m => deps.indexOf(m) >= 0;
+      before(() => {
         deps = module.value('appName').requires;
       });
 
       //you can also test the module's dependencies
-      it("should have app.core as a dependency", function () {
+      it("should have app.core as a dependency", () => {
         expect(hasModule('app.core')).to.equal(true);
       });
 
-      it("should have app.config as a dependency", function () {
+      it("should have app.config as a dependency", () => {
         expect(hasModule('app.config')).to.equal(true);
       });
 
+      it("should have app.util as a dependency", () => {
+        expect(hasModule('app.util')).to.equal(true);
+      });
     });
   });
 });

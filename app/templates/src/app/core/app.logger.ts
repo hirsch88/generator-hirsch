@@ -11,7 +11,7 @@ module App.Logger {
   }
 
   export class Logger {
-    constructor(private $log: angular.ILogService, public name: string) {
+    constructor(private $log: angular.ILogService, private appUtil: Util.AppUtil, public name: string) {
     }
 
     info(text: string | Object | any[], object?: any) {
@@ -27,7 +27,7 @@ module App.Logger {
     }
 
     private log(type: string, text: string | Object | any[], object?: any) {
-      if (AppUtil.getEnvironment() !== 'prod') {
+      if (this.appUtil.getEnvironment() !== 'prod') {
 
         if (_.isObject(text) || _.isArray(text)) {
           object = text;
@@ -56,9 +56,9 @@ module App.Logger {
     .module('app.logger', [])
     .factory(ID.LoggerFactory, loggerService);
   
-  /*@ngInject*/
-  function loggerService($log: angular.ILogService): ILoggerFactory {
-    return name => new Logger($log, name);
+  loggerService.$inject = ['$log', Util.AppUtil.ID];
+  function loggerService($log: angular.ILogService, appUtil: Util.AppUtil): ILoggerFactory {
+    return name => new Logger($log, appUtil, name);
   }
 
   function getTimestamp() {

@@ -32,6 +32,7 @@ module App.Common.Services {
   export class MembersService {
     static ID = 'members';
 
+    /*@ngInject*/
     constructor(private $http: angular.IHttpService, private $q: angular.IQService) {
     }
 
