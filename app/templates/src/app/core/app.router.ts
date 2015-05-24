@@ -31,7 +31,7 @@
    * @param $urlRouterProvider
    * @constructor
    */
-  function RouterConfig($urlRouterProvider) {
+  function RouterConfig($urlRouterProvider: angular.ui.IUrlRouterProvider	) {
     $urlRouterProvider.otherwise('/home');
   }
 

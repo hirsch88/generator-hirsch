@@ -17,7 +17,7 @@
     .config(StateConfig)
     .controller('HomeController', HomeController);
 
-  function StateConfig($stateProvider) {
+  function StateConfig($stateProvider: angular.ui.IStateProvider) {
     $stateProvider
       .state('admin.home', {
         url:           '/home',
@@ -30,7 +30,6 @@
             controllerAs: 'home'
           }
         }
-
       });
   }
 
@@ -41,7 +40,7 @@
    * @param members {Object}
    * @constructor
    */
-  function HomeController(members) {
+  function HomeController(members: App.Common.Service.Member.IMembersService) {
     var vm = this;
     vm.title = AppUtil.title;
 
@@ -52,7 +51,5 @@
       });
 
     vm.buildFullName = members.getFullName;
-
   }
-
 }());

@@ -13,7 +13,7 @@
     .config(StateConfig);
 
 
-  function StateConfig($stateProvider) {
+  function StateConfig($stateProvider: angular.ui.IStateProvider) {
     $stateProvider
       .state('public', {
         views: {

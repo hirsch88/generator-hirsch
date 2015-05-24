@@ -1,5 +1,15 @@
 /// <reference path="../../../../typings/tsd.d.ts"/>
 
+declare module App.Common.Service.Member {
+  interface IMembersService {
+    key: string;
+    get(): angular.IPromise<Member[]>;
+    getFullName(member: Member): string;
+  }
+
+  type Member = { fname: string; lname: string; };
+}
+
 /**
  * Member
  * @namespace services
@@ -43,7 +53,7 @@
    * @returns {Object}
    * @constructor
    */
-  function members($http, $q) {
+  function members($http: angular.IHttpService, $q: angular.IQService): App.Common.Service.Member.IMembersService {
     var service = {
       key: 'value',
 
@@ -74,7 +84,7 @@
      * @returns {Object|Promise}
      */
     function get() {
-      var deferred = $q.defer();
+      var deferred = $q.defer<App.Common.Service.Member.Member[]>();
       deferred.resolve(data);
       return deferred.promise;
     }
@@ -86,14 +96,11 @@
      * @param member {Object} - Should have the properties fname and lname
      * @returns {String} - Fullname
      */
-    function getFullName(member) {
+    function getFullName(member: App.Common.Service.Member.Member) {
       if (member) {
         return member.fname + ' ' + member.lname;
       }
       return '';
     }
-
   }
-
-
 }());

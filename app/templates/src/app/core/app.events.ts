@@ -1,10 +1,19 @@
 /// <reference path="../../../typings/tsd.d.ts"/>
 
-interface IEventCallback {
-  (eventObj): void;
-}
+declare module App.Core.Events {
+  interface IEventCallback {
+    (eventObj): void;
+  }
 
-type EventCallbackArray = Array<{ name: string; func: IEventCallback; }>;
+  interface IEventCallbackRegistration {
+    name: string;
+    func: IEventCallback;
+  }
+
+  interface IEventCallbacks {
+    [event: string]: IEventCallbackRegistration[]
+  }
+}
 
 /**
  * @memberOf app
@@ -37,9 +46,9 @@ type EventCallbackArray = Array<{ name: string; func: IEventCallback; }>;
    * @param event
    * @param callback
    */
-  AppEvents.prototype.on = function (event: string, callback: IEventCallback) {
-    var callbacks = <EventCallbackArray>this.eventCallbacks[event] || (this.eventCallbacks[event] = []);
-    var name = AppUtil.getFunctionName(callback) || 'anonymous';
+  AppEvents.prototype.on = function (event: string, callback: App.Core.Events.IEventCallback) {
+    var callbacks = <App.Core.Events.IEventCallbackRegistration[]>(this.eventCallbacks[event] || (this.eventCallbacks[event] = []));
+    var name = this.appUtil.getFunctionName(callback) || 'anonymous';
     var index = _.findIndex(callbacks, { name: name });
 
     if (index === -1) {
@@ -57,13 +66,13 @@ type EventCallbackArray = Array<{ name: string; func: IEventCallback; }>;
    * @param event
    * @param callback
    */
-  AppEvents.prototype.off = function (event: string, callback: IEventCallback) {
-    var callbacks = <EventCallbackArray>this.eventCallbacks[event];
+  AppEvents.prototype.off = function (event: string, callback: App.Core.Events.IEventCallback) {
+    var callbacks = <App.Core.Events.IEventCallbackRegistration[]>this.eventCallbacks[event];
     if (_.isUndefined(callbacks)) {
       return;
     }
 
-    var name = AppUtil.getFunctionName(callback) || 'anonymous';
+    var name = this.appUtil.getFunctionName(callback) || 'anonymous';
     var index = _.findIndex(callbacks, { name: name });
     if (index >= 0) {
       callbacks.splice(index, 1);
@@ -80,7 +89,7 @@ type EventCallbackArray = Array<{ name: string; func: IEventCallback; }>;
    * @param eventObject
    */
   AppEvents.prototype.trigger = function (event: string, eventObject) {
-    var callbacks = <EventCallbackArray>this.eventCallbacks[event];
+    var callbacks = <App.Core.Events.IEventCallbackRegistration[]>this.eventCallbacks[event];
     if (_.isArray(callbacks)) {
       for (var i = 0; i < callbacks.length; i++) {
         callbacks[i].func(eventObject);

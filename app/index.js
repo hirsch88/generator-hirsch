@@ -59,7 +59,6 @@ module.exports = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function (props) {
-      var oldDate;
 
       this.appName = props.appName;
       this.prefix = props.prefix;
@@ -68,7 +67,7 @@ module.exports = yeoman.generators.Base.extend({
       this.useTypescript = props.useTypescript;
       this.typingsPath = props.typingsPath;
       if (this.appName !== path.basename(process.cwd())) {
-        this.destinationRoot(this.appName)
+        this.destinationRoot(this.appName);
       }
 
       done();

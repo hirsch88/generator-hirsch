@@ -8,14 +8,10 @@
     .run(AppRun);
 
 
-  function AppRun($rootScope, logger, $state, $stateParams) {
+  function AppRun($rootScope: angular.IRootScopeService, logger: App.Core.Logger.ILoggerService, $state: angular.ui.IState, $stateParams: angular.ui.IStateParamsService) {
     var log = logger('AppRun');
 
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-
-
+    $rootScope['$state'] = $state;
+    $rootScope['$stateParams'] = $stateParams;
   }
-
-
 }());

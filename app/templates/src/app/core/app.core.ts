@@ -1,5 +1,14 @@
 /// <reference path="../../../typings/tsd.d.ts"/>
 
+declare module App.Core {
+  interface IPathConstant {
+    SERVICE: string;
+    DIRECTIVE: string;
+    FILTERS: string;
+    TEMPLATES: string;
+  }
+}
+
 /**
  * @memberOf app
  * @namespace app.core
@@ -88,6 +97,4 @@
   function CompileConfig($compileProvider: angular.ICompileProvider) {
     $compileProvider.debugInfoEnabled(false);
   }
-
-
 }());
