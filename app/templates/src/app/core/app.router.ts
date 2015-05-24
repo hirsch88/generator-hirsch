@@ -1,7 +1,58 @@
-/// <reference path="../../../typings/tsd.d.ts"/>
+/// <reference path="../../../typings/tsd.d.ts" />
 
-(function () {
+/**
+ *  Fix for 3rd party type definition file.
+ */
+declare module angular.ui {
+  interface IUrlRouterService {
+    listen(): void;
+  }
+}
+
+module App.Router {
   'use strict';
+
+  export class AppRouterService {
+    private initializing = false;
+    private initialized = false;
+    private deferredInit: angular.IDeferred<any>;
+    private log: Logger.Logger;
+
+    constructor($q: angular.IQService, loggerFactory: Logger.ILoggerFactory) {
+      this.log = loggerFactory('AppRouterService');
+      this.deferredInit = $q.defer();
+      this.deferredInit.promise.then(() => this.initialized = true);
+    }
+
+    get isInitialized() {
+      return this.initialized;
+    }
+    
+    /**
+     * Here we will load some initial data for the application like the active event, but
+     * only at the first run.
+     */
+    initialize(): angular.IPromise<any> {
+      if (this.initializing || this.initialized) {
+        return this.deferredInit.promise;
+      }
+
+      this.initializing = true;
+
+      // TODO: load initial data
+      this.log.info('loadInitialData');
+      this.deferredInit.resolve();
+
+      return this.deferredInit.promise;
+    }
+  }
+
+  AppRouterService.$inject = ['$q', Logger.ID.LoggerFactory];
+
+  export const ID = {
+    APP_ROUTER_PRIVATE_ROUTES: 'APP_ROUTER_PRIVATE_ROUTES',
+    AppRouterService: 'AppRouterService'
+  };
 
   angular
     .module('app.router', [
@@ -9,108 +60,46 @@
       'ui.router.router',
       'ui.router.state'
     ])
-    .constant('APP_ROUTER_PRIVATE_ROUTES', getSecuredRoutes())
+    .constant(ID.APP_ROUTER_PRIVATE_ROUTES, getSecuredRoutes())
     .config(RouterConfig)
-    .factory('AppRouterService', AppRouterService)
+    .service(ID.AppRouterService, AppRouterService)
     .run(AppRouter);
 
-  /**
-   * @description
-   * ToDo
-   *
-   * @returns {string[]}
-   */
   function getSecuredRoutes() {
     return [
       '/private/*'
     ];
   }
 
-  /**
-   * @name RouterConfig
-   * @param $urlRouterProvider
-   * @constructor
-   */
-  function RouterConfig($urlRouterProvider: angular.ui.IUrlRouterProvider	) {
+  function RouterConfig($urlRouterProvider: angular.ui.IUrlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
   }
 
-  /**
-   * @name AppRouterService
-   * @returns {{}}
-   * @constructor
-   */
-  function AppRouterService() {
-
-    var _initialized = false;
-
-    var service = {
-      hasInitialized: getInit,
-      initialized:    initialized
-    };
-
-    return service;
-
-    ////////////////////////////////////////////////
-
-    function getInit() {
-      return _initialized;
-    }
-
-    function initialized() {
-      _initialized = true;
-    }
-
-
-  }
-
-  /**
-   * @name AppRouter
-   * @param c3Event
-   * @param $rootScope
-   * @param $urlRouter
-   * @param logger
-   * @param $state
-   * @constructor
-   */
-  function AppRouter($q, $rootScope, $urlRouter, logger, $state, AppRouterService,
-                     APP_ROUTER_PRIVATE_ROUTES) {
-
-    var log = logger('AppRouter');
+  function AppRouter(
+    $q: angular.IQService,
+    $rootScope: angular.IRootScopeService,
+    $urlRouter: angular.ui.IUrlRouterService,
+    logger: Logger.ILoggerFactory,
+    $state: angular.ui.IStateService,
+    appRouterService: AppRouterService,
+    appRouterPrivateRoutes: string[]) {
+    const log = logger('AppRouter');
     log.info('start');
 
     $rootScope.$on('$locationChangeSuccess', onLocationChange);
 
     $urlRouter.listen();
 
-
-    ////////////////////////////////////////////////
-
-    /**
-     * @name onLocationChange
-     * @param event
-     * @param toUrl
-     * @param fromUrl
-     */
     function onLocationChange(event, toUrl, fromUrl) {
-      log.info('onLocationChange', toUrl);
+      log.info('onLocationChange', { toUrl, fromUrl });
 
       // Halt state change from even starting
       event.preventDefault();
 
-      // is this a private route
-      isThisAPrivateRoute({
-        route:   toUrl,
-        initial: !AppRouterService.hasInitialized()
-      })
-        .then(hasValidSession)
-        .then(loadInitialData)
-        .finally(function (options) {
-          log.info('finally', options);
-          AppRouterService.initialized();
-          $urlRouter.sync();
-        })
-        .catch(function (err) {
+      appRouterService.initialize()
+        .then(() => ensurePrivateRoute(toUrl))
+        .then(() => hasValidSession())
+        .catch(err => {
           log.warn('catch', err);
           if (err.redirct) {
             log.info('redirect to login');
@@ -124,25 +113,14 @@
         });
     }
 
-    /**
-     * @name isThisAPrivateRoute
-     * @param options
-     * @returns {Promise}
-     */
-    function isThisAPrivateRoute(options) {
-      var deferred = $q.defer();
-      var isPrivate = false;
+    function ensurePrivateRoute(toUrl: string) {
+      const deferred = $q.defer<void>();
+      toUrl = parseRoute(toUrl);
 
-      options.route = parseRoute(options.route);
-
-      for (var i = 0; i < APP_ROUTER_PRIVATE_ROUTES.length; i++) {
-        if (doesUrlMatchPattern(APP_ROUTER_PRIVATE_ROUTES[i], options.route)) {
-          isPrivate = true;
-        }
-      }
+      const isPrivate = appRouterPrivateRoutes.some(r => doesUrlMatchPattern(r, toUrl));
 
       if (isPrivate) {
-        deferred.resolve(options);
+        deferred.resolve();
       } else {
         deferred.reject({
           sync: true
@@ -152,18 +130,12 @@
       return deferred.promise;
     }
 
-    /**
-     * @name hasValidSession
-     * @param options
-     * @returns {Promise}
-     */
-    function hasValidSession(options) {
-      var deferred = $q.defer();
+    function hasValidSession() {
+      var deferred = $q.defer<void>();
 
       // TODO: Check if the user has a valid session
       if (true) {
-        deferred.resolve(options);
-
+        deferred.resolve();
       } else {
         deferred.reject({
           session: true,
@@ -173,56 +145,16 @@
 
       return deferred.promise;
     }
-
-    /**
-     * @name
-     * @description
-     * Here we will load some initial data for the application like the active event, but
-     * only at the first run.
-     *
-     * @param options
-     * @returns {Promise}
-     */
-    function loadInitialData(options) {
-      var deferred = $q.defer();
-
-      // TODO: Load some initial data for the application
-      if (AppRouterService.hasInitialized()) {
-        deferred.resolve(options);
-
-      } else {
-        log.info('loadInitialData');
-        deferred.resolve(options);
-
-        //log.error('c3Events.init()', err);
-        //deferred.reject({
-        //  error: err
-        //});
-      }
-      return deferred.promise;
-    }
-
-    /**
-     * @name parseRoute
-     * @param route
-     * @returns {String}
-     */
-    function parseRoute(route) {
+    
+    function parseRoute(route: string) {
       return route.split('#')[1] || route || '';
     }
 
-    /**
-     * @name doesUrlMatchPattern
-     * @param pattern
-     * @param route
-     * @returns {Boolean}
-     */
-    function doesUrlMatchPattern(pattern, route) {
-      var exp = new RegExp(pattern);
+    function doesUrlMatchPattern(pattern: string, route: string) {
+      const exp = new RegExp(pattern);
       return exp.test(route);
     }
-
   }
 
-
-}());
+  AppRouter.$inject = ['$q', '$rootScope', '$urlRouter', Logger.ID.LoggerFactory, '$state', ID.AppRouterService, ID.APP_ROUTER_PRIVATE_ROUTES];
+}

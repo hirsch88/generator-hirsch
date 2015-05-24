@@ -49,12 +49,12 @@ module App.Logger {
   }
 
   export const ID = {
-    LoggerService: 'loggerService'
+    LoggerFactory: 'loggerService'
   }
 
   angular
     .module('app.logger', [])
-    .factory(ID.LoggerService, loggerService);
+    .factory(ID.LoggerFactory, loggerService);
 
   function loggerService($log: angular.ILogService): ILoggerFactory {
     return name => new Logger($log, name);
