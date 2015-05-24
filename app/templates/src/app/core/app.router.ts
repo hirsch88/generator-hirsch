@@ -18,6 +18,8 @@ module App.Router {
     private deferredInit: angular.IDeferred<any>;
     private log: Logger.Logger;
 
+    static ID = 'AppRouterService';
+    static $inject = ['$q', Logger.ID.LoggerFactory];
     constructor($q: angular.IQService, loggerFactory: Logger.ILoggerFactory) {
       this.log = loggerFactory('AppRouterService');
       this.deferredInit = $q.defer();
@@ -47,11 +49,8 @@ module App.Router {
     }
   }
 
-  AppRouterService.$inject = ['$q', Logger.ID.LoggerFactory];
-
   export const ID = {
-    APP_ROUTER_PRIVATE_ROUTES: 'APP_ROUTER_PRIVATE_ROUTES',
-    AppRouterService: 'AppRouterService'
+    APP_ROUTER_PRIVATE_ROUTES: 'APP_ROUTER_PRIVATE_ROUTES'
   };
 
   angular
@@ -62,7 +61,7 @@ module App.Router {
     ])
     .constant(ID.APP_ROUTER_PRIVATE_ROUTES, getSecuredRoutes())
     .config(RouterConfig)
-    .service(ID.AppRouterService, AppRouterService)
+    .service(AppRouterService.ID, AppRouterService)
     .run(AppRouter);
 
   function getSecuredRoutes() {
@@ -156,5 +155,5 @@ module App.Router {
     }
   }
 
-  AppRouter.$inject = ['$q', '$rootScope', '$urlRouter', Logger.ID.LoggerFactory, '$state', ID.AppRouterService, ID.APP_ROUTER_PRIVATE_ROUTES];
+  AppRouter.$inject = ['$q', '$rootScope', '$urlRouter', Logger.ID.LoggerFactory, '$state', AppRouterService.ID, ID.APP_ROUTER_PRIVATE_ROUTES];
 }

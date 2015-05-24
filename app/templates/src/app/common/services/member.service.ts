@@ -27,11 +27,11 @@ module App.Common.Services {
   ];
   
   /**
-   * @name members
-   *
-   * This data-service is called "members".
+   * This is a data-service.
    */
   export class MembersService {
+    static ID = 'members';
+
     constructor(private $http: angular.IHttpService, private $q: angular.IQService) {
     }
 
@@ -53,11 +53,7 @@ module App.Common.Services {
     }
   }
 
-  export const ID = {
-    MembersService: 'members'
-  }
-
   angular
     .module('common.service.member', [])
-    .service(ID.MembersService, MembersService);
+    .service(MembersService.ID, MembersService);
 }

@@ -27,6 +27,7 @@ module App.Events {
   export class AppEvents {
     private eventCallbacks: IEventCallbacks;
 
+    static ID = 'AppEvents';
     constructor() {
       this.eventCallbacks = {};
     }
@@ -77,9 +78,5 @@ module App.Events {
     }
   }
 
-  export const ID = {
-    AppEvents: 'AppEvents'
-  };
-
-  angular.module('app.events', []).service(ID.AppEvents, AppEvents);
+  angular.module('app.events', []).service(AppEvents.ID, AppEvents);
 }

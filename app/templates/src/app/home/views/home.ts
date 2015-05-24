@@ -1,21 +1,13 @@
 /// <reference path="../../../../typings/tsd.d.ts"/>
 
-/**
- * @memberOf home
- * @namespace home
- *
- * @description
- * Startview
- */
-(function () {
+module App.Home {
   'use strict';
 
   angular
     .module('home.home',[
 
     ])
-    .config(StateConfig)
-    .controller('HomeController', HomeController);
+    .config(StateConfig);
 
   function StateConfig($stateProvider: angular.ui.IStateProvider) {
     $stateProvider
@@ -26,30 +18,28 @@
         views:         {
           'content': {
             templateUrl:  'app/home/views/home.html',
-            controller:   'HomeController',
-            controllerAs: 'home'
+            controller: HomeController,
+            controllerAs: 'vm'
           }
         }
       });
   }
 
-  /**
-   * @memberOf home.home
-   * @name HomeController
-   *
-   * @param members {Object}
-   * @constructor
-   */
-  function HomeController(members: App.Common.Services.MembersService) {
-    var vm = this;
-    vm.title = AppUtil.title;
+  class HomeController {
+    private title: string;
+    private buildFullName: (member: Common.Services.IMember) => string;
+    private list: Common.Services.IMember[];
 
-    vm.list = [];
-    members.get()
-      .then(function (result) {
-        vm.list = result;
-      });
+    static $inject = [Common.Services.MembersService.ID];
+    constructor(private membersService: Common.Services.MembersService) {
+      this.title = AppUtil.title;
+      this.buildFullName = this.membersService.getFullName;
 
-    vm.buildFullName = members.getFullName;
+      this.activate();
+    }
+
+    activate = () => {
+      this.membersService.get().then(list => this.list = list);
+    };
   }
-}());
+}
