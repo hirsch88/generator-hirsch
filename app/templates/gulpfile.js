@@ -274,7 +274,7 @@ gulp.task('dist-bower', ['dist-minify-bower-js', 'dist-minify-bower-css']);
 /**
  * MINIFY APP
  */
-gulp.task('dist-minify-app-js', ['jshint'], function () {
+gulp.task('dist-minify-app-js', [<% if(!prompts.useTypescript) { %>'jshint', <% } %>], function () {
   var source = projectConfig.angular.files;
   var destination = path.join(projectConfig.path.distDir, projectConfig.path.appDir);
   var fileName = projectConfig.buildDistFileName(projectConfig.pkg.name, 'js');

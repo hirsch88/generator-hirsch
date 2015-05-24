@@ -55,7 +55,8 @@ module App.Logger {
   angular
     .module('app.logger', [])
     .factory(ID.LoggerFactory, loggerService);
-
+  
+  /*@ngInject*/
   function loggerService($log: angular.ILogService): ILoggerFactory {
     return name => new Logger($log, name);
   }
