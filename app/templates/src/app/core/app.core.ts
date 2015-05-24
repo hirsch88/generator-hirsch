@@ -1,52 +1,49 @@
-/// <reference path="../../../typings/tsd.d.ts"/>
-
-declare module App.Core {
-  interface IPathConstant {
-    SERVICE: string;
-    DIRECTIVE: string;
-    FILTERS: string;
-    TEMPLATES: string;
-  }
-}
+/// <reference path="../../../typings/tsd.d.ts" />
 
 /**
- * @memberOf app
- * @namespace app.core
- *
- * @requires ngSanitize
- * @requires ngMessages
- * @requires ngRoute
- *
- * @description
  * Defines the AngularJS Modules and configures them
- *
  */
-(function () {
+module App.Core {
   'use strict';
+
+  /**
+   * Defines some paths of the application
+   */
+  export interface IPathConstant {
+    /**
+     * Common service path
+     */
+    SERVICE: string;
+
+    /**
+     * Common directive/components path
+     */
+    DIRECTIVE: string;
+
+    /**
+     * Common filters path
+     */
+    FILTERS: string;
+
+    /**
+     * Common templates path
+     */
+    TEMPLATES: string;
+  }
+
+  export const ID = {
+    PathConstant: 'pathConstant'
+  };
 
   angular
     .module('app.core', [
       'ngSanitize',
       'ngMessages'
     ])
-
-  /**
-   * @constant
-   * @memberOf app.core
-   * @name pathConstant
-   * @type {Object}
-   *
-   * @description
-   * Defines some paths of the application
-   *
-   * @property {String} SERVICE - Common service path
-   * @property {String} DIRECTIVE - Common directive/components path
-   * @property {String} FILTERS - Common filter path
-   */
-    .constant('pathConstant', {
-      SERVICE:   'app/common/services/',
+    .constant(ID.PathConstant, {
+      SERVICE: 'app/common/services/',
       DIRECTIVE: 'app/common/directives/',
-      FILTERS:   'app/common/filters/',
+      FILTERS: 'app/common/filters/',
       TEMPLATES: 'app/common/templates/'
     })
     .config(LogConfig)
@@ -54,13 +51,7 @@ declare module App.Core {
     .config(CompileConfig);
 
   /**
-   * @memberOf app.core
-   * @name LogConfig
-   *
-   * @description
    * Enable debug level messages
-   *
-   * @constructor
    */
   function LogConfig($logProvider: angular.ILogProvider) {
     if ($logProvider.debugEnabled) {
@@ -69,13 +60,7 @@ declare module App.Core {
   }
 
   /**
-   * @memberOf app.core
-   * @name HttpConfig
-   *
-   * @description
-   * Allows the framework to stor ehe sails cookie from the backend and disable IE ajax request caching
-   *
-   * @constructor
+   * Allows the framework to store the sails cookie from the backend and disable IE ajax request caching
    */
   function HttpConfig($httpProvider: angular.IHttpProvider) {
     $httpProvider.defaults.withCredentials = true;
@@ -85,16 +70,10 @@ declare module App.Core {
   }
 
   /**
-   * @memberOf app.core
-   * @name CompileConfig
-   *
-   * @description
    * Tools like Protractor and Batarang need this information to run, but you can disable
    * this in production for a significant performance boost with
-   *
-   * @constructor
    */
   function CompileConfig($compileProvider: angular.ICompileProvider) {
     $compileProvider.debugInfoEnabled(false);
   }
-}());
+}

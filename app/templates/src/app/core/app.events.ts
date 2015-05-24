@@ -1,104 +1,85 @@
 /// <reference path="../../../typings/tsd.d.ts"/>
 
 declare module App.Core.Events {
-  interface IEventCallback {
+}
+
+/**
+ * Event bus. Use this class to register events and trigger them from anywhere
+ * All events must have name, but if there is no name give by the callback function name
+ * we use the name anonymous for the callback function.
+ */
+module App.Events {
+  'use strict';
+
+  export interface IEventCallback {
     (eventObj): void;
   }
 
-  interface IEventCallbackRegistration {
+  export interface IEventCallbackRegistration {
     name: string;
     func: IEventCallback;
   }
 
-  interface IEventCallbacks {
+  export interface IEventCallbacks {
     [event: string]: IEventCallbackRegistration[]
   }
-}
 
-/**
- * @memberOf app
- * @namespace app.events
- *
- * @description
- * Event bus. Use this class to register events and trigger them from anywhere
- * All events must have name, but if there is no name give by the callback function name
- * we use the name anonymous for the callback function.
- *
- */
-(function (window) {
-  'use strict';
+  export class AppEvents {
+    private eventCallbacks: IEventCallbacks;
 
-  /**
-   * @global
-   * @name AppEvents
-   * @see app.events
-   */
-  function AppEvents() {
-    this.eventCallbacks = {};
-  }
-
-  AppEvents.prototype.list = function () {
-    return this.eventCallbacks;
-  };
-
-  /**
-   * @name on
-   * @param event
-   * @param callback
-   */
-  AppEvents.prototype.on = function (event: string, callback: App.Core.Events.IEventCallback) {
-    var callbacks = <App.Core.Events.IEventCallbackRegistration[]>(this.eventCallbacks[event] || (this.eventCallbacks[event] = []));
-    var name = this.appUtil.getFunctionName(callback) || 'anonymous';
-    var index = _.findIndex(callbacks, { name: name });
-
-    if (index === -1) {
-      callbacks.push({
-        name: name,
-        func: callback
-      });
-    } else {
-      callbacks[index].func = callback;
-    }
-  };
-
-  /**
-   * @name off
-   * @param event
-   * @param callback
-   */
-  AppEvents.prototype.off = function (event: string, callback: App.Core.Events.IEventCallback) {
-    var callbacks = <App.Core.Events.IEventCallbackRegistration[]>this.eventCallbacks[event];
-    if (_.isUndefined(callbacks)) {
-      return;
+    constructor() {
+      this.eventCallbacks = {};
     }
 
-    var name = this.appUtil.getFunctionName(callback) || 'anonymous';
-    var index = _.findIndex(callbacks, { name: name });
-    if (index >= 0) {
-      callbacks.splice(index, 1);
+    list() {
+      return this.eventCallbacks;
     }
 
-    if (callbacks.length === 0) {
-      delete this.eventCallbacks[event];
-    }
-  };
+    on(event: string, callback: IEventCallback) {
+      var callbacks = this.eventCallbacks[event] || (this.eventCallbacks[event] = []);
+      var name = AppUtil.getFunctionName(callback, 'anonymous');
+      var index = _.findIndex(callbacks, { name: name });
 
-  /**
-   * @name trigger
-   * @param event
-   * @param eventObject
-   */
-  AppEvents.prototype.trigger = function (event: string, eventObject) {
-    var callbacks = <App.Core.Events.IEventCallbackRegistration[]>this.eventCallbacks[event];
-    if (_.isArray(callbacks)) {
-      for (var i = 0; i < callbacks.length; i++) {
-        callbacks[i].func(eventObject);
+      if (index === -1) {
+        callbacks.push({
+          name: name,
+          func: callback
+        });
+      } else {
+        callbacks[index].func = callback;
       }
     }
+
+    off(event: string, callback: IEventCallback) {
+      var callbacks = this.eventCallbacks[event];
+      if (_.isUndefined(callbacks)) {
+        return;
+      }
+
+      var name = AppUtil.getFunctionName(callback, 'anonymous');
+      var index = _.findIndex(callbacks, { name: name });
+      if (index >= 0) {
+        callbacks.splice(index, 1);
+      }
+
+      if (callbacks.length === 0) {
+        delete this.eventCallbacks[event];
+      }
+    }
+
+    trigger(event: string, eventObject: any) {
+      var callbacks = this.eventCallbacks[event];
+      if (_.isArray(callbacks)) {
+        for (var i = 0; i < callbacks.length; i++) {
+          callbacks[i].func(eventObject);
+        }
+      }
+    }
+  }
+
+  export const ID = {
+    AppEvents: 'AppEvents'
   };
 
-  ///////////////////////////////////////////
-
-  window.AppEvents = new AppEvents();
-
-}(window));
+  angular.module('app.events', []).service(ID.AppEvents, AppEvents);
+}
