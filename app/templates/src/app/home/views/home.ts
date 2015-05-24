@@ -40,7 +40,7 @@
    * @param members {Object}
    * @constructor
    */
-  function HomeController(members: App.Common.Service.Member.IMembersService) {
+  function HomeController(members: App.Common.Services.MembersService) {
     var vm = this;
     vm.title = AppUtil.title;
 

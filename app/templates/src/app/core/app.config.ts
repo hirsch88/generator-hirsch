@@ -1,13 +1,9 @@
-/// <reference path="../../../typings/tsd.d.ts"/>
+/// <reference path="../../../typings/tsd.d.ts" />
 
 /**
- * @memberOf app
- * @namespace app.config
- *
- * @description
  * 3rd Party Modules configurations
  */
-(function () {
+module App.Config {
   'use strict';
 
   angular
@@ -17,13 +13,7 @@
     .config(TranslateConfig);
 
   /**
-   * @memberOf app.config
-   * @name TranslateConfig
-   *
-   * @description
-   * This configs the transaltion module and sets the default language
-   *
-   * @constructor
+   * This configs the translation module and sets the default language
    */
   function TranslateConfig($translateProvider: angular.translate.ITranslateProvider) {
     $translateProvider.useStaticFilesLoader({
@@ -33,4 +23,4 @@
 
     $translateProvider.preferredLanguage('en');
   }
-}());
+}

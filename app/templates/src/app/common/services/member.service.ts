@@ -1,25 +1,11 @@
 /// <reference path="../../../../typings/tsd.d.ts"/>
 
-declare module App.Common.Service.Member {
-  interface IMembersService {
-    key: string;
-    get(): angular.IPromise<Member[]>;
-    getFullName(member: Member): string;
-  }
-
-  type Member = { fname: string; lname: string; };
+declare module App.Common.Services {
+  export interface IMember { fname: string; lname: string; }
 }
 
-/**
- * Member
- * @namespace services
- */
-(function () {
+module App.Common.Services {
   'use strict';
-
-  angular
-    .module('common.service.member', [])
-    .factory('members', members);
 
   var data = [
     {
@@ -39,68 +25,35 @@ declare module App.Common.Service.Member {
       lname: 'Miller'
     }
   ];
-
+  
   /**
-   * @memberOf services
    * @name members
-   * @alias myMember
    *
-   * @description
-   * This data-service is called "myMember".
-   *
-   * @param $http
-   * @param $q
-   * @returns {Object}
-   * @constructor
+   * This data-service is called "members".
    */
-  function members($http: angular.IHttpService, $q: angular.IQService): App.Common.Service.Member.IMembersService {
-    var service = {
-      key: 'value',
-
-      get:         get,
-      getFullName: getFullName
-    };
-
-    return service;
-    ////////////////////////
+  export class MembersService {
+    constructor(private $http: angular.IHttpService, private $q: angular.IQService) {
+    }
 
     /**
-     * @memberOf services.members
-     * @method get
-     *
-     * @description
-     * this is a method who does stuff
-     *
-     * @example
-     * var members = myMember.get();
-     *
-     * -- or --
-     *
-     * myMember.get()
-     *    .then(function(result){
-     *      members = result
-     *    });
-     *
-     * @returns {Object|Promise}
+     * this is a method which does stuff
      */
-    function get() {
-      var deferred = $q.defer<App.Common.Service.Member.Member[]>();
+    get() {
+      var deferred = this.$q.defer<IMember[]>();
       deferred.resolve(data);
       return deferred.promise;
     }
 
-    /**
-     * @memberOf services.members
-     * @method getFullName
-     *
-     * @param member {Object} - Should have the properties fname and lname
-     * @returns {String} - Fullname
-     */
-    function getFullName(member: App.Common.Service.Member.Member) {
+    getFullName(member: IMember) {
       if (member) {
         return member.fname + ' ' + member.lname;
       }
+
       return '';
     }
   }
-}());
+
+  angular
+    .module('common.service.member', [])
+    .service('members', MembersService);
+}
