@@ -1,55 +1,38 @@
 /// <reference path="../../../typings/tsd.d.ts"/>
 
-declare module App.Core.Logger {
-  interface ILoggerService {
-    (name: string): ILogger;
-  }
-
-  interface ILogger {
-    info(text: string | Object | any[], object: any): void;
-    warn(text: string | Object | any[], object: any): void;
-    error(text: string | Object | any[], object: any): void;
-  }
-}
-
-(function () {
+module App.Logger {
   'use strict';
 
-  angular
-    .module('app.logger', [])
-    .factory('logger', loggerService);
+  export interface ILoggerService {
+    /**
+     * Get the logger for the given name.
+     */
+    (name: string): Logger;
+  }
 
-  /**
-   * @name logger
-   */
-  function loggerService($log: angular.ILogService) {
-
-    function Logger(name) {
-      this.name = name;
+  export class Logger {
+    constructor(private $log: angular.ILogService, public name: string) {
     }
 
-    Logger.prototype.info = function (text: string | Object | any[], object: any) {
-      this._log('info', text, object);
-    };
+    info(text: string | Object | any[], object: any) {
+      this.log('info', text, object);
+    }
 
-    Logger.prototype.warn = function (text: string | Object | any[], object: any) {
-      this._log('warn', text, object);
-    };
+    warn(text: string | Object | any[], object: any) {
+      this.log('warn', text, object);
+    }
 
-    Logger.prototype.error = function (text: string | Object | any[], object: any) {
-      this._log('error', text, object);
-    };
+    error(text: string | Object | any[], object: any) {
+      this.log('error', text, object);
+    }
 
-    Logger.prototype._log = function (type: string, text: string | Object | any[], object: any) {
+    private log(type: string, text: string | Object | any[], object: any) {
       if (AppUtil.getEnvironment() !== 'prod') {
 
-        object = (_.isObject(text) || _.isArray(text))
-          ? text
-          : object;
-
-        text = (_.isObject(text) || _.isArray(text))
-          ? undefined
-          : text;
+        if (_.isObject(text) || _.isArray(text)) {
+          object = text;
+          text = undefined;
+        }
 
         text = text || '';
 
@@ -59,19 +42,27 @@ declare module App.Core.Logger {
 
         object = object || '';
 
-        var arrow = (text !== '' || object !== '') ? '=> ' : '';
-        $log[type]('[' + getTimestamp() + ' - ' + this.name + '] ' + arrow + text, object);
+        const arrow = (text !== '' || object !== '') ? '=> ' : '';
+        this.$log[type]('[' + getTimestamp() + ' - ' + this.name + '] ' + arrow + text, object);
       }
-    };
-
-    ////////////////////////////////////
-
-    return function (name) {
-      return new Logger(name);
-    };
-
-    function getTimestamp() {
-      return moment().format('HH:mm:ss.ms');
     }
   }
-}());
+
+  export const ID = {
+    LoggerService: 'loggerService'
+  }
+
+  angular
+    .module('app.logger', [])
+    .factory(ID.LoggerService, loggerService);
+
+  function loggerService($log: angular.ILogService) {
+    return function (name) {
+      return new Logger($log ,name);
+    };
+  }
+
+  function getTimestamp() {
+    return moment().format('HH:mm:ss.ms');
+  }
+}
