@@ -14,19 +14,19 @@ module App.Logger {
     constructor(private $log: angular.ILogService, public name: string) {
     }
 
-    info(text: string | Object | any[], object: any) {
+    info(text: string | Object | any[], object?: any) {
       this.log('info', text, object);
     }
 
-    warn(text: string | Object | any[], object: any) {
+    warn(text: string | Object | any[], object?: any) {
       this.log('warn', text, object);
     }
 
-    error(text: string | Object | any[], object: any) {
+    error(text: string | Object | any[], object?: any) {
       this.log('error', text, object);
     }
 
-    private log(type: string, text: string | Object | any[], object: any) {
+    private log(type: string, text: string | Object | any[], object?: any) {
       if (AppUtil.getEnvironment() !== 'prod') {
 
         if (_.isObject(text) || _.isArray(text)) {
@@ -57,9 +57,7 @@ module App.Logger {
     .factory(ID.LoggerService, loggerService);
 
   function loggerService($log: angular.ILogService): ILoggerFactory {
-    return function (name) {
-      return new Logger($log ,name);
-    };
+    return name => new Logger($log, name);
   }
 
   function getTimestamp() {
