@@ -88,9 +88,10 @@ module.exports = yeoman.generators.Base.extend({
         var rest = Array.prototype.slice.call(arguments, 1);
         return function () {
           var relPath = path.join.apply(null, Array.prototype.map.call(arguments, _this.typescriptFilter));
-          var relTargetPath = path.join.apply(null, Array.prototype.filter.call(arguments, function(seg) {
-            return seg.indexOf('*') < 0;
+          var relTargetPath = path.join.apply(null, Array.prototype.filter.call(arguments, function (seg) {
+            return seg.indexOf('*') < 0 && !/^\./.test(seg);
           }).map(_this.typescriptFilter));
+          console.log(relPath + ' -> ' + relTargetPath);
           copyFunc.apply(null, [_this.templatePath(relPath), _this.destinationPath(relTargetPath)].concat(rest));
         };
       }
@@ -154,6 +155,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, '**', '*.js');
       this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, '**', '*.html');
+      this.copyFile(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, '**', '.gitkeep');
     },
     /**
      * TEST FILES
