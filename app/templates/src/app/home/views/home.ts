@@ -27,11 +27,11 @@ module App.Home {
 
   class HomeController {
     private title: string;
-    private buildFullName: (member: Common.Services.IMember) => string;
-    private list: Common.Services.IMember[];
+    private buildFullName: (member: common.services.member.IMember) => string;
+    private list: common.services.member.IMember[];
 
-    static $inject = [Util.AppUtil.ID, Common.Services.MembersService.ID];
-    constructor(appUtil: Util.AppUtil, private membersService: Common.Services.MembersService) {
+    static $inject = [Util.AppUtil.ID, common.services.member.MembersService.ID];
+    constructor(appUtil: Util.AppUtil, private membersService: common.services.member.MembersService) {
       this.title = appUtil.title;
       this.buildFullName = this.membersService.getFullName;
 

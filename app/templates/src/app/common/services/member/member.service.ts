@@ -1,6 +1,6 @@
-/// <reference path="../../../../typings/tsd.d.ts"/>
+/// <reference path="../../../../../typings/tsd.d.ts"/>
 
-module App.Common.Services {
+module common.services.member {
   'use strict';
 
   var data = [
