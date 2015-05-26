@@ -9,31 +9,29 @@ module App.Core {
   /**
    * Defines some paths of the application
    */
-  export interface IPathConstant {
+  export class PathConstants {
+    static ID = 'PathConstant';
+
     /**
      * Common service path
      */
-    SERVICE: string;
+    SERVICE = 'app/common/services/';
 
     /**
      * Common directive/components path
      */
-    DIRECTIVE: string;
+    DIRECTIVE = 'app/common/directives/';
 
     /**
      * Common filters path
      */
-    FILTERS: string;
+    FILTERS = 'app/common/filters/';
 
     /**
      * Common templates path
      */
-    TEMPLATES: string;
+    TEMPLATES = 'app/common/templates/';
   }
-
-  export var ID = {
-    PathConstant: 'pathConstant'
-  };
 
   /**
    * Enable debug level messages
@@ -67,12 +65,7 @@ module App.Core {
       'ngSanitize',
       'ngMessages'
     ])
-    .constant(ID.PathConstant, {
-      SERVICE: 'app/common/services/',
-      DIRECTIVE: 'app/common/directives/',
-      FILTERS: 'app/common/filters/',
-      TEMPLATES: 'app/common/templates/'
-    })
+    .constant(PathConstants.ID, new PathConstants())
     .config(LogConfig)
     .config(HttpConfig)
     .config(CompileConfig);
