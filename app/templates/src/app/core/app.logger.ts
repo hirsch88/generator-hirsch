@@ -53,7 +53,7 @@ module App.Logger {
   }
 
   angular
-    .module('app.logger', [])
+    .module('core.logger', [])
     .factory(ID.LoggerFactory, loggerService);
   
   loggerService.$inject = ['$log', Util.AppUtil.ID];

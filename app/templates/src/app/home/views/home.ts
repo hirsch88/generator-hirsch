@@ -4,7 +4,7 @@ module App.Home {
   'use strict';
 
   angular
-    .module('home.home',[
+    .module('home.views.home',[
 
     ])
     .config(StateConfig);

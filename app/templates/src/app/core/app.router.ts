@@ -54,7 +54,7 @@ module App.Router {
   };
 
   angular
-    .module('app.router', [
+    .module('core.router', [
       'ui.router',
       'ui.router.router',
       'ui.router.state'

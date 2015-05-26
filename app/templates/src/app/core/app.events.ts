@@ -51,5 +51,5 @@ module App.Events {
     }
   }
 
-  angular.module('app.events', []).service(AppEvents.ID, AppEvents);
+  angular.module('core.events', []).service(AppEvents.ID, AppEvents);
 }

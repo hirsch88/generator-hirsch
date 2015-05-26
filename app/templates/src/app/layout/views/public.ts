@@ -9,7 +9,7 @@
    *
    */
   angular
-    .module('layout.public', [])
+    .module('layout.views.public', [])
     .config(StateConfig);
 
 

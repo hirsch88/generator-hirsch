@@ -1,9 +1,5 @@
 /// <reference path="../../../../typings/tsd.d.ts"/>
 
-declare module App.Common.Services {
-  export interface IMember { fname: string; lname: string; }
-}
-
 module App.Common.Services {
   'use strict';
 
@@ -25,6 +21,8 @@ module App.Common.Services {
       lname: 'Miller'
     }
   ];
+
+  export interface IMember { fname: string; lname: string; }
   
   /**
    * This is a data-service.
@@ -39,13 +37,13 @@ module App.Common.Services {
     /**
      * this is a method which does stuff
      */
-    get() {
+    get = () => {
       var deferred = this.$q.defer<IMember[]>();
       deferred.resolve(data);
       return deferred.promise;
     }
 
-    getFullName(member: IMember) {
+    getFullName = (member: IMember) => {
       if (member) {
         return member.fname + ' ' + member.lname;
       }
@@ -55,6 +53,6 @@ module App.Common.Services {
   }
 
   angular
-    .module('common.service.member', [])
+    .module('common.services.member', [])
     .service(MembersService.ID, MembersService);
 }

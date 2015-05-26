@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-    .module('app.run', [])
+    .module('core.run', [])
     .run(AppRun);
 
   function AppRun($rootScope: angular.IRootScopeService, logger: App.Logger.ILoggerFactory, $state: angular.ui.IStateService, $stateParams: angular.ui.IStateParamsService) {

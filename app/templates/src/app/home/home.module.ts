@@ -11,9 +11,9 @@
 
   angular
     .module('home', [
-      'common.service.member',
+      'common.services.member',
 
-      'home.home'
+      'home.views.home'
     ]);
 
 

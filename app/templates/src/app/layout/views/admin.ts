@@ -9,7 +9,7 @@
    *
    */
   angular
-    .module('layout.admin', [])
+    .module('layout.views.admin', [])
     .config(StateConfig);
 
 

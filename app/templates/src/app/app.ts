@@ -2,9 +2,7 @@
 
 /**
  * <%= prompts.appName %>
- * @namespace app
  *
- * @description
  * <%= prompts.description %>
  *
  * @author <%= prompts.author %>
@@ -17,18 +15,18 @@ module App {
   angular
     .module('app', [
 
-      // Config and core module
-      'app.core',
-      'app.util',
-      'app.config',
-      'app.logger',
-      'app.router',
-      'app.run',
+      // core module
+      'core',
+      'core.util',
+      'core.config',
+      'core.logger',
+      'core.router',
+      'core.run',
 
       // Layout components
       'layout',
 
-      'common.service.member',
+      'common.services.member',
 
       // App modules with business logic
       'home'

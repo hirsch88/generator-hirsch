@@ -35,8 +35,35 @@ module App.Core {
     PathConstant: 'pathConstant'
   };
 
+  /**
+   * Enable debug level messages
+   */
+  var LogConfig = ($logProvider: angular.ILogProvider) => {
+    if ($logProvider.debugEnabled) {
+      $logProvider.debugEnabled(true);
+    }
+  }
+
+  /**
+   * Allows the framework to store the sails cookie from the backend and disable IE ajax request caching
+   */
+  var HttpConfig = ($httpProvider: angular.IHttpProvider) => {
+    $httpProvider.defaults.withCredentials = true;
+    if ($httpProvider.defaults.headers['get']) {
+      $httpProvider.defaults.headers['get']['If-Modified-Since'] = '0';
+    }
+  }
+
+  /**
+   * Tools like Protractor and Batarang need this information to run, but you can disable
+   * this in production for a significant performance boost with
+   */
+  var CompileConfig = ($compileProvider: angular.ICompileProvider) => {
+    $compileProvider.debugInfoEnabled(false);
+  }
+
   angular
-    .module('app.core', [
+    .module('core', [
       'ngSanitize',
       'ngMessages'
     ])
@@ -49,31 +76,4 @@ module App.Core {
     .config(LogConfig)
     .config(HttpConfig)
     .config(CompileConfig);
-
-  /**
-   * Enable debug level messages
-   */
-  function LogConfig($logProvider: angular.ILogProvider) {
-    if ($logProvider.debugEnabled) {
-      $logProvider.debugEnabled(true);
-    }
-  }
-
-  /**
-   * Allows the framework to store the sails cookie from the backend and disable IE ajax request caching
-   */
-  function HttpConfig($httpProvider: angular.IHttpProvider) {
-    $httpProvider.defaults.withCredentials = true;
-    if ($httpProvider.defaults.headers['get']) {
-      $httpProvider.defaults.headers['get']['If-Modified-Since'] = '0';
-    }
-  }
-
-  /**
-   * Tools like Protractor and Batarang need this information to run, but you can disable
-   * this in production for a significant performance boost with
-   */
-  function CompileConfig($compileProvider: angular.ICompileProvider) {
-    $compileProvider.debugInfoEnabled(false);
-  }
 }

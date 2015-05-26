@@ -6,16 +6,10 @@
 module App.Config {
   'use strict';
 
-  angular
-    .module('app.config', [
-      'pascalprecht.translate'
-    ])
-    .config(TranslateConfig);
-
   /**
    * This configs the translation module and sets the default language
    */
-  function TranslateConfig($translateProvider: angular.translate.ITranslateProvider) {
+  var TranslateConfig = ($translateProvider: angular.translate.ITranslateProvider) => {
     $translateProvider.useStaticFilesLoader({
       prefix: './assets/i18n/',
       suffix: '.json'
@@ -23,4 +17,10 @@ module App.Config {
 
     $translateProvider.preferredLanguage('en');
   }
+
+  angular
+    .module('core.config', [
+      'pascalprecht.translate'
+    ])
+    .config(TranslateConfig);
 }

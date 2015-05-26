@@ -73,5 +73,5 @@ module App.Util {
     };
   }
 
-  angular.module('app.util', []).service(AppUtil.ID, AppUtil);
+  angular.module('core.util', []).service(AppUtil.ID, AppUtil);
 }

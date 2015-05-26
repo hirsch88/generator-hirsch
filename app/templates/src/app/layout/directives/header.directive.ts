@@ -4,7 +4,7 @@ module App.Layout {
   'use strict';
 
   angular
-    .module('common.directive.header', [])
+    .module('layout.directives.header', [])
     .directive('<%= prompts.prefix %>Header', () => new HeaderDirective());
 
   /**

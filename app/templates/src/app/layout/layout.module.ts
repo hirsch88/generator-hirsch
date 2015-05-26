@@ -11,10 +11,10 @@
 
   angular
     .module('layout', [
-      'common.directive.header',
+      'layout.directives.header',
 
-      'layout.admin',
-      'layout.public'
+      'layout.views.admin',
+      'layout.views.public'
     ]);
 
 
