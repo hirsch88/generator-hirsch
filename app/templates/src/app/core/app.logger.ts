@@ -42,13 +42,13 @@ module App.Logger {
 
         object = object || '';
 
-        const arrow = (text !== '' || object !== '') ? '=> ' : '';
+        var arrow = (text !== '' || object !== '') ? '=> ' : '';
         this.$log[type]('[' + getTimestamp() + ' - ' + this.name + '] ' + arrow + text, object);
       }
     }
   }
 
-  export const ID = {
+  export var ID = {
     LoggerFactory: 'loggerService'
   }
 

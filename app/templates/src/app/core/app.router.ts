@@ -49,7 +49,7 @@ module App.Router {
     }
   }
 
-  export const ID = {
+  export var ID = {
     APP_ROUTER_PRIVATE_ROUTES: 'APP_ROUTER_PRIVATE_ROUTES'
   };
 
@@ -82,7 +82,7 @@ module App.Router {
     $state: angular.ui.IStateService,
     appRouterService: AppRouterService,
     appRouterPrivateRoutes: string[]) {
-    const log = logger('AppRouter');
+    var log = logger('AppRouter');
     log.info('start');
 
     $rootScope.$on('$locationChangeSuccess', onLocationChange);
@@ -113,10 +113,10 @@ module App.Router {
     }
 
     function ensurePrivateRoute(toUrl: string) {
-      const deferred = $q.defer<void>();
+      var deferred = $q.defer<void>();
       toUrl = parseRoute(toUrl);
 
-      const isPrivate = appRouterPrivateRoutes.some(r => doesUrlMatchPattern(r, toUrl));
+      var isPrivate = appRouterPrivateRoutes.some(r => doesUrlMatchPattern(r, toUrl));
 
       if (isPrivate) {
         deferred.resolve();
@@ -150,7 +150,7 @@ module App.Router {
     }
 
     function doesUrlMatchPattern(pattern: string, route: string) {
-      const exp = new RegExp(pattern);
+      var exp = new RegExp(pattern);
       return exp.test(route);
     }
   }

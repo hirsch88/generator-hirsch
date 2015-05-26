@@ -31,7 +31,7 @@ module App.Core {
     TEMPLATES: string;
   }
 
-  export const ID = {
+  export var ID = {
     PathConstant: 'pathConstant'
   };
 
