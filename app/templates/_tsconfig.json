@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": false,
+    "declaration": false,
+    "noExternalResolve": true,
+    "target": "es5"
+  }
+}

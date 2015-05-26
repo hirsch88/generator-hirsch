@@ -1,0 +1,36 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "angularjs/angular.d.ts": {
+      "commit": "7d3a939fbe55576fad2e074d007f7cc671aa0e78"
+    },
+    "angularjs/angular-mocks.d.ts": {
+      "commit": "7d3a939fbe55576fad2e074d007f7cc671aa0e78"
+    },
+    "angular-ui-router/angular-ui-router.d.ts": {
+      "commit": "7d3a939fbe55576fad2e074d007f7cc671aa0e78"
+    },
+    "angular-translate/angular-translate.d.ts": {
+      "commit": "7d3a939fbe55576fad2e074d007f7cc671aa0e78"
+    },
+    "jquery/jquery.d.ts": {
+      "commit": "7d3a939fbe55576fad2e074d007f7cc671aa0e78"
+    },
+    "lodash/lodash.d.ts": {
+      "commit": "7d3a939fbe55576fad2e074d007f7cc671aa0e78"
+    },
+    "moment/moment.d.ts": {
+      "commit": "7d3a939fbe55576fad2e074d007f7cc671aa0e78"
+    },
+    "chai/chai.d.ts": {
+      "commit": "7d3a939fbe55576fad2e074d007f7cc671aa0e78"
+    },
+    "mocha/mocha.d.ts": {
+      "commit": "7d3a939fbe55576fad2e074d007f7cc671aa0e78"
+    }
+  }
+}

@@ -9,9 +9,18 @@ module.exports = function (isGenerator) {
   var wiredep = require('wiredep');
   var bowerFilesJs = [];
   var bowerFilesCss = [];
+  var bowerFilesFonts = [];
   try {
     bowerFilesJs = (!isGenerator) ? wiredep({})['js'] : [];
     bowerFilesCss = (!isGenerator) ? wiredep({})['css'] : [];
+    if (!isGenerator) {
+      bowerFilesFonts = ['font-awesome', 'bootstrap']
+        .map(function (s) { return wiredep({}).packages[s].main; })
+        .reduce(function (a, b) { return a.concat(b); })
+        .filter(function (p) {
+          return new RegExp('\\' + path.sep + 'fonts\\' + path.sep).test(p);
+        });
+    }
   } catch (e) {
 
   }
@@ -140,6 +149,7 @@ module.exports = function (isGenerator) {
     return {
       files: [
         path.join(projectConfig.path.srcDir, projectConfig.path.app.main),
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, 'app.util.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, '*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '**/*.js'),
@@ -173,6 +183,9 @@ module.exports = function (isGenerator) {
         ),
         css:  [].concat(
           bowerFilesCss
+        ),
+        fonts: [].concat(
+          bowerFilesFonts
         ),
         main: bowerFiles
       }

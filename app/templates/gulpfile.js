@@ -20,6 +20,11 @@ var minifyCSS = require('gulp-minify-css');
 var header = require('gulp-header');
 var install = require('gulp-install');
 
+<% if(prompts.useTypescript) { %>
+  var ts = require('gulp-typescript');
+  var tslint = require('gulp-tslint');
+  var typescript = require('typescript');
+<% } %>
 
 /**
  * TASKLISTING
@@ -85,8 +90,31 @@ gulp.task('serve-dist', ['dist'], function () {
 /**
  * BUILD
  */
-gulp.task('build', ['jshint', 'index']);
+gulp.task('build', [<% if(prompts.useTypescript) { %>'ts', <% }  else { %>'jshint', <% } %>'index']);
+<% if(prompts.useTypescript) { %>
+var tsProject = ts.createProject('tsconfig.json', {
+  typescript: typescript
+});
 
+/**
+ * TS
+ * Lints and compiles all .ts source files in the app.
+ */
+gulp.task('ts', function () {
+  return gulp.src([
+      projectConfig.path.srcDir + '/' + projectConfig.path.app.scripts.replace(/\.js$/, '.ts'),
+      projectConfig.path.testDir + '/' + projectConfig.path.test.specs.replace(/\.js$/, '.ts'),
+      projectConfig.path.testDir + '/' + projectConfig.path.libDir + '/**/*.ts',
+      '<%= prompts.typingsPath %>/**/*.d.ts'
+    ], {
+      base: '.'
+    })
+    .pipe(tslint())
+    .pipe(ts(tsProject))
+    .js
+    .pipe(gulp.dest('.'));
+});
+<% } else { %>
 /**
  * JSHINT
  * Checks the source code with some defined guidelines from the .jshintrc
@@ -98,7 +126,7 @@ gulp.task('jshint', function () {
     .pipe($.jshint.reporter(stylish))
     .pipe($.jshint.reporter('fail'));
 });
-
+<% } %>
 /**
  * INJECT
  * Injects all bower and application scripts into the main index.html file
@@ -224,15 +252,14 @@ gulp.task('dist-clean', function (cb) {
  * COPY
  */
 gulp.task('dist-copy-assets', ['dist-clean'], function () {
-
-  var assestsFiles = [
+  var assetsFiles = [
     path.join(projectConfig.path.srcDir, projectConfig.path.asset.fontDir + '/**/*'),
     path.join(projectConfig.path.srcDir, projectConfig.path.asset.mediaDir + '/**/*'),
     path.join(projectConfig.path.srcDir, projectConfig.path.asset.i18n)
   ];
 
   return gulp
-    .src(assestsFiles, {base: projectConfig.path.srcDir})
+    .src(assetsFiles, {base: projectConfig.path.srcDir})
     .pipe(gulp.dest(projectConfig.path.distDir));
 });
 
@@ -241,12 +268,12 @@ gulp.task('dist-copy-assets', ['dist-clean'], function () {
  */
 gulp.task('dist-app', ['dist-minify-app-css', 'dist-minify-app-js', 'dist-minify-app-html']);
 
-gulp.task('dist-bower', ['dist-minify-bower-js', 'dist-minify-bower-css']);
+gulp.task('dist-bower', ['dist-minify-bower-js', 'dist-minify-bower-css', 'dist-bower-fonts']);
 
 /**
  * MINIFY APP
  */
-gulp.task('dist-minify-app-js', ['jshint'], function () {
+gulp.task('dist-minify-app-js', [<% if(!prompts.useTypescript) { %>'jshint', <% } %>], function () {
   var source = projectConfig.angular.files;
   var destination = path.join(projectConfig.path.distDir, projectConfig.path.appDir);
   var fileName = projectConfig.buildDistFileName(projectConfig.pkg.name, 'js');
@@ -283,9 +310,8 @@ gulp.task('dist-minify-app-html', function () {
   var destination = path.join(projectConfig.path.distDir, projectConfig.path.appDir);
 
   return gulp.src(source)
-    .pipe($.htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest(destination))
-
+    .pipe($.htmlmin({ collapseWhitespace: true }))
+    .pipe(gulp.dest(destination));
 });
 
 /**
@@ -316,9 +342,16 @@ gulp.task('dist-minify-bower-css', function () {
   return gulp
     .src(cssFiles, {base: './'})
     .pipe($.concat(newCssFileName))
-    .pipe(minifyCSS({keepBreaks: true}))
+    .pipe(minifyCSS({keepBreaks: true, relativeTo: '../assets'}))
     .pipe(header(projectConfig.banner, {pkg: projectConfig.pkg}))
     .pipe(gulp.dest(projectConfig.path.distDir));
+});
+
+gulp.task('dist-bower-fonts', function () {
+  return gulp
+    .src(projectConfig.bower.files.fonts)
+    .pipe(header(projectConfig.banner, { pkg: projectConfig.pkg }))
+    .pipe(gulp.dest(path.join(projectConfig.path.distDir, projectConfig.path.libDir, projectConfig.path.asset.fontDir)));
 });
 
 /**
