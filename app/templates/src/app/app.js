@@ -1,34 +1,24 @@
-/**
- * <%= prompts.appName %>
- * @namespace app
- *
- * @description
- * <%= prompts.description %>
- *
- * @author <%= prompts.author %>
- * @date <%= date %>
- * @version 0.0.0
- */
 (function () {
   'use strict';
 
   angular
-    .module('app', [
+    .module('<%= prompts.prefix %>', [
 
-      // Config and core module
-      'app.core',
-      'app.config',
-      'app.logger',
-      'app.router',
-      'app.run',
+      // AngularJS Libs
+      'ngSanitize',
+      'ngMessages',
 
-      // Layout components
-      'layout',
+      // Third-Party Libs
+      'pascalprecht.translate',
 
-      'common.service.member',
+      // Configs, middleware, run...
+      '<%= prompts.prefix %>.core',
+
+      // Common components, services, filters...
 
       // App modules with business logic
-      'home'
+      '<%= prompts.prefix %>.layout',
+      '<%= prompts.prefix %>.home'
 
 
     ]);

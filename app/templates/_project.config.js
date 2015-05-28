@@ -66,7 +66,7 @@ module.exports = function (isGenerator) {
       },
       app:       {
         main:       'app/app.js',
-        modules:    'app/**/*.module.js',
+        modules:    'app/**/*module.js',
         services:   'app/**/*.service.js',
         directives: 'app/**/*.directive.js',
         scripts:    'app/**/*.js',
@@ -140,10 +140,9 @@ module.exports = function (isGenerator) {
     return {
       files: [
         path.join(projectConfig.path.srcDir, projectConfig.path.app.main),
-        path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, '*.js'),
-        path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '*.js'),
-        path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '**/*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.modules),
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, '**/*.js'),
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '**/*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.scripts)
       ]
     };

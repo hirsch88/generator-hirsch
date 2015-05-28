@@ -123,6 +123,12 @@
 
   };
 
-  window.AppUtil = AppUtil;
+  ///////////////////////////////////////////
+
+  //window.AppUtil = AppUtil;
+
+  angular
+    .module('<%= prompts.prefix %>.core.util')
+    .constant('appUtil', AppUtil);
 
 }(window));

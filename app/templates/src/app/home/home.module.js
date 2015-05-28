@@ -1,18 +1,8 @@
-/**
- * @namespace home
- *
- * @description
- * Startview
- */
 (function () {
   'use strict';
 
   angular
-    .module('home', [
-      'common.service.member',
-
-      'home.home'
-    ]);
+    .module('<%= prompts.prefix %>.home', []);
 
 
 })();

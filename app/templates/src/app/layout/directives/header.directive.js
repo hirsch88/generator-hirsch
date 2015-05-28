@@ -5,21 +5,9 @@
   'use strict';
 
   angular
-    .module('common.directive.header', [])
+    .module('<%= prompts.prefix %>.layout')
     .directive('<%= prompts.prefix %>Header', HeaderDirective);
 
-  /**
-   * @memberOf layout
-   * @namespace <%= prompts.prefix %>Header
-   *
-   * @description
-   * Header element outside of the ngView area
-   *
-   * @example
-   * <<%= prompts.prefix %>-header></<%= prompts.prefix %>-header>
-   *
-   * @constructor
-   */
   function HeaderDirective() {
     return {
       restrict:         'EA',
@@ -38,7 +26,9 @@
    */
   function HeaderController() {
     var vm = this;
-    vm.title = AppUtil.title;
+
+    // Your code goes here...
+
   }
 
 }());

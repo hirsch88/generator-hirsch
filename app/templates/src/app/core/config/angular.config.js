@@ -1,43 +1,8 @@
-/**
- * @memberOf app
- * @namespace app.core
- *
- * @requires ngSanitize
- * @requires ngMessages
- * @requires ngRoute
- *
- * @description
- * Defines the AngularJS Modules and configures them
- *
- */
 (function () {
   'use strict';
 
   angular
-    .module('app.core', [
-      'ngSanitize',
-      'ngMessages'
-    ])
-
-  /**
-   * @constant
-   * @memberOf app.core
-   * @name pathConstant
-   * @type {Object}
-   *
-   * @description
-   * Defines some paths of the application
-   *
-   * @property {String} SERVICE - Common service path
-   * @property {String} DIRECTIVE - Common directive/components path
-   * @property {String} FILTERS - Common filter path
-   */
-    .constant('pathConstant', {
-      SERVICE:   'app/common/services/',
-      DIRECTIVE: 'app/common/directives/',
-      FILTERS:   'app/common/filters/',
-      TEMPLATES: 'app/common/templates/'
-    })
+    .module('<%= prompts.prefix %>.core.config')
     .config(LogConfig)
     .config(HttpConfig)
     .config(CompileConfig);
@@ -68,8 +33,8 @@
    */
   function HttpConfig($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
-    if ($httpProvider.defaults.headers.get) {
-      $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+    if ($httpProvider.defaults.headers['get']) {
+      $httpProvider.defaults.headers['get']['If-Modified-Since'] = '0';
     }
   }
 

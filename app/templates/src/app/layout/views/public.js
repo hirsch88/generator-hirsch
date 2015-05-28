@@ -1,13 +1,8 @@
 (function () {
   'use strict';
 
-  /**
-   * @memberOf layout
-   * @namespace layout.public
-   *
-   */
   angular
-    .module('layout.public', [])
+    .module('<%= prompts.prefix %>.layout')
     .config(StateConfig);
 
 
