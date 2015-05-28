@@ -8,7 +8,7 @@
 
   function StateConfig($stateProvider) {
     $stateProvider
-      .state('public.home', {
+      .state('admin.home', {
         url:           '/home',
         session:       true,
         navigationKey: 'home',

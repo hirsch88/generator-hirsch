@@ -204,6 +204,11 @@ var HirschGenerator = yeoman.generators.Base.extend({
       this.destinationPath(path.join(layoutPath, 'directives', 'header.directive.js')), this.projectConfig
     );
 
+    this.template(
+      this.templatePath(path.join(layoutPath, 'layout.module.js')),
+      this.destinationPath(path.join(layoutPath, 'layout.module.js')), this.projectConfig
+    );
+
   },
 
   homeExample: function () {

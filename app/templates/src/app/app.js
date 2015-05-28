@@ -11,19 +11,13 @@
       // Third-Party Libs
       'pascalprecht.translate',
 
-      // Config and core module
+      // Configs, middleware, run...
       '<%= prompts.prefix %>.core',
-      '<%= prompts.prefix %>.config',
-      '<%= prompts.prefix %>.logger',
-      '<%= prompts.prefix %>.router',
-      '<%= prompts.prefix %>.run',
 
-      // Layout components
-      '<%= prompts.prefix %>.layout',
-
-      '<%= prompts.prefix %>.common.service.member',
+      // Common components, services, filters...
 
       // App modules with business logic
+      '<%= prompts.prefix %>.layout',
       '<%= prompts.prefix %>.home'
 
 
