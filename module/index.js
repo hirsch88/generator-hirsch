@@ -6,14 +6,13 @@ var chalk = require('chalk');
 var path = require('path');
 
 var ModuleGenerator = yeoman.generators.NamedBase.extend({
-  /**
-   * INITIALIZING
-   * Loads the projectConfig into the scope of the generator
-   */
-  initializing: function () {
+
+  constructor: function () {
+    generators.Base.apply(this, arguments);
     this.projectConfig = helper.getProjectConfig();
     this.projectConfig.date = helper.getCreationDate();
   },
+
   prompting:    function () {
     var done = this.async();
     var prompts = [
@@ -104,4 +103,5 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
     console.log('');
   }
 });
+
 module.exports = ModuleGenerator;

@@ -1,9 +1,9 @@
 module.exports = function () {
 
-  var projectConfig = require('./project.config')();
+  var projectConfig = require('./project.config.js')();
 
   var conf = {
-    basePath:   '',
+    basePath:   '../../),
     frameworks: ['mocha', 'chai'],
     reporters:  ['progress'],
     browsers:   ['Firefox'],

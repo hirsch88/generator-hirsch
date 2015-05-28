@@ -1,5 +1,5 @@
 {
-  "name":            "<%= prompts.appName %>",
+  "name":            "<%= prompts.appname %>",
   "version":         "0.0.0",
   "description":     "<%= prompts.description %>",
   "prefix":          "<%= prompts.prefix %>",

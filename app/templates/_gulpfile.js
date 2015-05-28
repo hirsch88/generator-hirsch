@@ -7,7 +7,7 @@ var _ = require('lodash');
 var gulp = require('gulp');
 var del = require('del');
 var path = require('path');
-var projectConfig = require('./project.config')();
+var projectConfig = require('./project.config.js')();
 
 /**
  * LIBRARIES

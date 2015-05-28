@@ -23,7 +23,7 @@ describe('Midway: Testing Modules', function () {
         return deps.indexOf(m) >= 0;
       };
       before(function () {
-        deps = module.value('appName').requires;
+        deps = module.value('appname').requires;
       });
 
       //you can also test the module's dependencies

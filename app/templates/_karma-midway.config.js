@@ -1,5 +1,5 @@
 var sharedConfig = require('./karma-shared.config.js');
-var projectConfig = require('./project.config')();
+var projectConfig = require('./project.config.js')();
 
 module.exports = function (config) {
   var conf = sharedConfig();

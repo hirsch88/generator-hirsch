@@ -2,42 +2,22 @@
   'use strict';
 
   angular
-    .module('app.router', [
-      'ui.router',
-      'ui.router.router',
-      'ui.router.state'
-    ])
+    .module('<%= prompts.prefix %>.core.routing')
     .constant('APP_ROUTER_PRIVATE_ROUTES', getSecuredRoutes())
     .config(RouterConfig)
     .factory('AppRouterService', AppRouterService)
     .run(AppRouter);
 
-  /**
-   * @description
-   * ToDo
-   *
-   * @returns {string[]}
-   */
   function getSecuredRoutes() {
     return [
       '/private/*'
     ];
   }
 
-  /**
-   * @name RouterConfig
-   * @param $urlRouterProvider
-   * @constructor
-   */
   function RouterConfig($urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
   }
 
-  /**
-   * @name AppRouterService
-   * @returns {{}}
-   * @constructor
-   */
   function AppRouterService() {
 
     var _initialized = false;
