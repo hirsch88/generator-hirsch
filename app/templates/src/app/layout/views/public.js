@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.layout')
+    .module('<%= prompts.prefix %>.layout.views')
     .config(StateConfig);
 
 

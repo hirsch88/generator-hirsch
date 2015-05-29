@@ -44,7 +44,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
       prompts.push({
         type:    'string',
         name:    'appname',
-        message: 'How would u like to call your app?',
+        message: 'What is the name of your app?',
         default: this.appname || path.basename(process.cwd())
       });
     }
@@ -52,7 +52,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
     prompts.push({
       type:    'string',
       name:    'prefix',
-      message: 'Angular app prefix sign like ng(2chars):',
+      message: 'Angular app prefix (2 chars):',
       default: 'my'
     });
 
@@ -65,8 +65,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
     prompts.push({
       type:    'string',
       name:    'author',
-      message: 'How is the author?',
-      default: 'Gery Hirschfeld <gery.hirschfeld@w3tec.ch>'
+      message: 'How is the author?'
     });
 
     this.prompt(prompts, function (props) {
@@ -209,6 +208,16 @@ var HirschGenerator = yeoman.generators.Base.extend({
       this.destinationPath(path.join(layoutPath, 'layout.module.js')), this.projectConfig
     );
 
+    this.template(
+      this.templatePath(path.join(layoutPath, 'views/layoutViews.module.js')),
+      this.destinationPath(path.join(layoutPath, 'views/layoutViews.module.js')), this.projectConfig
+    );
+
+    this.template(
+      this.templatePath(path.join(layoutPath, 'directives/layoutDirectives.module.js')),
+      this.destinationPath(path.join(layoutPath, 'directives/layoutDirectives.module.js')), this.projectConfig
+    );
+
   },
 
   homeExample: function () {
@@ -221,6 +230,11 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.template(
       this.templatePath(path.join(homePath, 'home.module.js')),
       this.destinationPath(path.join(homePath, 'home.module.js')), this.projectConfig
+    );
+
+    this.template(
+      this.templatePath(path.join(homePath, 'views/homeViews.module.js')),
+      this.destinationPath(path.join(homePath, 'views/homeViews.module.js')), this.projectConfig
     );
 
     this.template(

@@ -5,7 +5,7 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.layout')
+    .module('<%= prompts.prefix %>.layout.directives')
     .directive('<%= prompts.prefix %>Header', HeaderDirective);
 
   function HeaderDirective() {
