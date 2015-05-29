@@ -44,7 +44,7 @@ gulp.task('install', function () {
 
 /**
  * SERVE
- * Creates a webserver and adds some watchers to automatically refreshs your browser
+ * Creates a webserver and adds some watchers to automatically refresh your browser
  */
 gulp.task('serve', ['index'], function () {
 
@@ -64,7 +64,7 @@ gulp.task('serve', ['index'], function () {
 
 });
 
-gulp.task('serve-dist', ['dist'], function () {
+gulp.task('serve-dist', function () {
 
   browserSync({
     server: {
@@ -74,11 +74,6 @@ gulp.task('serve-dist', ['dist'], function () {
       open:    true
     }
   });
-
-  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.app.templates), ['dist', browserSync.reload]);
-  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.asset.less), ['dist', browserSync.reload]);
-  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.app.scripts), ['dist', browserSync.reload]);
-  gulp.watch('./bower.json', ['dist', browserSync.reload]);
 
 });
 
