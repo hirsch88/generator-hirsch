@@ -200,7 +200,7 @@ projectRoot/
 
 The MIT License
 
-Copyright (c) 2015 Gery Hirschfeld ([@GeryHirschfeld1](https://twitter.com/GeryHirschfeld1))
+Copyright (c) 2015 Gery Hirschfeld ([@hirsch88](https://twitter.com/GeryHirschfeld1))
 
 
 (The MIT License)
