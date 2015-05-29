@@ -6,6 +6,20 @@ var glob = require('glob');
 
 module.exports = {
 
+  appName: function (self) {
+    var counter = 0, suffix = self.options['app-suffix'];
+    // Have to check this because of generator bug #386
+    process.argv.forEach(function (val) {
+      if (val.indexOf('--app-suffix') > -1) {
+        counter++;
+      }
+    });
+    if (counter === 0 || (typeof suffix === 'boolean' && suffix)) {
+      suffix = 'App';
+    }
+    return suffix ? self._.classify(suffix) : '';
+  },
+
   joinPath: function (array) {
     return array.join('/');
   },
@@ -74,9 +88,9 @@ module.exports = {
       name:                  name,
       module:                this.firstCharToLowerCase(module),
       lowercaseName:         this.firstCharToLowerCase(name),
-      lowercaseModuleName:   (module !== 'common') ? this.firstCharToLowerCase(module): '',
+      lowercaseModuleName:   (module !== 'common') ? this.firstCharToLowerCase(module) : '',
       capitalizedName:       this.firstCharToUpperCase(name),
-      capitalizedModuleName: (module !== 'common') ? this.firstCharToUpperCase(module): ''
+      capitalizedModuleName: (module !== 'common') ? this.firstCharToUpperCase(module) : ''
     };
   },
 

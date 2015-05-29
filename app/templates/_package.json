@@ -4,6 +4,7 @@
   "description":     "<%= prompts.description %>",
   "prefix":          "<%= prompts.prefix %>",
   "main":            "<%= path.distDir %>/<%= path.main %>",
+  "language":        "JavaScript",
   "private":         true,
   "dependencies":    {},
   "devDependencies": {
