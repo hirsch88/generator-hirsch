@@ -1,3 +1,11 @@
+1.0.0-rc-14 / 2015-05-29
+==================
+
+  * Release 1.0.0-rc-14
+  * Update module generator
+  * Add language property to the package.json
+  * Add TypeScript possibility into the script-base.js
+  
 1.0.0-rc-13 / 2015-05-29
 ==================
 

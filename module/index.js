@@ -1,107 +1,20 @@
 'use strict';
-
-var yeoman = require('yeoman-generator');
-var helper = require('./../helper');
-var chalk = require('chalk');
+var util = require('util');
+var ScriptBase = require('../script-base.js');
 var path = require('path');
 
-var ModuleGenerator = yeoman.generators.NamedBase.extend({
+var Generator = module.exports = function Generator() {
+  ScriptBase.apply(this, arguments);
+  this.generatorName = 'module';
+};
 
-  constructor: function () {
-    generators.Base.apply(this, arguments);
-    this.projectConfig = helper.getProjectConfig();
-    this.projectConfig.date = helper.getCreationDate();
-  },
+util.inherits(Generator, ScriptBase);
 
-  prompting:    function () {
-    var done = this.async();
-    var prompts = [
-      {
-        type:    'string',
-        name:    'description',
-        message: 'Describe your Module'
-      },
-      {
-        type:    'string',
-        name:    'modules',
-        message: 'Enter your angular modules dependencies'
-      }
+Generator.prototype.createFiles = function createFiles() {
+  this.appTemplate(this.generatorName, path.join(this.name, this.name + '.' + this.generatorName));
+  this.testTemplate('midway', this.generatorName, path.join(this.name, this.name + '.' + this.generatorName));
+};
 
-    ];
-    this.prompt(prompts, function (props) {
-      this.description = props.description;
-      this.description = props.description;
-      this.modules = props.modules;
-
-      done();
-    }.bind(this));
-  },
-  writing:      {
-    /**
-     * PROMPTS
-     * Adds the answers of the user to the project config object
-     */
-    prompts:     function () {
-      var done = this.async();
-      this.projectConfig.prompts = {};
-      this.projectConfig.prompts.description = this.description;
-      this.projectConfig.prompts.modules = helper.buildModuleDependencies(this.modules);
-      this.projectConfig.meta = helper.buildMetaInformations(this.name);
-      done();
-    },
-    /**
-     * DESTINATION
-     * Defines the destination of our new files
-     */
-    destination: function () {
-
-      this.targetScript = path.join(
-        this.projectConfig.path.srcDir,
-        this.projectConfig.path.appDir,
-        this.projectConfig.meta.lowercaseName,
-        this.projectConfig.meta.lowercaseName + '.module.js'
-      );
-
-      this.targetTestMidway = path.join(
-        this.projectConfig.path.testDir,
-        'midway',
-        this.projectConfig.meta.lowercaseName,
-        this.projectConfig.meta.lowercaseName + '.module.spec.js'
-      );
-
-    },
-    /**
-     * TEMPLATE
-     */
-    //template: function () {
-    //
-    //},
-    /**
-     * SCRIPT
-     */
-    script:      function () {
-      this.fs.copyTpl(
-        this.templatePath('script'),
-        this.destinationPath(this.targetScript),
-        this.projectConfig
-      );
-    },
-    /**
-     * TEST
-     */
-    test:        function () {
-      this.fs.copyTpl(
-        this.templatePath('midway.spec'),
-        this.destinationPath(this.targetTestMidway),
-        this.projectConfig
-      );
-    }
-  },
-  end:          function () {
-    console.log('');
-    console.log(chalk.green('✔ ') + 'Module ' + chalk.green(this.projectConfig.meta.capitalizedName) + ' created');
-    console.log('');
-  }
-});
-
-module.exports = ModuleGenerator;
+Generator.prototype.end = function createFiles() {
+  this.say(this.generatorName);
+};

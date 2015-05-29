@@ -10,12 +10,12 @@ var $ = require('gulp-load-plugins')({lazy: true});
 gulp.task('test-e2e', function () {
 
   var testFiles = projectConfig.karma.files;
-  testFiles.push('test/e2e/**/*.spec.js');
+  testFiles.push(projectConfig.path.test.e2e.specs);
 
   return gulp
     .src(testFiles)
     .pipe($.karma({
-      configFile: './../karma-e2e.config.js',
+      configFile: './../' + projectConfig.path.test.e2e.config,
       action:     'run'
     }))
     .on('error', function (err) {

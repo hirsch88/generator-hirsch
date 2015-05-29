@@ -4,7 +4,7 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
-var helper = require('./../helper');
+var hirschUtils = require('./../util');
 var generators = yeoman.generators;
 
 var HirschGenerator = yeoman.generators.Base.extend({
@@ -27,7 +27,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
 
   initializing: function () {
     this.projectConfig = require('./templates/_project.config.js')(true);
-    this.projectConfig.date = helper.getCreationDate();
+    this.projectConfig.date = hirschUtils.getCreationDate();
   },
 
   welcome: function () {
@@ -270,7 +270,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
 
   end: function () {
     this.log('');
-    this.log(helper.hirschSay());
+    this.log(hirschUtils.hirschSay());
     this.log('Go to your project folder and run ' + chalk.bold.yellow('gulp serve'));
     this.log('Than visit your app on ' + chalk.bold.yellow('http://localhost:3000'));
     this.log('');
