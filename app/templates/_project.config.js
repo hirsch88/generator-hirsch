@@ -87,7 +87,20 @@ module.exports = function (isGenerator) {
         }
       },
       test:      {
-        specs: '**/*.spec.js'
+        specs: '**/*.spec.js',
+        e2e: {
+          specs: 'test/e2e/**/*.spec.js',
+          config: 'karma-e2e.config.js'
+        },
+        unit: {
+          specs: 'test/unit/**/*.spec.js',
+          config: 'karma-unit.config.js'
+        },
+        midway: {
+          specs: 'test/midway/**/*.spec.js',
+          config: 'karma-midway.config.js'
+        }
+
       }
     }
   };

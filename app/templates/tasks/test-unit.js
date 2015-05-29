@@ -12,12 +12,12 @@ gulp.task('test-unit', function () {
 
   var testFiles = projectConfig.karma.files;
   testFiles.push('src/lib/angular-mocks/angular-mocks.js');
-  testFiles.push('test/unit/**/*.spec.js');
+  testFiles.push(projectConfig.path.test.unit.specs);
 
   return gulp
     .src(testFiles)
     .pipe($.karma({
-      configFile: './../karma-unit.config.js',
+      configFile: './../' + projectConfig.path.test.unit.config,
       action:     'run'
     }))
     .on('error', function (err) {

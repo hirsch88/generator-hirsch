@@ -11,13 +11,13 @@ var $ = require('gulp-load-plugins')({lazy: true});
 gulp.task('test-midway', function () {
 
   var testFiles = projectConfig.karma.files;
-  testFiles.push('./test/midway/**/*.spec.js');
+  testFiles.push(projectConfig.path.test.midway.specs);
 
   return gulp
     .src(testFiles)
     .pipe($.karma({
       basePath:    process.cwd(),
-      configFile: './karma-midway.config.js',
+      configFile: './../' + projectConfig.path.test.midway.config,
       action:     'run'
     }))
     .on('error', function (err) {
