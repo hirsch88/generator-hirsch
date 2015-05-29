@@ -11,6 +11,6 @@
       '<%= prompts.prefix %>.core.router.RouterConfig',
       '<%= prompts.prefix %>.core.router.RouterService',
       '<%= prompts.prefix %>.core.router.Router'
-    ])
+    ]);
 
 }());

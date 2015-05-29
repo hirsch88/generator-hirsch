@@ -122,7 +122,14 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.template('_package.json', 'package.json', this.projectConfig);
     this.template('_bower.json', 'bower.json', this.projectConfig);
     this.template('_bowerrc', '.bowerrc', this.projectConfig);
+  },
+
+  taskRunner: function () {
     this.template('_gulpfile.js', 'gulpfile.js', this.projectConfig);
+    this.directory(
+      this.templatePath(this.projectConfig.path.taskDir),
+      this.destinationPath(this.projectConfig.path.taskDir)
+    );
   },
 
   projectfiles: function () {
@@ -143,9 +150,10 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.template('_karma-midway.config.js', 'karma-midway.config.js', this.projectConfig);
     this.template('_karma-shared.config.js', 'karma-shared.config.js', this.projectConfig);
     this.template('_karma-unit.config.js', 'karma-unit.config.js', this.projectConfig);
+    this.template(this.projectConfig.path.testDir + '/midway/app.spec.js', this.projectConfig.path.testDir + '/midway/app.spec.js', this.projectConfig);
     this.directory(
-      this.templatePath(this.projectConfig.path.testDir),
-      this.destinationPath(this.projectConfig.path.testDir)
+      this.templatePath(this.projectConfig.path.testDir + '/lib'),
+      this.destinationPath(this.projectConfig.path.testDir + '/lib')
     );
   },
 
