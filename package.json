@@ -1,22 +1,22 @@
 {
-  "name":             "generator-hirsch",
-  "version":          "1.0.0-rc.12",
-  "description":      "Yeoman generator for large module-based AngularJS applications",
-  "license":          "MIT",
-  "main":             "app/index.js",
-  "repository":       "gery.hirschfeld@w3tec.ch/generator-hirsch",
-  "author":           {
-    "name":  "Gery Hirschfeld",
+  "name": "generator-hirsch",
+  "version": "1.0.0-rc-13",
+  "description": "Yeoman generator for large module-based AngularJS applications",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "gery.hirschfeld@w3tec.ch/generator-hirsch",
+  "author": {
+    "name": "Gery Hirschfeld",
     "email": "gery.hirschfeld@w3tec.ch",
-    "url":   "https://github.com/hirsch88"
+    "url": "https://github.com/hirsch88"
   },
-  "engines":          {
+  "engines": {
     "node": ">=0.10.0"
   },
-  "scripts":          {
+  "scripts": {
     "test": "mocha"
   },
-  "files":            [
+  "files": [
     "app",
     "helper.js",
     "service",
@@ -28,19 +28,20 @@
     "CHANGELOG.md",
     "README.md"
   ],
-  "keywords":         [
+  "keywords": [
     "yeoman-generator"
   ],
-  "dependencies":     {
-    "chalk":            "^0.5.0",
-    "glob":             "^4.4.0",
+  "dependencies": {
+    "chalk": "^0.5.0",
+    "glob": "^4.4.0",
     "main-bower-files": "^2.6.2",
-    "path":             "^0.11.14",
-    "wiredep":          "^2.2.2",
+    "path": "^0.11.14",
+    "require-dir": "^0.3.0",
+    "wiredep": "^2.2.2",
     "yeoman-generator": "^0.18.0",
-    "yosay":            "^0.3.0"
+    "yosay": "^0.3.0"
   },
-  "devDependencies":  {
+  "devDependencies": {
     "mocha": "*"
   },
   "peerDependencies": {

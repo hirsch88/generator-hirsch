@@ -1,3 +1,11 @@
+1.0.0-rc-13 / 2015-05-29
+==================
+
+  * Release 1.0.0-rc-13
+  * Update structure: new feature/module structure
+  * Update gulp: slitted gulp task into files
+
+  
 1.0.0-rc.12 / 2015-05-29
 ==================
 

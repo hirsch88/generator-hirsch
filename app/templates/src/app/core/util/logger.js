@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.util')
+    .module('<%= prompts.prefix %>.core.util.Logger', [])
     .factory('logger', LoggerService);
 
   function LoggerService($log, appUtil) {

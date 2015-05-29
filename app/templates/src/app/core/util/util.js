@@ -128,7 +128,7 @@
   //window.AppUtil = AppUtil;
 
   angular
-    .module('<%= prompts.prefix %>.core.util')
+    .module('<%= prompts.prefix %>.core.util.Util', [])
     .constant('appUtil', AppUtil);
 
 }(window));

@@ -85,7 +85,7 @@
   //window.AppEvents = new AppEvents();
 
   angular
-    .module('<%= prompts.prefix %>.core.util')
+    .module('<%= prompts.prefix %>.core.util.Events', [])
     .constant('appEvents', new AppEvents());
 
 }(window));

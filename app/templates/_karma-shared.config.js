@@ -3,7 +3,6 @@ module.exports = function () {
   var projectConfig = require('./project.config.js')();
 
   var conf = {
-    basePath:   '../../),
     frameworks: ['mocha', 'chai'],
     reporters:  ['progress'],
     browsers:   ['Firefox'],
@@ -28,7 +27,6 @@ module.exports = function () {
   );
 
   conf.files = conf.files.concat([
-    //Test-Specific Code
     'node_modules/chai/chai.js',
     'test/lib/chai-should.js',
     'test/lib/chai-expect.js'

@@ -48,6 +48,7 @@ module.exports = function (isGenerator) {
       docsDir:   'docs',
       testDir:   'test',
       buildDir:  'build',
+      taskDir:   'tasks',
       libDir:    'lib',
       appDir:    'app',
       assetsDir: 'assets',

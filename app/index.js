@@ -44,7 +44,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
       prompts.push({
         type:    'string',
         name:    'appname',
-        message: 'What is the name of your app?',
+        message: 'What would you like to name the app?',
         default: this.appname || path.basename(process.cwd())
       });
     }
@@ -122,7 +122,14 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.template('_package.json', 'package.json', this.projectConfig);
     this.template('_bower.json', 'bower.json', this.projectConfig);
     this.template('_bowerrc', '.bowerrc', this.projectConfig);
+  },
+
+  taskRunner: function () {
     this.template('_gulpfile.js', 'gulpfile.js', this.projectConfig);
+    this.directory(
+      this.templatePath(this.projectConfig.path.taskDir),
+      this.destinationPath(this.projectConfig.path.taskDir)
+    );
   },
 
   projectfiles: function () {
@@ -143,9 +150,10 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.template('_karma-midway.config.js', 'karma-midway.config.js', this.projectConfig);
     this.template('_karma-shared.config.js', 'karma-shared.config.js', this.projectConfig);
     this.template('_karma-unit.config.js', 'karma-unit.config.js', this.projectConfig);
+    this.template(this.projectConfig.path.testDir + '/midway/app.spec.js', this.projectConfig.path.testDir + '/midway/app.spec.js', this.projectConfig);
     this.directory(
-      this.templatePath(this.projectConfig.path.testDir),
-      this.destinationPath(this.projectConfig.path.testDir)
+      this.templatePath(this.projectConfig.path.testDir + '/lib'),
+      this.destinationPath(this.projectConfig.path.testDir + '/lib')
     );
   },
 
@@ -165,17 +173,22 @@ var HirschGenerator = yeoman.generators.Base.extend({
 
   coreFiles: function () {
     var corePath = path.join(this.projectConfig.path.srcDir, this.projectConfig.path.app.coreDir);
-    this.template(this.templatePath(path.join(corePath, 'module.js')), this.destinationPath(path.join(corePath, 'module.js')), this.projectConfig);
+    this.template(this.templatePath(path.join(corePath, 'core.module.js')), this.destinationPath(path.join(corePath, 'core.module.js')), this.projectConfig);
 
-    this.template(this.templatePath(path.join(corePath, 'config/module.js')), this.destinationPath(path.join(corePath, 'config/module.js')), this.projectConfig);
+    this.template(this.templatePath(path.join(corePath, 'config/config.module.js')), this.destinationPath(path.join(corePath, 'config/config.module.js')), this.projectConfig);
     this.template(this.templatePath(path.join(corePath, 'config/angular.config.js')), this.destinationPath(path.join(corePath, 'config/angular.config.js')), this.projectConfig);
     this.template(this.templatePath(path.join(corePath, 'config/thirdParty.config.js')), this.destinationPath(path.join(corePath, 'config/thirdParty.config.js')), this.projectConfig);
-    this.template(this.templatePath(path.join(corePath, 'config/run.js')), this.destinationPath(path.join(corePath, 'config/run.js')), this.projectConfig);
 
-    this.template(this.templatePath(path.join(corePath, 'routing/module.js')), this.destinationPath(path.join(corePath, 'routing/module.js')), this.projectConfig);
-    this.template(this.templatePath(path.join(corePath, 'routing/router.js')), this.destinationPath(path.join(corePath, 'routing/router.js')), this.projectConfig);
+    this.template(this.templatePath(path.join(corePath, 'constants/constants.module.js')), this.destinationPath(path.join(corePath, 'constants/constants.module.js')), this.projectConfig);
+    this.template(this.templatePath(path.join(corePath, 'constants/global.constants.js')), this.destinationPath(path.join(corePath, 'constants/global.constants.js')), this.projectConfig);
 
-    this.template(this.templatePath(path.join(corePath, 'util/module.js')), this.destinationPath(path.join(corePath, 'util/module.js')), this.projectConfig);
+    this.template(this.templatePath(path.join(corePath, 'router/router.module.js')), this.destinationPath(path.join(corePath, 'router/router.module.js')), this.projectConfig);
+    this.template(this.templatePath(path.join(corePath, 'router/router.constants.js')), this.destinationPath(path.join(corePath, 'router/router.constants.js')), this.projectConfig);
+    this.template(this.templatePath(path.join(corePath, 'router/router.config.js')), this.destinationPath(path.join(corePath, 'router/router.config.js')), this.projectConfig);
+    this.template(this.templatePath(path.join(corePath, 'router/router.service.js')), this.destinationPath(path.join(corePath, 'router/router.service.js')), this.projectConfig);
+    this.template(this.templatePath(path.join(corePath, 'router/router.js')), this.destinationPath(path.join(corePath, 'router/router.js')), this.projectConfig);
+
+    this.template(this.templatePath(path.join(corePath, 'util/util.module.js')), this.destinationPath(path.join(corePath, 'util/util.module.js')), this.projectConfig);
     this.template(this.templatePath(path.join(corePath, 'util/events.js')), this.destinationPath(path.join(corePath, 'util/events.js')), this.projectConfig);
     this.template(this.templatePath(path.join(corePath, 'util/util.js')), this.destinationPath(path.join(corePath, 'util/util.js')), this.projectConfig);
     this.template(this.templatePath(path.join(corePath, 'util/logger.js')), this.destinationPath(path.join(corePath, 'util/logger.js')), this.projectConfig);
@@ -209,13 +222,13 @@ var HirschGenerator = yeoman.generators.Base.extend({
     );
 
     this.template(
-      this.templatePath(path.join(layoutPath, 'views/layoutViews.module.js')),
-      this.destinationPath(path.join(layoutPath, 'views/layoutViews.module.js')), this.projectConfig
+      this.templatePath(path.join(layoutPath, 'views/views.module.js')),
+      this.destinationPath(path.join(layoutPath, 'views/views.module.js')), this.projectConfig
     );
 
     this.template(
-      this.templatePath(path.join(layoutPath, 'directives/layoutDirectives.module.js')),
-      this.destinationPath(path.join(layoutPath, 'directives/layoutDirectives.module.js')), this.projectConfig
+      this.templatePath(path.join(layoutPath, 'directives/directives.module.js')),
+      this.destinationPath(path.join(layoutPath, 'directives/directives.module.js')), this.projectConfig
     );
 
   },
@@ -233,8 +246,8 @@ var HirschGenerator = yeoman.generators.Base.extend({
     );
 
     this.template(
-      this.templatePath(path.join(homePath, 'views/homeViews.module.js')),
-      this.destinationPath(path.join(homePath, 'views/homeViews.module.js')), this.projectConfig
+      this.templatePath(path.join(homePath, 'views/views.module.js')),
+      this.destinationPath(path.join(homePath, 'views/views.module.js')), this.projectConfig
     );
 
     this.template(
@@ -253,7 +266,6 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.npmInstall();
     this.bowerInstall();
   },
-
 
 
   end: function () {

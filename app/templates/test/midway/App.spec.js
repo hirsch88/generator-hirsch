@@ -1,19 +1,14 @@
 describe('Midway: Testing Modules', function () {
 
-  describe('App Module:', function () {
+  describe('app.js:', function () {
 
     var module;
     before(function () {
-      module = angular.module('app');
+      module = angular.module('<%= prompts.prefix %>');
     });
 
     it('should be registered', function () {
       expect(module).not.to.equal(null);
-    });
-
-    it('should be global appUtil', function () {
-      appUtil.should.be.an('object');
-      expect(appUtil.getServerUrl()).to.be.a('string');
     });
 
     describe("Dependencies:", function () {
@@ -23,16 +18,20 @@ describe('Midway: Testing Modules', function () {
         return deps.indexOf(m) >= 0;
       };
       before(function () {
-        deps = module.value('appname').requires;
+        deps = module.value('<%= prompts.prefix %>').requires;
       });
 
       //you can also test the module's dependencies
-      it("should have app.core as a dependency", function () {
-        expect(hasModule('app.core')).to.equal(true);
+      it("should have <%= prompts.prefix %>.core as a dependency", function () {
+        expect(hasModule('<%= prompts.prefix %>.core')).to.equal(true);
       });
 
-      it("should have app.config as a dependency", function () {
-        expect(hasModule('app.config')).to.equal(true);
+      it("should have <%= prompts.prefix %>.layout as a dependency", function () {
+        expect(hasModule('<%= prompts.prefix %>.layout')).to.equal(true);
+      });
+
+      it("should have <%= prompts.prefix %>.home as a dependency", function () {
+        expect(hasModule('<%= prompts.prefix %>.home')).to.equal(true);
       });
 
     });

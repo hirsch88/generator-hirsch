@@ -2,55 +2,9 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.routing')
-    .constant('APP_ROUTER_PRIVATE_ROUTES', getSecuredRoutes())
-    .config(RouterConfig)
-    .factory('AppRouterService', AppRouterService)
+    .module('<%= prompts.prefix %>.core.router.Router', [])
     .run(AppRouter);
 
-  function getSecuredRoutes() {
-    return [
-      '/private/*'
-    ];
-  }
-
-  function RouterConfig($urlRouterProvider) {
-    $urlRouterProvider.otherwise('/home');
-  }
-
-  function AppRouterService() {
-
-    var _initialized = false;
-
-    var service = {
-      hasInitialized: getInit,
-      initialized:    initialized
-    };
-
-    return service;
-
-    ////////////////////////////////////////////////
-
-    function getInit() {
-      return _initialized;
-    }
-
-    function initialized() {
-      _initialized = true;
-    }
-
-
-  }
-
-  /**
-   * @name AppRouter
-   * @param c3Event
-   * @param $rootScope
-   * @param $urlRouter
-   * @param logger
-   * @param $state
-   * @constructor
-   */
   function AppRouter($q, $rootScope, $urlRouter, logger, $state, AppRouterService,
                      APP_ROUTER_PRIVATE_ROUTES) {
 

@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.config')
+    .module('<%= prompts.prefix %>.core.config.ThirdParty', [])
     .config(TranslateConfig);
 
   function TranslateConfig($translateProvider) {

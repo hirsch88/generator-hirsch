@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.config')
+    .module('<%= prompts.prefix %>.core.config.Angular', [])
     .config(LogConfig)
     .config(HttpConfig)
     .config(CompileConfig);
