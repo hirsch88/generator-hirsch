@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.home')
+    .module('<%= prompts.prefix %>.home.views')
     .config(StateConfig)
     .controller('homeController', HomeController);
 
