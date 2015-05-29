@@ -9,8 +9,18 @@
 > Based on the famous style guide from John Papa [angular-styleguide](https://github.com/johnpapa/angular-styleguide)
 
 
+# Table of contents
 
-## Prerequisites
+- [generator-hirsch](#generator-hirsch)
+- [Prerequisites](#Prerequisites)
+- [Get Started](#Get-Started)
+- [Templating](#Templating)
+- [App](#App)
+- [License](#License)
+
+
+
+# Prerequisites
 1. Install [Node.js](http://nodejs.org) 
 	- on OSX use [homebrew](http://brew.sh) `brew install node`
 	- on Windows use [chocolatey](https://chocolatey.org/) `choco install nodejs`
@@ -23,7 +33,7 @@
     npm install -g bower gulp nodemon        
     ```
 
-## Get Started
+# Get Started
 1. Install generator-hirsch
     ```
     npm install -g generator-hirsch
@@ -37,11 +47,11 @@
 
 3. Run the generator
     ```
-    yo hirsch
+    yo hirsch appname
     ```
     
-## Exploring Hirsch Templates
-### Templating
+    
+# Templating
 - `yo hirsch:module myModule`
 	
 	Adds a new module to your project and also the karma tests
@@ -62,54 +72,12 @@
 	
 	Adds a new directive to the chosen module of your project and also some karma tests
 
-### Task Listing
-#### Building
-- `gulp`
 	
-	Injects all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
-	
-- `gulp help`
-	
-	Lists all tasks
-	
-- `gulp build`
-	
-	Injects all JS files into your index.html and generates a css from your less
-	
-- `gulp style`
-	
-	Generates a css from your less
-	
-- `gulp dist`
-	
-	This generates a minified app
-	
-		
-#### Servers (default)
-- `gulp serve` 
-	
-	Opens the browser(localhost:3000 ) with your app and refreshes it when your source code has been modified
-
-#### Testing
-- `gulp test`
-	
-	Runs all your karma tests
-	
-- `gulp test:unit`
-	
-	Runs all your unit karma tests
-	    
-- `gulp test:midway`
-	
-	Runs all your midway karma tests
-	
-	
-## Styleguide
+# Styleguide
 I use this style guid for my apps:
 [johnpapa/angular-styleguide](https://github.com/johnpapa/angular-styleguide)
-
 	
-	
+# App	
 ## App Structure
 ```
 projectRoot/
@@ -185,8 +153,63 @@ projectRoot/
    +-- README.md ( describes the project and how to set it up )
   ```
 	
+## Task Runner
+### Building
+- `gulp`
+  
+  Injects all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
+  
+- `gulp help`
+  
+  Lists all tasks
+  
+- `gulp build`
+  
+  Injects all JS files into your index.html and generates a css from your less
+  
+- `gulp style`
+  
+  Generates a css from your less
+  
+- `gulp dist`
+  
+  This generates a minified app
+  
+    
+## Servers (default)
+- `gulp serve` 
+  
+  Opens the browser(localhost:3000 ) with your app and refreshes it when your source code has been modified
+
+## Testing
+- `gulp test`
+  
+  Runs all your karma tests
+  
+- `gulp test:unit`
+  
+  Runs all your unit karma tests
+      
+- `gulp test:midway`
+  
+  Runs all your midway karma tests
+
 	
 
-## License
+# License
 
-MIT
+The MIT License
+
+Copyright (c) 2015 Gery Hirschfeld @GeryHirschfeld1
+
+
+(The MIT License)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+**[Back to top](#generator-hirsch)**
