@@ -55,6 +55,9 @@
     "AppUtil":    false,
     "AppEvents":  false,
     "angular":    false,
+    "__dirname":  false,
+    "module":     false,
+    "require":    false,
     "moment":     false,
     "_":          false,
     "$":          false
