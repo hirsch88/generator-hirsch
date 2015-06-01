@@ -5,16 +5,20 @@ module <%= prompts.prefix %> {
 
   angular
     .module('<%= prompts.prefix %>', [
+      // AngularJS Libs
+      'ngSanitize',
+      'ngMessages',
 
-      // core module
+      // Third-Party Libs
+      'pascalprecht.translate',
+
+      // Configs, middleware, run...
       '<%= prompts.prefix %>.core',
-
-      // Layout components
-      '<%= prompts.prefix %>.layout',
 
       // Common components, services, filters...
 
       // App modules with business logic
+      '<%= prompts.prefix %>.layout',
       '<%= prompts.prefix %>.home'
     ]);
 }

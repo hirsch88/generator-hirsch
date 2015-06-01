@@ -1,14 +1,8 @@
 /// <reference path="../../../../typings/tsd.d.ts" />
 
-/**
- * 3rd Party Modules configurations
- */
 module <%= prompts.prefix %>.core.config {
   'use strict';
 
-  /**
-   * This configs the translation module and sets the default language
-   */
   var TranslateConfig = ($translateProvider: ng.translate.ITranslateProvider) => {
     $translateProvider.useStaticFilesLoader({
       prefix: './assets/i18n/',
@@ -19,6 +13,6 @@ module <%= prompts.prefix %>.core.config {
   };
 
   angular
-    .module('<%= prompts.prefix %>.core.config')
+    .module('<%= prompts.prefix %>.core.config.ThirdParty', [])
     .config(TranslateConfig);
 }

@@ -5,11 +5,7 @@ module <%= prompts.prefix %>.core.config {
 
   angular
     .module('<%= prompts.prefix %>.core.config', [
-    // angular modules
-    'ngSanitize',
-    'ngMessages',
-
-    // third party modules
-    'pascalprecht.translate'
+      '<%= prompts.prefix %>.core.config.Angular',
+      '<%= prompts.prefix %>.core.config.ThirdParty'
     ]);
 }
