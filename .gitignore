@@ -2,3 +2,4 @@ node_modules/
 old/
 typings/
 app/templates/src/app-ts/**/*.js
+templates/typescript/*.js
