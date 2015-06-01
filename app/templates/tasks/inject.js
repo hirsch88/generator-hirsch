@@ -10,7 +10,7 @@ var _ = require('lodash');
  * INJECT
  * Injects all bower and application scripts into the main index.html file
  */
-gulp.task('inject', ['less'], function () {
+gulp.task('inject', ['less'<% if(prompts.useTypescript) { %>, 'ts' <% } %>], function () {
 
   var source = [];
   source.push(path.join(projectConfig.path.srcDir, projectConfig.path.asset.css));

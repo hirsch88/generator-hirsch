@@ -11,7 +11,7 @@ var path = require('path');
  * SERVE
  * Creates a webserver and adds some watchers to automatically refresh your browser
  */
-gulp.task('serve', ['inject'], function () {
+gulp.task('serve', ['build'], function () {
 
   browserSync({
     server: {
