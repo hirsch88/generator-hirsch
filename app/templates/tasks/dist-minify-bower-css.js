@@ -22,7 +22,7 @@ gulp.task('dist-minify-bower-css', function () {
   return gulp
     .src(cssFiles, {base: './'})
     .pipe($.concat(newCssFileName))
-    .pipe(minifyCSS({keepBreaks: true}))
+    .pipe(minifyCSS({keepBreaks: true, relativeTo: '../assets'}))
     .pipe(header(projectConfig.banner, {pkg: projectConfig.pkg}))
     .pipe(gulp.dest(projectConfig.path.distDir));
 });

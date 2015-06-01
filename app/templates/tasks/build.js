@@ -5,4 +5,4 @@ var gulp = require('gulp');
 /**
  * BUILD
  */
-gulp.task('build', ['jshint', 'inject']);
+gulp.task('build', [<% if(prompts.useTypescript) { %>'ts', <% }  else { %>'jshint', <% } %>'inject']);

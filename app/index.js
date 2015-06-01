@@ -108,24 +108,30 @@ var HirschGenerator = yeoman.generators.Base.extend({
       var rest = Array.prototype.slice.call(arguments, 1);
       return function () {
         var args = Array.prototype.slice.call(arguments);
+        var newRest = rest.slice(0);
+        if (typeof args[0] === 'object') {
+          newRest.push(args.shift());
+        }
+
         var tgtSegs = args.map(function (s) {
-          return _this.useTypescript ? s.replace(/\.js$/, '.ts') : s;
+          return (_this.useTypescript ? s.replace(/\.js$/, '.ts') : s).replace(/\.js!$/, '.js');
         });
+
         var srcSegs = tgtSegs.map(function (s) {
           return _this.useTypescript && args.some(function(s) {
             return /\.js$/.test(s);
           }) ? s.replace(/^app$/, 'app-ts').replace(/^app\//, 'app-ts/') : s;
-        });
+        }).map(function (s) { return s.replace(/!$/, ''); });
 
         // filter out globs from target path
         tgtSegs = tgtSegs.filter(function(s) {
-          return s.indexOf('*') < 0;
+          return s.indexOf('*') < 0 && !/!$/.test(s);
         });
 
         var srcPath = path.join.apply(null, srcSegs);
         var tgtPath = path.join.apply(null, tgtSegs);
-        // console.log(srcPath + ' -> ' + tgtPath);
-        copyFunc.apply(null, [_this.templatePath(srcPath), _this.destinationPath(tgtPath)].concat(rest));
+        console.log(srcPath + ' -> ' + tgtPath);
+        copyFunc.apply(null, [_this.templatePath(srcPath), _this.destinationPath(tgtPath)].concat(newRest));
       };
     }
 
@@ -178,7 +184,13 @@ var HirschGenerator = yeoman.generators.Base.extend({
 
   taskRunner: function () {
     this.template('_gulpfile.js', 'gulpfile.js', this.projectConfig);
-    this.copyTpl(this.projectConfig.path.taskDir);
+    this.copyTpl(this.projectConfig.path.taskDir, '*.js!');
+
+    if (this.projectConfig.prompts.useTypescript) {
+      this.copyTpl(this.projectConfig.path.taskDir, 'ts!', '*.js!');
+    } else {
+      this.copyTpl(this.projectConfig.path.taskDir, 'js!', '*.js!');
+    }
   },
 
   projectfiles: function () {
