@@ -76,7 +76,7 @@ module.exports = function (isGenerator) {
       },
       app:       {
         main:       'app/app.js',
-        modules:    'app/**/module.js',
+        modules:    'app/**/*.module.js',
         services:   'app/**/*.service.js',
         directives: 'app/**/*.directive.js',
         scripts:    'app/**/*.js',

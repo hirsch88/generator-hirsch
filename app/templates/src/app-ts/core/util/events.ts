@@ -8,6 +8,11 @@ module <%= prompts.prefix %>.core.util {
 
   export interface IAppEvents {
     /**
+     * Returns all registered event callbacks.
+     */
+    list: () => { [event: string]: IEventCallback[] };
+
+    /**
      * Register a callback for the given events. Returns
      * a disposal function that unregisters the callback
      * when called.
@@ -61,5 +66,5 @@ module <%= prompts.prefix %>.core.util {
     }
   }
 
-  angular.module('<%= prompts.prefix %>.core.util').service(ID.AppEvents, AppEvents);
+  angular.module('<%= prompts.prefix %>.core.util.Events', []).service(ID.AppEvents, AppEvents);
 }

@@ -9,61 +9,12 @@ declare module angular.ui {
   }
 }
 
-module <%= prompts.prefix %>.core.routing {
+module <%= prompts.prefix %>.core.router {
   'use strict';
 
-  export class AppRouterService {
-    private initializing = false;
-    private initialized = false;
-    private deferredInit: ng.IDeferred<any>;
-    private log: util.Logger;
-
-    static $inject = ['$q', util.ID.LoggerFactory];
-    constructor($q: ng.IQService, loggerFactory: util.ILoggerFactory) {
-      this.log = loggerFactory('AppRouterService');
-      this.deferredInit = $q.defer();
-      this.deferredInit.promise.then(() => this.initialized = true);
-    }
-
-    get isInitialized() {
-      return this.initialized;
-    }
-
-    /**
-     * Here we will load some initial data for the application like the active event, but
-     * only at the first run.
-     */
-    initialize(): ng.IPromise<any> {
-      if (this.initializing || this.initialized) {
-        return this.deferredInit.promise;
-      }
-
-      this.initializing = true;
-
-      // TODO: load initial data
-      this.log.info('loadInitialData');
-      this.deferredInit.resolve();
-
-      return this.deferredInit.promise;
-    }
-  }
-
   angular
-    .module('<%= prompts.prefix %>.core.routing')
-    .constant(ID.APP_ROUTER_PRIVATE_ROUTES, getSecuredRoutes())
-    .config(RouterConfig)
-    .service(ID.AppRouterService, AppRouterService)
+    .module('<%= prompts.prefix %>.core.router.Router', [])
     .run(AppRouter);
-
-  function getSecuredRoutes() {
-    return [
-      '/private/*'
-    ];
-  }
-
-  function RouterConfig($urlRouterProvider: ng.ui.IUrlRouterProvider) {
-    $urlRouterProvider.otherwise('/home');
-  }
 
   AppRouter.$inject = [
     '$q',
@@ -71,7 +22,7 @@ module <%= prompts.prefix %>.core.routing {
     '$urlRouter',
     util.ID.LoggerFactory,
     '$state',
-    ID.AppRouterService,
+    ID.RouterService,
     ID.APP_ROUTER_PRIVATE_ROUTES
   ];
 
@@ -81,8 +32,8 @@ module <%= prompts.prefix %>.core.routing {
     $urlRouter: ng.ui.IUrlRouterService,
     logger: util.ILoggerFactory,
     $state: ng.ui.IStateService,
-    appRouterService: AppRouterService,
-    appRouterPrivateRoutes: string[]) {
+    routerService: IRouterService,
+    privateRoutes: string[]) {
     var log = logger('AppRouter');
     log.info('start');
 
@@ -96,7 +47,7 @@ module <%= prompts.prefix %>.core.routing {
       // Halt state change from even starting
       event.preventDefault();
 
-      appRouterService.initialize()
+      routerService.initialize()
         .then(() => ensurePrivateRoute(toUrl))
         .then(() => hasValidSession())
         .catch(err => {
@@ -117,7 +68,7 @@ module <%= prompts.prefix %>.core.routing {
       var deferred = $q.defer<void>();
       toUrl = parseRoute(toUrl);
 
-      var isPrivate = appRouterPrivateRoutes.some(r => doesUrlMatchPattern(r, toUrl));
+      var isPrivate = privateRoutes.some(r => doesUrlMatchPattern(r, toUrl));
 
       if (isPrivate) {
         deferred.resolve();

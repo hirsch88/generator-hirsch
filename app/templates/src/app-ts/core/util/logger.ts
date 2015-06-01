@@ -50,7 +50,7 @@ module <%= prompts.prefix %>.core.util {
   }
 
   angular
-    .module('<%= prompts.prefix %>.core.util')
+    .module('<%= prompts.prefix %>.core.util.Logger', [])
     .factory(ID.LoggerFactory, loggerService);
 
   loggerService.$inject = ['$log', util.ID.AppUtil];

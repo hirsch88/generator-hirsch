@@ -74,5 +74,5 @@ module <%= prompts.prefix %>.core.util {
     };
   }
 
-  angular.module('<%= prompts.prefix %>.core.util').service(ID.AppUtil, AppUtil);
+  angular.module('<%= prompts.prefix %>.core.util.Util', []).service(ID.AppUtil, AppUtil);
 }
