@@ -2,10 +2,9 @@
   "name":            "<%= prompts.appname %>",
   "version":         "0.0.0",
   "description":     "<%= prompts.description %>",
-  "prefix":          "<%= prompts.prefix %>",<% if(prompts.useTypescript) { %>
-  "useTypescript":   true,<% } %>
+  "prefix":          "<%= prompts.prefix %>",
   "main":            "<%= path.distDir %>/<%= path.main %>",
-  "language":        "JavaScript",
+  "language":        <% if(prompts.useTypescript) { %> "TypeScript" <% } else { %> "JavaScript" <% } %>,
   "private":         true,
   "dependencies":    {},
   "devDependencies": {
