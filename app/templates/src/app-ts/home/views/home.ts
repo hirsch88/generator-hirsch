@@ -35,7 +35,7 @@ module <%= prompts.prefix %>.home.views {
       this.activate();
     }
 
-    activate = () => {
+    private activate = () => {
       // run initialization logic
     };
   }

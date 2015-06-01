@@ -14,7 +14,11 @@ module <%= prompts.prefix %>.layout.directives {
     bindToController = true; // because the scope is isolated
   }
 
-  class HeaderController {
+  interface IHeaderViewModel {
+    title: string;
+  }
+
+  class HeaderController implements IHeaderViewModel {
     title: string;
 
     static $inject = [core.util.ID.AppUtil];
