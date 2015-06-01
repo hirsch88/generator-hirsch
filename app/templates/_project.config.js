@@ -9,9 +9,18 @@ module.exports = function (isGenerator) {
   var wiredep = require('wiredep');
   var bowerFilesJs = [];
   var bowerFilesCss = [];
+  var bowerFilesFonts = [];
   try {
     bowerFilesJs = (!isGenerator) ? wiredep({})['js'] : [];
     bowerFilesCss = (!isGenerator) ? wiredep({})['css'] : [];
+    if (!isGenerator) {
+      bowerFilesFonts = ['font-awesome', 'bootstrap']
+        .map(function (s) { return wiredep({}).packages[s].main; })
+        .reduce(function (a, b) { return a.concat(b); })
+        .filter(function (p) {
+          return new RegExp('\\' + path.sep + 'fonts\\' + path.sep).test(p);
+        });
+    }
   } catch (e) {
 
   }
@@ -67,7 +76,7 @@ module.exports = function (isGenerator) {
       },
       app:       {
         main:       'app/app.js',
-        modules:    'app/**/*module.js',
+        modules:    'app/**/module.js',
         services:   'app/**/*.service.js',
         directives: 'app/**/*.directive.js',
         scripts:    'app/**/*.js',
@@ -186,6 +195,9 @@ module.exports = function (isGenerator) {
         ),
         css:  [].concat(
           bowerFilesCss
+        ),
+        fonts: [].concat(
+          bowerFilesFonts
         ),
         main: bowerFiles
       }
