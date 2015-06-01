@@ -118,9 +118,20 @@ var HirschGenerator = yeoman.generators.Base.extend({
         });
 
         var srcSegs = tgtSegs.map(function (s) {
-          return _this.useTypescript && args.some(function(s) {
+          var replaces = [
+            { p: /^app$/, r: 'app-ts' },
+            { p: /^app\//, r: 'app-ts/' },
+            { p: /^test$/, r: 'test-ts' },
+            { p: /^test\//, r: 'test-ts/' }
+          ];
+
+          var copiesScripts = args.some(function(s) {
             return /\.js$/.test(s);
-          }) ? s.replace(/^app$/, 'app-ts').replace(/^app\//, 'app-ts/') : s;
+          });
+
+          return _this.useTypescript && copiesScripts
+            ? replaces.reduce(function (prev, curr) { return prev.replace(curr.p, curr.r); }, s)
+            : s;
         }).map(function (s) { return s.replace(/!$/, ''); });
 
         // filter out globs from target path
@@ -215,9 +226,8 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.template('_karma-midway.config.js', 'karma-midway.config.js', this.projectConfig);
     this.template('_karma-shared.config.js', 'karma-shared.config.js', this.projectConfig);
     this.template('_karma-unit.config.js', 'karma-unit.config.js', this.projectConfig);
-    // TODO
-    this.copyTpl(this.projectConfig.path.testDir, 'midway', 'app.spec.js');
-    this.copyTpl(this.projectConfig.path.testDir, 'lib', '**', '*.js');
+
+    this.copyTpl(this.projectConfig.path.testDir, '**', '*.js');
   },
 
   appFiles: function () {

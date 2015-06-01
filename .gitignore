@@ -3,3 +3,4 @@ old/
 typings/
 app/templates/src/app-ts/**/*.js
 templates/typescript/*.js
+app/templates/test-ts/**/*.js

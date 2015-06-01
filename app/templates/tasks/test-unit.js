@@ -3,12 +3,13 @@
 var gulp = require('gulp');
 var projectConfig = require(process.cwd() + '/project.config.js')();
 var $ = require('gulp-load-plugins')({lazy: true});
+var path = require('path');
 
 /**
  * TEST UNIT
  * Description
  */
-gulp.task('test-unit', function () {
+gulp.task('test-unit'<% if(prompts.useTypescript) { %>, ['ts'] <% } %>, function () {
 
   var testFiles = projectConfig.karma.files;
   testFiles.push('src/lib/angular-mocks/angular-mocks.js');
@@ -17,7 +18,7 @@ gulp.task('test-unit', function () {
   return gulp
     .src(testFiles)
     .pipe($.karma({
-      configFile: './../' + projectConfig.path.test.unit.config,
+      configFile:  path.join(process.cwd(), projectConfig.path.test.unit.config),
       action:     'run'
     }))
     .on('error', function (err) {
