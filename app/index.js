@@ -108,7 +108,9 @@ var HirschGenerator = yeoman.generators.Base.extend({
       var rest = Array.prototype.slice.call(arguments, 1);
       return function () {
         var args = Array.prototype.slice.call(arguments);
-        var tgtSegs = args.map(typescriptExtensionTransform);
+        var tgtSegs = args.map(function (s) {
+          return _this.useTypescript ? s.replace(/\.js$/, '.ts') : s;
+        });
         var srcSegs = tgtSegs.map(function (s) {
           return _this.useTypescript && args.some(function(s) {
             return /\.js$/.test(s);
@@ -130,10 +132,6 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.copyFile = copyBase(this.fs.copy.bind(this.fs));
     this.copyTpl = copyBase(this.fs.copyTpl.bind(this.fs), this.projectConfig);
     this.copyDir = copyBase(this.directory.bind(this));
-
-    function typescriptExtensionTransform(s) {
-      return _this.useTypescript ? s.replace(/\.js$/, '.ts') : s;
-    };
   },
 
   addToProjectConfig: function () {
@@ -180,11 +178,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
 
   taskRunner: function () {
     this.template('_gulpfile.js', 'gulpfile.js', this.projectConfig);
-    // TODO
-    this.directory(
-      this.templatePath(this.projectConfig.path.taskDir),
-      this.destinationPath(this.projectConfig.path.taskDir)
-    );
+    this.copyTpl(this.projectConfig.path.taskDir);
   },
 
   projectfiles: function () {
@@ -210,11 +204,8 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.template('_karma-shared.config.js', 'karma-shared.config.js', this.projectConfig);
     this.template('_karma-unit.config.js', 'karma-unit.config.js', this.projectConfig);
     // TODO
-    this.template(this.projectConfig.path.testDir + '/midway/app.spec.js', this.projectConfig.path.testDir + '/midway/app.spec.js', this.projectConfig);
-    this.directory(
-      this.templatePath(this.projectConfig.path.testDir + '/lib'),
-      this.destinationPath(this.projectConfig.path.testDir + '/lib')
-    );
+    this.copyTpl(this.projectConfig.path.testDir, 'midway', 'app.spec.js');
+    this.copyTpl(this.projectConfig.path.testDir, 'lib', '**', '*.js');
   },
 
   appFiles: function () {
