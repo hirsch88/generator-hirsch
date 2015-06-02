@@ -27,6 +27,6 @@ module <%= prefix %>.<%= module %>.directives {
 
   angular
     .module('<%= prefix %>.<%= module %>.directives.<%= classedName %>', [])
-    .directive('<%= prefix %><%= classedName %>', () => new <%= classedName %>Directive()) <% if (hasController) { %>
+    .directive('<%= prefix %><%= classedName %>', () => new <%= classedName %>Directive())<% if (hasController) { %>
     .controller(ID.<%= classedName %>Controller, <%= classedName %>Controller)<% } %>;
 }
