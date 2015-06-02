@@ -3,6 +3,8 @@ var path = require('path');
 var fs = require('fs');
 var chalk = require('chalk');
 var glob = require('glob');
+var _s = require('underscore.string');
+var _ = require('lodash');
 
 module.exports = {
 
@@ -50,6 +52,22 @@ module.exports = {
         done();
       } else {
         done();
+      }
+    });
+  },
+
+  getComponentsFromFileStructure: function (scope, module, type, cb) {
+    fs.readdir(scope.destinationPath(path.join(scope.projectConfig.path.srcDir, scope.projectConfig.path.appDir, module, type + 's')), function (err, files) {
+      if (files) {
+        var components = _.uniq(files.filter(function(f) {
+          return f.indexOf('.' + type) >= 0;
+        }).map(function(f) {
+          return f.replace(/\.[^/.]+$/, '');
+        }).map(_s.classify));
+
+        cb(components);
+      } else {
+        cb([]);
       }
     });
   },
