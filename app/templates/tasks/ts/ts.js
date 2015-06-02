@@ -22,7 +22,9 @@ gulp.task('ts', ['tslint'], function() {
     ], {
       base: '.'
     })
+    .pipe($.sourcemaps.init())
     .pipe($.typescript(tsProject))
     .js
+    .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.'));
 });

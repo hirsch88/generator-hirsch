@@ -3,7 +3,7 @@
     "noImplicitAny": false,
     "removeComments": false,
     "preserveConstEnums": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": false,
     "noResolve": true,
     "target": "es5"
