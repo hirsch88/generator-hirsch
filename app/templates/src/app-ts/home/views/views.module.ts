@@ -7,4 +7,8 @@ module <%= prompts.prefix %>.home.views {
     .module('<%= prompts.prefix %>.home.views', [
       '<%= prompts.prefix %>.home.views.Home'
     ]);
+
+  export var ID = {
+    HomeController: '<%= prompts.prefix %>.home.views.HomeController'
+  };
 }

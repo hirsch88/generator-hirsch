@@ -3,10 +3,6 @@
 module <%= prompts.prefix %>.home.views {
   'use strict';
 
-  angular
-    .module('<%= prompts.prefix %>.home.views.Home', [])
-    .config(StateConfig);
-
   function StateConfig($stateProvider: ng.ui.IStateProvider) {
     $stateProvider
       .state('admin.home', {
@@ -16,11 +12,25 @@ module <%= prompts.prefix %>.home.views {
         views:         {
           'content': {
             templateUrl:  'app/home/views/home.html',
-            controller: HomeController,
+            controller:   ID.HomeController,
             controllerAs: 'home'
           }
-        }
+        },
+        onEnter: onEnter,
+        onExit: onExit
       });
+  }
+
+  var off;
+  onEnter.$inject = [core.util.ID.AppEvents];
+  function onEnter(events) {
+    off = events.on('someEvent', evtObj => {
+      // TODO: handle event
+    });
+  }
+
+  function onExit() {
+    off();
   }
 
   interface IHomeViewModel {
@@ -39,4 +49,9 @@ module <%= prompts.prefix %>.home.views {
       // run initialization logic
     };
   }
+
+  angular
+    .module('<%= prompts.prefix %>.home.views.Home', [])
+    .config(StateConfig)
+    .controller(ID.HomeController, HomeController);
 }
