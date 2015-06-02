@@ -17,6 +17,7 @@ var Generator = module.exports = function Generator() {
 
   try {
     projectConfig = hirschUtils.getProjectConfig();
+    this.projectConfig = projectConfig;
   } catch (e) {}
 
 
@@ -56,6 +57,41 @@ var Generator = module.exports = function Generator() {
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
+
+Generator.prototype.readModules = function () {
+  var done = this.async();
+  this.modules = hirschUtils.getModulesFromFileStructure(this, done);
+}
+
+Generator.prototype.readComponents = function (module, type) {
+  var done = this.async();
+  hirschUtils.getComponentsFromFileStructure(this, module || 'common', type, function(components) {
+    this.components = components;
+    done();
+  }.bind(this));
+}
+
+Generator.prototype.modulePrompt = function () {
+  if (!this.askForModule) {
+    return;
+  }
+
+  var done = this.async();
+  var prompts = [
+    {
+      type: 'list',
+      name: 'chosenModule',
+      message: 'Choose the module of your service: ',
+      choices: this.modules,
+      default: this.modules.indexOf('common')
+    }
+  ];
+
+  this.prompt(prompts, function (props) {
+    this.module = props.chosenModule || 'common';
+    done();
+  }.bind(this));
+};
 
 Generator.prototype.appTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
