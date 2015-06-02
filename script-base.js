@@ -110,8 +110,8 @@ Generator.prototype.testTemplate = function (type, src, dest) {
 
 Generator.prototype.htmlTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
-    src,
-    path.join(this.env.options.appPath, dest.toLowerCase())
+    src + '.html',
+    path.join(this.env.options.appPath, dest.toLowerCase()) + '.html'
   ]);
 };
 

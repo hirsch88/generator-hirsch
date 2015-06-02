@@ -179,6 +179,7 @@ module.exports = function (isGenerator) {
       ),
       unit:   [
         'src/lib/angular-mocks/angular-mocks.js',
+        'src/lib/angular-ui-router/release/angular-ui-router.js',
         'test/unit/**/*.spec.js'
       ],
       midway: [
