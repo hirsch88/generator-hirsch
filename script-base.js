@@ -58,15 +58,23 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
-Generator.prototype.readModules = function () {
+Generator.prototype.readModules = function (cb) {
   var done = this.async();
-  this.modules = hirschUtils.getModulesFromFileStructure(this, done);
+  hirschUtils.getModulesFromFileStructure(this, function () {
+    if (cb) {
+      cb();
+    }
+    done();
+  }.bind(this));
 }
 
-Generator.prototype.readComponents = function (module, type) {
+Generator.prototype.readComponents = function (module, type, cb) {
   var done = this.async();
   hirschUtils.getComponentsFromFileStructure(this, module || 'common', type, function(components) {
     this.components = components;
+    if (cb) {
+      cb();
+    }
     done();
   }.bind(this));
 }
