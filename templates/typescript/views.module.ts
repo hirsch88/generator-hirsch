@@ -8,7 +8,7 @@ module <%= prefix %>.<%= module %>.views {
       'ui.router',
       'ui.router.router',
       'ui.router.state'<% for (var i = 0, l = components.length; i < l; i++) { %>,
-      '<%= prefix %>.<%= module %>.views.<%= components[i] %>' <% } %>,
+      '<%= prefix %>.<%= module %>.views.<%= components[i] %>'<% } %>,
       '<%= prefix %>.<%= module %>.views.<%= classedName %>'
     ]);
 
