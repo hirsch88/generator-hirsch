@@ -3,11 +3,11 @@
 module <%= prefix %>.<%= module %>.services {
   'use strict';
 
-  export interface I<%= capitalizedName %>Service {
+  export interface I<%= classedName %>Service {
     method: () => string;
   }
 
-  class <%= capitalizedName %>Service implements I<%= capitalizedName %>Service {
+  class <%= classedName %>Service implements I<%= classedName %>Service {
     private field;
 
     static $inject = [];
@@ -21,6 +21,6 @@ module <%= prefix %>.<%= module %>.services {
   }
 
   angular
-    .module('<%= prefix %>.<%= module %>.services.<%= capitalizedName %>Service', [])
-    .service(ID.<%= capitalizedName %>Service, <%= capitalizedName %>Service);
+    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>Service', [])
+    .service(ID.<%= classedName %>Service, <%= classedName %>Service);
 }
