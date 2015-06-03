@@ -1,21 +1,23 @@
-'use strict';
+/// <reference path="../../../../typings/tsd.d.ts" />
 
-describe('Unit: <%= prefix %>.<%= module %>.directives.<%= classedName %>Directive', () => {
-  var $compile, $rootScope;
+module <%= prefix %>.<%= module %>.directives.test {
+  'use strict';
 
-  beforeEach(module('<%= prefix %>.<%= module %>.directives'));
+  describe('Unit: <%= prefix %>.<%= module %>.directives.<%= classedName %>Directive', () => {
+    var $compile, $rootScope;
 
-  beforeEach(angular.mock.inject(
-    ['$compile', '$rootScope', ($c, $r) => {
-      $compile = $c;
-      $rootScope = $r;
-    }]
-  ));<% if (hasController) { %>
+    beforeEach(module('<%= prefix %>.<%= module %>.directives'));
 
-  var controller;
-  beforeEach(inject($controller => controller = $controller(<%= prefix %>.<%= module %>.directives.ID.<%= classedName %>Controller)));
+    beforeEach(angular.mock.inject(
+      ['$compile', '$rootScope', ($c, $r) => {
+        $compile = $c;
+        $rootScope = $r;
+      }]
+    ));<% if (hasController) { %>
 
-  it('should contain a <%= classedName %> controller', () => {
-    should.exist(controller);
-  });<% } %>
-});
+    var controller: I<%= classedName %>ViewModel;
+    beforeEach(inject($controller => controller = $controller(ID.<%= classedName %>Controller)));
+
+    it('should contain a <%= classedName %> controller', () => should.exist(controller));<% } %>
+  });
+}

@@ -1,13 +1,15 @@
-'use strict';
+/// <reference path="../../../../typings/tsd.d.ts" />
 
-describe('Unit: <%= prefix %>.<%= module %>.views.<%= classedName %>Controller', () => {
+module <%= prefix %>.<%= module %>.views.test {
+  'use strict';
 
-  beforeEach(module('<%= prefix %>.<%= module %>.views'));
+  describe('Unit: <%= prefix %>.<%= module %>.views.<%= classedName %>Controller', () => {
 
-  var controller;
-  beforeEach(inject($controller => controller = $controller(<%= prefix %>.<%= module %>.views.ID.<%= classedName %>Controller)));
+    beforeEach(module('<%= prefix %>.<%= module %>.views'));
 
-  it('should contain a <%= classedName %> controller', () => {
-    should.exist(controller);
+    var controller: I<%= classedName %>ViewModel;
+    beforeEach(inject($controller => controller = $controller(ID.<%= classedName %>Controller)));
+
+    it('should contain a <%= classedName %> controller', () => should.exist(controller));
   });
-});
+}

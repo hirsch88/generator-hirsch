@@ -1,11 +1,12 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 
-describe('Midway: <%= prefix %>.<%= cameledName %>', () => {
+module <%= prefix %>.<%= cameledName %>.test {
+  'use strict';
 
-  var module;
-  before(() => module = angular.module('<%= prefix %>.<%= cameledName %>'));
+  describe('Midway: <%= prefix %>.<%= cameledName %>', () => {
+    var module: ng.IModule;
+    before(() => module = angular.module('<%= prefix %>.<%= cameledName %>'));
 
-  it('should be registered', () => {
-    should.exist(module);
+    it('should be registered', () => should.exist(module));
   });
-});
+}

@@ -2,9 +2,13 @@
 
 module <%= prefix %>.<%= module %>.filters {
   'use strict';
+
+  export interface I<%= classedName %>Filter {
+    (input: string): string;
+  }
   
-  var <%= cameledName %> = () => {
-    return (input: any) => {
+  var <%= cameledName %> = (): I<%= classedName %>Filter => {
+    return input => {
       input = input || '';
 
       // TODO: implement filter logic

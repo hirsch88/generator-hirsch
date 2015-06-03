@@ -3,26 +3,44 @@
 module <%= prefix %>.<%= module %>.views {
   'use strict';
 
-  function StateConfig($stateProvider: ng.ui.IStateProvider) {
+  var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider
       .state('admin.<%= module %><%= classedName %>', {
-        url:           '/<%= url %>',
-        session:       true,
+        url: '/<%= url %>',
+        session: true,
         navigationKey: '<%= module %>',
-        views:         {
+        views: {
           'content': {
-            templateUrl:  '<%= templateUrl %>',
-            controller:   ID.<%= classedName %>Controller,
+            templateUrl: '<%= templateUrl %>',
+            controller: ID.<%= classedName %>Controller,
             controllerAs: '<%= cameledName %>'
           }
-        }
+        },
+        onEnter: onEnter,
+        onExit: onExit
       });
   }
 
-  interface I<%= classedName %>ViewModel {
+  stateConfig.$inject = ['$stateProvider'];
+
+  var off;
+  var onEnter = (events: core.util.IAppEvents) => {
+    off = events.on('someEvent', evtObj => {
+      // TODO: handle event
+    });
+  }
+
+  onEnter.$inject = [core.util.ID.AppEvents];
+
+  var onExit = () => {
+    off();
+  }
+
+  export interface I<%= classedName %>ViewModel {
     prop: string;
     asyncProp: string[];
-    method: () => string;
+    method: (param: string) => string;
+    action: () => void;
   }
 
   class <%= classedName %>Controller implements I<%= classedName %>ViewModel {
@@ -32,12 +50,17 @@ module <%= prefix %>.<%= module %>.views {
     static $inject = [];
     constructor() {
       this.prop = '';
+      this.asyncProp = [];
 
       this.activate();
     }
 
-    method = () => {
-      return '';
+    method = (param: string) => {
+      return param;
+    };
+
+    action = () => {
+      // TODO: perform some action
     };
 
     activate = () => {
@@ -48,6 +71,6 @@ module <%= prefix %>.<%= module %>.views {
 
   angular
     .module('<%= prefix %>.<%= module %>.views.<%= classedName %>', [])
-    .config(StateConfig)
+    .config(stateConfig)
     .controller(ID.<%= classedName %>Controller, <%= classedName %>Controller);
 }

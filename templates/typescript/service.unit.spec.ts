@@ -1,12 +1,17 @@
-'use strict';
+/// <reference path="../../../../typings/tsd.d.ts" />
 
-describe('Unit: <%= prefix %>.<%= module %>.services.<%= classedName %>Service', () => {
+module <%= prefix %>.<%= module %>.services.test {
+  'use strict';
 
-  beforeEach(module('<%= prefix %>.<%= module %>.services'));
+  describe('Unit: <%= prefix %>.<%= module %>.services.<%= classedName %>Service', () => {
 
-  it('should contain a <%= classedName %> service',
-    angular.mock.inject([<%= prefix %>.<%= module %>.services.ID.<%= classedName %>Service, service => {
-      should.exist(service);
-    }])
-  );
-});
+    beforeEach(module('<%= prefix %>.<%= module %>.services'));
+    
+    var service: I<%= classedName %>Service;
+    beforeEach(angular.mock.inject([ID.<%= classedName %>Service, s => service = s]));
+
+    it('should contain a <%= classedName %> service', () => should.exist(service));
+    
+    it('should have a method', () => should.exist(service.method));
+  });
+}
