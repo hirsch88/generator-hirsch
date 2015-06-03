@@ -25,6 +25,24 @@ Generator.prototype.initComponents = function () {
   this.readComponents(this.module, this.generatorName);
 }
 
+Generator.prototype.promptForServiceType = function () {
+  var done = this.async();
+  var prompts = [
+    {
+      type: 'list',
+      name: 'serviceType',
+      message: 'Should the service be generated as a SERVICE or a FACTORY?',
+      choices: ['service', 'factory'],
+      default: 0
+    }
+  ];
+
+  this.prompt(prompts, function (props) {
+    this.useFactory = props.serviceType === 'factory';
+    done();
+  }.bind(this));
+}
+
 Generator.prototype.createFiles = function () {
   this.appTemplate(this.generatorName, path.join(this.module, this.generatorNamePl, this.name + '.' + this.generatorName));
   this.appTemplate(this.generatorNamePl + '.module', path.join(this.module, this.generatorNamePl, this.generatorNamePl + '.module'));

@@ -9,8 +9,7 @@ module <%= prefix %>.<%= module %>.services {
 
   class <%= classedName %>Service implements I<%= classedName %>Service {
     private field;
-
-    static $inject = [];
+  
     constructor() {
       this.field = 'value';
     }
@@ -18,9 +17,18 @@ module <%= prefix %>.<%= module %>.services {
     method = (param: string) => {
       return param;
     }
-  }
+  }<% if(useFactory) { %>
 
-  angular
-    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>Service', [])
-    .service(ID.<%= classedName %>Service, <%= classedName %>Service);
+  var factory = (): I<%= classedName %>Service => {
+    // TODO: private initialization code
+
+    // TODO: pass initialization parameters to class
+    return new <%= classedName %>Service();
+  };
+  factory.$inject = [];
+
+  <% } %>angular
+    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>Service', [])<% if(!useFactory) { %>
+    .service(ID.<%= classedName %>Service, <%= classedName %>Service)<% } %><% if(useFactory) { %>
+    .factory(ID.<%= classedName %>Service, factory)<% } %>;
 }
