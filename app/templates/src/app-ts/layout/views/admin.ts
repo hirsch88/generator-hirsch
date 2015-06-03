@@ -5,6 +5,7 @@ module <%= prompts.prefix %>.layout.views {
 
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('admin', {
+      abstract: true,
       session: true,
       views: {
         'root': {

@@ -5,6 +5,7 @@ module <%= prompts.prefix %>.layout.views {
 
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('public', {
+      abstract: true,
       views: {
         'root': {
           templateUrl: 'app/layout/views/public.html'
