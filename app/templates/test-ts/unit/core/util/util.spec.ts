@@ -5,18 +5,16 @@ module <%= prompts.prefix %>.core.util.test {
 
   describe('Unit: AppUtil', () => {
 
-    beforeEach(module('<%= prompts.prefix %>'));
+    beforeEach(module('<%= prompts.prefix %>.core.util'));
 
     it('should contain an appUtil service',
-      angular.mock.inject([<%= prompts.prefix %>.core.util.ID.AppUtil, appUtil => {
-        should.exist(appUtil);
-      }])
-      );
+      angular.mock.inject([ID.AppUtil, appUtil => should.exist(appUtil)])
+    );
 
     it('should have a getServerUrl function',
-      angular.mock.inject([<%= prompts.prefix %>.core.util.ID.AppUtil, appUtil => {
+      angular.mock.inject([ID.AppUtil, appUtil => {
         expect(appUtil.getServerUrl()).to.be.a('string');
       }])
-      );
+    );
   });
 }
