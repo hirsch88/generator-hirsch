@@ -2,6 +2,19 @@
 
 module <%= prefix %>.<%= module %>.views {
   'use strict';
+  
+  var off;
+  var onEnter = (events: core.util.IAppEvents) => {
+    off = events.on('someEvent', evtObj => {
+      // TODO: handle event
+    });
+  };
+
+  onEnter.$inject = [core.util.ID.AppEvents];
+
+  var onExit = () => {
+    off();
+  };
 
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider
@@ -19,22 +32,9 @@ module <%= prefix %>.<%= module %>.views {
         onEnter: onEnter,
         onExit: onExit
       });
-  }
+  };
 
   stateConfig.$inject = ['$stateProvider'];
-
-  var off;
-  var onEnter = (events: core.util.IAppEvents) => {
-    off = events.on('someEvent', evtObj => {
-      // TODO: handle event
-    });
-  }
-
-  onEnter.$inject = [core.util.ID.AppEvents];
-
-  var onExit = () => {
-    off();
-  }
 
   export interface I<%= classedName %>ViewModel {
     prop: string;

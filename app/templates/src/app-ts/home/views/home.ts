@@ -3,6 +3,19 @@
 module <%= prompts.prefix %>.home.views {
   'use strict';
 
+  var off;
+  var onEnter = (events: core.util.IAppEvents) => {
+    off = events.on('someEvent', evtObj => {
+      // TODO: handle event
+    });
+  };
+  
+  onEnter.$inject = [core.util.ID.AppEvents];
+
+  var onExit = () => {
+    off();
+  };
+
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider
       .state('admin.home', {
@@ -22,18 +35,6 @@ module <%= prompts.prefix %>.home.views {
   };
 
   stateConfig.$inject = ['$stateProvider'];
-
-  var off;
-  onEnter.$inject = [core.util.ID.AppEvents];
-  function onEnter(events: core.util.IAppEvents) {
-    off = events.on('someEvent', evtObj => {
-      // TODO: handle event
-    });
-  }
-
-  function onExit() {
-    off();
-  }
 
   export interface IHomeViewModel {
     title: string;
