@@ -3,11 +3,7 @@
 module <%= prompts.prefix %>.layout.views {
   'use strict';
 
-  angular
-    .module('<%= prompts.prefix %>.layout.views.Public', [])
-    .config(StateConfig);
-
-  function StateConfig($stateProvider: ng.ui.IStateProvider) {
+  var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('public', {
       views: {
         'root': {
@@ -15,5 +11,11 @@ module <%= prompts.prefix %>.layout.views {
         }
       }
     });
-  }
+  };
+  
+  stateConfig.$inject = ['$stateProvider'];
+
+  angular
+    .module('<%= prompts.prefix %>.layout.views.Public', [])
+    .config(stateConfig);
 }

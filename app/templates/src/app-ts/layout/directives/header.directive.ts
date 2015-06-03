@@ -14,7 +14,7 @@ module <%= prompts.prefix %>.layout.directives {
     bindToController = true; // because the scope is isolated
   }
 
-  interface IHeaderViewModel {
+  export interface IHeaderViewModel {
     title: string;
   }
 
