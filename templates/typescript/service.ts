@@ -25,9 +25,9 @@ module <%= prefix %>.<%= module %>.services {
     // TODO: pass initialization parameters to class
     return new <%= classedName %>Service();
   };
-  factory.$inject = [];
+  factory.$inject = [];<% } %>
 
-  <% } %>angular
+  angular
     .module('<%= prefix %>.<%= module %>.services.<%= classedName %>Service', [])<% if(!useFactory) { %>
     .service(ID.<%= classedName %>Service, <%= classedName %>Service)<% } %><% if(useFactory) { %>
     .factory(ID.<%= classedName %>Service, factory)<% } %>;
