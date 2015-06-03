@@ -3,7 +3,7 @@
 module <%= prompts.prefix %>.core.config {
   'use strict';
 
-  var TranslateConfig = ($translateProvider: ng.translate.ITranslateProvider) => {
+  var translateConfig = ($translateProvider: ng.translate.ITranslateProvider) => {
     $translateProvider.useStaticFilesLoader({
       prefix: './assets/i18n/',
       suffix: '.json'
@@ -12,7 +12,9 @@ module <%= prompts.prefix %>.core.config {
     $translateProvider.preferredLanguage('en');
   };
 
+  translateConfig.$inject = ['$translateProvider'];
+
   angular
     .module('<%= prompts.prefix %>.core.config.ThirdParty', [])
-    .config(TranslateConfig);
+    .config(translateConfig);
 }
