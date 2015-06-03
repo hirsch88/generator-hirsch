@@ -3,6 +3,12 @@
 module <%= prompts.prefix %>.core.util {
   'use strict';
 
+  var loggerService = ($log, _, moment, appUtil): ILoggerFactory => {
+    return name => new Logger($log, _, moment, appUtil, name);
+  };
+
+  loggerService.$inject = ['$log', constants.ID.lodash, constants.ID.moment, util.ID.AppUtil];
+
   export interface ILoggerFactory {
     /**
      * Get the logger for the given name.
@@ -12,7 +18,12 @@ module <%= prompts.prefix %>.core.util {
 
   // TODO: rewrite as angular decorator on top of $log
   export class Logger {
-    constructor(private $log: angular.ILogService, private appUtil: util.IAppUtil, public name: string) {
+    constructor(
+      private $log: angular.ILogService,
+      private _: _.LoDashStatic,
+      private moment: moment.MomentStatic,
+      private appUtil: util.IAppUtil,
+      public name: string) {
     }
 
     info(text: string | Object | any[], object?: any) {
@@ -30,21 +41,21 @@ module <%= prompts.prefix %>.core.util {
     private log(type: string, text: string | Object | any[], object?: any) {
       if (this.appUtil.getEnvironment() !== 'prod') {
 
-        if (_.isObject(text) || _.isArray(text)) {
+        if (this._.isObject(text) || this._.isArray(text)) {
           object = text;
           text = undefined;
         }
 
         text = text || '';
 
-        if (_.isBoolean(object)) {
+        if (this._.isBoolean(object)) {
           object = (object) ? 'YES' : 'NO';
         }
 
         object = object || '';
 
         var arrow = (text !== '' || object !== '') ? '=> ' : '';
-        this.$log[type]('[' + getTimestamp() + ' - ' + this.name + '] ' + arrow + text, object);
+        this.$log[type]('[' + this.moment().format('HH:mm:ss.ms') + ' - ' + this.name + '] ' + arrow + text, object);
       }
     }
   }
@@ -52,13 +63,4 @@ module <%= prompts.prefix %>.core.util {
   angular
     .module('<%= prompts.prefix %>.core.util.Logger', [])
     .factory(ID.LoggerFactory, loggerService);
-
-  loggerService.$inject = ['$log', util.ID.AppUtil];
-  function loggerService($log: angular.ILogService, appUtil: util.IAppUtil): ILoggerFactory {
-    return name => new Logger($log, appUtil, name);
-  }
-
-  function getTimestamp() {
-    return moment().format('HH:mm:ss.ms');
-  }
 }
