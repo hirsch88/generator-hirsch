@@ -2,19 +2,6 @@
 
 module <%= prefix %>.<%= module %>.views {
   'use strict';
-  
-  var off;
-  var onEnter = (events: core.util.IAppEvents) => {
-    off = events.on('someEvent', evtObj => {
-      // TODO: handle event
-    });
-  };
-
-  onEnter.$inject = [core.util.ID.AppEvents];
-
-  var onExit = () => {
-    off();
-  };
 
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider
@@ -28,9 +15,7 @@ module <%= prefix %>.<%= module %>.views {
             controller: ID.<%= classedName %>Controller,
             controllerAs: '<%= cameledName %>'
           }
-        },
-        onEnter: onEnter,
-        onExit: onExit
+        }
       });
   };
 
@@ -43,14 +28,20 @@ module <%= prefix %>.<%= module %>.views {
     action(): void;
   }
 
-  class <%= classedName %>Controller implements I<%= classedName %>Controller {
+  class <%= classedName %>Controller extends common.views.AbstractController implements I<%= classedName %>Controller {
+    private offs: Function[] = [];
+
     prop: string;
     asyncProp: string[];
+  
+    static $inject = ['$state', core.util.ID.AppEvents];
+    constructor($state, events: core.util.IAppEvents) {
+      super($state, 'admin.<%= module %><%= classedName %>');
 
-    static $inject = [];
-    constructor() {
       this.prop = '';
       this.asyncProp = [];
+
+      this.offs.push(events.on('someEvent', this.onSomeEvent));
 
       this.activate();
     }
@@ -63,10 +54,19 @@ module <%= prefix %>.<%= module %>.views {
       // TODO: perform some action
     };
 
+    private onSomeEvent = (eventObj: any) => {
+      // TODO: handle event
+    };
+
     private activate = () => {
       // TODO: call some service to asynchronously return data
       // this.someService.getData().then(data => this.asyncProp = data);
     };
+
+    protected dispose() {
+      super.dispose();
+      this.offs.forEach(off => off());
+    }
   }
 
   angular
