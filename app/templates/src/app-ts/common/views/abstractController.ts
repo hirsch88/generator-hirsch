@@ -3,7 +3,7 @@
 module <%= prompts.prefix %>.common.views {
   export class AbstractController {
     constructor($state: ng.ui.IStateService, state: string) {
-      $state.get(state).onExit = this.dispose;
+      $state.get(state).onExit = this.dispose.bind(this);
     }
 
     protected dispose() {
