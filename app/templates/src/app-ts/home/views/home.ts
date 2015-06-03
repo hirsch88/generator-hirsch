@@ -3,19 +3,6 @@
 module <%= prompts.prefix %>.home.views {
   'use strict';
 
-  var off;
-  var onEnter = (events: core.util.IAppEvents) => {
-    off = events.on('someEvent', evtObj => {
-      // TODO: handle event
-    });
-  };
-  
-  onEnter.$inject = [core.util.ID.AppEvents];
-
-  var onExit = () => {
-    off();
-  };
-
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider
       .state('admin.home', {
@@ -28,9 +15,7 @@ module <%= prompts.prefix %>.home.views {
             controller: ID.HomeController,
             controllerAs: 'home'
           }
-        },
-        onEnter: onEnter,
-        onExit: onExit
+        }
       });
   };
 
@@ -40,17 +25,32 @@ module <%= prompts.prefix %>.home.views {
     title: string;
   }
 
-  class HomeController implements IHomeController {
+  class HomeController extends common.views.AbstractController implements IHomeController {
+    private offs: Function[] = [];
+
     title = 'Hirsch says hi!';
 
-    static $inject = [];
-    constructor() {
+    static $inject = ['$state', core.util.ID.AppEvents];
+    constructor($state, events: core.util.IAppEvents) {
+      super($state, 'admin.home');
+
+      this.offs.push(events.on('someEvent', this.onSomeEvent));
+
       this.activate();
     }
+
+    private onSomeEvent = (eventObj: any) => {
+      // TODO: handle event
+    };
 
     private activate = () => {
       // run initialization logic
     };
+
+    protected dispose() {
+      super.dispose();
+      this.offs.forEach(off => off());
+    }
   }
 
   angular
