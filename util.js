@@ -62,7 +62,7 @@ module.exports = {
         var components = _.uniq(files.filter(function(f) {
           return f.indexOf('.module') === -1;
         }).map(function(f) {
-          return f.replace(/\.[^/.]+$/, '');
+          return f.replace(/\.(js|ts|html|js\.map)$/, '');
         }).map(_s.classify));
 
         cb(components);
