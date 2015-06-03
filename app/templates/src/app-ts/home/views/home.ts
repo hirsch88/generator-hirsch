@@ -36,11 +36,11 @@ module <%= prompts.prefix %>.home.views {
 
   stateConfig.$inject = ['$stateProvider'];
 
-  export interface IHomeViewModel {
+  export interface IHomeController {
     title: string;
   }
 
-  class HomeController implements IHomeViewModel {
+  class HomeController implements IHomeController {
     title = 'Hirsch says hi!';
 
     static $inject = [];

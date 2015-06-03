@@ -14,11 +14,11 @@ module <%= prompts.prefix %>.layout.directives {
     bindToController = true; // because the scope is isolated
   }
 
-  export interface IHeaderViewModel {
+  export interface IHeaderController {
     title: string;
   }
 
-  class HeaderController implements IHeaderViewModel {
+  class HeaderController implements IHeaderController {
     title: string;
 
     static $inject = [core.util.ID.AppUtil];

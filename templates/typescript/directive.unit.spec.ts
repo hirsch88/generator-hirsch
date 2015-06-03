@@ -15,7 +15,7 @@ module <%= prefix %>.<%= module %>.directives.test {
       }]
     ));<% if (hasController) { %>
 
-    var controller: I<%= classedName %>ViewModel;
+    var controller: I<%= classedName %>Controller;
     beforeEach(inject($controller => controller = $controller(ID.<%= classedName %>Controller)));
 
     it('should contain a <%= classedName %> controller', () => should.exist(controller));<% } %>

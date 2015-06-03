@@ -36,14 +36,14 @@ module <%= prefix %>.<%= module %>.views {
 
   stateConfig.$inject = ['$stateProvider'];
 
-  export interface I<%= classedName %>ViewModel {
+  export interface I<%= classedName %>Controller {
     prop: string;
     asyncProp: string[];
     method: (param: string) => string;
     action: () => void;
   }
 
-  class <%= classedName %>Controller implements I<%= classedName %>ViewModel {
+  class <%= classedName %>Controller implements I<%= classedName %>Controller {
     prop: string;
     asyncProp: string[];
 

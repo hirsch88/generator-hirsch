@@ -18,10 +18,10 @@ module <%= prefix %>.<%= module %>.directives {
     };<% } %>
   }<% if (hasController) { %>
 
-  export interface I<%= classedName %>ViewModel {
+  export interface I<%= classedName %>Controller {
   }
 
-  class <%= classedName %>Controller implements I<%= classedName %>ViewModel {
+  class <%= classedName %>Controller implements I<%= classedName %>Controller {
     static $inject = [];
     constructor() {
       // TODO
