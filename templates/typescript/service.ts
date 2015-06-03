@@ -4,7 +4,7 @@ module <%= prefix %>.<%= module %>.services {
   'use strict';
 
   export interface I<%= classedName %>Service {
-    method: () => string;
+    method(param: string): string;
   }
 
   class <%= classedName %>Service implements I<%= classedName %>Service {
@@ -15,8 +15,8 @@ module <%= prefix %>.<%= module %>.services {
       this.field = 'value';
     }
 
-    method = () => {
-      return '';
+    method = (param: string) => {
+      return param;
     }
   }
 

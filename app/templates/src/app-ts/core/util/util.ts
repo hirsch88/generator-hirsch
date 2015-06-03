@@ -14,26 +14,26 @@ module <%= prompts.prefix %>.core.util {
      *  Returns the backend url for the right environemnt.
      *  To get the environment, we anlyse the url from our borwser.
      */
-    getServerUrl: () => string;
+    getServerUrl(): string;
 
     /**
      * Returns which environment the app is currently running in.
      */
-    getEnvironment: () => string;
+    getEnvironment(): string;
 
     /**
      * Builds the path to the view templates
      *
      * @example AppUtil.buildTemplateUrl('foo') // -> 'app/views/foo'
      */
-    buildTemplateUrl: (url: string) => string;
+    buildTemplateUrl(url: string): string;
 
     /**
      * Joins the array to url path
      *
      * @example AppUtil.joinPath(['events','abos']) // -> 'events/abos'
      */
-    joinPath: (segments: string[]) => string;
+    joinPath(segments: string[]): string;
   }
 
   /**

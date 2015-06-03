@@ -39,8 +39,8 @@ module <%= prefix %>.<%= module %>.views {
   export interface I<%= classedName %>Controller {
     prop: string;
     asyncProp: string[];
-    method: (param: string) => string;
-    action: () => void;
+    method(param: string): string;
+    action(): void;
   }
 
   class <%= classedName %>Controller implements I<%= classedName %>Controller {
@@ -63,7 +63,7 @@ module <%= prefix %>.<%= module %>.views {
       // TODO: perform some action
     };
 
-    activate = () => {
+    private activate = () => {
       // TODO: call some service to asynchronously return data
       // this.someService.getData().then(data => this.asyncProp = data);
     };

@@ -10,24 +10,24 @@ module <%= prompts.prefix %>.core.util {
     /**
      * Returns all registered event callbacks.
      */
-    list: () => { [event: string]: IEventCallback[] };
+    list(): { [event: string]: IEventCallback[] };
 
     /**
      * Register a callback for the given events. Returns
      * a disposal function that unregisters the callback
      * when called.
      */
-    on: (event: string, callback: IEventCallback) => () => boolean;
+    on(event: string, callback: IEventCallback): () => boolean;
 
     /**
      * Invoke all callbacks registered for the given event with
      * the given data. Returns the number of callbacks invoked.
      */
-    trigger: (event: string, eventObject: any) => number;
+    trigger(event: string, eventObject?: any): number;
   }
 
   export interface IEventCallback {
-    (eventObj): void;
+    (eventObj?: any): void;
   }
 
   class AppEvents implements IAppEvents {
@@ -59,7 +59,7 @@ module <%= prompts.prefix %>.core.util {
       };
     };
 
-    trigger = (event: string, eventObject: any) => {
+    trigger = (event: string, eventObject?: any) => {
       var callbacks = this.eventCallbacks[event] || [];
       callbacks.forEach(cb => cb(eventObject));
       return callbacks.length;
