@@ -39,7 +39,7 @@ module <%= prompts.prefix %>.core.util {
 
     list = () => {
       return this.eventCallbacks;
-    }
+    };
 
     on = (event: string, callback: IEventCallback) => {
       var callbacks = this.eventCallbacks[event] || (this.eventCallbacks[event] = []);
@@ -57,13 +57,13 @@ module <%= prompts.prefix %>.core.util {
 
         return idx >= 0;
       };
-    }
+    };
 
     trigger = (event: string, eventObject: any) => {
       var callbacks = this.eventCallbacks[event] || [];
       callbacks.forEach(cb => cb(eventObject));
       return callbacks.length;
-    }
+    };
   }
 
   angular.module('<%= prompts.prefix %>.core.util.Events', []).service(ID.AppEvents, AppEvents);

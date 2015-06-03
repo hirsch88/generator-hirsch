@@ -28,7 +28,7 @@ module <%= prompts.prefix %>.core.router {
      * Here we will load some initial data for the application like the active event, but
      * only at the first run.
      */
-    initialize(): ng.IPromise<any> {
+    initialize = (): ng.IPromise<any> => {
       if (this.initializing || this.initialized) {
         return this.deferredInit.promise;
       }
@@ -40,7 +40,7 @@ module <%= prompts.prefix %>.core.router {
       this.deferredInit.resolve();
 
       return this.deferredInit.promise;
-    }
+    };
   }
 
   angular
