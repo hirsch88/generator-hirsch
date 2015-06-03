@@ -36,7 +36,7 @@ module <%= prefix %>.<%= module %>.views {
   
     static $inject = ['$state', core.util.ID.AppEvents];
     constructor($state, events: core.util.IAppEvents) {
-      super($state, 'admin.<%= module %><%= classedName %>');
+      super($state);
 
       this.prop = '';
       this.asyncProp = [];

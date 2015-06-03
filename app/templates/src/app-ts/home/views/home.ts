@@ -32,7 +32,7 @@ module <%= prompts.prefix %>.home.views {
 
     static $inject = ['$state', core.util.ID.AppEvents];
     constructor($state, events: core.util.IAppEvents) {
-      super($state, 'admin.home');
+      super($state);
 
       this.offs.push(events.on('someEvent', this.onSomeEvent));
 
