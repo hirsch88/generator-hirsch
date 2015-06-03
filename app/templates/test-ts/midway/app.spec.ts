@@ -6,7 +6,7 @@ describe('Midway: Testing Modules', () => {
 
   describe('App Module:', () => {
 
-    var module;
+    var module: ng.IModule;
     before(() => {
       module = angular.module('<%= prompts.prefix %>');
     });
@@ -17,11 +17,9 @@ describe('Midway: Testing Modules', () => {
 
     describe('Dependencies:', () => {
 
-      var deps;
+      var deps: string[];
       var hasModule = m => deps.indexOf(m) >= 0;
-      before(() => {
-        deps = module.value('appName').requires;
-      });
+      before(() => deps = module.value('appName').requires);
 
       //you can also test the module's dependencies
       it('should have app.core as a dependency', () => {
