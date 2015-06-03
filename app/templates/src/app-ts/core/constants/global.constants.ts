@@ -5,7 +5,7 @@ module <%= prompts.prefix %>.core.constants {
 
   angular
     .module('<%= prompts.prefix %>.core.constants.Global', [])
-    .constant('lodash', _)
-    .constant('moment', moment);
+    .constant(ID.lodash, _)
+    .constant(ID.moment, moment);
 
 }
