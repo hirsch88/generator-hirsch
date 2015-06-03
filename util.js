@@ -41,17 +41,17 @@ module.exports = {
   getModulesFromFileStructure: function (scope, done) {
     fs.readdir(scope.destinationPath(scope.projectConfig.path.srcDir + '/' + scope.projectConfig.path.appDir), function (err, files) {
       if (files) {
-        scope.modules = [];
+        var modules = [];
         for (var i = 0; i < files.length; i++) {
           if (files[i].indexOf('.') === -1) {
             if (scope.projectConfig.ignoredModules.indexOf(files[i]) === -1) {
-              scope.modules.push(files[i]);
+              modules.push(files[i]);
             }
           }
         }
-        done();
+        done(modules);
       } else {
-        done();
+        done([]);
       }
     });
   },

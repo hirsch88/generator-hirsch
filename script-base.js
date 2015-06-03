@@ -60,7 +60,8 @@ util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.readModules = function (cb) {
   var done = this.async();
-  hirschUtils.getModulesFromFileStructure(this, function () {
+  hirschUtils.getModulesFromFileStructure(this, function (modules) {
+    this.modules = modules;
     if (cb) {
       cb();
     }
