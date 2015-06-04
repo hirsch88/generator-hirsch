@@ -1,13 +1,20 @@
 'use strict';
 
-describe('Unit: <%= prefix %>.<%= module %>.views.<%= classedName %>Controller', function () {
+describe('Unit: <%= prefix %>.<%= module %>.views.<%= classedName %>', function () {
 
+  var controller, scope;
   beforeEach(module('<%= prefix %>'));
 
-  it('should have a <%= classedName %>Controller', function() {
-    expect(<%= appname %>.<%= prefix %><%= classedName %>Controller).not.to.equal(null);
-  });
+  beforeEach(inject(function ($controller, $rootScope) {
+    scope = $rootScope.$new();
+    controller = $controller('<%= prefix %><%= classedName %>Controller', {
+      $scope: scope
+    });
+  }));
 
+  it('should have a <%= prefix %><%= classedName %>Controller', function() {
+    expect(controller).not.to.equal(null);
+  });
 
 
 });

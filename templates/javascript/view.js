@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= appname %>.<%= module %>.views.<%= classedName %>', [])
+    .module('<%= prefix %>.<%= module %>.views.<%= classedName %>', [])
     .config(StateConfig)
     .controller('<%= prefix %><%= classedName %>Controller', <%= classedName %>Controller);
 
