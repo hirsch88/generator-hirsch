@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= appname %>.<%= module %>.services.<%= classedName %>', [])
+    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>', [])
     .service('<%= prefix %><%= classedName %>', <%= classedName %>Service);
 
   function <%= classedName %>Service() {
