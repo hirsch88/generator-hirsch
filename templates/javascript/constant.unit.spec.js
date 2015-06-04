@@ -1,8 +1,8 @@
-describe('Unit: <%= appname %>.constants.<%= classedName %>', function () {
+describe('Unit: <%= prefix %>.<%= module %>.constants.<%= classedName %>', function () {
 
   var module;
   before(function () {
-    module = angular.module('<%= appname %>.constants.<%= classedName %>');
+    module = angular.module('<%= prefix %>.<%= module %>.constants.<%= classedName %>');
   });
 
   it('should be registered', function () {
