@@ -68,7 +68,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
       type: 'confirm',
       name: 'useTypescript',
       message: 'Do you want to use TypeScript?',
-      default: 'Y'
+      default: false
     });
 
     prompts.push({
