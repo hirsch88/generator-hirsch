@@ -1,8 +1,8 @@
 'use strict';
 
-describe('Unit: <%= appname %>.<%= module %>.views.<%= classedName %>Controller', function () {
+describe('Unit: <%= prefix %>.<%= module %>.views.<%= classedName %>Controller', function () {
 
-  beforeEach(module('<%= appname %>'));
+  beforeEach(module('<%= prefix %>'));
 
   it('should have a <%= classedName %>Controller', function() {
     expect(<%= appname %>.<%= prefix %><%= classedName %>Controller).not.to.equal(null);

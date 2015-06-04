@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Unit: <%= appname %>.directives.<%= classedName %>', function () {
+describe('Unit: <%= prefix %>.<%= module %>.directives.<%= classedName %>', function () {
   var $compile, $rootScope;
 
   beforeEach(module('<%= prefix %>.<%= module %>.directives'));
