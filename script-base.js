@@ -106,7 +106,7 @@ Generator.prototype.modulePrompt = function () {
 Generator.prototype.appTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
     src + this.scriptSuffix,
-    path.join(this.env.options.appPath, dest.toLowerCase()) + this.scriptSuffix
+    path.join(this.env.options.appPath, dest) + this.scriptSuffix
   ]);
 };
 
@@ -114,14 +114,14 @@ Generator.prototype.testTemplate = function (type, src, dest) {
   type = type || 'unit';
   yeoman.generators.Base.prototype.template.apply(this, [
     src + '.' + type + '.spec' + this.scriptSuffix,
-    path.join(this.env.options.testPath[type], dest.toLowerCase()) + '.spec' + this.scriptSuffix
+    path.join(this.env.options.testPath[type], dest) + '.spec' + this.scriptSuffix
   ]);
 };
 
 Generator.prototype.htmlTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
     src + '.html',
-    path.join(this.env.options.appPath, dest.toLowerCase()) + '.html'
+    path.join(this.env.options.appPath, dest) + '.html'
   ]);
 };
 
