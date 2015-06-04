@@ -173,6 +173,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.mkdir('src/app/common/templates');
     this.mkdir('src/app/common/decorators');
     this.mkdir('src/app/common/filters');
+    this.mkdir('src/app/common/views');
     this.mkdir('src/app/core');
     this.mkdir('src/assets');
     this.mkdir('src/assets/medias');
@@ -239,6 +240,10 @@ var HirschGenerator = yeoman.generators.Base.extend({
 
   coreFiles: function () {
     this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.app.coreDir, '**', '*.js');
+  },
+
+  commonFiles: function () {
+    this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.app.commonDir, '**', '*.js');
   },
 
   layoutFiles: function () {
