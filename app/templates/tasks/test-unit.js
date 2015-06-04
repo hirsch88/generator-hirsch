@@ -17,7 +17,7 @@ gulp.task('test-unit', function () {
   return gulp
     .src(testFiles)
     .pipe($.karma({
-      configFile: './../' + projectConfig.path.test.unit.config,
+      configFile: projectConfig.path.test.unit.config,
       action:     'run'
     }))
     .on('error', function (err) {

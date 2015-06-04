@@ -16,8 +16,8 @@ gulp.task('test-midway', function () {
   return gulp
     .src(testFiles)
     .pipe($.karma({
-      basePath:    process.cwd(),
-      configFile: './../' + projectConfig.path.test.midway.config,
+      basePath:   process.cwd(),
+      configFile: projectConfig.path.test.midway.config,
       action:     'run'
     }))
     .on('error', function (err) {
