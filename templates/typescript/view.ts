@@ -70,7 +70,9 @@ module <%= prefix %>.<%= module %>.views {
   }
 
   angular
-    .module('<%= prefix %>.<%= module %>.views.<%= classedName %>', [])
+    .module('<%= prefix %>.<%= module %>.views.<%= classedName %>', [
+      '<%= prefix %>.core.util'
+    ])
     .config(stateConfig)
     .controller(ID.<%= classedName %>Controller, <%= classedName %>Controller);
 }
