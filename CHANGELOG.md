@@ -1,3 +1,10 @@
+1.0.0-rc-15 / 2015-06-04
+==================
+
+  * Release 1.0.0-rc-15
+  * Updated all test cases
+  * Improved all generators
+  
 1.0.0-rc-14 / 2015-05-29
 ==================
 
