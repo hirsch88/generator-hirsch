@@ -6,8 +6,8 @@ var path = require('path');
 var Generator = module.exports = function Generator() {
   this.askForModule = true;
   ScriptBase.apply(this, arguments);
-  this.generatorName = 'filter';
-  this.dirName = 'filters';
+  this.generatorName = 'constant';
+  this.dirName = 'constants';
 };
 
 util.inherits(Generator, ScriptBase);
@@ -18,20 +18,13 @@ Generator.prototype.init = function () {
 
 Generator.prototype.prompting = function () {
   this.modulePrompt();
-}
-
-Generator.prototype.initComponents = function () {
-  this.readComponents(this.module, this.generatorName);
-}
+};
 
 Generator.prototype.createFiles = function createFiles() {
   this.appTemplate(this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
-  if (this.env.options.typescript) {
-    this.appTemplate(this.dirName + '.module', path.join(this.module, this.dirName, this.dirName + '.module'));
-  }
   this.testTemplate('unit', this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName + '.spec'));
 };
 
-Generator.prototype.end = function () {
+Generator.prototype.end = function createFiles() {
   this.say(this.generatorName);
 };

@@ -3,7 +3,6 @@
 var gulp = require('gulp');
 var projectConfig = require(process.cwd() + '/project.config.js')();
 var $ = require('gulp-load-plugins')({lazy: true});
-var path = require('path');
 
 /**
  * TEST UNIT
@@ -18,7 +17,7 @@ gulp.task('test-unit'<% if(prompts.useTypescript) { %>, ['ts'] <% } %>, function
   return gulp
     .src(testFiles)
     .pipe($.karma({
-      configFile:  path.join(process.cwd(), projectConfig.path.test.unit.config),
+      configFile: projectConfig.path.test.unit.config,
       action:     'run'
     }))
     .on('error', function (err) {

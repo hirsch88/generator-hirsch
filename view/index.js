@@ -2,26 +2,25 @@
 var util = require('util');
 var ScriptBase = require('../script-base.js');
 var path = require('path');
-var hirschUtils = require('../util.js');
 
 var Generator = module.exports = function Generator() {
   this.askForModule = true;
   ScriptBase.apply(this, arguments);
   this.generatorName = 'view';
-  this.generatorNamePl = 'views';
+  this.dirName = 'views';
 };
 
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.init = function () {
   this.readModules();
-}
+};
 
-Generator.prototype.prompting1 = function () {
+Generator.prototype.prompting = function () {
   this.modulePrompt();
-}
+};
 
-Generator.prototype.prompting2 = function () {
+Generator.prototype.options = function () {
   var done = this.async();
   var prompts = [
     {
@@ -33,7 +32,7 @@ Generator.prototype.prompting2 = function () {
 
   this.prompt(prompts, function (props) {
     this.url = props.url;
-    var relModulePath = path.join(this.module, this.generatorNamePl, this.name + '.html').toLowerCase();
+    var relModulePath = path.join(this.module, this.dirName, this.name + '.html').toLowerCase();
     var relAppPath = path.join(this.env.options.appPath, relModulePath).replace(/^src/, '').replace(/\\/g, '/').replace(/^\//, '');
     this.templateUrl = relAppPath;
     done();
@@ -42,13 +41,15 @@ Generator.prototype.prompting2 = function () {
 
 Generator.prototype.initComponents = function () {
   this.readComponents(this.module, this.generatorName);
-}
+};
 
-Generator.prototype.createFiles = function () {
-  this.appTemplate(this.generatorName, path.join(this.module, this.generatorNamePl, this.name));
-  this.appTemplate(this.generatorNamePl + '.module', path.join(this.module, this.generatorNamePl, this.generatorNamePl + '.module'));
-  this.htmlTemplate(this.generatorName, path.join(this.module, this.generatorNamePl, this.name));
-  this.testTemplate('unit', this.generatorName, path.join(this.module, this.generatorNamePl, this.name + '.spec'));
+Generator.prototype.createFiles = function createFiles() {
+  this.appTemplate(this.generatorName, path.join(this.module, this.dirName, this.name));
+  if (this.env.options.typescript) {
+    this.appTemplate(this.dirName + '.module', path.join(this.module, this.dirName, this.dirName + '.module'));
+  }
+  this.htmlTemplate(this.generatorName, path.join(this.module, this.dirName, this.name));
+  this.testTemplate('unit', this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName + '.spec'));
 };
 
 Generator.prototype.end = function () {

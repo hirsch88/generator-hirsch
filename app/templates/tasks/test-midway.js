@@ -2,8 +2,7 @@
 
 var gulp = require('gulp');
 var projectConfig = require(process.cwd() + '/project.config.js')();
-var $ = require('gulp-load-plugins')({ lazy: true });
-var path = require('path');
+var $ = require('gulp-load-plugins')({lazy: true});
 
 /**
  * TEST MIDWAY
@@ -17,9 +16,9 @@ gulp.task('test-midway'<% if(prompts.useTypescript) { %>, ['ts'] <% } %>, functi
   return gulp
     .src(testFiles)
     .pipe($.karma({
-      basePath:    process.cwd(),
-      configFile:  path.join(process.cwd(), projectConfig.path.test.midway.config),
-      action:      'run'
+      basePath:   process.cwd(),
+      configFile: projectConfig.path.test.midway.config,
+      action:     'run'
     }))
     .on('error', function (err) {
       // Make sure failed tests cause gulp to exit non-zero

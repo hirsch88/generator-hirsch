@@ -39,7 +39,7 @@ module.exports = {
   },
 
   getModulesFromFileStructure: function (scope, done) {
-    fs.readdir(scope.destinationPath(scope.projectConfig.path.srcDir + '/' + scope.projectConfig.path.appDir), function (err, files) {
+    fs.readdir(scope.destinationPath(scope.env.options.appPath), function (err, files) {
       if (files) {
         var modules = [];
         for (var i = 0; i < files.length; i++) {
@@ -57,7 +57,7 @@ module.exports = {
   },
 
   getComponentsFromFileStructure: function (scope, module, type, cb) {
-    fs.readdir(scope.destinationPath(path.join(scope.projectConfig.path.srcDir, scope.projectConfig.path.appDir, module, type + 's')), function (err, files) {
+    fs.readdir(scope.destinationPath(path.join(scope.env.options.appPath, module, type + 's')), function (err, files) {
       if (files) {
         var components = _.uniq(files.filter(function(f) {
           return f.indexOf('.module') === -1;
