@@ -6,7 +6,7 @@ var path = require('path');
 var Generator = module.exports = function Generator() {
   this.askForModule = true;
   ScriptBase.apply(this, arguments);
-  this.generatorName = 'service';
+  this.generatorName = 'factory';
   this.dirName = 'services';
 };
 
