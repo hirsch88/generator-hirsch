@@ -18,13 +18,15 @@
   },
   "files": [
     "app",
-    "helper.js",
     "service",
+    "constant",
     "filter",
     "module",
     "view",
     "directive",
     "LICENSE",
+    "util.js",
+    "script-base.js",
     "CHANGELOG.md",
     "README.md"
   ],

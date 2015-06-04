@@ -37,19 +37,35 @@ module.exports = {
   },
 
   getModulesFromFileStructure: function (scope, done) {
-    fs.readdir(scope.destinationPath(scope.projectConfig.path.srcDir + '/' + scope.projectConfig.path.appDir), function (err, files) {
+    fs.readdir(scope.destinationPath(scope.env.options.appPath), function (err, files) {
       if (files) {
-        scope.modules = [];
+        var modules = [];
         for (var i = 0; i < files.length; i++) {
           if (files[i].indexOf('.') === -1) {
             if (scope.projectConfig.ignoredModules.indexOf(files[i]) === -1) {
-              scope.modules.push(files[i]);
+              modules.push(files[i]);
             }
           }
         }
-        done();
+        done(modules);
       } else {
-        done();
+        done([]);
+      }
+    });
+  },
+
+  getComponentsFromFileStructure: function (scope, module, type, cb) {
+    fs.readdir(scope.destinationPath(path.join(scope.env.options.srcPath, scope.env.options.appDir, module, type + 's')), function (err, files) {
+      if (files) {
+        var components = _.uniq(files.filter(function(f) {
+          return f.indexOf('.module') === -1;
+        }).map(function(f) {
+          return f.replace(/\.(js|ts|html|js\.map)$/, '');
+        }).map(_s.classify));
+
+        cb(components);
+      } else {
+        cb([]);
       }
     });
   },
