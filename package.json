@@ -1,6 +1,6 @@
 {
   "name": "generator-hirsch",
-  "version": "1.0.0-rc-14",
+  "version": "1.0.0-rc-15",
   "description": "Yeoman generator for large module-based AngularJS applications",
   "license": "MIT",
   "main": "app/index.js",
@@ -18,13 +18,16 @@
   },
   "files": [
     "app",
-    "helper.js",
     "service",
+    "factory",
+    "constant",
     "filter",
     "module",
     "view",
     "directive",
     "LICENSE",
+    "util.js",
+    "script-base.js",
     "CHANGELOG.md",
     "README.md"
   ],

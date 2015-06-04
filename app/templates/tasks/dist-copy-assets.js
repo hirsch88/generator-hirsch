@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var projectConfig = require(process.cwd() + '/project.config.js')();
+var path = require('path');
 
 /**
  * COPY

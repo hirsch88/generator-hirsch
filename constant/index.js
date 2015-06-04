@@ -6,8 +6,8 @@ var path = require('path');
 var Generator = module.exports = function Generator() {
   this.askForModule = true;
   ScriptBase.apply(this, arguments);
-  this.generatorName = 'service';
-  this.dirName = 'services';
+  this.generatorName = 'constant';
+  this.dirName = 'constants';
 };
 
 util.inherits(Generator, ScriptBase);

@@ -17,6 +17,7 @@ var Generator = module.exports = function Generator() {
 
   try {
     projectConfig = hirschUtils.getProjectConfig();
+    this.projectConfig = hirschUtils.getProjectConfig();
   } catch (e) {}
 
 
@@ -57,10 +58,55 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
+
+Generator.prototype.readModules = function (cb) {
+  var done = this.async();
+  hirschUtils.getModulesFromFileStructure(this, function (modules) {
+    this.modules = modules;
+    if (cb) {
+      cb();
+    }
+    done();
+  }.bind(this));
+};
+
+Generator.prototype.readComponents = function (module, type, cb) {
+  var done = this.async();
+  hirschUtils.getComponentsFromFileStructure(this, module || 'common', type, function(components) {
+    this.components = components;
+    if (cb) {
+      cb();
+    }
+    done();
+  }.bind(this));
+};
+
+Generator.prototype.modulePrompt = function () {
+  if (!this.askForModule) {
+    return;
+  }
+
+  var done = this.async();
+  var prompts = [
+    {
+      type: 'list',
+      name: 'chosenModule',
+      message: 'Choose the module of your service: ',
+      choices: this.modules,
+      default: this.modules.indexOf('common')
+    }
+  ];
+
+  this.prompt(prompts, function (props) {
+    this.module = props.chosenModule || 'common';
+    done();
+  }.bind(this));
+};
+
 Generator.prototype.appTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
     src + this.scriptSuffix,
-    path.join(this.env.options.appPath, dest.toLowerCase()) + this.scriptSuffix
+    path.join(this.env.options.appPath, dest) + this.scriptSuffix
   ]);
 };
 
@@ -68,14 +114,14 @@ Generator.prototype.testTemplate = function (type, src, dest) {
   type = type || 'unit';
   yeoman.generators.Base.prototype.template.apply(this, [
     src + '.' + type + '.spec' + this.scriptSuffix,
-    path.join(this.env.options.testPath[type], dest.toLowerCase()) + this.scriptSuffix
+    path.join(this.env.options.testPath[type], dest) + '.spec' + this.scriptSuffix
   ]);
 };
 
 Generator.prototype.htmlTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
-    src,
-    path.join(this.env.options.appPath, dest.toLowerCase())
+    src + '.html',
+    path.join(this.env.options.appPath, dest) + '.html'
   ]);
 };
 
