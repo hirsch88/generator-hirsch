@@ -3,7 +3,7 @@
 
   angular
     .module('<%= appname %>.services.<%= classedName %>', [])
-    .service('<%= cameledName %>', <%= classedName %>Service);
+    .service('<%= prefix %><%= classedName %>', <%= classedName %>Service);
 
   function <%= classedName %>Service() {
 

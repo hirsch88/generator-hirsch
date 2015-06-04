@@ -3,7 +3,7 @@
 
   angular
     .module('<%= appname %>.services.<%= classedName %>', [])
-    .factory('<%= cameledName %>', <%= classedName %>Factory);
+    .factory('<%= prefix %><%= classedName %>', <%= classedName %>Factory);
 
   function <%= classedName %>Factory() {
 
