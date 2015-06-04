@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= appname %>.constants.<%= classedName %>', [])
+    .module('<%= appname %>.<%= module %>.constants.<%= classedName %>', [])
     .constant('<%= cameledName %>', 'Your Contant goes here...' );
 
 

@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= appname %>.filters.<%= classedName %>', [])
+    .module('<%= appname %>.<%= module %>.filters.<%= classedName %>', [])
     .filter('<%= prefix %><%= classedName %>', <%= classedName %>Filter);
 
   function <%= classedName %>Filter() {

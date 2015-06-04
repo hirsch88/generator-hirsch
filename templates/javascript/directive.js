@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= appname %>.directives.<%= classedName %>', [])
+    .module('<%= appname %>.<%= module %>.directives.<%= classedName %>', [])
     .directive('<%= prefix %><%= classedName %>', <%= classedName %>Directive);
 
   function <%= classedName %>Directive() {

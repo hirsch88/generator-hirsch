@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= appname %>.services.<%= classedName %>', [])
+    .module('<%= appname %>.<%= module %>.services.<%= classedName %>', [])
     .factory('<%= prefix %><%= classedName %>', <%= classedName %>Factory);
 
   function <%= classedName %>Factory() {
