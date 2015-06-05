@@ -62,9 +62,11 @@ When you generate the project it should run these commands, but if you notice mi
     
     
 # Templating
+Most of the templates will be generated with a standard karma unit/midway test
+
 - `yo hirsch:module myModule`
 	
-	Adds a new module to your project and also the karma tesjs
+	Adds a new module to your project 
 	
 - `yo hirsch:constant myConstant`
   	
@@ -72,38 +74,38 @@ When you generate the project it should run these commands, but if you notice mi
 	
 - `yo hirsch:view myNewView`
   	
-  Adds a new view template and a controller in the view directory of the chosen module
+  Adds a new view with a template and a controller in the view directory of the chosen module
 	
 - `yo hirsch:service myService`
 	
-	Adds a new service to the chosen module of your project and also some karma tesjs
+	Adds a new service to the chosen module of your project
 	
 - `yo hirsch:factory myService`
   	
-  Adds a new service to the chosen module of your project and also some karma tesjs
+  Adds a new service to the chosen module of your project
 
 - `yo hirsch:filter myFilter`
 	
-	Adds a new filter to the chosen module of your project and also some karma tesjs
+	Adds a new filter to the chosen module of your project
 
 - `yo hirsch:directive myDirective`
 	
-	Adds a new directive to the chosen module of your project and also some karma tesjs
+	Adds a new directive to the chosen module of your project
 
 	
 # Task Runner
 ## Building
 - `gulp`
   
-  Injecjs all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
+  Injects all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
   
 - `gulp help` or `gulp list`
   
-  Lisjs all tasks
+  Lists all tasks
   
 - `gulp build`
   
-  Injecjs all JS files into your index.html and generates a css from your less
+  Injects all JS files into your index.html and generates a css from your less
   
 - `gulp style`
   
@@ -119,26 +121,28 @@ When you generate the project it should run these commands, but if you notice mi
   
     
 ## Servers (default)
+Both tasks starts a server for testing your app. It also starts a watcher for your source code, when your source code has been modified the server refreshes the page.
+
 - `gulp serve` 
   
-  Opens the browser(localhost:3000) with your app and refreshes it when your source code has been modified
+  This points on your src folder
   
 - `gulp serve-dist` 
     
-  Opens the browser(localhost:3001) and presents the application of the dist folder
+  This points on your dist folder
 
 ## Testing
 - `gulp test`
   
-  Runs all your karma tesjs
+  Runs all your karma tests
   
 - `gulp test:unit`
   
-  Runs all your unit karma tesjs
+  Runs all your unit karma tests
       
 - `gulp test:midway`
   
-  Runs all your midway karma tesjs
+  Runs all your midway karma tests
 	
 	
 # Styleguide
@@ -149,7 +153,7 @@ I use this style guide for my apps:
 ```
 projectRoot/
    |
-   +-- dist/ ( minified app version will placed by gulp here with the task 'gulp dist' )
+   +-- dist/ (minified app version will placed by gulp here with the task 'gulp dist')
    |
    +-- src/
    |   |
@@ -166,25 +170,24 @@ projectRoot/
    |   |   + core/
    |   |   |   |
    |   |   |   + config/
-   |   |   |   |   + thirdParty.config.js ( 3rd party modules configurations )
-   |   |   |   |   + angular.config.js ( Defines the AngularJS modules and configures them )
-   |   |   |   |   + run.js (Startup code)
+   |   |   |   |   + thirdParty.config.js (3rd party modules configurations)
+   |   |   |   |   + angular.config.js (Defines the AngularJS modules and configures them)
    |   |   |   |   + config.module.js
    |   |   |   |
    |   |   |   + constants/
-   |   |   |   |   + global.constants.js ( Global constant like moment or lodash )
+   |   |   |   |   + global.constants.js (Global constant like moment or lodash)
    |   |   |   |   + constants.module.js
    |   |   |   |
    |   |   |   + router/
-   |   |   |   |   + router.config.js ( ui.router middleware )
-   |   |   |   |   + router.constants.js ( ui.router middleware )
-   |   |   |   |   + router.js ( ui.router middleware )
-   |   |   |   |   + router.module.js ( ui.router middleware )
-   |   |   |   |   + router.service.js ( ui.router middleware )
+   |   |   |   |   + router.config.js (ui.router middleware)
+   |   |   |   |   + router.constants.js (ui.router middleware)
+   |   |   |   |   + router.js (ui.router middleware)
+   |   |   |   |   + router.module.js (ui.router middleware)
+   |   |   |   |   + router.service.js (ui.router middleware)
    |   |   |   |
    |   |   |   + util/
-   |   |   |   |   + util.js ( service that generates the server url for the current environment )
-   |   |   |   |   + evenjs.js ( event bus service )
+   |   |   |   |   + util.js (service that generates the server url for the current environment)
+   |   |   |   |   + events.js (event bus service)
    |   |   |   |   + logger.js 
    |   |   |   |   + uti.module.js
    |   |   |   |
@@ -205,7 +208,7 @@ projectRoot/
    |   |   |   |
    |   |   |   + services/  
    |   |   |   |   |
-   |   |   |   |   + <serviceName>.service.js (service or factory)
+   |   |   |   |   + <serviceName>.service.js (ervice or factory)
    |   |   |   |   + services.module.js
    |   |   |   |
    |   |   |   + templates/  
@@ -227,8 +230,8 @@ projectRoot/
    |   |   +-- less/
    |   |   +-- medias/
    |   | 
-   |   +-- lib/ ( Bower packages )
-   |   +-- index.html ( "MAIN" - This is the start page of your single-page-application and has some gulp vars )
+   |   +-- lib/ (Bower packages)
+   |   +-- index.html ("MAIN" - This is the start page of your single-page-application and has some gulp vars)
    |  
    +-- test/
    |   |
@@ -237,17 +240,17 @@ projectRoot/
    |   + midway/
    |   + unit/
    |
-   +-- .bowerrc ( defines the location for the bower_componenjs )
+   +-- .bowerrc (defines the location for the bower_components)
    +-- .gitignore
-   +-- .jshintrc ( JSHint Syntax definiations )
+   +-- .jshintrc (JSHint Syntax definitions)
    +-- bower.json
-   +-- gulpfile.js ( Task Runner )
+   +-- gulpfile.js (Task Runner)
    +-- karma-midway.config.js
    +-- karma-shared.config.js
    +-- karma-unit.config.js
    +-- package.json
-   +-- project.config.js ( Path definitions for gulp )
-   +-- README.md ( describes the project and how to set it up )
+   +-- project.config.js (Path definitions for gulp)
+   +-- README.md (describes the project and how to set it up)
    +-- jsd.json (contains type definition dependencies)
   ```
 		

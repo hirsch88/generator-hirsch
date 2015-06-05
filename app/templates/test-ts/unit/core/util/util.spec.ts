@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../typings/tsd.d.ts"/>
+﻿/// <reference path="../../../../typings/tsd.d.ts"/>
 
 module <%= prompts.prefix %>.core.util.test {
   'use strict';
