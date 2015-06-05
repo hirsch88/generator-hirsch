@@ -8,7 +8,7 @@ var $ = require('gulp-load-plugins')({lazy: true});
  * TEST MIDWAY
  * Description
  */
-gulp.task('test-midway', function () {
+gulp.task('test-midway'<% if(prompts.useTypescript) { %>, ['ts'] <% } %>, function () {
 
   var testFiles = projectConfig.karma.files;
   testFiles.push(projectConfig.path.test.midway.specs);

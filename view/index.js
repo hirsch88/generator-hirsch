@@ -37,14 +37,21 @@ Generator.prototype.options = function () {
     this.templateUrl = relAppPath;
     done();
   }.bind(this));
+}
+
+Generator.prototype.initComponents = function () {
+  this.readComponents(this.module, this.generatorName);
 };
 
 Generator.prototype.createFiles = function createFiles() {
   this.appTemplate(this.generatorName, path.join(this.module, this.dirName, this.name));
+  if (this.env.options.typescript) {
+    this.appTemplate(this.dirName + '.module', path.join(this.module, this.dirName, this.dirName + '.module'));
+  }
   this.htmlTemplate(this.generatorName, path.join(this.module, this.dirName, this.name));
   this.testTemplate('unit', this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName + '.spec'));
 };
 
-Generator.prototype.end = function createFiles() {
+Generator.prototype.end = function () {
   this.say(this.generatorName);
 };

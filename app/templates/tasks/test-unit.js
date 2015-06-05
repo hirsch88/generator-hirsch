@@ -8,7 +8,7 @@ var $ = require('gulp-load-plugins')({lazy: true});
  * TEST UNIT
  * Description
  */
-gulp.task('test-unit', function () {
+gulp.task('test-unit'<% if(prompts.useTypescript) { %>, ['ts'] <% } %>, function () {
 
   var testFiles = projectConfig.karma.files;
   testFiles.push('src/lib/angular-mocks/angular-mocks.js');

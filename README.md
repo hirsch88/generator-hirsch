@@ -34,18 +34,19 @@
     ```
 
 # Get Started
-1. Install generator-hirsch
+1. Check out this fork to some local folder
+2. Install the generator from the local folder
     ```
-    npm install -g generator-hirsch
+    npm link
     ```
 
-2. Create a new folder and change directory to it
+3. Create a new folder and change directory to it
     ```
     mkdir myApp
     cd myApp
     ```
 
-3. Run the generator
+4. Run the generator
     ```
     yo hirsch appname
     ```
@@ -74,7 +75,7 @@
 
 	
 # Styleguide
-I use this style guid for my apps:
+I use this style guide for my apps:
 [johnpapa/angular-styleguide](https://github.com/johnpapa/angular-styleguide)
 	
 # App	
@@ -97,30 +98,47 @@ projectRoot/
    |   |   |     
    |   |   + core/
    |   |   |   |
-   |   |   |   + app.config.js ( 3rd party modules configurations )
-   |   |   |   + app.core.js ( Defines the AngularJS modules and configures them )
-   |   |   |   + app.router.js ( ui.router middleware )
-   |   |   |   + app.run.js
-   |   |   |   + app.util.js ( Global object to generates the server url for the current environment )
-   |   |   |   + app.events.js ( Global event bus )
+   |   |   |   + config/
+   |   |   |   |   + thirdParty.js ( 3rd party modules configurations )
+   |   |   |   |   + angular.js ( Defines the AngularJS modules and configures them )
+   |   |   |   |   + run.js (Startup code)
+   |   |   |   |   + module.ts
+   |   |   |   |
+   |   |   |   + routing/
+   |   |   |   |   + router.js ( ui.router middleware )
+   |   |   |   |   + module.ts
+   |   |   |   |
+   |   |   |   + util/
+   |   |   |   |   + appUtil.js ( service that generates the server url for the current environment )
+   |   |   |   |   + appEvents.js ( event bus service )
+   |   |   |   |   + module.ts
+   |   |   |   |
+   |   |   |   + module.ts
    |   |   |
    |   |   + <moduleName>/
    |   |   |   |
-   |   |   |   + common/
+   |   |   |   + directives/  
    |   |   |   |   |
-   |   |   |   |   + directives/  
-   |   |   |   |   + filters/  
-   |   |   |   |   + services/  
-   |   |   |   |   + templates/  
-   |   |   |   |  
+   |   |   |   |   + <directiveName>.directive.ts
+   |   |   |   |   + <directiveName>.directive.html
+   |   |   |   |   + module.ts
+   |   |   |   |
+   |   |   |   + filters/  
+   |   |   |   + services/  
+   |   |   |   |   |
+   |   |   |   |   + <serviceName>.service.ts
+   |   |   |   |   + module.ts
+   |   |   |   |
+   |   |   |   + templates/  
    |   |   |   + views/
    |   |   |   |   |
-   |   |   |   |   + <viewName>.js
+   |   |   |   |   + <viewName>.ts
    |   |   |   |   + <viewName>.html
+   |   |   |   |   + module.ts
    |   |   |   |
-   |   |   |   + <moduleName>.module.js
+   |   |   |   + module.ts
    |   |   |
-   |   |   + app.js  
+   |   |   + app.ts  
    |   |
    |   +-- assets/ 
    |   |   |
@@ -151,6 +169,7 @@ projectRoot/
    +-- package.json
    +-- project.config.js ( Path definitions for gulp )
    +-- README.md ( describes the project and how to set it up )
+   +-- tsd.json (contains type definition dependencies)
   ```
 	
 ## Task Runner

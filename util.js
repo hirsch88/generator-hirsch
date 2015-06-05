@@ -3,6 +3,8 @@ var path = require('path');
 var fs = require('fs');
 var chalk = require('chalk');
 var glob = require('glob');
+var _s = require('underscore.string');
+var _ = require('lodash');
 
 module.exports = {
 
@@ -55,7 +57,7 @@ module.exports = {
   },
 
   getComponentsFromFileStructure: function (scope, module, type, cb) {
-    fs.readdir(scope.destinationPath(path.join(scope.env.options.srcPath, scope.env.options.appDir, module, type + 's')), function (err, files) {
+    fs.readdir(scope.destinationPath(path.join(scope.env.options.appPath, module, type + 's')), function (err, files) {
       if (files) {
         var components = _.uniq(files.filter(function(f) {
           return f.indexOf('.module') === -1;

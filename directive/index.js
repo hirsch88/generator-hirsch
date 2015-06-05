@@ -57,19 +57,29 @@ Generator.prototype.options = function () {
     var relModulePath = path.join(this.module, this.dirName, this.name + '.' + this.generatorName + '.html').toLowerCase();
     var relAppPath = path.join(this.env.options.appPath, relModulePath).replace(/^src/, '').replace(/\\/g, '/').replace(/^\//, '');
     this.templateUrl = relAppPath;
-
     done();
   }.bind(this));
-};
+}
+
+Generator.prototype.initComponents = function () {
+  this.readComponents(this.module, this.generatorName, function() {
+    this.components = this.components.map(function(c) {
+      return c.replace(/Directive$/, '');
+    });
+  }.bind(this));
+}
 
 Generator.prototype.createFiles = function createFiles() {
   this.appTemplate(this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
+  if (this.env.options.typescript) {
+    this.appTemplate(this.dirName + '.module', path.join(this.module, this.dirName, this.dirName + '.module'));
+  }
   if(this.hasTemplate){
     this.htmlTemplate(this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
   }
   this.testTemplate('unit', this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName + '.spec'));
 };
 
-Generator.prototype.end = function createFiles() {
+Generator.prototype.end = function () {
   this.say(this.generatorName);
 };

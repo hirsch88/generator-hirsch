@@ -9,7 +9,7 @@ var path = require('path');
 /**
  * MINIFY APP JS-FILES
  */
-gulp.task('dist-minify-app-js', ['jshint'], function () {
+gulp.task('dist-minify-app-js'<% if(!prompts.useTypescript) { %>, ['jshint'] <% } %>, function () {
   var source = projectConfig.angular.files;
   var destination = path.join(projectConfig.path.distDir, projectConfig.path.appDir);
   var fileName = projectConfig.buildDistFileName(projectConfig.pkg.name, 'js');
