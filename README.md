@@ -9,13 +9,15 @@
 > Based on the famous style guide from John Papa [angular-styleguide](https://github.com/johnpapa/angular-styleguide)
 
 
-# Table of contents
+# Table of contenjs
 
 - [generator-hirsch](#generator-hirsch)
 - [Prerequisites](#Prerequisites)
 - [Get Started](#Get-Started)
 - [Templating](#Templating)
-- [App](#App)
+- [Tasks](#Task-Runner)
+- [Styleguide](#Styleguide)
+- [App Structure](#App-Structure)
 - [License](#License)
 
 
@@ -34,28 +36,39 @@
     ```
 
 # Get Started
-1. Check out this fork to some local folder
-2. Install the generator from the local folder
+1. Install generator-hirsch
     ```
-    npm link
+    npm install -g generator-hirsch
     ```
 
-3. Create a new folder and change directory to it
+2. Create a new folder and change directory to it
     ```
     mkdir myApp
     cd myApp
     ```
 
-4. Run the generator
+3. Run the generator
     ```
     yo hirsch appname
     ```
     
     
+# Installing Packages
+    
+When you generate the project it should run these commands, but if you notice missing packages, run these again:
+    
+- ```npm install```
+- ```bower install```
+    
+    
 # Templating
 - `yo hirsch:module myModule`
 	
-	Adds a new module to your project and also the karma tests
+	Adds a new module to your project and also the karma tesjs
+	
+- `yo hirsch:constant myConstant`
+  	
+  Adds a new constant to your project
 	
 - `yo hirsch:view myNewView`
   	
@@ -63,23 +76,76 @@
 	
 - `yo hirsch:service myService`
 	
-	Adds a new service to the chosen module of your project and also some karma tests
+	Adds a new service to the chosen module of your project and also some karma tesjs
+	
+- `yo hirsch:factory myService`
+  	
+  Adds a new service to the chosen module of your project and also some karma tesjs
 
 - `yo hirsch:filter myFilter`
 	
-	Adds a new filter to the chosen module of your project and also some karma tests
+	Adds a new filter to the chosen module of your project and also some karma tesjs
 
 - `yo hirsch:directive myDirective`
 	
-	Adds a new directive to the chosen module of your project and also some karma tests
+	Adds a new directive to the chosen module of your project and also some karma tesjs
 
+	
+# Task Runner
+## Building
+- `gulp`
+  
+  Injecjs all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
+  
+- `gulp help` or `gulp list`
+  
+  Lisjs all tasks
+  
+- `gulp build`
+  
+  Injecjs all JS files into your index.html and generates a css from your less
+  
+- `gulp style`
+  
+  Generates a css from your less
+  
+- `gulp jshint`
+    
+  Checks code quality
+  
+- `gulp dist`
+  
+  This generates a minified app
+  
+    
+## Servers (default)
+- `gulp serve` 
+  
+  Opens the browser(localhost:3000) with your app and refreshes it when your source code has been modified
+  
+- `gulp serve-dist` 
+    
+  Opens the browser(localhost:3001) and presents the application of the dist folder
+
+## Testing
+- `gulp test`
+  
+  Runs all your karma tesjs
+  
+- `gulp test:unit`
+  
+  Runs all your unit karma tesjs
+      
+- `gulp test:midway`
+  
+  Runs all your midway karma tesjs
+	
 	
 # Styleguide
 I use this style guide for my apps:
 [johnpapa/angular-styleguide](https://github.com/johnpapa/angular-styleguide)
 	
-# App	
-## App Structure
+# App Structure
 ```
 projectRoot/
    |
@@ -94,51 +160,64 @@ projectRoot/
    |   |   |   + directives/  
    |   |   |   + filters/  
    |   |   |   + services/  
+   |   |   |   + decorators/  
    |   |   |   + templates/  
    |   |   |     
    |   |   + core/
    |   |   |   |
    |   |   |   + config/
-   |   |   |   |   + thirdParty.js ( 3rd party modules configurations )
-   |   |   |   |   + angular.js ( Defines the AngularJS modules and configures them )
+   |   |   |   |   + thirdParty.config.js ( 3rd party modules configurations )
+   |   |   |   |   + angular.config.js ( Defines the AngularJS modules and configures them )
    |   |   |   |   + run.js (Startup code)
-   |   |   |   |   + module.ts
+   |   |   |   |   + config.module.js
    |   |   |   |
-   |   |   |   + routing/
+   |   |   |   + constants/
+   |   |   |   |   + global.constants.js ( Global constant like moment or lodash )
+   |   |   |   |   + constants.module.js
+   |   |   |   |
+   |   |   |   + router/
+   |   |   |   |   + router.config.js ( ui.router middleware )
+   |   |   |   |   + router.constants.js ( ui.router middleware )
    |   |   |   |   + router.js ( ui.router middleware )
-   |   |   |   |   + module.ts
+   |   |   |   |   + router.module.js ( ui.router middleware )
+   |   |   |   |   + router.service.js ( ui.router middleware )
    |   |   |   |
    |   |   |   + util/
-   |   |   |   |   + appUtil.js ( service that generates the server url for the current environment )
-   |   |   |   |   + appEvents.js ( event bus service )
-   |   |   |   |   + module.ts
+   |   |   |   |   + util.js ( service that generates the server url for the current environment )
+   |   |   |   |   + evenjs.js ( event bus service )
+   |   |   |   |   + logger.js 
+   |   |   |   |   + uti.module.js
    |   |   |   |
-   |   |   |   + module.ts
+   |   |   |   + core.module.js
    |   |   |
    |   |   + <moduleName>/
    |   |   |   |
    |   |   |   + directives/  
    |   |   |   |   |
-   |   |   |   |   + <directiveName>.directive.ts
+   |   |   |   |   + <directiveName>.directive.js
    |   |   |   |   + <directiveName>.directive.html
-   |   |   |   |   + module.ts
+   |   |   |   |   + directives.module.js
    |   |   |   |
    |   |   |   + filters/  
+   |   |   |   |   |
+   |   |   |   |   + <filterName>.filter.js
+   |   |   |   |   + filters.module.js
+   |   |   |   |
    |   |   |   + services/  
    |   |   |   |   |
-   |   |   |   |   + <serviceName>.service.ts
-   |   |   |   |   + module.ts
+   |   |   |   |   + <serviceName>.service.js (service or factory)
+   |   |   |   |   + services.module.js
    |   |   |   |
    |   |   |   + templates/  
    |   |   |   + views/
    |   |   |   |   |
-   |   |   |   |   + <viewName>.ts
+   |   |   |   |   + <viewName>.js
    |   |   |   |   + <viewName>.html
-   |   |   |   |   + module.ts
+   |   |   |   |   + views.module.js
    |   |   |   |
-   |   |   |   + module.ts
+   |   |   |   + <moduleName>.module.js
    |   |   |
-   |   |   + app.ts  
+   |   |   + app.js  
    |   |
    |   +-- assets/ 
    |   |   |
@@ -158,7 +237,7 @@ projectRoot/
    |   + midway/
    |   + unit/
    |
-   +-- .bowerrc ( defines the location for the bower_components )
+   +-- .bowerrc ( defines the location for the bower_componenjs )
    +-- .gitignore
    +-- .jshintrc ( JSHint Syntax definiations )
    +-- bower.json
@@ -169,51 +248,9 @@ projectRoot/
    +-- package.json
    +-- project.config.js ( Path definitions for gulp )
    +-- README.md ( describes the project and how to set it up )
-   +-- tsd.json (contains type definition dependencies)
+   +-- jsd.json (contains type definition dependencies)
   ```
-	
-## Task Runner
-### Building
-- `gulp`
-  
-  Injects all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
-  
-- `gulp help`
-  
-  Lists all tasks
-  
-- `gulp build`
-  
-  Injects all JS files into your index.html and generates a css from your less
-  
-- `gulp style`
-  
-  Generates a css from your less
-  
-- `gulp dist`
-  
-  This generates a minified app
-  
-    
-## Servers (default)
-- `gulp serve` 
-  
-  Opens the browser(localhost:3000 ) with your app and refreshes it when your source code has been modified
-
-## Testing
-- `gulp test`
-  
-  Runs all your karma tests
-  
-- `gulp test:unit`
-  
-  Runs all your unit karma tests
-      
-- `gulp test:midway`
-  
-  Runs all your midway karma tests
-
-	
+		
 
 # License
 
@@ -224,7 +261,7 @@ Copyright (c) 2015 Gery Hirschfeld ([@hirsch88](https://twitter.com/GeryHirschfe
 
 (The MIT License)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the righjs to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
