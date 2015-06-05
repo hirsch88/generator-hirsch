@@ -2,13 +2,18 @@
 
 describe('Unit: <%= prefix %>.<%= module %>.filters.<%= classedName %>', function () {
 
-  beforeEach(module('app'));
+  beforeEach(module('<%= prefix %>.<%= module %>.filters.<%= classedName %>'));
 
-  it('should contain an <%= prefix %>.<%= module %>.filters.<%= classedName %> filter',
-    inject(function (<%= prefix %><%= classedName %>) {
-      expect(<%= prefix %><%= classedName %>).not.to.equal(null);
-    })
-  );
+  it('should have a <%= prefix %><%= classedName %> filter', inject(function($filter) {
+    expect($filter('<%= prefix %><%= classedName %>')).not.to.equal(null);
+  }));
 
+  it('should have a <%= prefix %><%= classedName %> filter that produces an string',
+    inject(function($filter) {
+
+      var filter = $filter('<%= prefix %><%= classedName %>')('bubu');
+      expect(filter).to.be.a('string');
+      expect(filter).to.equal('bubuFilter');
+    }));
 
 });
