@@ -60,22 +60,22 @@ var HirschGenerator = yeoman.generators.Base.extend({
     });
 
     prompts.push({
-      name: 'author',
+      name:    'author',
       message: 'Who is the author?'
     });
 
     prompts.push({
-      type: 'confirm',
-      name: 'useTypescript',
+      type:    'confirm',
+      name:    'useTypescript',
       message: 'Do you want to use TypeScript?',
       default: false
     });
 
     prompts.push({
-      when: function (props) {
+      when:    function (props) {
         return props.useTypescript;
       },
-      name: 'typingsPath',
+      name:    'typingsPath',
       message: 'Where do you want to store the type definitions (path relative to root)?',
       default: 'typings'
     });
@@ -99,12 +99,12 @@ var HirschGenerator = yeoman.generators.Base.extend({
   },
 
   /**
-    * INIT
-    * Declare some helper functions
-    */
-  init: function() {
+   * INIT
+   * Declare some helper functions
+   */
+  init: function () {
     var _this = this;
-    var copyBase = function(copyFunc) {
+    var copyBase = function (copyFunc) {
       var rest = Array.prototype.slice.call(arguments, 1);
       return function () {
         var args = Array.prototype.slice.call(arguments);
@@ -119,23 +119,27 @@ var HirschGenerator = yeoman.generators.Base.extend({
 
         var srcSegs = tgtSegs.map(function (s) {
           var replaces = [
-            { p: /^app$/, r: 'app-ts' },
-            { p: /^app\//, r: 'app-ts/' },
-            { p: /^test$/, r: 'test-ts' },
-            { p: /^test\//, r: 'test-ts/' }
+            {p: /^app$/, r: 'app-ts'},
+            {p: /^app\//, r: 'app-ts/'},
+            {p: /^test$/, r: 'test-ts'},
+            {p: /^test\//, r: 'test-ts/'}
           ];
 
-          var copiesScripts = args.some(function(s) {
+          var copiesScripts = args.some(function (s) {
             return /\.js$/.test(s);
           });
 
           return _this.useTypescript && copiesScripts
-            ? replaces.reduce(function (prev, curr) { return prev.replace(curr.p, curr.r); }, s)
+            ? replaces.reduce(function (prev, curr) {
+            return prev.replace(curr.p, curr.r);
+          }, s)
             : s;
-        }).map(function (s) { return s.replace(/!$/, ''); });
+        }).map(function (s) {
+          return s.replace(/!$/, '');
+        });
 
         // filter out globs from target path
-        tgtSegs = tgtSegs.filter(function(s) {
+        tgtSegs = tgtSegs.filter(function (s) {
           return s.indexOf('*') < 0 && !/!$/.test(s);
         });
 
@@ -144,7 +148,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
         console.log(srcPath + ' -> ' + tgtPath);
         copyFunc.apply(null, [_this.templatePath(srcPath), _this.destinationPath(tgtPath)].concat(newRest));
       };
-    }
+    };
 
     this.copyFile = copyBase(this.fs.copy.bind(this.fs));
     this.copyTpl = copyBase(this.fs.copyTpl.bind(this.fs), this.projectConfig);
@@ -208,7 +212,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
   projectfiles: function () {
     this.copy('_project.config.js', 'project.config.js');
     this.copy('_editorconfig', '.editorconfig');
-    this.copy('_gitignore', '.gitignore');
+    this.template('_gitignore', '.gitignore', this.projectConfig);
 
     if (this.projectConfig.prompts.useTypescript) {
       this.fs.copyTpl(this.templatePath('_tsd.json'), this.destinationPath('tsd.json'), this.projectConfig);
@@ -257,7 +261,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
   },
 
   runNpm: function () {
-    this.npmInstall();    
+    this.npmInstall();
     this.bowerInstall();
   },
 
@@ -277,7 +281,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
             this.emit('tsdReinstall:end');
             done();
           }.bind(this));
-      }.bind(this), { once: 'tsd reinstall', run: false });
+      }.bind(this), {once: 'tsd reinstall', run: false});
     }
   },
 
