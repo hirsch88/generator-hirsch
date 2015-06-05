@@ -1,3 +1,11 @@
+1.0.0-rc.16 / 2015-06-05
+==================
+
+  * Release 1.0.0-rc.16
+  * Added Pull-Request TypeScript support
+  * Added filter generator
+  * Fixed unit test templates
+
 1.0.0-rc.15 / 2015-06-04
 ==================
 
