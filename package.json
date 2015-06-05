@@ -25,6 +25,7 @@
     "module",
     "view",
     "directive",
+    "templates",
     "LICENSE",
     "util.js",
     "script-base.js",
