@@ -1,3 +1,10 @@
+1.0.0-rc.18 / 2015-06-05
+==================
+
+  * Release 1.0.0-rc.18
+  * Fixed missing templates folder in the package.json
+  * Updated README.md
+  
 1.0.0-rc.17 / 2015-06-05
 ==================
 
