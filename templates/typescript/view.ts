@@ -7,7 +7,6 @@ module <%= prefix %>.<%= module %>.views {
     $stateProvider
       .state('admin.<%= module %><%= classedName %>', {
         url: '/<%= url %>',
-        session: true,
         navigationKey: '<%= module %>',
         views: {
           'content': {
@@ -70,8 +69,8 @@ module <%= prefix %>.<%= module %>.views {
   }
 
   angular
-    .module('<%= prefix %>.<%= module %>.views.<%= classedName %>', [
-      '<%= prefix %>.core.util'
+    .module(`${Namespace}.<%= classedName %>`, [
+      core.util.Namespace
     ])
     .config(stateConfig)
     .controller(ID.<%= classedName %>Controller, <%= classedName %>Controller);

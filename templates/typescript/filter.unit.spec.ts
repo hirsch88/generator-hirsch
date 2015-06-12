@@ -3,9 +3,9 @@
 module <%= prefix %>.<%= module %>.filters.test {
   'use strict';
 
-  describe('Unit: <%= prefix %>.<%= module %>.filters.<%= classedName %>Filter', () => {
+  describe(`Unit: ${Namespace}.<%= classedName %>Filter`, () => {
 
-    beforeEach(module('<%= prefix %>.<%= module %>.filters'));
+    beforeEach(module(Namespace));
 
     var <%= cameledName %>: I<%= classedName %>Filter;
     beforeEach(inject($filter => <%= cameledName %> = $filter(ID.<%= classedName %>Filter)));
