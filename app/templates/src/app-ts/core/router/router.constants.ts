@@ -7,6 +7,6 @@ module <%= prompts.prefix %>.core.router {
   ];
 
   angular
-    .module('<%= prompts.prefix %>.core.router.RouterConstants', [])
+    .module(`${Namespace}.RouterConstants`, [])
     .constant(ID.APP_ROUTER_PRIVATE_ROUTES, getSecuredRoutes());
 }

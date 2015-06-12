@@ -145,13 +145,13 @@ var HirschGenerator = yeoman.generators.Base.extend({
 
         var srcPath = path.join.apply(null, srcSegs);
         var tgtPath = path.join.apply(null, tgtSegs);
-        console.log(srcPath + ' -> ' + tgtPath);
+        // console.log(srcPath + ' -> ' + tgtPath);
         copyFunc.apply(null, [_this.templatePath(srcPath), _this.destinationPath(tgtPath)].concat(newRest));
       };
     };
 
     this.copyFile = copyBase(this.fs.copy.bind(this.fs));
-    this.copyTpl = copyBase(this.fs.copyTpl.bind(this.fs), this.projectConfig);
+    this.copyTpl = copyBase(this.fs.copyTpl.bind(this.fs), this.projectConfig, { 'interpolate': /<%=([\s\S]+?)%>/g });
     this.copyDir = copyBase(this.directory.bind(this));
   },
 
@@ -180,6 +180,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.mkdir('src/app/common/views');
     this.mkdir('src/app/core');
     this.mkdir('src/assets');
+    this.mkdir('src/assets/config');
     this.mkdir('src/assets/medias');
     this.mkdir('src/assets/fonts');
     this.mkdir('src/assets/less');
@@ -237,7 +238,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
 
   appFiles: function () {
     // Index
-    this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.main);
+    this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.mainTpl);
 
     this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.app.main);
   },

@@ -1,0 +1,5 @@
+﻿{
+    "title": "My App",
+    "environment": "dev",
+    "backendUrl": "http://localhost:1337/api/"
+}

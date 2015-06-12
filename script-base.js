@@ -114,7 +114,7 @@ Generator.prototype.testTemplate = function (type, src, dest) {
   type = type || 'unit';
   yeoman.generators.Base.prototype.template.apply(this, [
     src + '.' + type + '.spec' + this.scriptSuffix,
-    path.join(this.env.options.testPath[type], dest) + '.spec' + this.scriptSuffix
+    path.join(this.env.options.testPath[type], dest) + this.scriptSuffix
   ]);
 };
 

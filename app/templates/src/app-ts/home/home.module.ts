@@ -3,8 +3,10 @@
 module <%= prompts.prefix %>.home {
   'use strict';
 
+  export var Namespace = '<%= prompts.prefix %>.home';
+
   angular
-    .module('<%= prompts.prefix %>.home', [
-      '<%= prompts.prefix %>.home.views'
+    .module(Namespace, [
+      `${Namespace}.views`
     ]);
 }

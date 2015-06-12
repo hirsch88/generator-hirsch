@@ -7,7 +7,6 @@ module <%= prompts.prefix %>.home.views {
     $stateProvider
       .state('admin.home', {
         url: '/home',
-        session: true,
         navigationKey: 'home',
         views: {
           'content': {
@@ -54,7 +53,7 @@ module <%= prompts.prefix %>.home.views {
   }
 
   angular
-    .module('<%= prompts.prefix %>.home.views.Home', [])
+    .module(`${Namespace}.Home`, [])
     .config(stateConfig)
     .controller(ID.HomeController, HomeController);
 }

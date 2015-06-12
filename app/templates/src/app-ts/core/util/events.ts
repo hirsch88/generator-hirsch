@@ -66,5 +66,5 @@ module <%= prompts.prefix %>.core.util {
     };
   }
 
-  angular.module('<%= prompts.prefix %>.core.util.Events', []).service(ID.AppEvents, AppEvents);
+  angular.module(`${Namespace}.Events`, []).service(ID.AppEvents, AppEvents);
 }
