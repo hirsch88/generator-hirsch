@@ -3,11 +3,13 @@
 module <%= prompts.prefix %>.core {
   'use strict';
 
+  export var Namespace = '<%= prompts.prefix %>.core';
+
   angular
-    .module('<%= prompts.prefix %>.core', [
-      '<%= prompts.prefix %>.core.constants',
-      '<%= prompts.prefix %>.core.config',
-      '<%= prompts.prefix %>.core.router',
-      '<%= prompts.prefix %>.core.util'
+    .module(Namespace, [
+      `${Namespace}.constants`,
+      `${Namespace}.config`,
+      `${Namespace}.router`,
+      `${Namespace}.util`
     ]);
 }

@@ -106,7 +106,9 @@ Generator.prototype.modulePrompt = function () {
 Generator.prototype.appTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
     src + this.scriptSuffix,
-    path.join(this.env.options.appPath, dest) + this.scriptSuffix
+    path.join(this.env.options.appPath, dest) + this.scriptSuffix, 
+    this,
+    { interpolate: /<%=([\s\S]+?)%>/g }
   ]);
 };
 
@@ -114,14 +116,18 @@ Generator.prototype.testTemplate = function (type, src, dest) {
   type = type || 'unit';
   yeoman.generators.Base.prototype.template.apply(this, [
     src + '.' + type + '.spec' + this.scriptSuffix,
-    path.join(this.env.options.testPath[type], dest) + '.spec' + this.scriptSuffix
+    path.join(this.env.options.testPath[type], dest) + this.scriptSuffix, 
+    this,
+    { interpolate: /<%=([\s\S]+?)%>/g }
   ]);
 };
 
 Generator.prototype.htmlTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
     src + '.html',
-    path.join(this.env.options.appPath, dest) + '.html'
+    path.join(this.env.options.appPath, dest) + '.html', 
+    this,
+    { interpolate: /<%=([\s\S]+?)%>/g }
   ]);
 };
 

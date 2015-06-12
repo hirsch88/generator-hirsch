@@ -9,4 +9,11 @@ old/
 bower_components/
 .DS_Store
 npm-debug.log
-<% if (prompts.useTypescript) { %><%= prompts.typingsPath %>/<% } %>
+src/assets/css/SCSDeveloperPortal.css<% if (prompts.useTypescript) { %>
+<%= prompts.typingsPath %>/
+src/app/**/*.js
+test/**/*.js
+src/app/**/*.js.map
+test/**/*.js.map
+src/index.html
+src/assets/config/config.json<% } %>

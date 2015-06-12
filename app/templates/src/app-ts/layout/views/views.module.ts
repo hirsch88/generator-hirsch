@@ -3,9 +3,11 @@
 module <%= prompts.prefix %>.layout.views {
   'use strict';
 
+  export var Namespace = '<%= prompts.prefix %>.layout.views';
+
   angular
-    .module('<%= prompts.prefix %>.layout.views', [
-    '<%= prompts.prefix %>.layout.views.Admin',
-    '<%= prompts.prefix %>.layout.views.Public'
-  ]);
+    .module(Namespace, [
+      `${Namespace}.Admin`,
+      `${Namespace}.Public`
+    ]);
 }

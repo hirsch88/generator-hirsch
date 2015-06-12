@@ -62,17 +62,19 @@ module.exports = function (isGenerator) {
       appDir:    'app',
       assetsDir: 'assets',
       tempDir:   '.tmp',
+      mainTpl:   'index.tpl.html',
       main:      'index.html',
       asset:     {
-        cssDir:   'assets/css',
-        css:      'assets/css/**/*.css',
-        lessDir:  'assets/less',
-        less:     'assets/less/**/*.less',
-        lessMain: 'assets/less/main.less',
-        fontDir:  'assets/fonts',
-        mediaDir: 'assets/medias',
-        i18nDir:  'assets/i18n',
-        i18n:     'assets/i18n/**/*.json'
+        configDir: 'assets/config',
+        cssDir:    'assets/css',
+        css:       'assets/css/**/*.css',
+        lessDir:   'assets/less',
+        less:      'assets/less/**/*.less',
+        lessMain:  'assets/less/main.less',
+        fontDir:   'assets/fonts',
+        mediaDir:  'assets/medias',
+        i18nDir:   'assets/i18n',
+        i18n:      'assets/i18n/**/*.json'
       },
       app:       {
         main:       'app/app.js',

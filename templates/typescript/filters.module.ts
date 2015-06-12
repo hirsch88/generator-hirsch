@@ -3,10 +3,12 @@
 module <%= prefix %>.<%= module %>.filters {
   'use strict';
 
+  export var Namespace = '<%= prefix %>.<%= module %>.filters';
+
   angular
-    .module('<%= prefix %>.<%= module %>.filters', [<% for (var i = 0, l = components.length; i < l; i++) { %>
-      '<%= prefix %>.<%= module %>.filters.<%= components[i] %>', <% } %>
-      '<%= prefix %>.<%= module %>.filters.<%= classedName %>Filter'
+    .module(Namespace, [<% for (var i = 0, l = components.length; i < l; i++) { %>
+      `${Namespace}.<%= components[i] %>`, <% } %>
+      `${Namespace }.<%= classedName %>Filter`
     ]);
 
   export var ID = {<% for (var i = 0, l = components.length; i < l; i++) { %>

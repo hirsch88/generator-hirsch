@@ -28,7 +28,7 @@ module <%= prefix %>.<%= module %>.services {
   factory.$inject = [];<% } %>
 
   angular
-    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>Service', [])<% if(!useFactory) { %>
+    .module(`${Namespace}.<%= classedName %>Service`, [])<% if(!useFactory) { %>
     .service(ID.<%= classedName %>Service, <%= classedName %>Service)<% } %><% if(useFactory) { %>
     .factory(ID.<%= classedName %>Service, factory)<% } %>;
 }

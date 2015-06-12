@@ -3,8 +3,10 @@
 module <%= prompts.prefix %>.layout.directives {
   'use strict';
 
+  export var Namespace = '<%= prompts.prefix %>.layout.directives';
+
   angular
-    .module('<%= prompts.prefix %>.layout.directives', [
-      '<%= prompts.prefix %>.layout.directives.Header'
+    .module(Namespace, [
+      `${Namespace}.Header`
     ]);
 }

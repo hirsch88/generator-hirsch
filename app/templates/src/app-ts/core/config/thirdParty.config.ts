@@ -15,6 +15,8 @@ module <%= prompts.prefix %>.core.config {
   translateConfig.$inject = ['$translateProvider'];
 
   angular
-    .module('<%= prompts.prefix %>.core.config.ThirdParty', [])
+    .module(`${Namespace}.ThirdParty`, [
+      'pascalprecht.translate'
+    ])
     .config(translateConfig);
 }

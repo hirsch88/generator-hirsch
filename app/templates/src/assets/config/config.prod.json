@@ -1,0 +1,5 @@
+﻿{
+    "title": "My App",
+    "environment": "prod",
+    "backendUrl": "http://someserver:1337/api/"
+}

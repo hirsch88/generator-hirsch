@@ -3,16 +3,16 @@
 module <%= prompts.prefix %>.core.util {
   'use strict';
 
+  export var Namespace = '<%= prompts.prefix %>.core.util';
+
   angular
-    .module('<%= prompts.prefix %>.core.util', [
-      '<%= prompts.prefix %>.core.util.Logger',
-      '<%= prompts.prefix %>.core.util.Events',
-      '<%= prompts.prefix %>.core.util.Util'
+    .module(Namespace, [
+      `${Namespace}.Logger`,
+      `${Namespace}.Events`
     ]);
 
   export var ID = {
-    AppUtil: '<%= prompts.prefix %>.core.util.Util',
-    AppEvents: '<%= prompts.prefix %>.core.util.Events',
-    LoggerFactory: '<%= prompts.prefix %>.core.util.Logger'
+    AppEvents: `${Namespace}.Events`,
+    LoggerFactory: `${Namespace}.Logger`
   };
 }
