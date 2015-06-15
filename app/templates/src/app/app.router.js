@@ -3,15 +3,16 @@ app.Router = (function (module) {
 
   angular
     .module(module.ID, [])
-    .run(function (appRouter) {
+    .run(function (appRouter, logger) {
+      var log = new logger('app.Router');
 
       appRouter.use(function (start, destination, next, done) {
-        console.log('1. Middleware !!!', start, destination);
+        log.info('1. Middleware !!!', start, destination);
         next();
       });
 
       appRouter.use('public', function (start, destination, next, done) {
-        console.log('3. Middleware on parent route!!!', start, destination);
+        log.info('3. Middleware on parent route!!!', start, destination);
         next();
         //or to stop and redirect use -> destination.go(public.home);
       });
