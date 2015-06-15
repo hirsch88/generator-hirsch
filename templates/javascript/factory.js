@@ -1,11 +1,11 @@
-(function() {
+app.<%= module %>.services.<%= classedName %> = (function(module) {
   'use strict';
 
   angular
-    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>', [])
-    .factory('<%= prefix %><%= classedName %>', <%= classedName %>Factory);
+    .module(module.ID, [])
+    .factory('<%= prefix %><%= classedName %>', <%= classedName %>);
 
-  function <%= classedName %>Factory() {
+  function <%= classedName %>() {
 
     var service = {
       key:    'value',
@@ -23,5 +23,6 @@
 
   }
 
+  return module;
 
-}());
+}(app.<%= module %>.services.add('<%= classedName %>')));

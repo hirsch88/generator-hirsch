@@ -1,11 +1,11 @@
-(function() {
+app.<%= module %>.services.<%= classedName %> = (function(module) {
   'use strict';
 
   angular
-    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>', [])
-    .service('<%= prefix %><%= classedName %>', <%= classedName %>Service);
+    .module(module.ID, [])
+    .service('<%= prefix %><%= classedName %>', <%= classedName %>);
 
-  function <%= classedName %>Service() {
+  function <%= classedName %>() {
 
     this.method = function() {
       return 'Hirsch says hi!';
@@ -13,5 +13,6 @@
 
   }
 
+  return module;
 
-}());
+}(app.<%= module %>.services.add('<%= classedName %>')));
