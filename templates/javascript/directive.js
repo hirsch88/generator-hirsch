@@ -1,14 +1,14 @@
-(function() {
+app.<%= module %>.directives.<%= classedName %> = (function(module) {
   'use strict';
 
   angular
-    .module('<%= appname %>.<%= module %>.directives.<%= classedName %>', [])
+    .module(module.ID, [])
     .directive('<%= prefix %><%= classedName %>', <%= classedName %>Directive);
 
   function <%= classedName %>Directive() {
     return {
       restrict:         '<%= restrict %>'<% if (hasLinkFnc || hasController || hasTemplate) { %>,<% } %><% if (hasTemplate) { %>
-      templateUrl:      '<%= templateUrl %>',<% } %><% if (hasController) { %>
+      templateUrl:      module.templateUrl(),<% } %><% if (hasController) { %>
       controller:       <%= classedName %>Controller,
       controllerAs:     '<%= prefix %><%= classedName %>',
       bindToController: true<% } %><% if (hasLinkFnc && hasController) { %>,<% } %><% if (hasLinkFnc) { %>
@@ -30,4 +30,6 @@
 
   }<% } %>
 
-}());
+  return module;
+
+}(app.<%= module %>.directives.add('<%= classedName %>')));
