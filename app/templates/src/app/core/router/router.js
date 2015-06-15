@@ -1,160 +1,95 @@
-(function () {
+app.core.router.Router = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.router.Router', [])
-    .run(AppRouter);
+    .module(module.ID, [])
+    .factory('appRouter', AppRouter)
+    .run(function ($rootScope, $urlRouter, appRouter) {
 
-  function AppRouter($q, $rootScope, $urlRouter, logger, $state, AppRouterService,
-                     APP_ROUTER_PRIVATE_ROUTES) {
+      $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        appRouter.addStateChangeListener(event, toState, toParams, fromState, fromParams);
+      });
 
-    var log = logger('AppRouter');
-    log.info('start');
+      $urlRouter.listen();
 
-    $rootScope.$on('$locationChangeSuccess', onLocationChange);
+    });
 
-    $urlRouter.listen();
+  function AppRouter($state, $urlRouter, AppRouterLayer, AppRouterStart, AppRouterDestination) {
 
+    var Router = function Router() {
+      this.stack = [];
+      this.previousState = {};
+    };
 
-    ////////////////////////////////////////////////
+    Router.prototype.use = function (fn) {
+      var layer;
+      if (typeof fn !== 'function') {
+        layer = new AppRouterLayer(arguments[1], arguments[0]);
+      } else {
+        layer = new AppRouterLayer(fn);
+      }
 
-    /**
-     * @name onLocationChange
-     * @param event
-     * @param toUrl
-     * @param fromUrl
-     */
-    function onLocationChange(event, toUrl, fromUrl) {
-      log.info('onLocationChange', toUrl);
+      if (layer) {
+        this.stack.push(layer);
+      }
+    };
 
-      // Halt state change from even starting
-      event.preventDefault();
+    Router.prototype.addStateChangeListener = function (event, toState, toParams, fromState, fromParams) {
+      if (this.stack.length > 0 && this.previousState.name !== toState.name) {
+        event.preventDefault();
+        this.previousState = toState;
+        this.dispatch(
+          new AppRouterStart(fromState, fromParams),
+          new AppRouterDestination(toState, toParams),
+          function (err) {
+            if (!err) {
+              $state.go(toState.name);
+            }
+          });
+      }
+    };
 
-      // is this a private route
-      isThisAPrivateRoute({
-        route:   toUrl,
-        initial: !AppRouterService.hasInitialized()
-      })
-        .then(hasValidSession)
-        .then(loadInitialData)
-        .finally(function (options) {
-          log.info('finally', options);
-          AppRouterService.initialized();
-          $urlRouter.sync();
-        })
-        .catch(function (err) {
-          log.warn('catch', err);
-          if (err.redirct) {
-            log.info('redirect to login');
-            $state.go('authLogin');
+    Router.prototype.dispatch = function (start, destination, done) {
+      var idx = 0;
+      var stack = this.stack;
+      if (stack.length === 0) {
+        return done();
+      }
+
+      next();
+      ////////////////////////////////////
+
+      function next(err) {
+        if (err) {
+          return done(err);
+        }
+        var layer = stack[idx++];
+        if (!layer) {
+          return done();
+        }
+        try {
+          if (!layer.hasRoute() || (layer.hasRoute() && layer.matchesState(destination.state.name))) {
+            layer.handle(
+              start,
+              destination,
+              next,
+              done
+            );
+          } else {
+            return next();
           }
-
-          if (err.sync) {
-            log.info('Browser sync');
-            $urlRouter.sync();
-          }
-        });
-    }
-
-    /**
-     * @name isThisAPrivateRoute
-     * @param options
-     * @returns {Promise}
-     */
-    function isThisAPrivateRoute(options) {
-      var deferred = $q.defer();
-      var isPrivate = false;
-
-      options.route = parseRoute(options.route);
-
-      for (var i = 0; i < APP_ROUTER_PRIVATE_ROUTES.length; i++) {
-        if (doesUrlMatchPattern(APP_ROUTER_PRIVATE_ROUTES[i], options.route)) {
-          isPrivate = true;
+        } catch (err) {
+          next(err);
         }
       }
+    };
 
-      if (isPrivate) {
-        deferred.resolve(options);
-      } else {
-        deferred.reject({
-          sync: true
-        });
-      }
-
-      return deferred.promise;
-    }
-
-    /**
-     * @name hasValidSession
-     * @param options
-     * @returns {Promise}
-     */
-    function hasValidSession(options) {
-      var deferred = $q.defer();
-
-      // TODO: Check if the user has a valid session
-      if (true) {
-        deferred.resolve(options);
-
-      } else {
-        deferred.reject({
-          session: true,
-          redirct: true
-        });
-      }
-
-      return deferred.promise;
-    }
-
-    /**
-     * @name
-     * @description
-     * Here we will load some initial data for the application like the active event, but
-     * only at the first run.
-     *
-     * @param options
-     * @returns {Promise}
-     */
-    function loadInitialData(options) {
-      var deferred = $q.defer();
-
-      // TODO: Load some initial data for the application
-      if (AppRouterService.hasInitialized()) {
-        deferred.resolve(options);
-
-      } else {
-        log.info('loadInitialData');
-        deferred.resolve(options);
-
-        //log.error('c3Events.init()', err);
-        //deferred.reject({
-        //  error: err
-        //});
-      }
-      return deferred.promise;
-    }
-
-    /**
-     * @name parseRoute
-     * @param route
-     * @returns {String}
-     */
-    function parseRoute(route) {
-      return route.split('#')[1] || route || '';
-    }
-
-    /**
-     * @name doesUrlMatchPattern
-     * @param pattern
-     * @param route
-     * @returns {Boolean}
-     */
-    function doesUrlMatchPattern(pattern, route) {
-      var exp = new RegExp(pattern);
-      return exp.test(route);
-    }
+    /////////////////////////////////
+    var router = new Router();
+    return router;
 
   }
 
+  return module;
 
-}());
+}(app.core.router.add('Router')));

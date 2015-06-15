@@ -1,16 +1,18 @@
-(function () {
+app.core.router = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.router', [
+    .module(module.ID, [
       'ui.router',
       'ui.router.router',
       'ui.router.state',
 
-      '<%= prompts.prefix %>.core.router.RouterConstants',
-      '<%= prompts.prefix %>.core.router.RouterConfig',
-      '<%= prompts.prefix %>.core.router.RouterService',
-      '<%= prompts.prefix %>.core.router.Router'
+      module.path('Start'),
+      module.path('Destination'),
+      module.path('Layer'),
+      module.path('Router')
     ]);
 
-}());
+  return module;
+
+}(app.core.add('router')));
