@@ -5,10 +5,10 @@ module.exports = function (config) {
 
   conf.files = conf.files.concat([
     //extra testing code
-    'src/lib/angular-mocks/angular-mocks.js',
+    './src/lib/angular-mocks/angular-mocks.js',
 
     //test files
-    'test/unit/**/*.js'
+    './test/unit/**/*.js'
   ]);
 
   config.set(conf);

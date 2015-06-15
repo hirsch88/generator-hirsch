@@ -14,9 +14,9 @@ module.exports = function () {
 
     files: [
       //Test-Specific Code
-      'node_modules/chai/chai.js',
-      'test/lib/chai-should.js',
-      'test/lib/chai-expect.js'
+      './node_modules/chai/chai.js',
+      './test/lib/chai-should.js',
+      './test/lib/chai-expect.js'
     ]
   };
 
@@ -24,13 +24,15 @@ module.exports = function () {
     projectConfig.karma.bower
   );
 
-  config.files.push('src/app/util.js');
-  config.files.push('src/app/app.js');
-  config.files.push('src/app/*/*.module.js');
-  config.files.push('src/app/*/*/*.module.js');
-  config.files.push('src/app/*/*/*/*.module.js');
-  config.files.push('src/app/*/*/*/*/*.module.js');
-  config.files.push('src/app/**/*.js');
+  config.files.push('./src/app/util.js');
+  config.files.push('./src/app/app.js');
+  config.files.push('./src/app/*/*.module.js');
+  config.files.push('./src/app/*/*/*.module.js');
+  config.files.push('./src/app/*/*/*/*.module.js');
+  config.files.push('./src/app/*/*/*/*/*.module.js');
+  config.files.push('./src/app/**/*.js');
+  config.files.push('./src/app/**/*.json');
+  config.files.push('./src/app/**/*.html');
 
   return config;
 };
