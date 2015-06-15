@@ -1,13 +1,14 @@
-(function () {
+app.core = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core', [
-      '<%= prompts.prefix %>.core.constants',
-      '<%= prompts.prefix %>.core.config',
-      '<%= prompts.prefix %>.core.router',
-      '<%= prompts.prefix %>.core.util'
+    .module(module.ID, [
+      module.path('constants'),
+      module.path('configs'),
+      module.path('utils'),
+      module.path('router')
     ]);
 
-}());
+  return module;
 
+}(app.add('core')));

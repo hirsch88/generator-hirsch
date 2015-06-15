@@ -1,26 +1,28 @@
-(function () {
+var app = (function (app) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>', [
+    .module(app.ID, [
 
       // AngularJS Libs
       'ngSanitize',
       'ngMessages',
 
       // Third-Party Libs
+      'ui.router',
       'pascalprecht.translate',
 
       // Configs, middleware, run...
-      '<%= prompts.prefix %>.core',
+      app.path('core'),
 
       // Common components, services, filters...
 
       // App modules with business logic
-      '<%= prompts.prefix %>.layout',
-      '<%= prompts.prefix %>.home'
-
+      app.path('layout'),
+      app.path('home')
 
     ]);
 
-}());
+  return app;
+
+}(new Module('<%= prompts.prefix %>')));

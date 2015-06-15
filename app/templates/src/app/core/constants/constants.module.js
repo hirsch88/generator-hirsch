@@ -1,9 +1,12 @@
-(function () {
+app.core.constants = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.constants', [
-      '<%= prompts.prefix %>.core.constants.Global'
+    .module(module.ID, [
+      module.path('Environment'),
+      module.path('Global')
     ]);
 
-}());
+  return module;
+
+}(app.core.add('constants')));
