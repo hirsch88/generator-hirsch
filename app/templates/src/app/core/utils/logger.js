@@ -1,11 +1,13 @@
-(function () {
+app.core.util.Logger = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.util.Logger', [])
+    .module(module.ID, [
+      app.core.constants.Environment.ID
+    ])
     .factory('logger', LoggerService);
 
-  function LoggerService($log, appUtil) {
+  function LoggerService($log, myEnvironment) {
 
     function Logger(name) {
       this.name = name;
@@ -24,7 +26,7 @@
     };
 
     Logger.prototype._log = function (type, text, object) {
-      if (appUtil.getEnvironment() !== 'prod') {
+      if (myEnvironment.getCurrent() !== 'prod') {
 
         object = (_.isObject(text) || _.isArray(text))
           ? text
@@ -60,5 +62,6 @@
 
   }
 
+  return module;
 
-}());
+}(app.core.util.add('Logger')));
