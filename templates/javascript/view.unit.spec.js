@@ -1,9 +1,9 @@
 'use strict';
 
-describe('Unit: <%= prefix %>.<%= module %>.views.<%= classedName %>', function () {
+describe('Unit: <%= prefix %><%= classedName %>Controller', function () {
 
   var controller, scope;
-  beforeEach(module('<%= prefix %>'));
+  beforeEach(module(app.<%= module %>.views.<%= classedName % >.ID));
 
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();

@@ -1,8 +1,8 @@
-(function () {
+app.<%= module %>.views.<%= classedName %> = (function(module) {
   'use strict';
 
   angular
-    .module('<%= prefix %>.<%= module %>.views.<%= classedName %>', [])
+    .module(module.ID, [])
     .config(StateConfig)
     .controller('<%= prefix %><%= classedName %>Controller', <%= classedName %>Controller);
 
@@ -14,7 +14,7 @@
         navigationKey: '<%= module %>',
         views:         {
           'content': {
-            templateUrl:  '<%= templateUrl %>',
+            templateUrl:  module.templateUrl(),
             controller:   '<%= prefix %><%= classedName %>Controller',
             controllerAs: '<%= prefix %><%= classedName %>'
           }
@@ -29,4 +29,6 @@
 
   }
 
-})();
+  return module;
+
+}(app.<%= module %>.views.add('<%= classedName %>')));
