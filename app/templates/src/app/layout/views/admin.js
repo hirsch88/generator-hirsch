@@ -1,10 +1,9 @@
-(function () {
+app.layout.views.Admin = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.layout.views.Admin', [])
+    .module(module.ID, [])
     .config(StateConfig);
-
 
   function StateConfig($stateProvider) {
     $stateProvider
@@ -12,12 +11,13 @@
         session: true,
         views:   {
           'root': {
-            templateUrl: 'app/layout/views/admin.html'
+            templateUrl: module.templateUrl()
           }
         }
 
       });
   }
 
+  return module;
 
-}());
+}(app.layout.views.add('Admin')));

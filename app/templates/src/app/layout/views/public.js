@@ -1,22 +1,21 @@
-(function () {
+app.layout.views.Public = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.layout.views.Public', [])
+    .module(module.ID, [])
     .config(StateConfig);
-
 
   function StateConfig($stateProvider) {
     $stateProvider
       .state('public', {
         views: {
           'root': {
-            templateUrl: 'app/layout/views/public.html'
+            templateUrl: module.templateUrl()
           }
         }
-
       });
   }
 
+  return module;
 
-}());
+}(app.layout.views.add('Public')));

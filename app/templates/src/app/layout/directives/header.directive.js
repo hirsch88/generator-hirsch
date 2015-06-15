@@ -1,17 +1,14 @@
-/**
- * @namespace layout
- */
-(function () {
+app.layout.directives.Header = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.layout.directives.Header', [])
+    .module(module.ID, [])
     .directive('<%= prompts.prefix %>Header', HeaderDirective);
 
   function HeaderDirective() {
     return {
       restrict:         'EA',
-      templateUrl:      'app/layout/directives/header.directive.html',
+      templateUrl:      module.templateUrl(),
       controller:       HeaderController,
       controllerAs:     'header',
       bindToController: true // because the scope is isolated
@@ -31,4 +28,6 @@
 
   }
 
-}());
+  return module;
+
+}(app.layout.directives.add('Header')));

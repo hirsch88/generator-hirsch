@@ -1,20 +1,21 @@
-(function () {
+app.home.views.Home = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.home.views.Home', [])
+    .module(module.ID, [
+    ])
     .config(StateConfig)
     .controller('homeController', HomeController);
 
   function StateConfig($stateProvider) {
     $stateProvider
-      .state('admin.home', {
+      .state('public.home', {
         url:           '/home',
         session:       true,
         navigationKey: 'home',
         views:         {
           'content': {
-            templateUrl:  'app/home/views/home.html',
+            templateUrl:  module.templateUrl(),
             controller:   'homeController',
             controllerAs: 'home'
           }
@@ -31,4 +32,6 @@
 
   }
 
-}());
+  return module;
+
+}(app.home.views.add('Home')));
