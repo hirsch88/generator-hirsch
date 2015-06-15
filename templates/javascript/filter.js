@@ -1,8 +1,8 @@
-(function() {
+app.<%= module %>.filters.<%= classedName %> = (function(module) {
   'use strict';
 
   angular
-    .module('<%= prefix %>.<%= module %>.filters.<%= classedName %>', [])
+    .module(module.ID, [])
     .filter('<%= prefix %><%= classedName %>', <%= classedName %>Filter);
 
   function <%= classedName %>Filter() {
@@ -20,5 +20,6 @@
 
   }
 
+  return module;
 
-}());
+}(app.<%= module %>.filters.add('<%= classedName %>')));
