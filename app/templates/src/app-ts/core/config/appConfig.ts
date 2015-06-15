@@ -21,6 +21,6 @@ module <%= prompts.prefix %>.core.config {
     environment: string;
   }
 
-  angular.module(`${Namespace}.Config`, [])
+  angular.module(ID.AppConfig, [])
     .constant(ID.AppConfig, {});
 }

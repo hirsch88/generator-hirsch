@@ -5,14 +5,14 @@ module <%= prompts.prefix %>.core.util {
 
   export var Namespace = '<%= prompts.prefix %>.core.util';
 
-  angular
-    .module(Namespace, [
-      `${Namespace}.Logger`,
-      `${Namespace}.Events`
-    ]);
-
   export var ID = {
     AppEvents: `${Namespace}.Events`,
     LoggerFactory: `${Namespace}.Logger`
   };
+
+  angular
+    .module(Namespace, [
+      ID.AppEvents,
+      ID.LoggerFactory
+    ]);
 }

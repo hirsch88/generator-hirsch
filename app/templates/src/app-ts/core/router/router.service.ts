@@ -44,6 +44,6 @@ module <%= prompts.prefix %>.core.router {
   }
 
   angular
-    .module(`${Namespace}.RouterService`, [])
+    .module(ID.RouterService, [])
     .service(ID.RouterService, RouterService);
 }

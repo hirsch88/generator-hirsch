@@ -12,6 +12,7 @@ module <%= prompts.prefix %>.core.constants {
 
   export var ID = {
     lodash: `${Namespace}.lodash`,
-    moment: `${Namespace }.moment`
+    moment: `${Namespace}.moment`,
+    jQuery: `${Namespace}.jQuery`
   };
 }

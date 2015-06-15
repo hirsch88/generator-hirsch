@@ -39,7 +39,7 @@
         var $http = initInjector.get('$http');
         $http.get('assets/config/config.json').then(
           function(response) {
-            angular.module(<%= prompts.prefix %>.core.config.Namespace, []).constant(<%= prompts.prefix %>.core.config.ID.AppConfig, response.data);
+            angular.module(<%= prompts.prefix %>.core.config.ID.AppConfig, []).constant(<%= prompts.prefix %>.core.config.ID.AppConfig, response.data);
 
             angular.element(document).ready(function() {
               angular.bootstrap(document, ['<%= prompts.prefix %>']);

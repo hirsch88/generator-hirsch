@@ -5,14 +5,14 @@ module <%= prompts.prefix %>.core.config {
 
   export var Namespace = '<%= prompts.prefix %>.core.config';
 
+  export var ID = {
+    AppConfig: `${Namespace}.ConfigJSON`
+  };
+
   angular
     .module(Namespace, [
       `${Namespace}.Angular`,
       `${Namespace}.ThirdParty`,
-      `${Namespace}.Config`
+      ID.AppConfig
     ]);
-
-  export var ID = {
-    AppConfig: `${Namespace}.ConfigJSON`
-  };
 }

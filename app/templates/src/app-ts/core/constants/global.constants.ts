@@ -6,6 +6,7 @@ module <%= prompts.prefix %>.core.constants {
   angular
     .module(`${Namespace}.Global`, [])
     .constant(ID.lodash, _)
-    .constant(ID.moment, moment);
+    .constant(ID.moment, moment)
+    .constant(ID.jQuery, $);
 
 }

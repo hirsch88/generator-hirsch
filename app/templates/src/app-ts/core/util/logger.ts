@@ -61,6 +61,6 @@ module <%= prompts.prefix %>.core.util {
   }
 
   angular
-    .module(`${Namespace}.Logger`, [])
+    .module(ID.LoggerFactory, [])
     .factory(ID.LoggerFactory, loggerService);
 }
