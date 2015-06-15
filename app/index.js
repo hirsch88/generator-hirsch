@@ -180,7 +180,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.mkdir('src/app/common/views');
     this.mkdir('src/app/core');
     this.mkdir('src/assets');
-    this.mkdir('src/assets/medias');
+    this.mkdir('src/assets/media');
     this.mkdir('src/assets/fonts');
     this.mkdir('src/assets/less');
     this.mkdir('src/assets/i18n');
@@ -238,8 +238,9 @@ var HirschGenerator = yeoman.generators.Base.extend({
   appFiles: function () {
     // Index
     this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.main);
-
     this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.app.main);
+    this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.app.util);
+    this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, 'app.router.js');
   },
 
   coreFiles: function () {
