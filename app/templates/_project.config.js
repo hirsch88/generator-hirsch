@@ -75,8 +75,11 @@ module.exports = function (isGenerator) {
         i18n:     'assets/i18n/**/*.json'
       },
       app:       {
+        util:       'app/util.js',
         main:       'app/app.js',
         modules:    'app/**/*.module.js',
+        configs:    'app/**/*.config.js',
+        constants:  'app/**/*.constant.js',
         services:   'app/**/*.service.js',
         directives: 'app/**/*.directive.js',
         scripts:    'app/**/*.js',
@@ -162,8 +165,11 @@ module.exports = function (isGenerator) {
   function getAngularScripts() {
     return {
       files: [
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.util),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.main),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.modules),
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.configs),
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.constants),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, '**/*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '**/*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.scripts)
@@ -174,8 +180,10 @@ module.exports = function (isGenerator) {
   function getKarmaOptions() {
     return {
       files:  [].concat(
-        bowerFilesJs,
         getAngularScripts().files
+      ),
+      bower:  [].concat(
+        bowerFilesJs
       ),
       unit:   [
         'src/lib/angular-mocks/angular-mocks.js',
