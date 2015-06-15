@@ -6,6 +6,7 @@ app.<%= module %>.services.<%= classedName %> = (function(module) {
     .factory('<%= prefix %><%= classedName %>', <%= classedName %>);
 
   function <%= classedName %>() {
+    var log = new logger('app.<%= module %>.services.<%= classedName %>');
 
     var service = {
       key:    'value',
