@@ -1,9 +1,10 @@
-(function () {
+app.<%= module %>.constants.<%= classedName %> = (function (module) {
   'use strict';
 
   angular
-    .module('<%= appname %>.<%= module %>.constants.<%= classedName %>', [])
-    .constant('<%= cameledName %>', 'Your Contant goes here...' );
+    .module(module.ID, [])
+    .constant('<%= prefix %><%= classedName %>', 'Your Contant goes here...' );
 
+  return module;
 
-})();
+})(app.<%= module %>.constants.add('<%= classedName %>'));
