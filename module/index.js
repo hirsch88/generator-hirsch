@@ -12,7 +12,7 @@ util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createFiles = function createFiles() {
   this.appTemplate(this.generatorName, path.join(this.name, this.name + '.' + this.generatorName));
-  this.testTemplate('midway', this.generatorName, path.join(this.name, this.name + '.' + this.generatorName + '.spec'));
+  this.testTemplate('midway', this.generatorName, path.join(this.name, this.name + '.' + this.generatorName));
 };
 
 Generator.prototype.end = function createFiles() {

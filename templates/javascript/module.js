@@ -1,8 +1,9 @@
-(function () {
+app.<%= cameledName %> = (function (module) {
   'use strict';
 
   angular
-    .module('<%= prefix %>.<%= cameledName %>', []);
+    .module(module.ID, []);
 
+  return module;
 
-})();
+})(app.add('<%= cameledName %>'));
