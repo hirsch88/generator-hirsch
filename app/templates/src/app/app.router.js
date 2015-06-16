@@ -3,8 +3,8 @@ app.Router = (function (module) {
 
   angular
     .module(module.ID, [])
-    .run(function (appRouter, logger) {
-      var log = new logger('app.Router');
+    .run(function (appRouter, Logger) {
+      var log = new Logger('app.Router');
 
       appRouter.use(function (start, destination, next, done) {
         log.info('1. Middleware !!!', start, destination);

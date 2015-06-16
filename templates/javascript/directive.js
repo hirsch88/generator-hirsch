@@ -5,7 +5,7 @@ app.<%= module %>.directives.<%= classedName %> = (function(module) {
     .module(module.ID, [])
     .directive('<%= prefix %><%= classedName %>', <%= classedName %>Directive);
 
-  function <%= classedName %>Directive(<% if (hasLinkFnc) { %>logger<% } %>) {
+  function <%= classedName %>Directive(<% if (hasLinkFnc) { %>Logger<% } %>) {
     return {
       restrict:         '<%= restrict %>'<% if (hasLinkFnc || hasController || hasTemplate) { %>,<% } %><% if (hasTemplate) { %>
       templateUrl:      module.templateUrl(),<% } %><% if (hasController) { %>
@@ -16,7 +16,7 @@ app.<%= module %>.directives.<%= classedName %> = (function(module) {
     };<% if (hasLinkFnc) { %>
 
     function <%= classedName %>Link(scope, element, attrs) {
-      var log = new logger('app.<%= module %>.directives.<%= classedName %>');
+      var log = new Logger('app.<%= module %>.directives.<%= classedName %>');
 
       // code will be here ...
 
@@ -24,8 +24,8 @@ app.<%= module %>.directives.<%= classedName %> = (function(module) {
 
   }<% if (hasController) { %>
 
-  function <%= classedName %>Controller(logger) {
-    var log = new logger('app.<%= module %>.directives.<%= classedName %>');
+  function <%= classedName %>Controller(Logger) {
+    var log = new Logger('app.<%= module %>.directives.<%= classedName %>');
     var vm = this;
 
     // code will be here ...

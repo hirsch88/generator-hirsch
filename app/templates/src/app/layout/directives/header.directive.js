@@ -21,8 +21,8 @@ app.layout.directives.Header = (function (module) {
    *
    * @constructor
    */
-  function HeaderController(logger) {
-    var log = new logger('app.layout.directives.Header');
+  function HeaderController(Logger) {
+    var log = new Logger('app.layout.directives.Header');
     var vm = this;
 
     // Your code goes here...

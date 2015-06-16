@@ -5,8 +5,8 @@ app.<%= module %>.filters.<%= classedName %> = (function(module) {
     .module(module.ID, [])
     .filter('<%= prefix %><%= classedName %>', <%= classedName %>Filter);
 
-  function <%= classedName %>Filter(logger) {
-    var log = new logger('app.<%= module %>.filters.<%= classedName %>');
+  function <%= classedName %>Filter(Logger) {
+    var log = new Logger('app.<%= module %>.filters.<%= classedName %>');
 
     return Filter;
     ////////////////////////

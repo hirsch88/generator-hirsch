@@ -5,7 +5,7 @@ app.core.util.Logger = (function (module) {
     .module(module.ID, [
       app.core.constants.Environment.ID
     ])
-    .factory('logger', LoggerService);
+    .factory('Logger', LoggerService);
 
   function LoggerService($log, myEnvironment) {
 

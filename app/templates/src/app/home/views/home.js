@@ -24,8 +24,8 @@ app.home.views.Home = (function (module) {
       });
   }
 
-  function HomeController(logger) {
-    var log = new logger('app.home.views.Home');
+  function HomeController(Logger) {
+    var log = new Logger('app.home.views.Home');
     var vm = this;
     vm.title = 'Hirsch says hi!';
 

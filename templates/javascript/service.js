@@ -5,8 +5,8 @@ app.<%= module %>.services.<%= classedName %> = (function(module) {
     .module(module.ID, [])
     .service('<%= prefix %><%= classedName %>', <%= classedName %>);
 
-  function <%= classedName %>(logger) {
-    var log = new logger('app.<%= module %>.services.<%= classedName %>');
+  function <%= classedName %>(Logger) {
+    var log = new Logger('app.<%= module %>.services.<%= classedName %>');
 
     this.method = function() {
       return 'Hirsch says hi!';

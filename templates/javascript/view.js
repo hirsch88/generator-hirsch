@@ -22,8 +22,8 @@ app.<%= module %>.views.<%= classedName %> = (function(module) {
       });
   }
 
-  function <%= classedName %>Controller(logger) {
-    var log = new logger('app.<%= module %>.views.<%= classedName %>');
+  function <%= classedName %>Controller(Logger) {
+    var log = new Logger('app.<%= module %>.views.<%= classedName %>');
     var vm = this;
 
     // code goes here...
