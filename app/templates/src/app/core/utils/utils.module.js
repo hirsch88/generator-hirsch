@@ -3,7 +3,8 @@ app.core.util = (function (module) {
 
   angular
     .module(module.ID, [
-      module.path('Logger')
+      module.path('Logger'),
+      module.path('Events')
     ]);
 
   return module;
