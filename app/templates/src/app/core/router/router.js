@@ -6,6 +6,7 @@ app.core.router.Router = (function (module) {
     .factory('appRouter', AppRouter)
     .run(function ($rootScope, $urlRouter, appRouter) {
 
+      $rootScope.appRouterIsWorking = false;
       $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         appRouter.addStateChangeListener(event, toState, toParams, fromState, fromParams);
       });
@@ -14,7 +15,7 @@ app.core.router.Router = (function (module) {
 
     });
 
-  function AppRouter($state, $urlRouter, AppRouterLayer, AppRouterStart, AppRouterDestination) {
+  function AppRouter($state, $urlRouter, $rootScope, AppRouterLayer, AppRouterStart, AppRouterDestination) {
 
     var Router = function Router() {
       this.stack = [];
@@ -42,6 +43,7 @@ app.core.router.Router = (function (module) {
           new AppRouterStart(fromState, fromParams),
           new AppRouterDestination(toState, toParams),
           function (err) {
+            $rootScope.appRouterIsWorking = false;
             if (!err) {
               $state.go(toState.name);
             }
@@ -56,6 +58,7 @@ app.core.router.Router = (function (module) {
         return done();
       }
 
+      $rootScope.appRouterIsWorking = true;
       next();
       ////////////////////////////////////
 
