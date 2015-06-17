@@ -2,9 +2,7 @@ app.core.util.Events = (function (module) {
   'use strict';
 
   angular
-    .module(module.ID, [
-      app.core.constants.Environment.ID
-    ])
+    .module(module.ID, [])
     .factory('events', EventsService);
 
   function EventsService() {

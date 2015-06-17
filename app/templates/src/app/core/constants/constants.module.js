@@ -3,7 +3,7 @@ app.core.constants = (function (module) {
 
   angular
     .module(module.ID, [
-      module.path('Environment'),
+      module.path('Config'),
       module.path('Global')
     ]);
 

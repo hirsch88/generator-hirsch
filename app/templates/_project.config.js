@@ -15,8 +15,12 @@ module.exports = function (isGenerator) {
     bowerFilesCss = (!isGenerator) ? wiredep({})['css'] : [];
     if (!isGenerator) {
       bowerFilesFonts = ['font-awesome', 'bootstrap']
-        .map(function (s) { return wiredep({}).packages[s].main; })
-        .reduce(function (a, b) { return a.concat(b); })
+        .map(function (s) {
+          return wiredep({}).packages[s].main;
+        })
+        .reduce(function (a, b) {
+          return a.concat(b);
+        })
         .filter(function (p) {
           return new RegExp('\\' + path.sep + 'fonts\\' + path.sep).test(p);
         });
@@ -64,15 +68,19 @@ module.exports = function (isGenerator) {
       tempDir:   '.tmp',
       main:      'index.html',
       asset:     {
-        cssDir:   'assets/css',
-        css:      'assets/css/**/*.css',
-        lessDir:  'assets/less',
-        less:     'assets/less/**/*.less',
-        lessMain: 'assets/less/main.less',
-        fontDir:  'assets/fonts',
-        mediaDir: 'assets/medias',
-        i18nDir:  'assets/i18n',
-        i18n:     'assets/i18n/**/*.json'
+        configDir: 'assets/config',
+        config:    {
+          environmentsDir: 'assets/config/environments'
+        },
+        cssDir:    'assets/css',
+        css:       'assets/css/**/*.css',
+        lessDir:   'assets/less',
+        less:      'assets/less/**/*.less',
+        lessMain:  'assets/less/main.less',
+        fontDir:   'assets/fonts',
+        mediaDir:  'assets/medias',
+        i18nDir:   'assets/i18n',
+        i18n:      'assets/i18n/**/*.json'
       },
       app:       {
         util:       'app/util.js',
@@ -99,17 +107,17 @@ module.exports = function (isGenerator) {
         }
       },
       test:      {
-        specs: '**/*.spec.js',
-        e2e: {
-          specs: 'test/e2e/**/*.spec.js',
+        specs:  '**/*.spec.js',
+        e2e:    {
+          specs:  'test/e2e/**/*.spec.js',
           config: 'karma-e2e.config.js'
         },
-        unit: {
-          specs: 'test/unit/**/*.spec.js',
+        unit:   {
+          specs:  'test/unit/**/*.spec.js',
           config: 'karma-unit.config.js'
         },
         midway: {
-          specs: 'test/midway/**/*.spec.js',
+          specs:  'test/midway/**/*.spec.js',
           config: 'karma-midway.config.js'
         }
 
@@ -168,8 +176,8 @@ module.exports = function (isGenerator) {
         path.join(projectConfig.path.srcDir, projectConfig.path.app.util),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.main),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.modules),
-        path.join(projectConfig.path.srcDir, projectConfig.path.app.configs),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.constants),
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.configs),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, '**/*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '**/*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.scripts)
@@ -199,16 +207,16 @@ module.exports = function (isGenerator) {
   function getBowerFiles() {
     return {
       files: {
-        js:   [].concat(
+        js:    [].concat(
           bowerFilesJs
         ),
-        css:  [].concat(
+        css:   [].concat(
           bowerFilesCss
         ),
         fonts: [].concat(
           bowerFilesFonts
         ),
-        main: bowerFiles
+        main:  bowerFiles
       }
     };
   }

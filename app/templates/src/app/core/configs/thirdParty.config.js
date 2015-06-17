@@ -2,16 +2,19 @@ app.core.config.ThirdPary = (function (module) {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module(module.ID, [
+      app.core.constants.Config.ID
+    ])
     .config(TranslateConfig)
     .config(UiRouterConfig);
 
-  function TranslateConfig($translateProvider) {
+  function TranslateConfig($translateProvider, appConfig) {
     $translateProvider.useStaticFilesLoader({
       prefix: './assets/i18n/',
       suffix: '.json'
     });
-    $translateProvider.preferredLanguage('en');
+    //$translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage(appConfig.LANGUAGE);
   }
 
   function UiRouterConfig($urlRouterProvider){

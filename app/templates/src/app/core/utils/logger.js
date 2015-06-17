@@ -3,11 +3,11 @@ app.core.util.Logger = (function (module) {
 
   angular
     .module(module.ID, [
-      app.core.constants.Environment.ID
+      app.core.constants.Config.ID
     ])
     .factory('Logger', LoggerService);
 
-  function LoggerService($log, myEnvironment) {
+  function LoggerService($log, appConfig) {
 
     function Logger(name) {
       this.name = name;
@@ -26,7 +26,7 @@ app.core.util.Logger = (function (module) {
     };
 
     Logger.prototype._log = function (type, text, object) {
-      if (myEnvironment.getCurrent() !== 'prod') {
+      if (appConfig.ENVIRONMENT !== 'production') {
 
         object = (_.isObject(text) || _.isArray(text))
           ? text
