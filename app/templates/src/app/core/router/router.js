@@ -1,8 +1,12 @@
-app.core.router.Router = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prompts.prefix %>.core.router.Router', [
+      '<%= prompts.prefix %>.core.router.Start',
+      '<%= prompts.prefix %>.core.router.Destination',
+      '<%= prompts.prefix %>.core.router.Layer'
+    ])
     .factory('appRouter', AppRouter)
     .run(function ($rootScope, $urlRouter, appRouter) {
 
@@ -93,6 +97,4 @@ app.core.router.Router = (function (module) {
 
   }
 
-  return module;
-
-}(app.core.router.add('Router')));
+}());

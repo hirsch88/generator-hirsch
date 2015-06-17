@@ -1,9 +1,9 @@
-app.core.util.Logger = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-      app.core.constants.Config.ID
+    .module('<%= prompts.prefix %>.core.utils.Logger', [
+      '<%= prompts.prefix %>.core.constants.Config'
     ])
     .factory('Logger', LoggerService);
 
@@ -62,6 +62,4 @@ app.core.util.Logger = (function (module) {
 
   }
 
-  return module;
-
-}(app.core.util.add('Logger')));
+}());

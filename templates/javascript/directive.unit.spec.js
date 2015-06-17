@@ -3,7 +3,7 @@
 describe('Unit: <%= prefix %><%= classedName %> directive', function () {
   var $compile, $rootScope;
 
-  beforeEach(module(app.<%= module %>.directives.<%= classedName %>.ID));
+  beforeEach(module('<%= prefix %>.<%= module %>.directives.<%= classedName %>'));
 
   beforeEach(angular.mock.inject(['$compile', '$rootScope', function($c, $r){
     $compile = $c;

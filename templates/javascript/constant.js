@@ -1,10 +1,8 @@
-app.<%= module %>.constants.<%= classedName %> = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prefix %>.<%= module %>.constants.<%= classedName %>', [])
     .constant('<%= prefix %><%= classedName %>', 'Your Contant goes here...' );
 
-  return module;
-
-})(app.<%= module %>.constants.add('<%= classedName %>'));
+})();

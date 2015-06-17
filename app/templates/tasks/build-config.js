@@ -35,6 +35,7 @@ gulp.task('build-config', function () {
         projectConfig.path.asset.config.environmentsDir,
         env + '.json'
       ));
+      context.prefix = projectConfig.pkg.prefix;
       console.log('');
       console.log(chalk.blue('i ') + 'Environment \'' + chalk.cyan(env) + '\'');
       console.log('');

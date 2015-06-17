@@ -1,12 +1,9 @@
-app.common.filters = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-    ]);
+    .module('<%= prompts.prefix %>.common.filters', []);
 
-  return module;
-
-})(app.common.add('filters'));
+})();
 
 

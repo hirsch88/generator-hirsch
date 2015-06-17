@@ -1,12 +1,10 @@
-app.layout.views = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-      module.path('Public'),
-      module.path('Admin')
+    .module('<%= prompts.prefix %>.layout.views', [
+      '<%= prompts.prefix %>.layout.views.Public',
+      '<%= prompts.prefix %>.layout.views.Admin'
     ]);
 
-  return module;
-
-})(app.layout.add('views'));
+})();

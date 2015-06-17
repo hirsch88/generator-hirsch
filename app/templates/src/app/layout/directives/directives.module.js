@@ -1,11 +1,9 @@
-app.layout.directives = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-      module.path('Header')
+    .module('<%= prompts.prefix %>.layout.directives', [
+      '<%= prompts.prefix %>.layout.directives.Header'
     ]);
 
-  return module;
-
-})(app.layout.add('directives'));
+})();

@@ -1,12 +1,10 @@
-app.core.config = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-      module.path('Angular'),
-      module.path('ThirdParty')
+    .module('<%= prompts.prefix %>.core.configs', [
+      '<%= prompts.prefix %>.core.configs.Angular',
+      '<%= prompts.prefix %>.core.configs.ThirdParty'
     ]);
 
-  return module;
-
-}(app.core.add('configs')));
+})();

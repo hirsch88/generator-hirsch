@@ -1,8 +1,9 @@
-app.home.views.Home = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
+    .module('<%= prompts.prefix %>.home.views.Home', [
+      'my.core.utils.Logger'
     ])
     .config(StateConfig)
     .controller('homeController', HomeController);
@@ -15,7 +16,7 @@ app.home.views.Home = (function (module) {
         navigationKey: 'home',
         views:         {
           'content': {
-            templateUrl:  module.templateUrl(),
+            templateUrl:  util.templateUrl('<%= prompts.prefix %>.home.views.Home'),
             controller:   'homeController',
             controllerAs: 'home'
           }
@@ -33,6 +34,4 @@ app.home.views.Home = (function (module) {
 
   }
 
-  return module;
-
-}(app.home.views.add('Home')));
+}());

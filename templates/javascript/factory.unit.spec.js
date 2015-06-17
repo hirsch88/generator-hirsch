@@ -3,7 +3,7 @@
 describe('Unit: <%= prefix %><%= classedName %> factory', function () {
 
   var <%= prefix %><%= classedName %>;
-  beforeEach(module(app.<%= module %>.services.<%= classedName %>.ID));
+  beforeEach(module('<%= prefix %>.<%= module %>.services.<%= classedName %>'));
   beforeEach(inject(function (_<%= prefix %><%= classedName %>_) {
     <%= prefix %><%= classedName %> = _<%= prefix %><%= classedName %>_;
   }));

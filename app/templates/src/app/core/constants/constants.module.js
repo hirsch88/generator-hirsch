@@ -1,12 +1,10 @@
-app.core.constants = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-      module.path('Config'),
-      module.path('Global')
+    .module('<%= prompts.prefix %>.core.constants', [
+      '<%= prompts.prefix %>.core.constants.Config',
+      '<%= prompts.prefix %>.core.constants.Global'
     ]);
 
-  return module;
-
-}(app.core.add('constants')));
+})();

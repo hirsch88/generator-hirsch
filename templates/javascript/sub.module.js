@@ -1,12 +1,10 @@
-app.<%= module %>.<%= dirName %> = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [<% for (var i = 0, l = components.length; i < l; i++) { %>
-      module.path('<%= components[i] %>'),<% } %>
-      module.path('<%= classedName %>')
+    .module('<%= prefix %>.<%= module %>.<%= dirName %>', [<% for (var i = 0, l = components.length; i < l; i++) { %>
+      '<%= prefix %>.<%= module %>.<%= dirName %>.<%= components[i] %>',<% } %>
+      '<%= prefix %>.<%= module %>.<%= dirName %>.<%= classedName %>'
     ]);
 
-  return module;
-
-})(app.<%= module %>.add('<%= dirName %>'));
+})();

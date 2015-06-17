@@ -1,8 +1,8 @@
-app.core.util.Events = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prompts.prefix %>.core.utils.Events', [])
     .factory('events', EventsService);
 
   function EventsService() {
@@ -46,6 +46,4 @@ app.core.util.Events = (function (module) {
 
   }
 
-  return module;
-
-}(app.core.util.add('Events')));
+}());

@@ -2,7 +2,7 @@
 
 describe('Unit: <%= prefix %><%= classedName %>', function () {
 
-  beforeEach(module(app.<%= module %>.filters.<%= classedName %>.ID));
+  beforeEach(module('<%= prefix %>.<%= module %>.filters.<%= classedName %>'));
 
   it('should have a <%= prefix %><%= classedName %>', inject(function($filter) {
     expect($filter('<%= prefix %><%= classedName %>')).not.to.equal(null);

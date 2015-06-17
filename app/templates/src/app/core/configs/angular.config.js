@@ -1,8 +1,8 @@
-app.core.config.Angular = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prompts.prefix %>.core.configs.Angular', [])
     .config(LogConfig)
     .config(HttpConfig)
     .config(CompileConfig);
@@ -52,6 +52,4 @@ app.core.config.Angular = (function (module) {
     $compileProvider.debugInfoEnabled(false);
   }
 
-  return module;
-
-}(app.core.config.add('Angular')));
+}());

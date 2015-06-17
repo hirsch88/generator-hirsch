@@ -1,10 +1,12 @@
-app.Router = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prompts.prefix %>.Router', [
+      'my.core.utils.Logger'
+    ])
     .run(function (appRouter, Logger) {
-      var log = new Logger('app.Router');
+      var log = new Logger('<%= prompts.prefix %>.Router');
 
       appRouter.use(function (start, destination, next, done) {
         log.info('1. Middleware !!!', start, destination);
@@ -19,6 +21,4 @@ app.Router = (function (module) {
 
     });
 
-  return module;
-
-}(app.add('Router')));
+}());

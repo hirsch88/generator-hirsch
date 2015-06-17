@@ -1,8 +1,8 @@
-app.core.router.Start = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prompts.prefix %>.core.router.Start', [])
     .factory('AppRouterStart', AppRouterStart);
 
   function AppRouterStart() {
@@ -15,6 +15,4 @@ app.core.router.Start = (function (module) {
 
   }
 
-  return module;
-
-}(app.core.router.add('Start')));
+}());

@@ -1,12 +1,10 @@
-app.layout = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-      module.path('directives'),
-      module.path('views')
+    .module('<%= prompts.prefix %>.layout', [
+      '<%= prompts.prefix %>.layout.directives',
+      '<%= prompts.prefix %>.layout.views'
     ]);
 
-  return module;
-
-})(app.add('layout'));
+})();

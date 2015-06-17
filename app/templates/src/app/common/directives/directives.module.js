@@ -1,12 +1,9 @@
-app.common.directives = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-    ]);
+    .module('<%= prompts.prefix %>.common.directives', []);
 
-  return module;
-
-})(app.common.add('directives'));
+})();
 
 

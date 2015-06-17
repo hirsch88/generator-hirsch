@@ -1,8 +1,8 @@
-app.core.router.Destination = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prompts.prefix %>.core.router.Destination', [])
     .factory('AppRouterDestination', AppRouterDestination);
 
   function AppRouterDestination($state) {
@@ -21,6 +21,4 @@ app.core.router.Destination = (function (module) {
 
   }
 
-  return module;
-
-}(app.core.router.add('Destination')));
+}());

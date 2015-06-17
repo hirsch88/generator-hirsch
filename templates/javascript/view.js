@@ -1,8 +1,11 @@
-app.<%= module %>.views.<%= classedName %> = (function(module) {
+(function() {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prefix %>.<%= module %>.views.<%= classedName %>', [
+      'ui.router',
+      '<%= prefix %>.core.utils.Logger'
+    ])
     .config(StateConfig)
     .controller('<%= prefix %><%= classedName %>Controller', <%= classedName %>Controller);
 
@@ -14,7 +17,7 @@ app.<%= module %>.views.<%= classedName %> = (function(module) {
         navigationKey: '<%= module %>',
         views:         {
           'content': {
-            templateUrl:  module.templateUrl(),
+            templateUrl:  util.templateUrl('<%= prefix %>.<%= module %>.views.<%= classedName %>'),
             controller:   '<%= prefix %><%= classedName %>Controller',
             controllerAs: '<%= prefix %><%= classedName %>'
           }
@@ -23,13 +26,11 @@ app.<%= module %>.views.<%= classedName %> = (function(module) {
   }
 
   function <%= classedName %>Controller(Logger) {
-    var log = new Logger('app.<%= module %>.views.<%= classedName %>');
+    var log = new Logger('<%= prefix %>.<%= module %>.views.<%= classedName %>');
     var vm = this;
 
     // code goes here...
 
   }
 
-  return module;
-
-}(app.<%= module %>.views.add('<%= classedName %>')));
+}());

@@ -1,8 +1,8 @@
-app.core.router.Layer = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prompts.prefix %>.core.router.Layer', [])
     .factory('AppRouterLayer', AppRouterLayer);
 
   function AppRouterLayer() {
@@ -26,6 +26,4 @@ app.core.router.Layer = (function (module) {
     return Layer;
   }
 
-  return module;
-
-}(app.core.router.add('Layer')));
+}());

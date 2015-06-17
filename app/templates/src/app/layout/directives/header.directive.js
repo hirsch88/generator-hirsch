@@ -1,8 +1,10 @@
-app.layout.directives.Header = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prompts.prefix %>.layout.directives.Header', [
+      'my.core.utils.Logger'
+    ])
     .directive('<%= prompts.prefix %>Header', HeaderDirective);
 
   function HeaderDirective() {
@@ -29,6 +31,5 @@ app.layout.directives.Header = (function (module) {
 
   }
 
-  return module;
 
-}(app.layout.directives.add('Header')));
+}());

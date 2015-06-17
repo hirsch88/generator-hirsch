@@ -1,9 +1,9 @@
-app.core.config.ThirdPary = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-      app.core.constants.Config.ID
+    .module('<%= prompts.prefix %>.core.configs.ThirdParty', [
+      '<%= prompts.prefix %>.core.constants.Config'
     ])
     .config(TranslateConfig)
     .config(UiRouterConfig);
@@ -13,7 +13,6 @@ app.core.config.ThirdPary = (function (module) {
       prefix: './assets/i18n/',
       suffix: '.json'
     });
-    //$translateProvider.preferredLanguage('en');
     $translateProvider.preferredLanguage(appConfig.LANGUAGE);
   }
 
@@ -21,9 +20,6 @@ app.core.config.ThirdPary = (function (module) {
     // when there is an empty route, redirect to /index
     $urlRouterProvider.when('', '/home');
     $urlRouterProvider.otherwise('/home');
-
   }
 
-  return {ID: module};
-
-}(app.core.config.add('ThirdParty')));
+}());

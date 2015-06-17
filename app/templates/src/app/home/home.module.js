@@ -1,11 +1,9 @@
-app.home = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-      module.path('views')
+    .module('<%= prompts.prefix %>.home', [
+      '<%= prompts.prefix %>.home.views'
     ]);
 
-  return module;
-
-})(app.add('home'));
+})();

@@ -1,12 +1,14 @@
-app.<%= module %>.services.<%= classedName %> = (function(module) {
+(function() {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>', [
+      '<%= prefix %>.core.utils.Logger'
+    ])
     .factory('<%= prefix %><%= classedName %>', <%= classedName %>);
 
   function <%= classedName %>(Logger) {
-    var log = new Logger('app.<%= module %>.services.<%= classedName %>');
+    var log = new Logger('<%= prefix %>.<%= module %>.services.<%= classedName %>');
 
     var service = {
       key:    'value',
@@ -24,6 +26,4 @@ app.<%= module %>.services.<%= classedName %> = (function(module) {
 
   }
 
-  return module;
-
-}(app.<%= module %>.services.add('<%= classedName %>')));
+}());

@@ -1,13 +1,10 @@
-app.core.util = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [
-      module.path('Logger'),
-      module.path('Events')
+    .module('<%= prompts.prefix %>.core.utils', [
+      '<%= prompts.prefix %>.core.utils.Logger',
+      '<%= prompts.prefix %>.core.utils.Events'
     ]);
 
-  return module;
-
-}(app.core.add('utils')));
-
+})();

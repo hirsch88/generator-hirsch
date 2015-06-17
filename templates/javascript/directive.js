@@ -1,14 +1,16 @@
-app.<%= module %>.directives.<%= classedName %> = (function(module) {
+(function() {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prefix %>.<%= module %>.directives.<%= classedName %>', [
+      '<%= prefix %>.core.utils.Logger'
+    ])
     .directive('<%= prefix %><%= classedName %>', <%= classedName %>Directive);
 
   function <%= classedName %>Directive(<% if (hasLinkFnc) { %>Logger<% } %>) {
     return {
       restrict:         '<%= restrict %>'<% if (hasLinkFnc || hasController || hasTemplate) { %>,<% } %><% if (hasTemplate) { %>
-      templateUrl:      module.templateUrl(),<% } %><% if (hasController) { %>
+      templateUrl:      util.templateUrl('<%= prefix %>.<%= module %>.directives.<%= classedName %>'),<% } %><% if (hasController) { %>
       controller:       <%= classedName %>Controller,
       controllerAs:     '<%= prefix %><%= classedName %>',
       bindToController: true<% } %><% if (hasLinkFnc && hasController) { %>,<% } %><% if (hasLinkFnc) { %>
@@ -16,7 +18,7 @@ app.<%= module %>.directives.<%= classedName %> = (function(module) {
     };<% if (hasLinkFnc) { %>
 
     function <%= classedName %>Link(scope, element, attrs) {
-      var log = new Logger('app.<%= module %>.directives.<%= classedName %>');
+      var log = new Logger('<%= prefix %>.<%= module %>.directives.<%= classedName %>');
 
       // code will be here ...
 
@@ -25,13 +27,11 @@ app.<%= module %>.directives.<%= classedName %> = (function(module) {
   }<% if (hasController) { %>
 
   function <%= classedName %>Controller(Logger) {
-    var log = new Logger('app.<%= module %>.directives.<%= classedName %>');
+    var log = new Logger('<%= prefix %>.<%= module %>.directives.<%= classedName %>');
     var vm = this;
 
     // code will be here ...
 
   }<% } %>
 
-  return module;
-
-}(app.<%= module %>.directives.add('<%= classedName %>')));
+}());

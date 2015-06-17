@@ -1,8 +1,8 @@
-var app = (function (app) {
+(function () {
   'use strict';
 
   angular
-    .module(app.ID, [
+    .module('<%= prompts.prefix %>', [
 
       // AngularJS Libs
       'ngSanitize',
@@ -10,19 +10,18 @@ var app = (function (app) {
 
       // Third-Party Libs
       'ui.router',
+      'ui.bootstrap',
       'pascalprecht.translate',
 
       // Configs, middleware, run...
-      app.path('core'),
+      '<%= prompts.prefix %>.core',
 
       // Common components, services, filters...
 
       // App modules with business logic
-      app.path('layout'),
-      app.path('home')
+      '<%= prompts.prefix %>.layout',
+      '<%= prompts.prefix %>.home'
 
     ]);
 
-  return app;
-
-}(new Module('<%= prompts.prefix %>')));
+}());

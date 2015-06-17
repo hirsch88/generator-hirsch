@@ -1,11 +1,9 @@
-app.core.constants.Global = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, [])
+    .module('<%= prompts.prefix %>.core.constants.Global', [])
     .constant('lodash', _)
     .constant('moment', moment);
 
-  return module;
-
-})(app.core.constants.add('Global'));
+})();

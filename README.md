@@ -9,7 +9,7 @@
 > Based on the famous style guide from John Papa [angular-styleguide](https://github.com/johnpapa/angular-styleguide)
 
 
-# Table of contenjs
+# Table of contents
 
 - [generator-hirsch](#generator-hirsch)
 - [Prerequisites](#Prerequisites)
@@ -100,8 +100,15 @@ Most of the templates will be generated with a standard karma unit/midway test
   Injects all JS files into your index.html, generates a css from your less and start a watcher for further changes to restart the process
   
 - `gulp help` or `gulp list`
+
+  Lists all tasks 
   
-  Lists all tasks
+- `gulp build-config [OPTION]`
+  - -d, --dev, --development //development
+  - -p, --prod, --production //production
+  - --otherEnv //custom env json file 
+ 
+  Generate new config constant form the given environment
   
 - `gulp build`
   

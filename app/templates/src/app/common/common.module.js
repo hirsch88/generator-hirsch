@@ -1,11 +1,7 @@
-app.common = (function (module) {
+(function () {
   'use strict';
 
   angular
-    .module(module.ID, []);
+    .module('<%= prompts.prefix %>.common', []);
 
-  return module;
-
-})(app.add('common'));
-
-
+})();
