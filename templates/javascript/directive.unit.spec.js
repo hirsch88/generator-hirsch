@@ -10,10 +10,10 @@ describe('Unit: <%= prefix %><%= classedName %> directive', function () {
     $rootScope = $r;
   }]));
 
-  it("should display the welcome text properly", function() {
-    var element = $compile('<div <%= prefix %>-<%= dashedName %>></div>')($rootScope);
-    expect(element.html()).to.match(/<%= prefix %><%= classedName %> Directive/i);
-  })
+  //it("should display the welcome text properly", function() {
+  //  var element = $compile('<div <%= prefix %>-<%= dashedName %>></div>')($rootScope);
+  //  expect(element.html()).to.match(/<%= prefix %><%= classedName %> Directive/i);
+  //})
 
 
 });
