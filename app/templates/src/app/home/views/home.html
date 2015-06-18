@@ -1,59 +1,76 @@
 <div class="container theme-showcase" role="main">
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
-    <h1>{{home.title}}</h1>
-
-    <p>You just used the hirsch generator to scaffold your new application</p>
+    <div class="row">
+    <pre class="col-sm-4"
+         style="background: transparent; border: none; font-size: 1.2em; font-weight: bold">
+       /|        |\
+    `__\\        //__'
+        ||      ||
+      \__`\     |'__/
+        `_\\   //_
+        _.,:---;,._
+        \_:     :_/
+          |@. .@|
+          |     |
+           \.-./
+            `-'
+      </pre>
+      <div class="col-sm-8">
+        <h1>{{home.title}}</h1>
+        <p>You just used the hirsch generator to scaffold your new application</p>
+      </div>
+    </div>
   </div>
   <div class="page-header">
     <h1>Generators</h1>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">yo hirsch:module myModule</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Adds a new module to your project</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">yo hirsch:constant myConstant</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Adds a new constant to your project</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">yo hirsch:constant myConstant</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Adds a new constant to your project</p></div>
     </div>
 
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">yo hirsch:view myNewView</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Adds a new view with a template and a controller in the view directory of the chosen module</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">yo hirsch:service myService</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Adds a new service to the chosen module of your project</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">yo hirsch:factory myService</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Adds a new service to the chosen module of your project</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">yo hirsch:filter myFilter</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Adds a new filter to the chosen module of your project</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">yo hirsch:directive myDirective</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Adds a new directive to the chosen module of your project</p></div>
     </div>
   </div>
@@ -64,8 +81,8 @@
     <h2>Building</h2>
 
     <div class="row">
-      <pre class="col-sm-3" style="font-family: monospace">gulp</pre>
-      <div class="col-sm-9"><p style="line-height: 2.8em;">
+      <pre class="col-sm-4" style="font-family: monospace">gulp</pre>
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Injects all JS files into your index.html, generates a css from your less and start a watcher for further
         changes to restart the process</p></div>
     </div>
@@ -73,69 +90,80 @@
     <div class="row">
 <pre class="col-sm-4" style="font-family: monospace">gulp help /*OR*/ gulp list
 </pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Generates new config constant file in your project.</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">gulp build-config [OPTION]
-        -d, --dev, --development
-        -p, --prod, --production
-        --otherEnvName</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+ -d, --dev, --development
+ -p, --prod, --production
+ --otherEnvName</pre>
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Generate new config constant form the given environment</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">gulp build</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Injects all JS files into your index.html and generates a css from your less</p></div>
     </div>
 
     <div class="row">
-      <pre class="col-sm-4" style="font-family: monospace">gulp style</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
-        Generates a css from your less</p></div>
+      <pre class="col-sm-4" style="font-family: monospace">gulp less</pre>
+      <div class="col-sm-8"><p style="padding-top: 10px;">
+        Generates a css from your less files</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">gulp jshint</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Checks code quality</p></div>
     </div>
 
     <div class="row">
-      <pre class="col-sm-4" style="font-family: monospace">gulp serve</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <pre class="col-sm-4" style="font-family: monospace">gulp install</pre>
+      <div class="col-sm-8"><p style="padding-top: 10px;">
+        Installs your dependencies</p></div>
+    </div>
+
+    <div class="row">
+      <pre class="col-sm-4" style="font-family: monospace">gulp serve
+// or for dist
+gulp serve-dist
+      </pre>
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         This task starts a server to test your app. It also starts a watcher for your source code,
         as soon as your source code has been modified the server refreshes the page.
       </p></div>
     </div>
 
     <h2>Testing</h2>
+
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">gulp test</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Runs all your karma tests</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">gulp test:unit</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Runs all your unit karma tests</p></div>
     </div>
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">gulp test:midway</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
+      <div class="col-sm-8"><p style="padding-top: 10px;">
         Runs all your midway karma tests</p></div>
     </div>
 
     <h2>Distribution</h2>
+
     <div class="row">
-      <pre class="col-sm-4" style="font-family: monospace">gulp test:dist</pre>
-      <div class="col-sm-8"><p style="line-height: 2.8em;">
-        This generates a minified app</p></div>
+      <pre class="col-sm-4" style="font-family: monospace">gulp dist</pre>
+      <div class="col-sm-8"><p style="padding-top: 10px;">
+        This generates a minified app with the production environment(can changed by parameter) into the dist folder</p></div>
     </div>
 
   </div>
