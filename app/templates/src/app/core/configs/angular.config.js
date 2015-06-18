@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.config.Angular', [])
+    .module('<%= prompts.prefix %>.core.configs.Angular', [])
     .config(LogConfig)
     .config(HttpConfig)
     .config(CompileConfig);
@@ -51,6 +51,5 @@
   function CompileConfig($compileProvider) {
     $compileProvider.debugInfoEnabled(false);
   }
-
 
 }());

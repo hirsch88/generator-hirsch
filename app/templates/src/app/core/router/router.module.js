@@ -6,11 +6,10 @@
       'ui.router',
       'ui.router.router',
       'ui.router.state',
-
-      '<%= prompts.prefix %>.core.router.RouterConstants',
-      '<%= prompts.prefix %>.core.router.RouterConfig',
-      '<%= prompts.prefix %>.core.router.RouterService',
+      '<%= prompts.prefix %>.core.router.Start',
+      '<%= prompts.prefix %>.core.router.Destination',
+      '<%= prompts.prefix %>.core.router.Layer',
       '<%= prompts.prefix %>.core.router.Router'
     ]);
 
-}());
+})();

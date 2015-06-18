@@ -2,8 +2,7 @@
   'use strict';
 
   angular
-    .module('<%= appname %>.<%= module %>.constants.<%= classedName %>', [])
-    .constant('<%= cameledName %>', 'Your Contant goes here...' );
-
+    .module('<%= prefix %>.<%= module %>.constants.<%= classedName %>', [])
+    .constant('<%= prefix %><%= classedName %>', 'Your Contant goes here...' );
 
 })();

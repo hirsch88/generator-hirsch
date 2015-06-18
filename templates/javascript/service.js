@@ -2,16 +2,18 @@
   'use strict';
 
   angular
-    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>', [])
-    .service('<%= prefix %><%= classedName %>', <%= classedName %>Service);
+    .module('<%= prefix %>.<%= module %>.services.<%= classedName %>', [
+      '<%= prefix %>.core.utils.Logger'
+    ])
+    .service('<%= prefix %><%= classedName %>', <%= classedName %>);
 
-  function <%= classedName %>Service() {
+  function <%= classedName %>(Logger) {
+    var log = new Logger('<%= prefix %>.<%= module %>.services.<%= classedName %>');
 
     this.method = function() {
       return 'Hirsch says hi!';
     };
 
   }
-
 
 }());

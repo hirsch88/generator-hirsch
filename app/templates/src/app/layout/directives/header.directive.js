@@ -1,17 +1,16 @@
-/**
- * @namespace layout
- */
 (function () {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.layout.directives.Header', [])
+    .module('<%= prompts.prefix %>.layout.directives.Header', [
+      'my.core.utils.Logger'
+    ])
     .directive('<%= prompts.prefix %>Header', HeaderDirective);
 
   function HeaderDirective() {
     return {
       restrict:         'EA',
-      templateUrl:      'app/layout/directives/header.directive.html',
+      templateUrl:      module.templateUrl(),
       controller:       HeaderController,
       controllerAs:     'header',
       bindToController: true // because the scope is isolated
@@ -24,11 +23,13 @@
    *
    * @constructor
    */
-  function HeaderController() {
+  function HeaderController(Logger) {
+    var log = new Logger('app.layout.directives.Header');
     var vm = this;
 
     // Your code goes here...
 
   }
+
 
 }());

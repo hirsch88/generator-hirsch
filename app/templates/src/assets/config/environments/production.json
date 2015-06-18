@@ -1,0 +1,5 @@
+{
+  "environment": "production",
+  "baseUrl":     "http://api.app:1337/api/",
+  "language":    "en"
+}

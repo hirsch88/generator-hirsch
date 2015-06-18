@@ -6,5 +6,4 @@
       '<%= prompts.prefix %>.layout.directives.Header'
     ]);
 
-
 })();

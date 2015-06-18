@@ -5,16 +5,14 @@
     .module('<%= prompts.prefix %>.layout.views.Public', [])
     .config(StateConfig);
 
-
   function StateConfig($stateProvider) {
     $stateProvider
       .state('public', {
         views: {
           'root': {
-            templateUrl: 'app/layout/views/public.html'
+            templateUrl: util.templateUrl('<%= prompts.prefix %>.layout.views.Public')
           }
         }
-
       });
   }
 

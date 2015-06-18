@@ -7,5 +7,4 @@
       '<%= prompts.prefix %>.layout.views.Admin'
     ]);
 
-
 })();

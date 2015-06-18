@@ -1,4 +1,4 @@
-describe('Unit: <%= prefix %>.<%= module %>.constants.<%= classedName %>', function () {
+describe('Unit: <%= prefix %><%= classedName %>', function () {
 
   var module;
   before(function () {

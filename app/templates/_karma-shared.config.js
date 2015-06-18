@@ -1,36 +1,38 @@
+var projectConfig = require('./project.config.js')();
+
 module.exports = function () {
-
-  var projectConfig = require('./project.config.js')();
-
-  var conf = {
+  var config = {
+    basePath:   '',
     frameworks: ['mocha', 'chai'],
     reporters:  ['progress'],
-    browsers:   ['Firefox'],
+    browsers:   ['Chrome'],
     autoWatch:  true,
 
     // these are default values anyway
-    singleRun:  false,
-    colors:     true,
+    singleRun: false,
+    colors:    true,
 
-    plugins: [
-      'karma-mocha',
-      'karma-chai',
-      'karma-chrome-launcher',
-      'karma-firefox-launcher'
-    ],
-    files:   []
+    files: [
+      //Test-Specific Code
+      './node_modules/chai/chai.js',
+      './test/lib/chai-should.js',
+      './test/lib/chai-expect.js'
+    ]
   };
 
-  // angular script files & 3rd party code from bower
-  conf.files = conf.files.concat(
-    projectConfig.karma.files
+  config.files = config.files.concat(
+    projectConfig.karma.bower
   );
 
-  conf.files = conf.files.concat([
-    'node_modules/chai/chai.js',
-    'test/lib/chai-should.js',
-    'test/lib/chai-expect.js'
-  ]);
+  config.files.push('./src/app/util.js');
+  config.files.push('./src/app/app.js');
+  config.files.push('./src/app/*/*.module.js');
+  config.files.push('./src/app/*/*/*.module.js');
+  config.files.push('./src/app/*/*/*/*.module.js');
+  config.files.push('./src/app/*/*/*/*/*.module.js');
+  config.files.push('./src/app/**/*.js');
+  config.files.push('./src/app/**/*.json');
+  config.files.push('./src/app/**/*.html');
 
-  return conf;
+  return config;
 };
