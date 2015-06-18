@@ -13,7 +13,7 @@ module <%= prompts.prefix %>.core.router {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.router.Router', [])
+    .module(`${Namespace}.Router`, [])
     .run(AppRouter);
 
   AppRouter.$inject = [

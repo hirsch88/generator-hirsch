@@ -3,9 +3,11 @@
 module <%= prompts.prefix %>.layout {
   'use strict';
 
+  export var Namespace = '<%= prompts.prefix %>.layout';
+
   angular
-    .module('<%= prompts.prefix %>.layout', [
-      '<%= prompts.prefix %>.layout.directives',
-      '<%= prompts.prefix %>.layout.views'
+    .module(Namespace, [
+      `${Namespace}.directives`,
+      `${Namespace}.views`
     ]);
 }

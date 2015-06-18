@@ -7,7 +7,7 @@ module <%= prompts.prefix %>.core.util {
     return name => new Logger($log, _, moment, appUtil, name);
   };
 
-  loggerService.$inject = ['$log', constants.ID.lodash, constants.ID.moment, util.ID.AppUtil];
+  loggerService.$inject = ['$log', constants.ID.lodash, constants.ID.moment, config.ID.AppConfig];
 
   export interface ILoggerFactory {
     /**
@@ -22,7 +22,7 @@ module <%= prompts.prefix %>.core.util {
       private $log: angular.ILogService,
       private _: _.LoDashStatic,
       private moment: moment.MomentStatic,
-      private appUtil: util.IAppUtil,
+      private config: config.IAppConfig,
       public name: string) {
     }
 
@@ -39,7 +39,7 @@ module <%= prompts.prefix %>.core.util {
     }
 
     private log(type: string, text: string | Object | any[], object?: any) {
-      if (this.appUtil.getEnvironment() !== 'prod') {
+      if (this.config.environment !== 'prod') {
 
         if (this._.isObject(text) || this._.isArray(text)) {
           object = text;
@@ -61,6 +61,6 @@ module <%= prompts.prefix %>.core.util {
   }
 
   angular
-    .module('<%= prompts.prefix %>.core.util.Logger', [])
+    .module(ID.LoggerFactory, [])
     .factory(ID.LoggerFactory, loggerService);
 }

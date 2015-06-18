@@ -3,10 +3,10 @@
 module <%= prefix %>.<%= module %>.directives.test {
   'use strict';
 
-  describe('Unit: <%= prefix %>.<%= module %>.directives.<%= classedName %>Directive', () => {
+  describe(`Unit: ${Namespace}.<%= classedName %>Directive`, () => {
     var $compile, $rootScope;
 
-    beforeEach(module('<%= prefix %>.<%= module %>.directives'));
+    beforeEach(module(Namespace));
 
     beforeEach(angular.mock.inject(
       ['$compile', '$rootScope', ($c, $r) => {
