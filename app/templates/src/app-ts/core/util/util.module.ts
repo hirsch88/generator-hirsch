@@ -7,12 +7,14 @@ module <%= prompts.prefix %>.core.util {
 
   export var ID = {
     AppEvents: `${Namespace}.Events`,
-    LoggerFactory: `${Namespace}.Logger`
+    LoggerFactory: `${Namespace}.Logger`,
+    Backend: `${Namespace}.Backend`
   };
 
   angular
     .module(Namespace, [
       ID.AppEvents,
-      ID.LoggerFactory
+      ID.LoggerFactory,
+      ID.Backend
     ]);
 }

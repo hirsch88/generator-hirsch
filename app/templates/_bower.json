@@ -25,8 +25,7 @@
     "angular-cookie":                        "*",
     "angular-translate":                     "*",
     "angular-translate-loader-static-files": "*",
-    "angular-ui-router":                     "*",
-    "restangular":                           "*"
+    "angular-ui-router":                     "*"
   },
   "devDependencies": {
     "angular-mocks":    "*",
