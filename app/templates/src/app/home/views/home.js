@@ -3,7 +3,7 @@
 
   angular
     .module('<%= prompts.prefix %>.home.views.Home', [
-      'my.core.utils.Logger'
+      '<%= prompts.prefix %>.core.utils.Logger'
     ])
     .config(StateConfig)
     .controller('homeController', HomeController);

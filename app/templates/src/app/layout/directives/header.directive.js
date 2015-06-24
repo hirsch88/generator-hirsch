@@ -3,7 +3,7 @@
 
   angular
     .module('<%= prompts.prefix %>.layout.directives.Header', [
-      'my.core.utils.Logger'
+      '<%= prompts.prefix %>.core.utils.Logger'
     ])
     .directive('<%= prompts.prefix %>Header', HeaderDirective);
 

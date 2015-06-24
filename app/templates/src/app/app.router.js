@@ -3,7 +3,7 @@
 
   angular
     .module('<%= prompts.prefix %>.Router', [
-      'my.core.utils.Logger'
+      '<%= prompts.prefix %>.core.utils.Logger'
     ])
     .run(function (appRouter, Logger) {
       var log = new Logger('<%= prompts.prefix %>.Router');
