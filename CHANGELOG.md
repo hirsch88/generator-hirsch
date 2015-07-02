@@ -1,3 +1,9 @@
+1.0.0-rc.21 / 2015-07-02
+==================
+
+  * Added TypeScript Pull-Request
+  * Fixed templates
+  
 1.0.0-rc.20 / 2015-06-18
 ==================
 
