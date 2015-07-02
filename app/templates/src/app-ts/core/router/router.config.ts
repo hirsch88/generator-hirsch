@@ -9,6 +9,6 @@ module <%= prompts.prefix %>.core.router {
   routerConfig.$inject = ['$urlRouterProvider'];
 
   angular
-    .module('<%= prompts.prefix %>.core.router.RouterConfig', [])
+    .module(`${Namespace}.RouterConfig`, [])
     .config(routerConfig);
 }

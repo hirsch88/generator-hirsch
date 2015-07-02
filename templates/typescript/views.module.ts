@@ -3,17 +3,19 @@
 module <%= prefix %>.<%= module %>.views {
   'use strict';
 
+  export var Namespace = '<%= prefix %>.<%= module %>.views';
+
   angular
-    .module('<%= prefix %>.<%= module %>.views', [
+    .module(Namespace, [
       'ui.router',
       'ui.router.router',
       'ui.router.state'<% for (var i = 0, l = components.length; i < l; i++) { %>,
-      '<%= prefix %>.<%= module %>.views.<%= components[i] %>'<% } %>,
-      '<%= prefix %>.<%= module %>.views.<%= classedName %>'
+      `${Namespace}.<%= components[i] %>`<% } %>,
+      `${Namespace}.<%= classedName %>`
     ]);
 
   export var ID = {<% for (var i = 0, l = components.length; i < l; i++) { %>
-    <%= components[i] %>Controller: '<%= prefix %>.<%= module %>.views.<%= components[i] %>Controller', <% } %>
-    <%= classedName %>Controller: '<%= prefix %>.<%= module %>.views.<%= classedName %>Controller'
+    <%= components[i] %>Controller: `${Namespace}.<%= components[i] %>Controller`, <% } %>
+    <%= classedName %>Controller: `${Namespace}.<%= classedName %>Controller`
   };
 }

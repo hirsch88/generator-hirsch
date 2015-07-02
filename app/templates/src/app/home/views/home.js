@@ -2,15 +2,13 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.home.views.Home', [
-      'my.core.utils.Logger'
-    ])
+    .module('<%= prompts.prefix %>.home.views.Home', [])
     .config(StateConfig)
     .controller('homeController', HomeController);
 
   function StateConfig($stateProvider) {
     $stateProvider
-      .state('public.home', {
+      .state('admin.home', {
         url:           '/home',
         session:       true,
         navigationKey: 'home',
@@ -26,7 +24,7 @@
   }
 
   function HomeController(Logger) {
-    var log = new Logger('app.home.views.Home');
+    var log = new Logger('<%= prompts.prefix %>.home.views.Home');
     var vm = this;
     vm.title = 'Hirsch says hi!';
 

@@ -3,9 +3,9 @@
 module <%= prefix %>.<%= module %>.views.test {
   'use strict';
 
-  describe('Unit: <%= prefix %>.<%= module %>.views.<%= classedName %>Controller', () => {
+  describe(`Unit: ${Namespace}.<%= classedName %>Controller`, () => {
 
-    beforeEach(module('<%= prefix %>.<%= module %>.views'));
+    beforeEach(module(Namespace));
 
     var controller: I<%= classedName %>Controller;
     beforeEach(inject($controller => controller = $controller(ID.<%= classedName %>Controller)));

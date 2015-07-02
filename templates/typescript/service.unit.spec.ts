@@ -3,9 +3,9 @@
 module <%= prefix %>.<%= module %>.services.test {
   'use strict';
 
-  describe('Unit: <%= prefix %>.<%= module %>.services.<%= classedName %>Service', () => {
+  describe(`Unit: ${Namespace}.<%= classedName %>Service`, () => {
 
-    beforeEach(module('<%= prefix %>.<%= module %>.services'));
+    beforeEach(module(Namespace));
     
     var service: I<%= classedName %>Service;
     beforeEach(angular.mock.inject([ID.<%= classedName %>Service, s => service = s]));

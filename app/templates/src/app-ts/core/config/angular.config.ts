@@ -40,7 +40,7 @@ module <%= prompts.prefix %>.core.config {
   compileConfig.$inject = ['$compileProvider'];
 
   angular
-    .module('<%= prompts.prefix %>.core.config.Angular', [])
+    .module(`${Namespace}.Angular`, [])
     .config(logConfig)
     .config(httpConfig)
     .config(compileConfig);

@@ -17,6 +17,6 @@ module <%= prompts.prefix %>.layout.views {
   stateConfig.$inject = ['$stateProvider'];
 
   angular
-    .module('<%= prompts.prefix %>.layout.views.Public', [])
+    .module(`${Namespace}.Public`, [])
     .config(stateConfig);
 }

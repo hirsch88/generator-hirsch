@@ -4,8 +4,9 @@ module <%= prompts.prefix %>.core.constants {
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.constants.Global', [])
+    .module(`${Namespace}.Global`, [])
     .constant(ID.lodash, _)
-    .constant(ID.moment, moment);
+    .constant(ID.moment, moment)
+    .constant(ID.jQuery, $);
 
 }

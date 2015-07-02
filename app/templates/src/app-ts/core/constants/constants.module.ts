@@ -3,13 +3,18 @@
 module <%= prompts.prefix %>.core.constants {
   'use strict';
 
+  export var Namespace = '<%= prompts.prefix %>.core.constants';
+
   angular
-    .module('<%= prompts.prefix %>.core.constants', [
-      '<%= prompts.prefix %>.core.constants.Global'
+    .module(Namespace, [
+      `${Namespace}.Config`,
+      `${Namespace}.Global`
     ]);
 
   export var ID = {
-    lodash: '<%= prompts.prefix %>.core.constants.lodash',
-    moment: '<%= prompts.prefix %>.core.constants.moment'
+    AppConfig: `${Namespace}.Config`,
+    lodash: `${Namespace}.lodash`,
+    moment: `${Namespace}.moment`,
+    jQuery: `${Namespace}.jQuery`
   };
 }

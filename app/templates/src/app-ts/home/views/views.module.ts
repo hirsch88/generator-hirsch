@@ -3,12 +3,14 @@
 module <%= prompts.prefix %>.home.views {
   'use strict';
 
+  export var Namespace = '<%= prompts.prefix %>.home.views';
+
   angular
-    .module('<%= prompts.prefix %>.home.views', [
-      '<%= prompts.prefix %>.home.views.Home'
+    .module(Namespace, [
+      `${Namespace}.Home`
     ]);
 
   export var ID = {
-    HomeController: '<%= prompts.prefix %>.home.views.HomeController'
+    HomeController: `${Namespace}.HomeController`
   };
 }
