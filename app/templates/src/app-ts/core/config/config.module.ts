@@ -3,9 +3,11 @@
 module <%= prompts.prefix %>.core.config {
   'use strict';
 
+  export var Namespace = '<%= prompts.prefix %>.core.config';
+
   angular
-    .module('<%= prompts.prefix %>.core.config', [
-      '<%= prompts.prefix %>.core.config.Angular',
-      '<%= prompts.prefix %>.core.config.ThirdParty'
+    .module(Namespace, [
+      `${Namespace}.Angular`,
+      `${Namespace}.ThirdParty`
     ]);
 }

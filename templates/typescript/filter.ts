@@ -20,6 +20,6 @@ module <%= prefix %>.<%= module %>.filters {
   <%= cameledName %>.$inject = [];
 
   angular
-    .module('<%= prefix %>.<%= module %>.filters.<%= classedName %>Filter', [])
+    .module(`${Namespace}.<%= classedName %>Filter`, [])
     .filter(ID.<%= classedName %>Filter, <%= cameledName %>);
 }

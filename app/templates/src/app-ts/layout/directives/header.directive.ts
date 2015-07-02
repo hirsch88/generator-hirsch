@@ -21,13 +21,13 @@ module <%= prompts.prefix %>.layout.directives {
   class HeaderController implements IHeaderController {
     title: string;
 
-    static $inject = [core.util.ID.AppUtil];
-    constructor(appUtil: core.util.IAppUtil) {
-      this.title = appUtil.title;
+    static $inject = [core.constants.ID.AppConfig];
+    constructor(config: core.constants.IAppConfig) {
+      this.title = config.ENVIRONMENT;
     }
   }
 
   angular
-    .module('<%= prompts.prefix %>.layout.directives.Header', [])
+    .module(`${Namespace}.Header`, [])
     .directive('<%= prompts.prefix %>Header', () => new HeaderDirective());
 }

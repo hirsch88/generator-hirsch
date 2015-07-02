@@ -6,7 +6,6 @@ module <%= prompts.prefix %>.layout.views {
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('admin', {
       abstract: true,
-      session: true,
       views: {
         'root': {
           templateUrl: 'app/layout/views/admin.html'
@@ -18,6 +17,6 @@ module <%= prompts.prefix %>.layout.views {
   stateConfig.$inject = ['$stateProvider'];  
 
   angular
-    .module('<%= prompts.prefix %>.layout.views.Admin', [])
+    .module(`${Namespace}.Admin`, [])
     .config(stateConfig);
 }
