@@ -22,7 +22,7 @@ Generator.prototype.prompting = function () {
 };
 
 Generator.prototype.initComponents = function () {
-  this.readComponents(this.module, this.generatorName);
+  this.readComponents(this.module, this.dirName);
 };
 
 Generator.prototype.promptForServiceType = function () {

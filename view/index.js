@@ -40,7 +40,7 @@ Generator.prototype.options = function () {
 };
 
 Generator.prototype.initComponents = function () {
-  this.readComponents(this.module, this.generatorName);
+  this.readComponents(this.module, this.dirName);
 };
 
 Generator.prototype.createFiles = function createFiles() {

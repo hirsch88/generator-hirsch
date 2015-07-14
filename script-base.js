@@ -74,9 +74,9 @@ Generator.prototype.readModules = function (cb) {
   }.bind(this));
 };
 
-Generator.prototype.readComponents = function (module, type, cb) {
+Generator.prototype.readComponents = function (module, dirName, cb) {
   var done = this.async();
-  hirschUtils.getComponentsFromFileStructure(this, module || 'common', type, function (components) {
+  hirschUtils.getComponentsFromFileStructure(this, module || 'common', dirName, function (components) {
     var self = this;
     _.forEach(components, function (item) {
       self.components.push(item);

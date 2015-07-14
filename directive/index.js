@@ -62,7 +62,7 @@ Generator.prototype.options = function () {
 };
 
 Generator.prototype.initComponents = function () {
-  this.readComponents(this.module, this.generatorName, function () {
+  this.readComponents(this.module, this.dirName, function () {
     this.components = this.components.map(function (c) {
       return c.replace(/Directive$/, '');
     });
