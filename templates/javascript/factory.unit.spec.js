@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Unit: <%= prefix %>.<%= module %>.services.<%= classedName %>', function () {
+describe('Unit: <%= prefix %><%= classedName %> factory', function () {
 
   var <%= prefix %><%= classedName %>;
   beforeEach(module('<%= prefix %>.<%= module %>.services.<%= classedName %>'));

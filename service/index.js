@@ -13,43 +13,47 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.init = function () {
+  this.classedName = this.classedName + 'Service';
   this.readModules();
 };
 
 Generator.prototype.prompting = function () {
   this.modulePrompt();
-}
+};
 
 Generator.prototype.initComponents = function () {
   this.readComponents(this.module, this.generatorName);
-}
+};
 
 Generator.prototype.promptForServiceType = function () {
-  if (this.env.options.typescript) {
-    var done = this.async();
-    var prompts = [
-      {
-        type: 'list',
-        name: 'serviceType',
-        message: 'Should the service be generated as a SERVICE or a FACTORY?',
-        choices: ['service', 'factory'],
-        default: 0
-      }
-    ];
+  var done = this.async();
+  var prompts = [
+    {
+      type:    'list',
+      name:    'serviceType',
+      message: 'Should the service be generated as a SERVICE or a FACTORY?',
+      choices: ['service', 'factory'],
+      default: 0
+    }
+  ];
 
-    this.prompt(prompts, function(props) {
-      this.useFactory = props.serviceType === 'factory';
-      done();
-    }.bind(this));
-  }
-}
+  this.prompt(prompts, function (props) {
+    this.useFactory = props.serviceType === 'factory';
+    done();
+  }.bind(this));
+};
 
 Generator.prototype.createFiles = function createFiles() {
-  this.appTemplate(this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
+  var templateName = (this.useFactory) ?'factory':'service';
+
+  this.appTemplate(templateName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
+  this.testTemplate('unit', templateName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
+
   if (this.env.options.typescript) {
     this.appTemplate(this.dirName + '.module', path.join(this.module, this.dirName, this.dirName + '.module'));
+  } else {
+    this.appTemplate('sub.module', path.join(this.module, this.dirName, this.dirName + '.module'));
   }
-  this.testTemplate('unit', this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName + '.spec'));
 };
 
 Generator.prototype.end = function () {

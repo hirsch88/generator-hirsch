@@ -1,0 +1,5 @@
+{
+  "environment": "development",
+  "baseUrl":     "http://localhost:1337/api/",
+  "language":    "en"
+}

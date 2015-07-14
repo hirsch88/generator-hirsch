@@ -1,8 +1,11 @@
-(function () {
+(function() {
   'use strict';
 
   angular
-    .module('<%= prefix %>.<%= module %>.views.<%= classedName %>', [])
+    .module('<%= prefix %>.<%= module %>.views.<%= classedName %>', [
+      'ui.router',
+      '<%= prefix %>.core.utils.Logger'
+    ])
     .config(StateConfig)
     .controller('<%= prefix %><%= classedName %>Controller', <%= classedName %>Controller);
 
@@ -14,7 +17,7 @@
         navigationKey: '<%= module %>',
         views:         {
           'content': {
-            templateUrl:  '<%= templateUrl %>',
+            templateUrl:  util.templateUrl('<%= prefix %>.<%= module %>.views.<%= classedName %>'),
             controller:   '<%= prefix %><%= classedName %>Controller',
             controllerAs: '<%= prefix %><%= classedName %>'
           }
@@ -22,11 +25,12 @@
       });
   }
 
-  function <%= classedName %>Controller() {
+  function <%= classedName %>Controller(Logger) {
+    var log = new Logger('<%= prefix %>.<%= module %>.views.<%= classedName %>');
     var vm = this;
 
     // code goes here...
 
   }
 
-})();
+}());

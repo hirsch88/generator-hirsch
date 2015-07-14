@@ -14,7 +14,7 @@ describe('Midway: Module <%= prefix %>.<%= cameledName %>', function () {
     expect(module).not.to.equal(null);
   });
 
-  it("should be registered at the app.js", function () {
+  it('should be registered at the app.js', function () {
     expect(appHasModule('<%= prefix %>.<%= cameledName %>')).to.equal(true);
   });
 

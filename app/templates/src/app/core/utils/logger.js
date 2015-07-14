@@ -2,10 +2,12 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.util.Logger', [])
-    .factory('logger', LoggerService);
+    .module('<%= prompts.prefix %>.core.utils.Logger', [
+      '<%= prompts.prefix %>.core.constants.Config'
+    ])
+    .factory('Logger', LoggerService);
 
-  function LoggerService($log, appUtil) {
+  function LoggerService($log, appConfig) {
 
     function Logger(name) {
       this.name = name;
@@ -24,7 +26,7 @@
     };
 
     Logger.prototype._log = function (type, text, object) {
-      if (appUtil.getEnvironment() !== 'prod') {
+      if (appConfig.ENVIRONMENT !== 'production') {
 
         object = (_.isObject(text) || _.isArray(text))
           ? text
@@ -59,6 +61,5 @@
     }
 
   }
-
 
 }());

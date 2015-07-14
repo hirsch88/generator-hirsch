@@ -59,25 +59,27 @@ Generator.prototype.options = function () {
     this.templateUrl = relAppPath;
     done();
   }.bind(this));
-}
+};
 
 Generator.prototype.initComponents = function () {
-  this.readComponents(this.module, this.generatorName, function() {
-    this.components = this.components.map(function(c) {
+  this.readComponents(this.module, this.generatorName, function () {
+    this.components = this.components.map(function (c) {
       return c.replace(/Directive$/, '');
     });
   }.bind(this));
-}
+};
 
 Generator.prototype.createFiles = function createFiles() {
   this.appTemplate(this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
   if (this.env.options.typescript) {
     this.appTemplate(this.dirName + '.module', path.join(this.module, this.dirName, this.dirName + '.module'));
+  }else{
+    this.appTemplate('sub.module', path.join(this.module, this.dirName, this.dirName + '.module'));
   }
-  if(this.hasTemplate){
+  if (this.hasTemplate) {
     this.htmlTemplate(this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
   }
-  this.testTemplate('unit', this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName + '.spec'));
+  this.testTemplate('unit', this.generatorName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
 };
 
 Generator.prototype.end = function () {

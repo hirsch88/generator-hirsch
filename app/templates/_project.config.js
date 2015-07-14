@@ -15,8 +15,12 @@ module.exports = function (isGenerator) {
     bowerFilesCss = (!isGenerator) ? wiredep({})['css'] : [];
     if (!isGenerator) {
       bowerFilesFonts = ['font-awesome', 'bootstrap']
-        .map(function (s) { return wiredep({}).packages[s].main; })
-        .reduce(function (a, b) { return a.concat(b); })
+        .map(function (s) {
+          return wiredep({}).packages[s].main;
+        })
+        .reduce(function (a, b) {
+          return a.concat(b);
+        })
         .filter(function (p) {
           return new RegExp('\\' + path.sep + 'fonts\\' + path.sep).test(p);
         });
@@ -62,10 +66,12 @@ module.exports = function (isGenerator) {
       appDir:    'app',
       assetsDir: 'assets',
       tempDir:   '.tmp',
-      mainTpl:   'index.tpl.html',
       main:      'index.html',
       asset:     {
         configDir: 'assets/config',
+        config:    {
+          environmentsDir: 'assets/config/environments'
+        },
         cssDir:    'assets/css',
         css:       'assets/css/**/*.css',
         lessDir:   'assets/less',
@@ -77,8 +83,11 @@ module.exports = function (isGenerator) {
         i18n:      'assets/i18n/**/*.json'
       },
       app:       {
+        util:       'app/util.js',
         main:       'app/app.js',
         modules:    'app/**/*.module.js',
+        configs:    'app/**/*.config.js',
+        constants:  'app/**/*.constant.js',
         services:   'app/**/*.service.js',
         directives: 'app/**/*.directive.js',
         scripts:    'app/**/*.js',
@@ -98,17 +107,17 @@ module.exports = function (isGenerator) {
         }
       },
       test:      {
-        specs: '**/*.spec.js',
-        e2e: {
-          specs: 'test/e2e/**/*.spec.js',
+        specs:  '**/*.spec.js',
+        e2e:    {
+          specs:  'test/e2e/**/*.spec.js',
           config: 'karma-e2e.config.js'
         },
-        unit: {
-          specs: 'test/unit/**/*.spec.js',
+        unit:   {
+          specs:  'test/unit/**/*.spec.js',
           config: 'karma-unit.config.js'
         },
         midway: {
-          specs: 'test/midway/**/*.spec.js',
+          specs:  'test/midway/**/*.spec.js',
           config: 'karma-midway.config.js'
         }
 
@@ -164,8 +173,11 @@ module.exports = function (isGenerator) {
   function getAngularScripts() {
     return {
       files: [
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.util),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.main),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.modules),
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.constants),
+        path.join(projectConfig.path.srcDir, projectConfig.path.app.configs),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, '**/*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.commonDir, '**/*.js'),
         path.join(projectConfig.path.srcDir, projectConfig.path.app.scripts)
@@ -176,8 +188,10 @@ module.exports = function (isGenerator) {
   function getKarmaOptions() {
     return {
       files:  [].concat(
-        bowerFilesJs,
         getAngularScripts().files
+      ),
+      bower:  [].concat(
+        bowerFilesJs
       ),
       unit:   [
         'src/lib/angular-mocks/angular-mocks.js',
@@ -193,16 +207,16 @@ module.exports = function (isGenerator) {
   function getBowerFiles() {
     return {
       files: {
-        js:   [].concat(
+        js:    [].concat(
           bowerFilesJs
         ),
-        css:  [].concat(
+        css:   [].concat(
           bowerFilesCss
         ),
         fonts: [].concat(
           bowerFilesFonts
         ),
-        main: bowerFiles
+        main:  bowerFiles
       }
     };
   }

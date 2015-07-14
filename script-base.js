@@ -1,4 +1,5 @@
 'use strict';
+var _ = require('lodash');
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
@@ -13,12 +14,14 @@ var Generator = module.exports = function Generator() {
 
   try {
     packageJson = require(path.join(process.cwd(), 'package.json'));
-  } catch (e) {}
+  } catch (e) {
+  }
 
   try {
     projectConfig = hirschUtils.getProjectConfig();
     this.projectConfig = hirschUtils.getProjectConfig();
-  } catch (e) {}
+  } catch (e) {
+  }
 
 
   if (packageJson.name) {
@@ -31,15 +34,17 @@ var Generator = module.exports = function Generator() {
   this.scriptAppName = packageJson.moduleName || this._.camelize(this.appname) + hirschUtils.appName(this);
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
+  this.dashedName = this._.dasherize(this.name);
   this.prefix = packageJson.prefix;
+  this.components = [];
 
   this.env.options.srcPath = projectConfig.path.srcDir;
   this.env.options.appPath = path.join(projectConfig.path.srcDir, projectConfig.path.appDir);
 
   this.env.options.testPath = {
-    dir: projectConfig.path.testDir,
-    e2e: path.join(projectConfig.path.testDir, 'e2e'),
-    unit: path.join(projectConfig.path.testDir, 'unit'),
+    dir:    projectConfig.path.testDir,
+    e2e:    path.join(projectConfig.path.testDir, 'e2e'),
+    unit:   path.join(projectConfig.path.testDir, 'unit'),
     midway: path.join(projectConfig.path.testDir, 'midway')
   };
 
@@ -58,7 +63,6 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
-
 Generator.prototype.readModules = function (cb) {
   var done = this.async();
   hirschUtils.getModulesFromFileStructure(this, function (modules) {
@@ -72,8 +76,11 @@ Generator.prototype.readModules = function (cb) {
 
 Generator.prototype.readComponents = function (module, type, cb) {
   var done = this.async();
-  hirschUtils.getComponentsFromFileStructure(this, module || 'common', type, function(components) {
-    this.components = components;
+  hirschUtils.getComponentsFromFileStructure(this, module || 'common', type, function (components) {
+    var self = this;
+    _.forEach(components, function (item) {
+      self.components.push(item);
+    });
     if (cb) {
       cb();
     }
@@ -89,8 +96,8 @@ Generator.prototype.modulePrompt = function () {
   var done = this.async();
   var prompts = [
     {
-      type: 'list',
-      name: 'chosenModule',
+      type:    'list',
+      name:    'chosenModule',
       message: 'Choose the module of your service: ',
       choices: this.modules,
       default: this.modules.indexOf('common')

@@ -14,7 +14,7 @@
         navigationKey: 'home',
         views:         {
           'content': {
-            templateUrl:  'app/home/views/home.html',
+            templateUrl:  util.templateUrl('<%= prompts.prefix %>.home.views.Home'),
             controller:   'homeController',
             controllerAs: 'home'
           }
@@ -23,7 +23,8 @@
       });
   }
 
-  function HomeController() {
+  function HomeController(Logger) {
+    var log = new Logger('<%= prompts.prefix %>.home.views.Home');
     var vm = this;
     vm.title = 'Hirsch says hi!';
 

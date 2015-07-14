@@ -9,6 +9,8 @@
       'ngMessages',
 
       // Third-Party Libs
+      'ui.router',
+      'ui.bootstrap',
       'pascalprecht.translate',
 
       // Configs, middleware, run...
@@ -19,7 +21,6 @@
       // App modules with business logic
       '<%= prompts.prefix %>.layout',
       '<%= prompts.prefix %>.home'
-
 
     ]);
 

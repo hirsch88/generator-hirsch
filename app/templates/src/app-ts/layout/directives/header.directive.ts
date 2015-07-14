@@ -21,9 +21,9 @@ module <%= prompts.prefix %>.layout.directives {
   class HeaderController implements IHeaderController {
     title: string;
 
-    static $inject = [core.config.ID.AppConfig];
-    constructor(config: core.config.IAppConfig) {
-      this.title = config.title;
+    static $inject = [core.constants.ID.AppConfig];
+    constructor(config: core.constants.IAppConfig) {
+      this.title = config.ENVIRONMENT;
     }
   }
 

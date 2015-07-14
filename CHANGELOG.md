@@ -1,3 +1,21 @@
+1.0.0-rc.21 / 2015-07-02
+==================
+
+  * Added TypeScript Pull-Request
+  * Fixed templates
+  
+1.0.0-rc.20 / 2015-06-18
+==================
+
+  * Added new configuration logic
+  * Added logger service to each template
+  * Updated application skeleton
+  * Updated event bus
+  * Updated router middleware
+  * Updated Home Template
+  * Updated README.md
+  * Fixed karma tests
+  
 1.0.0-rc.19 / 2015-06-05
 ==================
 
