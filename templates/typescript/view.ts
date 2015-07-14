@@ -1,6 +1,6 @@
-/// <reference path="../../../../typings/tsd.d.ts"/>
+/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts"/>
 
-module <%= prefix %>.<%= module %>.views {
+module <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {

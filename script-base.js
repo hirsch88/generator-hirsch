@@ -38,6 +38,8 @@ var Generator = module.exports = function Generator() {
   this.prefix = packageJson.prefix;
   this.components = [];
 
+  this.typingNesting = '';
+
   this.env.options.srcPath = projectConfig.path.srcDir;
   this.env.options.appPath = path.join(projectConfig.path.srcDir, projectConfig.path.appDir);
 
@@ -111,6 +113,30 @@ Generator.prototype.modulePrompt = function () {
     done();
   }.bind(this));
 };
+
+Generator.prototype.folderPrompt = function($default, cb) {
+  var done = this.async();
+  var prompts = [
+    {
+      name: 'folder',
+      message: 'In which folder should the file be placed?',
+      default: $default
+    }
+  ];
+
+  this.prompt(prompts, function(props) {
+    this.dirName = props.folder.replace(/(\/|\\)/g, '/').replace(/(^\/|\/$)/g, '');
+    this.$namespace = this.dirName.replace(/\//g, '.');
+    var levels = (this.$namespace.match(/\./g) || []).length;
+    while (levels--) {
+      this.typingNesting += '../';
+    }
+    if (cb) {
+      cb(this.folder);
+    }
+    done();
+  }.bind(this));
+}
 
 Generator.prototype.appTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [

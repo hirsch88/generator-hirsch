@@ -8,6 +8,7 @@ var Generator = module.exports = function Generator() {
   ScriptBase.apply(this, arguments);
   this.generatorName = 'constant';
   this.dirName = 'constants';
+  this.$namespace = this.dirName;
 };
 
 util.inherits(Generator, ScriptBase);
