@@ -96,7 +96,7 @@ module <%= prompts.prefix %>.core.util {
     return new Logger($log, $filter('date'), appConfig, name);
   };
 
-  loggerService.$inject = ['$log', '$filter'];
+  loggerService.$inject = ['$log', '$filter', constants.ID.AppConfig];
 
   angular
     .module(ID.LoggerFactory, [

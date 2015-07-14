@@ -79,7 +79,9 @@ Generator.prototype.readComponents = function (module, dirName, cb) {
   hirschUtils.getComponentsFromFileStructure(this, module || 'common', dirName, function (components) {
     var self = this;
     _.forEach(components, function (item) {
-      self.components.push(item);
+      if (item !== self.classedName) {
+        self.components.push(item);
+      }
     });
     if (cb) {
       cb();
@@ -121,9 +123,12 @@ Generator.prototype.appTemplate = function (src, dest) {
 
 Generator.prototype.testTemplate = function (type, src, dest) {
   type = type || 'unit';
+  dest = path.join(this.env.options.testPath[type], dest);
+  dest += dest.indexOf('.spec') >= 0 ? '' : '.spec';
+  dest += this.scriptSuffix;
   yeoman.generators.Base.prototype.template.apply(this, [
     src + '.' + type + '.spec' + this.scriptSuffix,
-    path.join(this.env.options.testPath[type], dest) + this.scriptSuffix, 
+    dest, 
     this,
     { interpolate: /<%=([\s\S]+?)%>/g }
   ]);

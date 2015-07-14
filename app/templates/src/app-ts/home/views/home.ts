@@ -24,16 +24,16 @@ module <%= prompts.prefix %>.home.views {
     title: string;
   }
 
-  class HomeController extends common.views.AbstractController implements IHomeController {
+  class HomeController implements IHomeController {
     private offs: Function[] = [];
 
     title = 'Hirsch says hi!';
 
-    static $inject = ['$state', core.util.ID.AppEvents];
-    constructor($state, events: core.util.IAppEvents) {
-      super($state);
-
+    static $inject = ['$scope', core.util.ID.AppEvents];
+    constructor($scope, events: core.util.IAppEvents) {
       this.offs.push(events.on('someEvent', this.onSomeEvent));
+
+      $scope.$on('$destroy', () => this.dispose());
 
       this.activate();
     }
@@ -46,8 +46,7 @@ module <%= prompts.prefix %>.home.views {
       // run initialization logic
     };
 
-    protected dispose() {
-      super.dispose();
+    private dispose() {
       this.offs.forEach(off => off());
     }
   }

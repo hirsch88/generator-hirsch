@@ -14,10 +14,8 @@ module <%= prompts.prefix %>.core.router {
       'ui.router',
       'ui.router.router',
       'ui.router.state',
-
-      `${Namespace}.RouterConstants`,
+      
       `${Namespace}.RouterConfig`,
-      ID.RouterService,
-      `${Namespace}.Router`
+      ID.RouterService
     ]);
 }
