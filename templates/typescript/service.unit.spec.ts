@@ -1,14 +1,14 @@
-/// <reference path="../../../../typings/tsd.d.ts" />
+/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts" />
 
-module <%= prefix %>.<%= module %>.services.test {
+module <%= prefix %>.<%= module %>.<%= $namespace %>.test {
   'use strict';
 
-  describe(`Unit: ${Namespace}.<%= classedName %>Service`, () => {
+  describe(`Unit: ${Namespace}.<%= classedName %>`, () => {
 
     beforeEach(module(Namespace));
     
-    var service: I<%= classedName %>Service;
-    beforeEach(angular.mock.inject([ID.<%= classedName %>Service, s => service = s]));
+    var service: I<%= classedName %>;
+    beforeEach(angular.mock.inject([ID.<%= classedName %>, s => service = s]));
 
     it('should contain a <%= classedName %> service', () => should.exist(service));
     

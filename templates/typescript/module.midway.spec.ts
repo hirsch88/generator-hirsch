@@ -1,4 +1,4 @@
-/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../../../<%= typingNesting %>typings/tsd.d.ts" />
 
 module <%= prefix %>.<%= cameledName %>.test {
   'use strict';
