@@ -10,6 +10,7 @@ module <%= prefix %>.<%= module %>.services {
   class <%= classedName %>Service implements I<%= classedName %>Service {
     private field;
   
+    static $inject = [];
     constructor() {
       this.field = 'value';
     }
