@@ -7,7 +7,7 @@ module <%= prompts.prefix %>.core.router {
      * Flag indicating whether the routing pipeline is currently active.
      */
     isNavigating: boolean;
-    startPipeline(preventDef: Function, toState: ng.ui.IState, toParams: any, fromState: ng.ui.IState, fromParams: any): ng.IPromise<void>;
+    startPipeline(preventDef: Function, toState: ng.ui.IState, toParams: any, fromState: ng.ui.IState, fromParams: any): ng.IPromise<IRouterMiddlewareContext>;
 
     /**
      * Add a middleware to the routing pipeline. Middlewares are executed in
@@ -33,24 +33,24 @@ module <%= prompts.prefix %>.core.router {
    * are mutable, but only the "toParams" object should be modified by the middleware.
    */
   export interface IRouterMiddleware {
-    (actions: IRouterMiddlewareActions, context: IRouterMiddlewareContext): ng.IPromise<void>;
+    (actions: IRouterMiddlewareActions, context: IRouterMiddlewareContext): ng.IPromise<IRouterMiddlewareContext>;
   }
 
   export interface IRouterMiddlewareActions {
     /**
      * Execute the next middleware in the pipeline.
      */
-    next(): ng.IPromise<void>;
+    next(): ng.IPromise<IRouterMiddlewareContext>;
 
     /**
      * Redirect to the given state, restarting the pipeline.
      */
-    redirect(to: string, params?: any): ng.IPromise<void>;
+    redirect(to: string, params?: any): ng.IPromise<IRouterMiddlewareContext>;
 
     /**
      * Cancel the pipeline.
      */
-    cancel(): ng.IPromise<void>;
+    cancel(): ng.IPromise<IRouterMiddlewareContext>;
   }
 
   export interface IRouterMiddlewareContext {
@@ -74,8 +74,8 @@ module <%= prompts.prefix %>.core.router {
   }
 
   export enum StateMatchingMode {
-    exact,
-    includeChildren
+    Exact,
+    IncludeChildren
   }
 
   interface IMiddlewareContainer {
@@ -94,12 +94,11 @@ module <%= prompts.prefix %>.core.router {
 
     isNavigating: boolean;
 
-    static $inject = ['$state', '$q', constants.ID.lodash, util.ID.LoggerFactory];
+    static $inject = ['$state', '$q', util.ID.LoggerFactory];
 
     constructor(
       private $state: ng.ui.IStateService,
       private $q: ng.IQService,
-      private _: _.LoDashStatic,
       loggerFactory: util.ILoggerFactory
     ) {
       this.log = loggerFactory(this);
@@ -108,7 +107,7 @@ module <%= prompts.prefix %>.core.router {
     startPipeline = (preventDefault: Function, toState: ng.ui.IState, toParams: any, fromState: ng.ui.IState, fromParams: any) => {
       // if we are in the process of finishing pipeline processing, don't do anything
       if (this.sync) {
-        return this.$q.when();
+        return this.$q.reject('router is syncing');
       }
 
       this.lastPipelineId += 1;
@@ -135,51 +134,51 @@ module <%= prompts.prefix %>.core.router {
       this.$state.go(toState.name, {}, { notify: false });
       var context = { toState, toParams, fromState, fromParams };
 
-      var redirect = (middlewareName: string) => (to: string, params: any = {}): ng.IPromise<void> => {
+      var redirect = (middlewareName: string) => (to: string, params: any = {}): ng.IPromise<IRouterMiddlewareContext> => {
         this.log.debug(`Middleware '${middlewareName}' redirected to '${to}'!`);
 
         // this check is slightly different from $state.is(), since it 
         // takes into account all params instead of only the ones defined
         // in the params definition of the state
-        if (to.indexOf(this.current.state.name) === 0 && this._.isEqual(this.current.params, params)) {
+        if (to.indexOf(this.current.state.name) === 0 && angular.equals(this.current.params, params)) {
           // if we got redirected to the last active state, we need to restore 
           // its URL
           this.$state.go(to, params, { notify: false });
-          return this.endPipeline(pipelineId, this.current.state, params);
+          return this.endPipeline(pipelineId, this.current.state, params).then(() => this.$q.reject('pipeline ended in source state'));
         } else {
           return this.startPipelineInternal(() => { ; }, this.$state.get(to), params, fromState, fromParams, pipelineId);
         }
       };
 
-      var cancel = (middlewareName: string) => (): ng.IPromise<void> => {
+      var cancel = (middlewareName: string) => (): ng.IPromise<IRouterMiddlewareContext> => {
         this.log.debug(`Middleware '${middlewareName}' canceled navigation!`);
 
         // if navigation is canceled, we need to restore the URL of the 
         // original state
         this.$state.go(fromState.name, fromParams, { notify: false });
-        return this.endPipeline(pipelineId, fromState, fromParams);
+        return this.endPipeline(pipelineId, fromState, fromParams).then(() => this.$q.reject('canceled'));
       };
 
-      var next = (remaining: IMiddlewareContainer[]) => (): ng.IPromise<void> => {
+      var next = (remaining: IMiddlewareContainer[]) => (): ng.IPromise<IRouterMiddlewareContext> => {
         if (remaining.length === 0) {
-          this.sync = true;
-
-          var reload = fromState.name === '';
-          var restoreState = fromState.name || toState.name;
+          var isInitialRequest = fromState.name === '';
 
           // before we transition to the final state, we quickly return to the original
           // state, but without triggering any navigation; however, on initial page load 
-          // there is no previous state to return to, so we force a reload to make sure
-          // the page gets properly loaded
-          return this.$state.go(restoreState, fromState.params, { notify: false })
-            .then(() => this.$state.go(context.toState.name, context.toParams, { reload: reload }))
+          // there is no previous state to return to, so skip the restore
+          var restore = () => this.$state.go(fromState.name, fromParams, { notify: false });
+          var go = () => this.$state.go(context.toState.name, context.toParams);
+
+          this.sync = true;
+          return (isInitialRequest ? go() : restore().then(go))
             .then(() => this.endPipeline(pipelineId, context.toState, context.toParams))
-            .finally<void>(() => this.sync = false);
+            .finally(() => this.sync = false)
+            .then(() => context);
         }
 
         var container = remaining.splice(0, 1)[0];
         var executeMiddleware =
-          container.stateMatchingMode === StateMatchingMode.exact
+          container.stateMatchingMode === StateMatchingMode.Exact
             ? toState.name === container.state
             : toState.includes(container.state);
 
@@ -201,7 +200,7 @@ module <%= prompts.prefix %>.core.router {
             return fn.apply(null, rest);
           };
 
-          var actions: IRouterMiddlewareActions = {
+          var actions = {
             next: guard(next(remaining)),
             cancel: guard(cancel(container.name)),
             redirect: guard(redirect(container.name))
@@ -228,8 +227,8 @@ module <%= prompts.prefix %>.core.router {
       middleware: IRouterMiddleware,
       name: string,
       state: string = '',
-      stateMatchingMode = StateMatchingMode.includeChildren
-      ) => {
+      stateMatchingMode = StateMatchingMode.IncludeChildren
+    ) => {
       this.middlewares.push({ middleware, state, name, stateMatchingMode });
       return this;
     };
@@ -250,7 +249,10 @@ module <%= prompts.prefix %>.core.router {
 
   angular
     .module(ID.RouterService, [
-      constants.Namespace,
+      'ui.router',
+      'ui.router.router',
+      'ui.router.state',
+
       util.ID.LoggerFactory
     ])
     .service(ID.RouterService, RouterService);

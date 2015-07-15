@@ -11,8 +11,17 @@ declare module angular.ui {
 
 module <%= prompts.prefix %>.core.router {
 
+  // this variable is to prevent an issue with the default routes;
+  // if the initial request to the application is for an invalid route
+  // the default route rule triggers multiple times (once during a state
+  // transition). This causes the actual state transition to be superseded.
+  // By capturing a variable inside the module scope, we can make the
+  // default route handler ignore invalid route requests during routing
+  var stateChangeCountingSemaphore = 0;
+  var checkSemaphore = (fn: () => string) => stateChangeCountingSemaphore > 0 ? undefined : fn();
+
   var routerConfig = ($urlRouterProvider: ng.ui.IUrlRouterProvider, $stateProvider: ng.ui.IStateProvider) => {
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise(() => checkSemaphore(() => `/home`));
 
     // We decorate the 'includes' to extract all states that would match
     // a $state.includes() test for each state, and extend the state
@@ -37,8 +46,9 @@ module <%= prompts.prefix %>.core.router {
 
   var run = ($rootScope: ng.IRootScopeService, routerService: IRouterService) => {
     $rootScope.$on('$stateChangeStart', (evt, ...rest: any[]) => {
+      stateChangeCountingSemaphore += 1;
       rest.unshift(evt.preventDefault.bind(evt));
-      routerService.startPipeline.apply(null, rest);
+      routerService.startPipeline.apply(null, rest).finally(() => stateChangeCountingSemaphore -= 1);
     });
   };
 
