@@ -1,6 +1,6 @@
-/// <reference path="../../../../typings/tsd.d.ts"/>
+/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts"/>
 
-module <%= prefix %>.<%= module %>.views {
+module <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
@@ -22,25 +22,18 @@ module <%= prefix %>.<%= module %>.views {
 
   export interface I<%= classedName %>Controller {
     prop: string;
-    asyncProp: string[];
+    asyncProp: ng.IPromise<string[]>;
     method(param: string): string;
     action(): void;
   }
 
-  class <%= classedName %>Controller extends common.views.AbstractController implements I<%= classedName %>Controller {
-    private offs: Function[] = [];
-
+  class <%= classedName %>Controller implements I<%= classedName %>Controller {
     prop: string;
-    asyncProp: string[];
+    asyncProp: ng.IPromise<string[]>;
   
-    static $inject = ['$state', core.util.ID.AppEvents];
-    constructor($state, events: core.util.IAppEvents) {
-      super($state);
-
+    static $inject = [];
+    constructor() {
       this.prop = '';
-      this.asyncProp = [];
-
-      this.offs.push(events.on('someEvent', this.onSomeEvent));
 
       this.activate();
     }
@@ -53,25 +46,14 @@ module <%= prefix %>.<%= module %>.views {
       // TODO: perform some action
     };
 
-    private onSomeEvent = (eventObj: any) => {
-      // TODO: handle event
-    };
-
     private activate = () => {
       // TODO: call some service to asynchronously return data
-      // this.someService.getData().then(data => this.asyncProp = data);
+      // this.asyncProp = this.someService.getData();
     };
-
-    protected dispose() {
-      super.dispose();
-      this.offs.forEach(off => off());
-    }
   }
 
   angular
-    .module(`${Namespace}.<%= classedName %>`, [
-      core.util.Namespace
-    ])
+    .module(`${Namespace}.<%= classedName %>`, [])
     .config(stateConfig)
     .controller(ID.<%= classedName %>Controller, <%= classedName %>Controller);
 }

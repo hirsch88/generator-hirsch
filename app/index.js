@@ -183,11 +183,15 @@ var HirschGenerator = yeoman.generators.Base.extend({
   scaffoldFolders: function() {
     this.mkdir('src');
     this.mkdir('src/app');
-    this.mkdir('src/app/common/services');
-    this.mkdir('src/app/common/directives');
-    this.mkdir('src/app/common/templates');
     this.mkdir('src/app/common/decorators');
+    this.mkdir('src/app/common/directives');
     this.mkdir('src/app/common/filters');
+    this.mkdir('src/app/common/models');
+    this.mkdir('src/app/common/services');
+    this.mkdir('src/app/common/services/converters');
+    this.mkdir('src/app/common/services/rest');
+    this.mkdir('src/app/common/templates');
+    this.mkdir('src/app/common/util');
     this.mkdir('src/app/common/views');
     this.mkdir('src/app/core');
     this.mkdir('src/assets');

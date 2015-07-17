@@ -1,6 +1,6 @@
-/// <reference path="../../../../typings/tsd.d.ts" />
+/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts" />
 
-module <%= prefix %>.<%= module %>.views.test {
+module <%= prefix %>.<%= module %>.<%= $namespace %>.test {
   'use strict';
 
   describe(`Unit: ${Namespace}.<%= classedName %>Controller`, () => {
