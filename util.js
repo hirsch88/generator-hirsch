@@ -56,11 +56,14 @@ module.exports = {
     });
   },
 
-  getComponentsFromFileStructure: function (scope, module, type, cb) {
-    fs.readdir(scope.destinationPath(path.join(scope.env.options.appPath, module, type + 's')), function (err, files) {
+  getComponentsFromFileStructure: function (scope, module, dirName, cb) {
+    var fullDirName = scope.destinationPath(path.join(scope.env.options.appPath, module, dirName));
+    fs.readdir(fullDirName, function (err, files) {
       if (files) {
         var components = _.uniq(files.filter(function(f) {
           return f.indexOf('.module') === -1;
+        }).filter(function(f) {
+          return !fs.statSync(path.join(fullDirName, f)).isDirectory();
         }).map(function(f) {
           return f.replace(/\.(js|ts|html|js\.map)$/, '');
         }).map(_s.classify));

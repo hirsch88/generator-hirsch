@@ -38,6 +38,8 @@ var Generator = module.exports = function Generator() {
   this.prefix = packageJson.prefix;
   this.components = [];
 
+  this.typingNesting = '';
+
   this.env.options.srcPath = projectConfig.path.srcDir;
   this.env.options.appPath = path.join(projectConfig.path.srcDir, projectConfig.path.appDir);
 
@@ -74,12 +76,14 @@ Generator.prototype.readModules = function (cb) {
   }.bind(this));
 };
 
-Generator.prototype.readComponents = function (module, type, cb) {
+Generator.prototype.readComponents = function (module, dirName, cb) {
   var done = this.async();
-  hirschUtils.getComponentsFromFileStructure(this, module || 'common', type, function (components) {
+  hirschUtils.getComponentsFromFileStructure(this, module || 'common', dirName, function (components) {
     var self = this;
     _.forEach(components, function (item) {
-      self.components.push(item);
+      if (item !== self.classedName) {
+        self.components.push(item);
+      }
     });
     if (cb) {
       cb();
@@ -110,6 +114,30 @@ Generator.prototype.modulePrompt = function () {
   }.bind(this));
 };
 
+Generator.prototype.folderPrompt = function($default, cb) {
+  var done = this.async();
+  var prompts = [
+    {
+      name: 'folder',
+      message: 'In which folder should the file be placed?',
+      default: $default
+    }
+  ];
+
+  this.prompt(prompts, function(props) {
+    this.dirName = props.folder.replace(/(\/|\\)/g, '/').replace(/(^\/|\/$)/g, '');
+    this.$namespace = this.dirName.replace(/\//g, '.');
+    var levels = (this.$namespace.match(/\./g) || []).length;
+    while (levels--) {
+      this.typingNesting += '../';
+    }
+    if (cb) {
+      cb(this.folder);
+    }
+    done();
+  }.bind(this));
+}
+
 Generator.prototype.appTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
     src + this.scriptSuffix,
@@ -121,9 +149,12 @@ Generator.prototype.appTemplate = function (src, dest) {
 
 Generator.prototype.testTemplate = function (type, src, dest) {
   type = type || 'unit';
+  dest = path.join(this.env.options.testPath[type], dest);
+  dest += dest.indexOf('.spec') >= 0 ? '' : '.spec';
+  dest += this.scriptSuffix;
   yeoman.generators.Base.prototype.template.apply(this, [
     src + '.' + type + '.spec' + this.scriptSuffix,
-    path.join(this.env.options.testPath[type], dest) + this.scriptSuffix, 
+    dest, 
     this,
     { interpolate: /<%=([\s\S]+?)%>/g }
   ]);

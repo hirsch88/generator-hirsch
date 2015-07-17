@@ -1,29 +1,52 @@
 /// <reference path="../../../../typings/tsd.d.ts"/>
 
+/**
+ * Extend global function interface with ES6 name property.
+ */
+interface Function {
+  name?: string;
+}
+
 module <%= prompts.prefix %>.core.util {
   'use strict';
-
-  var loggerService = ($log, _, moment, appConfig): ILoggerFactory => {
-    return name => new Logger($log, _, moment, appConfig, name);
-  };
-
-  loggerService.$inject = ['$log', constants.ID.lodash, constants.ID.moment, constants.ID.AppConfig];
 
   export interface ILoggerFactory {
     /**
      * Get the logger for the given name.
      */
-    (name: string): Logger;
+    (name: string): ILogger;
+
+    /**
+     * Get a logger for the given object. The name of the logger is inferred
+     * from the name of the constructor function if it is supported by the
+     * browser.
+     */
+    (obj: Object): ILogger;
+
+    /**
+     * Get a logger for the given function. The name of the logger is inferred
+     * from the name of the function if it is supported by the browser.
+     */
+    (obj: Function): ILogger;
   }
 
-  // TODO: rewrite as angular decorator on top of $log
+  export interface ILogger {
+    debug(text: string | Object | any[], object?: any);
+    info(text: string | Object | any[], object?: any);
+    warn(text: string | Object | any[], object?: any);
+    error(text: string | Object | any[], object?: any);
+  }
+
   export class Logger {
     constructor(
       private $log: angular.ILogService,
-      private _: _.LoDashStatic,
-      private moment: moment.MomentStatic,
+      private dateFormatter: (date: Date, format?: string) => string,
       private config: constants.IAppConfig,
       public name: string) {
+    }
+
+    debug(text: string | Object | any[], object?: any) {
+      this.log('debug', text, object);
     }
 
     info(text: string | Object | any[], object?: any) {
@@ -38,29 +61,46 @@ module <%= prompts.prefix %>.core.util {
       this.log('error', text, object);
     }
 
-    private log(type: string, text: string | Object | any[], object?: any) {
-      if (this.config.environment !== 'production') {
+    private log = (type: string, text: string | Object | any[], object?: any) => {
+      if (this.config.ENVIRONMENT !== 'prod') {
 
-        if (this._.isObject(text) || this._.isArray(text)) {
+        if (angular.isObject(text) || angular.isArray(text)) {
           object = text;
           text = undefined;
         }
 
         text = text || '';
-
-        if (this._.isBoolean(object)) {
+        
+        if (object === true || object === false) {
           object = (object) ? 'YES' : 'NO';
         }
 
         object = object || '';
 
         var arrow = (text !== '' || object !== '') ? '=> ' : '';
-        this.$log[type]('[' + this.moment().format('HH:mm:ss.ms') + ' - ' + this.name + '] ' + arrow + text, object);
+        this.$log[type](`[${this.dateFormatter(new Date(), 'HH:mm:ss.sss')} - ${this.name}] ${arrow}${text}`, object);
       }
-    }
+    };
   }
 
+  var loggerService = ($log, $filter, appConfig: constants.IAppConfig): ILoggerFactory => (obj: string | Object | Function) => {
+    var name: string;
+    if (angular.isObject(obj) && obj.constructor && obj.constructor.name) {
+      name = obj.constructor.name;
+    } else if (angular.isFunction(obj) && (<Function>obj).name) {
+      name = (<Function>obj).name;
+    } else {
+      name = <string>obj || '';
+    }
+
+    return new Logger($log, $filter('date'), appConfig, name);
+  };
+
+  loggerService.$inject = ['$log', '$filter', constants.ID.AppConfig];
+
   angular
-    .module(ID.LoggerFactory, [])
+    .module(ID.LoggerFactory, [
+      constants.Namespace
+    ])
     .factory(ID.LoggerFactory, loggerService);
 }
