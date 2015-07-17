@@ -1,6 +1,6 @@
-/// <reference path="../../../../typings/tsd.d.ts"/>
+/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts"/>
 
-module <%= prefix %>.<%= module %>.filters {
+module <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
   export interface I<%= classedName %>Filter {

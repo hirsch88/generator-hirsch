@@ -1,15 +1,16 @@
-﻿/// <reference path="../../../../typings/tsd.d.ts"/>
+﻿/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts"/>
 
-module <%= prefix %>.<%= module %>.services {
+module <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
-  export interface I<%= classedName %>Service {
+  export interface I<%= classedName %> {
     method(param: string): string;
   }
 
-  class <%= classedName %>Service implements I<%= classedName %>Service {
+  class <%= classedName %> implements I<%= classedName %> {
     private field;
   
+    static $inject = [];
     constructor() {
       this.field = 'value';
     }
@@ -19,16 +20,16 @@ module <%= prefix %>.<%= module %>.services {
     }
   }<% if(useFactory) { %>
 
-  var factory = (): I<%= classedName %>Service => {
+  var factory = (): I<%= classedName %> => {
     // TODO: private initialization code
 
     // TODO: pass initialization parameters to class
-    return new <%= classedName %>Service();
+    return new <%= classedName %>();
   };
   factory.$inject = [];<% } %>
 
   angular
-    .module(ID.<%= classedName %>Service, [])<% if(!useFactory) { %>
-    .service(ID.<%= classedName %>Service, <%= classedName %>Service)<% } %><% if(useFactory) { %>
-    .factory(ID.<%= classedName %>Service, factory)<% } %>;
+    .module(ID.<%= classedName %>, [])<% if(!useFactory) { %>
+    .service(ID.<%= classedName %>, <%= classedName %>)<% } %><% if(useFactory) { %>
+    .factory(ID.<%= classedName %>, factory)<% } %>;
 }

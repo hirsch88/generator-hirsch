@@ -8,6 +8,7 @@ var Generator = module.exports = function Generator() {
   ScriptBase.apply(this, arguments);
   this.generatorName = 'service';
   this.dirName = 'services';
+  this.$namespace = this.dirName;
 };
 
 util.inherits(Generator, ScriptBase);
@@ -21,8 +22,12 @@ Generator.prototype.prompting = function () {
   this.modulePrompt();
 };
 
+Generator.prototype.folderPrompting = function () {
+  this.folderPrompt(this.dirName);
+};
+
 Generator.prototype.initComponents = function () {
-  this.readComponents(this.module, this.generatorName);
+  this.readComponents(this.module, this.dirName);
 };
 
 Generator.prototype.promptForServiceType = function () {
@@ -44,15 +49,15 @@ Generator.prototype.promptForServiceType = function () {
 };
 
 Generator.prototype.createFiles = function createFiles() {
-  var templateName = (this.useFactory) ?'factory':'service';
+  var templateName = (this.useFactory && !this.env.options.typescript) ?'factory':'service';
 
   this.appTemplate(templateName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
   this.testTemplate('unit', templateName, path.join(this.module, this.dirName, this.name + '.' + this.generatorName));
 
   if (this.env.options.typescript) {
-    this.appTemplate(this.dirName + '.module', path.join(this.module, this.dirName, this.dirName + '.module'));
+    this.appTemplate(this.generatorName + 's.module', path.join(this.module, this.dirName, path.basename(this.dirName) + '.module'));
   } else {
-    this.appTemplate('sub.module', path.join(this.module, this.dirName, this.dirName + '.module'));
+    this.appTemplate('sub.module', path.join(this.module, this.dirName, path.basename(this.dirName) + '.module'));
   }
 };
 

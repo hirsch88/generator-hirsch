@@ -6,8 +6,7 @@ module <%= prompts.prefix %>.core.router {
   export var Namespace = '<%= prompts.prefix %>.core.router';
 
   export var ID = {
-    RouterService: `${Namespace}.RouterService`,
-    APP_ROUTER_PRIVATE_ROUTES: `${Namespace}.APP_ROUTER_PRIVATE_ROUTES`
+    RouterService: `${Namespace}.RouterService`
   };
 
   angular
@@ -15,10 +14,8 @@ module <%= prompts.prefix %>.core.router {
       'ui.router',
       'ui.router.router',
       'ui.router.state',
-
-      `${Namespace}.RouterConstants`,
+      
       `${Namespace}.RouterConfig`,
-      ID.RouterService,
-      `${Namespace}.Router`
+      ID.RouterService
     ]);
 }

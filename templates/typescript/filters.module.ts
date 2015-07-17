@@ -1,9 +1,9 @@
-﻿/// <reference path="../../../../typings/tsd.d.ts" />
+﻿/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts" />
 
-module <%= prefix %>.<%= module %>.filters {
+module <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
-  export var Namespace = '<%= prefix %>.<%= module %>.filters';
+  export var Namespace = '<%= prefix %>.<%= module %>.<%= $namespace %>';
 
   angular
     .module(Namespace, [<% for (var i = 0, l = components.length; i < l; i++) { %>
