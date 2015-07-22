@@ -204,7 +204,6 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.mkdir('test');
     this.mkdir('test/lib');
     this.mkdir('test/unit');
-    this.mkdir('test/midway');
     this.mkdir('test/e2e');
   },
 

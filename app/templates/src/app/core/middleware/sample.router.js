@@ -2,11 +2,11 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.Router', [
-      'my.core.utils.Logger'
+    .module('<%= prompts.prefix %>.core.middleware.Sample', [
+      '<%= prompts.prefix %>.core.utils.Logger'
     ])
     .run(function (appRouter, Logger) {
-      var log = new Logger('<%= prompts.prefix %>.Router');
+      var log = new Logger('<%= prompts.prefix %>.core.middleware.Sample');
 
       appRouter.use(function (start, destination, next, done) {
         log.info('1. Middleware !!!', start, destination);
