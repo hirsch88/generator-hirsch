@@ -2,11 +2,10 @@
   'use strict';
 
   angular
-    .module('<%= prompts.prefix %>.core.configs.ThirdParty', [
+    .module('<%= prompts.prefix %>.core.configs.Translate', [
       '<%= prompts.prefix %>.core.constants.Config'
     ])
-    .config(TranslateConfig)
-    .config(UiRouterConfig);
+    .config(TranslateConfig);
 
   function TranslateConfig($translateProvider, appConfig) {
     $translateProvider.useStaticFilesLoader({
@@ -14,12 +13,8 @@
       suffix: '.json'
     });
     $translateProvider.preferredLanguage(appConfig.LANGUAGE);
+    $translateProvider.useSanitizeValueStrategy('sanitize');
   }
 
-  function UiRouterConfig($urlRouterProvider){
-    // when there is an empty route, redirect to /index
-    $urlRouterProvider.when('', '/home');
-    $urlRouterProvider.otherwise('/home');
-  }
 
 }());
