@@ -10,16 +10,17 @@
     $stateProvider
       .state('admin.home', {
         url:           '/home',
-        session:       true,
-        navigationKey: 'home',
         views:         {
           'content': {
             templateUrl:  util.templateUrl('<%= prompts.prefix %>.home.views.Home'),
             controller:   'homeController',
             controllerAs: 'home'
           }
+        },
+        data:{
+          session:       true,
+          navigationKey: 'home'
         }
-
       });
   }
 
