@@ -14,10 +14,11 @@
     "app/lib"
   ],
   "dependencies":    {
-    "bootstrap":                             "3.3.4",
+    "bootstrap":                             "*",
     "font-awesome":                          "*",
     "lodash":                                "*",
     "moment":                                "*",
+    "bluebird":                              "*",
     "angular":                               "*",
     "angular-sanitize":                      "*",
     "angular-messages":                      "*",
