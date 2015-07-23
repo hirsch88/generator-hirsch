@@ -78,7 +78,7 @@ module.exports = function (isGenerator) {
         less:      'assets/less/**/*.less',
         lessMain:  'assets/less/main.less',
         fontDir:   'assets/fonts',
-        mediaDir:  'assets/medias',
+        mediaDir:  'assets/media',
         i18nDir:   'assets/i18n',
         i18n:      'assets/i18n/**/*.json'
       },
