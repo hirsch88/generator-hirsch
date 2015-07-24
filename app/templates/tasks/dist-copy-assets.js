@@ -10,9 +10,9 @@ var path = require('path');
 gulp.task('dist-copy-assets', ['dist-clean'], function () {
 
   var assestsFiles = [
-    path.join(projectConfig.path.srcDir, projectConfig.path.asset.fontDir + '/**/*'),
-    path.join(projectConfig.path.srcDir, projectConfig.path.asset.mediaDir + '/**/*'),
-    path.join(projectConfig.path.srcDir, projectConfig.path.asset.i18n)
+    path.join(projectConfig.path.srcDir, projectConfig.path.assets.fontDir + '/**/*'),
+    path.join(projectConfig.path.srcDir, projectConfig.path.assets.mediaDir + '/**/*'),
+    path.join(projectConfig.path.srcDir, projectConfig.path.assets.i18n)
   ];
 
   return gulp

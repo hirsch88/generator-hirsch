@@ -10,10 +10,10 @@ var _ = require('lodash');
  * INJECT
  * Injects all bower and application scripts into the main index.html file
  */
-gulp.task('inject', ['less'<% if(prompts.useTypescript) { %>, 'ts' <% } %>], function () {
+gulp.task('inject', [<% if(prompts.useLess) { %>'less'<% } %><% if(prompts.useSass) { %>'sass'<% } %><% if(prompts.useTypescript) { %>, 'ts' <% } %>], function () {
 
   var source = [];
-  source.push(path.join(projectConfig.path.srcDir, projectConfig.path.asset.css));
+  source.push(path.join(projectConfig.path.srcDir, projectConfig.path.assets.css));
 
   _.forEach(projectConfig.angular.files, function (item) {
     source.push(item);

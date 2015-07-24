@@ -4,7 +4,8 @@
   "description":     "<%= prompts.description %>",
   "prefix":          "<%= prompts.prefix %>",
   "main":            "<%= path.distDir %>/<%= path.main %>",
-  "language":        <% if(prompts.useTypescript) { %> "TypeScript" <% } else { %> "JavaScript" <% } %>,
+  "cssExtension":    "<%= prompts.cssExtension %>",
+  "language":        <% if(prompts.useTypescript) { %>"TypeScript"<% } else { %>"JavaScript"<% } %>,
   "private":         true,
   "dependencies":    {},
   "devDependencies": {
@@ -14,9 +15,11 @@
     "gulp-header":            "^1.2.2",
     "gulp-htmlmin":           "^1.1.1",
     "gulp-inject":            "^1.2.0",
-    "gulp-jshint":            "^1.9.2",
-    "gulp-karma":             "0.0.4",
-    "gulp-less":              "^3.0.1",
+    "gulp-jshint":            "^1.11.2",
+    "gulp-karma":             "0.0.4",<% if (prompts.useLess) { %>
+    "gulp-less":              "^3.0.1",<% } %><% if (prompts.useSass) { %>
+    "gulp-sass":              "*",
+    "node-sass":              "^2.0.4",<% } %>
     "gulp-load-plugins":      "^0.8.1",
     "gulp-minify-css":        "^1.0.0",
     "gulp-minify-html":       "^0.1.7",

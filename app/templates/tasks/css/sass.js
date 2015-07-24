@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var sass = require('gulp-sass');
 var projectConfig = require(process.cwd() + '/project.config.js')();
 var $ = require('gulp-load-plugins')({lazy: true});
 var path = require('path');
@@ -8,21 +9,18 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
 /**
- * LESS
- * Generates a new css file from our less files
+ * SASS
+ * Generates a new css file from our sass files
  */
-gulp.task('less', function () {
+gulp.task('sass', function () {
 
-  var mainLessFile = path.join(projectConfig.path.srcDir, projectConfig.path.asset.lessMain);
-  var mainCssDir = path.join(projectConfig.path.srcDir, projectConfig.path.asset.cssDir);
-
+  var mainSassFile = path.join(projectConfig.path.srcDir, projectConfig.path.assets.sassMain);
+  var mainCssDir = path.join(projectConfig.path.srcDir, projectConfig.path.assets.cssDir);
   var cssFile = projectConfig.pkg.name + '.css';
 
   return gulp
-    .src(mainLessFile)
-    .pipe($.less({
-      paths: [path.join(__dirname, 'less', 'includes')]
-    }))
+    .src(mainSassFile)
+    .pipe(sass().on('error', sass.logError))
     .pipe($.rename(cssFile))
     .pipe(gulp.dest(mainCssDir))
     .pipe(reload({stream: true}));
