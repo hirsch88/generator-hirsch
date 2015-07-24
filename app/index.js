@@ -210,7 +210,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.mkdir('src/app/core');
     this.mkdir('src/assets');
     this.mkdir('src/assets/config');
-    this.mkdir('src/assets/medias');
+    this.mkdir('src/assets/media');
     this.mkdir('src/assets/fonts');
     this.mkdir('src/assets/i18n');
     this.mkdir('src/lib');
