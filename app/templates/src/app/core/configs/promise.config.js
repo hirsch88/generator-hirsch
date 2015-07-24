@@ -1,8 +1,8 @@
 (function() {
   'use strict';
 
-  angular.module('c3.core.configs.Promise', [
-      'c3.core.constants.Global'
+  angular.module('<%= prompts.prefix %>.core.configs.Promise', [
+      '<%= prompts.prefix %>.core.constants.Global'
     ])
     .run(PromiseConfig);
 
