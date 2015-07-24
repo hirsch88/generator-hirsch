@@ -10,12 +10,14 @@ var chalk = require('chalk');
 /**
  * BUILD CONFIG CONSTANT
  */
-gulp.task('build-config', function () {
+gulp.task('build-config', function() {
   var source = path.join(projectConfig.path.srcDir, projectConfig.path.assets.configDir);
-  var destination = path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, 'constants');
-  <% if(prompts.useTypescript) { %>var fileName = 'config.constant.ts';
-  <% }else{ %>var fileName = 'config.constant.js';
-  <% } %>
+  var destination = path.join(projectConfig.path.srcDir, projectConfig.path.app.coreDir, 'constants'); <%
+  if (prompts.useTypescript) { %>
+    var fileName = 'config.constant.ts'; <%
+  } else { %>
+    var fileName = 'config.constant.js'; <%
+  } %>
 
   var env = getEnvironment();
   var context = getJsonConfig();
@@ -51,44 +53,42 @@ gulp.task('build-config', function () {
   }
 
   function getEnvironment() {
-    var env = 'development';
-    if (process.argv && process.argv.length > 2) {
-      env = process.argv[process.argv.length - 1].replace('-', '').replace('-', '');
-      if(env.indexOf('-') !== 0){
-        env = undefined;
-      }
-
-      var task = process.argv[2] || 'default';
-      if(task.indexOf('-') === 0){
-        task = 'default';
-      }
-
-      if(env){
-        switch (env) {
-          case 'd':
-          case 'dev':
-          case 'development':
-            return 'development';
-          case 'p':
-          case 'prod':
-          case 'production':
-            return 'production';  
-        }
-        return env;
-      }
-
-      switch (task) {
-        case 'buildconfig':
-        case 'build':
-        case 'serve':
-          return 'development';
-        case 'dist':
-        case 'serve-dist':
-          return 'production';
-      }
-
+    var env;
+    var idx = process.argv.indexOf('--env');
+    if (idx > 0 && process.argv[idx + 1]) {
+      env = process.argv[idx + 1];
     }
+
+    var task = process.argv[2] || 'default';
+    if (task.indexOf('-') === 0) {
+      task = 'default';
+    }
+
+    switch (env) {
+      case 'd':
+      case 'dev':
+      case 'development':
+        return 'development';
+      case 'p':
+      case 'prod':
+      case 'production':
+        return 'production';
+    }
+
+    if (env) {
+      return env;
+    }
+
+    switch (task) {
+      case 'buildconfig':
+      case 'build':
+      case 'serve':
+        return 'development';
+      case 'dist':
+      case 'serve-dist':
+        return 'production';
+    }
+
     return env;
   }
-
 });
