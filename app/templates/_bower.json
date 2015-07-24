@@ -14,7 +14,7 @@
     "app/lib"
   ],
   "dependencies":    {
-    "bootstrap":                             "*",
+    "bootstrap":                             "3.3.4",
     "font-awesome":                          "*",
     "lodash":                                "*",
     "moment":                                "*",
@@ -22,11 +22,9 @@
     "angular":                               "*",
     "angular-sanitize":                      "*",
     "angular-messages":                      "*",
-    "angular-cookie":                        "*",
     "angular-translate":                     "*",
     "angular-translate-loader-static-files": "*",
-    "angular-ui-router":                     "*",
-    "angular-bootstrap":                     "*"
+    "angular-ui-router":                     "*"
   },
   "devDependencies": {
     "angular-mocks":    "*",
