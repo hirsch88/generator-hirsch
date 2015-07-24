@@ -18,14 +18,13 @@
     "font-awesome":                          "*",
     "lodash":                                "*",
     "moment":                                "*",
+    "bluebird":                              "*",
     "angular":                               "*",
     "angular-sanitize":                      "*",
     "angular-messages":                      "*",
-    "angular-cookie":                        "*",
     "angular-translate":                     "*",
     "angular-translate-loader-static-files": "*",
-    "angular-ui-router":                     "*",
-    "angular-bootstrap":                     "*"
+    "angular-ui-router":                     "*"
   },
   "devDependencies": {
     "angular-mocks":    "*",

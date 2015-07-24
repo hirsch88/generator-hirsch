@@ -99,10 +99,10 @@ Most of the templates will be generated with a standard karma unit/midway test
 
   Lists all tasks 
   
-- `- gulp build-config [OPTION]`
-  - -d, --dev, --development //development
-  - -p, --prod, --production //production
-  - --otherEnv //custom env json file
+- `- gulp build-config --env [ENVIRONMENT]`
+  - --env d, --env dev, --env development //development
+  - --env p, --env prod, --env production //production
+  - --env otherEnv //custom env json file
  
   Generate new config constant form the given environment
   

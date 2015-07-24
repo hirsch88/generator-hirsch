@@ -22,10 +22,12 @@ gulp.task('serve', ['build'], function () {
     }
   });
 
-  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.app.templates), ['inject', browserSync.reload]);
-  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.asset.less), ['less', browserSync.reload]);
+  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.app.templates), ['inject', browserSync.reload]);<% if(prompts.useLess) { %>
+  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.assets.less), ['less', browserSync.reload]);<% } %><% if(prompts.useSass) { %>
+  gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.assets.sass), ['sass', browserSync.reload]);<% } %>
   gulp.watch(path.join(projectConfig.path.srcDir, projectConfig.path.app.scripts<% if(prompts.useTypescript) { %>.replace(/\.js$/, '.ts')<% } %>), ['inject', browserSync.reload]);
   gulp.watch('./bower.json', ['inject', browserSync.reload]);
+
 
 });
 

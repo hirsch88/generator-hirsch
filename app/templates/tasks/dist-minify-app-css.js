@@ -10,12 +10,12 @@ var path = require('path');
 /**
  * MINIFY APP CSS-FILES
  */
-gulp.task('dist-minify-app-css', ['less'], function () {
+gulp.task('dist-minify-app-css', [<% if(prompts.useLess) { %>'less'<% } %><% if(prompts.useSass) { %>'sass'<% } %>], function () {
 
-  var cssFiles = path.join(projectConfig.path.srcDir, projectConfig.path.asset.css);
+  var cssFiles = path.join(projectConfig.path.srcDir, projectConfig.path.assets.css);
 
   var newCssFileName = path.join(
-    projectConfig.path.asset.cssDir,
+    projectConfig.path.assets.cssDir,
     projectConfig.buildDistFileName(projectConfig.pkg.name, 'css')
   );
 

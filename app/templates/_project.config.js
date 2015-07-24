@@ -67,7 +67,7 @@ module.exports = function (isGenerator) {
       assetsDir: 'assets',
       tempDir:   '.tmp',
       main:      'index.html',
-      asset:     {
+      assets:     {
         configDir: 'assets/config',
         config:    {
           environmentsDir: 'assets/config/environments'
@@ -77,8 +77,11 @@ module.exports = function (isGenerator) {
         lessDir:   'assets/less',
         less:      'assets/less/**/*.less',
         lessMain:  'assets/less/main.less',
+        sassDir:   'assets/sass',
+        sass:      'assets/sass/**/*.scss',
+        sassMain:  'assets/sass/main.scss',
         fontDir:   'assets/fonts',
-        mediaDir:  'assets/medias',
+        mediaDir:  'assets/media',
         i18nDir:   'assets/i18n',
         i18n:      'assets/i18n/**/*.json'
       },
