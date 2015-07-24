@@ -87,6 +87,8 @@ gulp.task('build-config', function() {
       case 'dist':
       case 'serve-dist':
         return 'production';
+      default:
+        return 'development';
     }
 
     return env;
