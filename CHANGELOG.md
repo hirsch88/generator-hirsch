@@ -1,3 +1,12 @@
+1.0.0-rc.23 / 2015-07-24
+==================
+
+  * Updated build-config task
+  * Added bluebird promises
+  * Added sass posibility
+  * Fixed .gitignore: added dist folder 
+  * Fixed some typos
+
 1.0.0-rc.22 / 2015-07-17
 ==================
 
