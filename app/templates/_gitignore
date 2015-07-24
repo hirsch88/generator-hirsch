@@ -3,6 +3,7 @@ app/lib/
 src/lib/
 temp/
 tmp/
+dist/
 .tmp/
 .idea
 old/
