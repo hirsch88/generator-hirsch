@@ -49,7 +49,7 @@
           function (err) {
             $rootScope.appRouterIsWorking = false;
             if (!err) {
-              $state.go(toState.name);
+              $state.go(toState.name, toParams || {});
             }
           });
       }
