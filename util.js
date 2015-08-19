@@ -5,6 +5,7 @@ var chalk = require('chalk');
 var glob = require('glob');
 var _s = require('underscore.string');
 var _ = require('lodash');
+var Player = require('player');
 
 module.exports = {
 
@@ -87,21 +88,6 @@ module.exports = {
     );
   },
 
-  //getContext: function (name, module) {
-  //  var pkg = this.getPackage();
-  //
-  //  return {
-  //    name:                  name,
-  //    lowercaseName:         this.firstCharToLowerCase(name),
-  //    lowercaseModuleName:   this.firstCharToLowerCase(module),
-  //    capitalizedName:       this.firstCharToUpperCase(name),
-  //    capitalizedModuleName: this.firstCharToUpperCase(module),
-  //    appName:               pkg.name,
-  //    prefix:                pkg.prefix,
-  //    date:                  this.getCreationDate()
-  //  };
-  //},
-
   buildMetaInformations: function (name, module) {
     module = module || '';
 
@@ -149,6 +135,16 @@ module.exports = {
     var today = new Date();
     var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     return monthNames[today.getMonth()] + ', ' + today.getFullYear();
+  },
+
+  hirschPlay: function () {
+    var player = new Player(__dirname + '/hirsch.mp3');
+    player.play(function(err, player){
+      console.log('playend!');
+    });
+    setTimeout(function () {
+      player.stop()
+    }, 2200);
   },
 
   hirschSay: function () {

@@ -6,6 +6,7 @@ var $ = require('gulp-load-plugins')({lazy: true});
 var path = require('path');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+var chalk = require('chalk');
 
 /**
  * LESS
@@ -22,7 +23,13 @@ gulp.task('less', function () {
     .src(mainLessFile)
     .pipe($.less({
       paths: [path.join(__dirname, 'less', 'includes')]
-    }))
+    })
+      .on('error', function (err) {
+        console.log('');
+        console.log(chalk.red('X ') + 'LESS - ' + err.message);
+        console.log('');
+        this.emit('end');
+      }))
     .pipe($.rename(cssFile))
     .pipe(gulp.dest(mainCssDir))
     .pipe(reload({stream: true}));

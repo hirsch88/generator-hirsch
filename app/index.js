@@ -98,7 +98,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
       }
 
       this.cssExtension = props.cssExtension;
-      this.useLess = props.cssExtension === '{LESS}';
+      this.useLess = props.cssExtension === '{less}';
       this.useSass = props.cssExtension === 'Sass';
       this.prefix = props.prefix;
       this.description = props.description;
@@ -342,6 +342,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
   },
 
   end: function() {
+    hirschUtils.hirschPlay();
     this.log('');
     this.log(hirschUtils.hirschSay());
     this.log('Go to your project folder and run ' + chalk.bold.yellow(
