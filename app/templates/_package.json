@@ -16,6 +16,8 @@
     "gulp-htmlmin":           "^1.1.1",
     "gulp-inject":            "^1.2.0",
     "gulp-jshint":            "^1.11.2",
+    "gulp-htmllint":          "*",
+    "gulp-bootlint":          "*",
     "gulp-karma":             "0.0.4",<% if (prompts.useLess) { %>
     "gulp-less":              "^3.0.1",<% } %><% if (prompts.useSass) { %>
     "gulp-sass":              "*",
