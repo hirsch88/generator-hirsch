@@ -68,9 +68,9 @@ var HirschGenerator = yeoman.generators.Base.extend({
     prompts.push({
       type:    'list',
       name:    'cssExtension',
-      message: 'Do you want to use {LESS} or Sass? ',
-      choices: ['{LESS}', 'Sass'],
-      default: '{LESS}'
+      message: 'Do you want to use {less} or Sass? ',
+      choices: ['{less}', 'Sass'],
+      default: '{less}'
     });
 
     prompts.push({
@@ -276,7 +276,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
     }else{
         this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assets.sassDir);
     }
-   
+
   },
 
   testRunnerFiles: function() {
