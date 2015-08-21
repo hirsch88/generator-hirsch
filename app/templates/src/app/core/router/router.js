@@ -24,6 +24,7 @@
     var Router = function Router() {
       this.stack = [];
       this.previousState = {};
+      this.oldPreviousState = {};
     };
 
     Router.prototype.use = function (fn) {
@@ -42,6 +43,8 @@
     Router.prototype.addStateChangeListener = function (event, toState, toParams, fromState, fromParams) {
       if (this.stack.length > 0 && this.previousState.name !== toState.name) {
         event.preventDefault();
+        var self = this;
+        this.oldPreviousState = this.previousState;
         this.previousState = toState;
         this.dispatch(
           new AppRouterStart(fromState, fromParams),
@@ -51,7 +54,11 @@
             if (!err) {
               $state.go(toState.name, toParams || {});
             }
-          });
+          },
+          function abort() {
+            self.previousState = self.oldPreviousState;
+          }
+          );
       }
     };
 
@@ -80,7 +87,8 @@
               start,
               destination,
               next,
-              done
+              done,
+              abort
             );
           } else {
             return next();
