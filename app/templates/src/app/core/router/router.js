@@ -57,8 +57,7 @@
           },
           function abort() {
             self.previousState = self.oldPreviousState;
-          }
-          );
+          });
       }
     };
 
