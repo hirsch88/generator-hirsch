@@ -1,6 +1,6 @@
 {
   "name": "generator-hirsch",
-  "version": "1.0.0-rc.23",
+  "version": "1.0.1",
   "description": "Yeoman generator for large module-based AngularJS applications with the option to use typescript",
   "license": "MIT",
   "main": "app/index.js",
