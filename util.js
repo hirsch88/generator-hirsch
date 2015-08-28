@@ -143,7 +143,7 @@ module.exports = {
       console.log('playend!');
     });
     setTimeout(function () {
-      player.stop()
+      player.stop();
     }, 2200);
   },
 
