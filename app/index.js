@@ -73,6 +73,13 @@ var HirschGenerator = yeoman.generators.Base.extend({
       default: '{less}'
     });
 
+
+    prompts.push({
+      type: 'confirm',
+      name: 'styleSourcemaps',
+      message: 'Do you want to use sourcemaps for your less/scss file?',
+      default: true
+    });
     prompts.push({
       type: 'confirm',
       name: 'useTypescript',
@@ -101,6 +108,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
       this.useLess = props.cssExtension === '{less}';
       this.useSass = props.cssExtension === 'Sass';
       this.prefix = props.prefix;
+      this.styleSourcemaps = props.styleSourcemaps;
       this.description = props.description;
       this.author = props.author;
       this.useTypescript = props.useTypescript;
@@ -185,6 +193,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.projectConfig.prompts.author = this.author;
     this.projectConfig.prompts.useTypescript = this.useTypescript;
     this.projectConfig.prompts.cssExtension = this.cssExtension;
+    this.projectConfig.prompts.styleSourcemaps = this.styleSourcemaps;
     this.projectConfig.prompts.useLess = this.useLess;
     this.projectConfig.prompts.useSass = this.useSass;
     this.projectConfig.prompts.typingsPath = this.typingsPath;
