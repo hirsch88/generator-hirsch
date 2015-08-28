@@ -49,7 +49,7 @@
         this.dispatch(
           new AppRouterStart(fromState, fromParams),
           new AppRouterDestination(toState, toParams),
-          function (err) {
+          function done(err) {
             $rootScope.appRouterIsWorking = false;
             if (!err) {
               $state.go(toState.name, toParams || {});
@@ -61,7 +61,7 @@
       }
     };
 
-    Router.prototype.dispatch = function (start, destination, done) {
+    Router.prototype.dispatch = function (start, destination, done, abort) {
       var idx = 0;
       var stack = this.stack;
       if (stack.length === 0) {
