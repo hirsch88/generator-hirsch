@@ -31,7 +31,12 @@ gulp.task('less', function () {
         console.log(chalk.red('X ') + 'LESS - ' + err.message);
         console.log('');
         this.emit('end');
-      }))<% if(prompts.styleSourcemaps) {%>
+      }))<% if(prompts.autoPrefixr) {%>
+    .pipe(autoprefixer({
+            browsers: projectConfig.autoprefixer.browsers,
+            cascade: false,
+            remove: projectConfig.autoprefixer.remove
+    }))<% } %><% if(prompts.styleSourcemaps) {%>
     .pipe(sourcemaps.write()) <% } %>
     .pipe($.rename(cssFile))
     .pipe(gulp.dest(mainCssDir))

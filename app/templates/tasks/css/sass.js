@@ -7,7 +7,8 @@ var $ = require('gulp-load-plugins')({lazy: true});
 var path = require('path');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;<% if(prompts.styleSourcemaps) {%>
-var sourcemaps = require('gulp-sourcemaps');<% } %>
+var sourcemaps = require('gulp-sourcemaps');<% } %><% if(prompts.autoPrefixr) {%>
+var autoprefixer = require('gulp-autoprefixer');<% } %>
 
 /**
  * SASS
@@ -22,7 +23,12 @@ gulp.task('sass', function () {
   return gulp
     .src(mainSassFile)<% if(prompts.styleSourcemaps) {%>
     .pipe(sourcemaps.init()) <% } %>
-    .pipe(sass().on('error', sass.logError))<% if(prompts.styleSourcemaps) {%>
+    .pipe(sass().on('error', sass.logError))<% if(prompts.autoPrefixr) {%>
+    .pipe(autoprefixer({
+            browsers: projectConfig.autoprefixer.browsers,
+            cascade: false,
+            remove: projectConfig.autoprefixer.remove
+    }))<% } %><% if(prompts.styleSourcemaps) {%>
     .pipe(sourcemaps.write()) <% } %>
     .pipe($.rename(cssFile))
     .pipe(gulp.dest(mainCssDir))
