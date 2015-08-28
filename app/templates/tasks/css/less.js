@@ -6,7 +6,8 @@ var $ = require('gulp-load-plugins')({lazy: true});
 var path = require('path');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
-var chalk = require('chalk');
+var chalk = require('chalk');<% if(prompts.styleSourcemaps) {%>
+var sourcemaps = require('gulp-sourcemaps');<% } %>
 
 /**
  * LESS
@@ -20,7 +21,8 @@ gulp.task('less', function () {
   var cssFile = projectConfig.pkg.name + '.css';
 
   return gulp
-    .src(mainLessFile)
+    .src(mainLessFile)<% if(prompts.styleSourcemaps) {%>
+    .pipe(sourcemaps.init()) <% } %>
     .pipe($.less({
       paths: [path.join(__dirname, 'less', 'includes')]
     })
@@ -29,7 +31,13 @@ gulp.task('less', function () {
         console.log(chalk.red('X ') + 'LESS - ' + err.message);
         console.log('');
         this.emit('end');
-      }))
+      }))<% if(prompts.autoPrefixr) {%>
+    .pipe(autoprefixer({
+            browsers: projectConfig.autoprefixer.browsers,
+            cascade: false,
+            remove: projectConfig.autoprefixer.remove
+    }))<% } %><% if(prompts.styleSourcemaps) {%>
+    .pipe(sourcemaps.write()) <% } %>
     .pipe($.rename(cssFile))
     .pipe(gulp.dest(mainCssDir))
     .pipe(reload({stream: true}));
