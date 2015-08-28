@@ -5,4 +5,4 @@ var gulp = require('gulp');
 /**
  * DEFAULT TASK
  */
-gulp.task('default', ['serve']);
+gulp.task('default', ['help']);

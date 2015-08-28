@@ -9,10 +9,9 @@ var stylish = require('jshint-stylish');
  * JSHINT
  * Checks the source code with some defined guidelines from the .jshintrc
  */
-gulp.task('jshint', function () {	
+gulp.task('jshint', function () {
   return gulp
     .src(projectConfig.path.srcDir + '/' + projectConfig.path.app.scripts)
     .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(jshint.reporter('fail'));
+    .pipe(jshint.reporter(stylish));
 });

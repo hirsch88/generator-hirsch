@@ -68,10 +68,26 @@ var HirschGenerator = yeoman.generators.Base.extend({
     prompts.push({
       type:    'list',
       name:    'cssExtension',
-      message: 'Do you want to use {LESS} or Sass? ',
-      choices: ['{LESS}', 'Sass'],
-      default: '{LESS}'
+      message: 'Do you want to use {less} or Sass? ',
+      choices: ['{less}', 'Sass'],
+      default: '{less}'
     });
+
+
+    prompts.push({
+      type: 'confirm',
+      name: 'styleSourcemaps',
+      message: 'Do you want to use sourcemaps for your less/scss file?',
+      default: true
+    });
+
+     prompts.push({
+      type: 'confirm',
+      name: 'autoPrefixr',
+      message: 'Do you want to automatically generate missing css-prefixes?',
+      default: true
+    });
+
 
     prompts.push({
       type: 'confirm',
@@ -79,6 +95,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
       message: 'Do you want to use TypeScript?',
       default: false
     });
+
 
     prompts.push({
       when: function(props) {
@@ -98,9 +115,11 @@ var HirschGenerator = yeoman.generators.Base.extend({
       }
 
       this.cssExtension = props.cssExtension;
-      this.useLess = props.cssExtension === '{LESS}';
+      this.useLess = props.cssExtension === '{less}';
       this.useSass = props.cssExtension === 'Sass';
       this.prefix = props.prefix;
+      this.styleSourcemaps = props.styleSourcemaps;
+      this.autoPrefixr = props.autoPrefixr;
       this.description = props.description;
       this.author = props.author;
       this.useTypescript = props.useTypescript;
@@ -185,6 +204,8 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.projectConfig.prompts.author = this.author;
     this.projectConfig.prompts.useTypescript = this.useTypescript;
     this.projectConfig.prompts.cssExtension = this.cssExtension;
+    this.projectConfig.prompts.styleSourcemaps = this.styleSourcemaps;
+    this.projectConfig.prompts.autoPrefixr = this.autoPrefixr;
     this.projectConfig.prompts.useLess = this.useLess;
     this.projectConfig.prompts.useSass = this.useSass;
     this.projectConfig.prompts.typingsPath = this.typingsPath;
@@ -276,7 +297,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
     }else{
         this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assets.sassDir);
     }
-   
+
   },
 
   testRunnerFiles: function() {
@@ -342,6 +363,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
   },
 
   end: function() {
+    hirschUtils.hirschPlay();
     this.log('');
     this.log(hirschUtils.hirschSay());
     this.log('Go to your project folder and run ' + chalk.bold.yellow(
