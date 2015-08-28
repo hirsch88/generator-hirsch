@@ -51,6 +51,13 @@ module.exports = function (isGenerator) {
       'core'
     ],
 
+    /*
+      See https://github.com/postcss/autoprefixer#browsers for how to use this field
+    */
+    autoprefixer: {
+      browsers: ['last 2 versions']
+    },
+
     /**
      * PATH
      * This object contains all paths
