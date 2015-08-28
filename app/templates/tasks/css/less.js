@@ -7,7 +7,8 @@ var path = require('path');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var chalk = require('chalk');<% if(prompts.styleSourcemaps) {%>
-var sourcemaps = require('gulp-sourcemaps');<% } %>
+var sourcemaps = require('gulp-sourcemaps');<% } %><% if(prompts.autoPrefixr) {%>
+var autoprefixer = require('gulp-autoprefixer');<% } %>
 
 /**
  * LESS
