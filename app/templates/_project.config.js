@@ -55,7 +55,8 @@ module.exports = function (isGenerator) {
       See https://github.com/postcss/autoprefixer#browsers for how to use this field
     */
     autoprefixer: {
-      browsers: ['last 2 versions']
+      browsers: ['last 2 versions'],
+      remove: false // Remove unneeded prefixes
     },
 
     /**

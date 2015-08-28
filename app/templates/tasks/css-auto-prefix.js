@@ -12,7 +12,8 @@ gulp.task('css-auto-prefix',[<% if(prompts.useLess) { %>'less'<% } %><% if(promp
     return gulp.src(path.join(mainCssDir, cssFile))
         .pipe(autoprefixer({
             browsers: projectConfig.autoprefixer.browsers,
-            cascade: false
+            cascade: false,
+            remove: projectConfig.autoprefixer.remove
         }))
         .pipe(gulp.dest(mainCssDir));
 });
