@@ -10,7 +10,7 @@ var _ = require('lodash');
  * INJECT
  * Injects all bower and application scripts into the main index.html file
  */
-gulp.task('inject', ['css-auto-prefix'], function () {
+gulp.task('inject', [<% if(prompts.autoPrefixr) { %>'css-auto-prefix'<% } %>], function () {
 
   var source = [];
   source.push(path.join(projectConfig.path.srcDir, projectConfig.path.assets.css));

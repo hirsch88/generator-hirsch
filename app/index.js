@@ -264,6 +264,9 @@ var HirschGenerator = yeoman.generators.Base.extend({
         this.copyTpl(this.projectConfig.path.taskDir, 'css!', 'sass.js!');
     }
 
+    if(this.autoPrefixr){
+        this.copyTpl(this.projectConfig.path.taskDir, 'autoPrefixr!', 'css-auto-prefix.js!');
+    }
 
     if(this.projectConfig.prompts.useTypescript) {
       this.copyTpl(this.projectConfig.path.taskDir, 'ts!', '*.js!');
