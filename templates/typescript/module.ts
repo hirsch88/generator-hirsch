@@ -3,7 +3,7 @@
 module <%= prefix %>.<%= cameledName %> {
   'use strict';
 
-  export var Namespace = '<%= prefix %>.<%= cameledName %>';
+  export const Namespace = '<%= prefix %>.<%= cameledName %>';
 
   angular
     .module(Namespace, []);
