@@ -3,11 +3,11 @@
 module <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
-  export interface I<%= classedName %>Filter {
+  export interface I<%= classedName %> {
     (input: string): string;
   }
   
-  var <%= cameledName %> = (): I<%= classedName %>Filter => {
+  export const <%= cameledName %>Filter = (): I<%= classedName %> => {
     return input => {
       input = input || '';
 
@@ -17,9 +17,9 @@ module <%= prefix %>.<%= module %>.<%= $namespace %> {
     };
   };
 
-  <%= cameledName %>.$inject = [];
+  <%= cameledName %>Filter.$inject = [];
 
   angular
-    .module(`${Namespace}.<%= classedName %>Filter`, [])
-    .filter(ID.<%= classedName %>Filter, <%= cameledName %>);
+    .module(`${Namespace}.<%= classedName %>`, [])
+    .filter(ID.<%= classedName %>, <%= cameledName %>Filter);
 }
