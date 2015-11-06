@@ -4,18 +4,14 @@ module <%= prefix %>.<%= module %>.<%= $namespace %>.test {
   'use strict';
 
   describe(`Unit: ${Namespace}.<%= classedName %>Directive`, () => {
-    var $compile, $rootScope;
+    let $compile: ng.ICompileService, $rootScope: ng.IRootScopeService;
 
-    beforeEach(module(Namespace));
+    beforeEach(angular.mock.module(`${Namespace}.<%= classedName %>`));
 
-    beforeEach(angular.mock.inject(
-      ['$compile', '$rootScope', ($c, $r) => {
-        $compile = $c;
-        $rootScope = $r;
-      }]
-    ));<% if (hasController) { %>
+    beforeEach(angular.mock.inject(_$compile_ => $compile = _$compile_));
+    beforeEach(angular.mock.inject(_$rootScope_ => $rootScope = _$rootScope_));<% if (hasController) { %>
 
-    var controller: I<%= classedName %>Controller;
+    let controller: <%= classedName %>Controller;
     beforeEach(inject($controller => controller = $controller(ID.<%= classedName %>Controller)));
 
     it('should contain a <%= classedName %> controller', () => should.exist(controller));<% } %>
