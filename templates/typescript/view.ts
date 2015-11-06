@@ -3,16 +3,15 @@
 module <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
-  var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
+  const stateConfig = ($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider
-      .state('admin.<%= module %><%= classedName %>', {
+      .state('root.<%= module %><%= classedName %>', {
         url: '/<%= url %>',
-        navigationKey: '<%= module %>',
         views: {
           'content': {
             templateUrl: '<%= templateUrl %>',
             controller: ID.<%= classedName %>Controller,
-            controllerAs: '<%= cameledName %>'
+            controllerAs: 'vm'
           }
         }
       });
@@ -20,14 +19,7 @@ module <%= prefix %>.<%= module %>.<%= $namespace %> {
 
   stateConfig.$inject = ['$stateProvider'];
 
-  export interface I<%= classedName %>Controller {
-    prop: string;
-    asyncProp: ng.IPromise<string[]>;
-    method(param: string): string;
-    action(): void;
-  }
-
-  class <%= classedName %>Controller implements I<%= classedName %>Controller {
+  export class <%= classedName %>Controller {
     prop: string;
     asyncProp: ng.IPromise<string[]>;
   
@@ -53,7 +45,9 @@ module <%= prefix %>.<%= module %>.<%= $namespace %> {
   }
 
   angular
-    .module(`${Namespace}.<%= classedName %>`, [])
+    .module(`${Namespace}.<%= classedName %>`, [
+      'ui.router.state'  
+    ])
     .config(stateConfig)
     .controller(ID.<%= classedName %>Controller, <%= classedName %>Controller);
 }

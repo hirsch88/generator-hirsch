@@ -5,9 +5,9 @@ module <%= prefix %>.<%= module %>.<%= $namespace %>.test {
 
   describe(`Unit: ${Namespace}.<%= classedName %>Controller`, () => {
 
-    beforeEach(module(Namespace));
+    beforeEach(angular.mock.module(`${Namespace}.<%= classedName %>`));
 
-    var controller: I<%= classedName %>Controller;
+    let controller: <%= classedName %>Controller;
     beforeEach(inject($controller => controller = $controller(ID.<%= classedName %>Controller)));
 
     it('should contain a <%= classedName %> controller', () => should.exist(controller));
