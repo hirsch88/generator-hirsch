@@ -46,9 +46,9 @@
     "main-bower-files":       "^2.5.0",
     "wiredep":                "^2.2.2"<% if (prompts.useTypescript) { %>,
     "tsd": "^0.6.0",
-    "typescript": "~1.4.0",
+    "typescript": "~1.6.0",
     "gulp-typescript": "^2.7.5",
-    "gulp-tslint": "^2.0.0"<% } %>
+    "gulp-tslint": "^3.0.0"<% } %>
   },
   "scripts":         {
     "test": "echo \"Error: no test specified\" && exit 1"
