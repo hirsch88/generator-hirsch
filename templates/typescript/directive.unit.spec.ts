@@ -1,6 +1,6 @@
 /// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts" />
 
-module <%= prefix %>.<%= module %>.<%= $namespace %>.test {
+namespace <%= prefix %>.<%= module %>.<%= $namespace %>.test {
   'use strict';
 
   describe(`Unit: ${Namespace}.<%= classedName %>Directive`, () => {

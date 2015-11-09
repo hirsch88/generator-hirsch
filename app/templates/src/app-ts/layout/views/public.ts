@@ -1,6 +1,6 @@
 /// <reference path="../../../../typings/tsd.d.ts"/>
 
-module <%= prompts.prefix %>.layout.views {
+namespace <%= prompts.prefix %>.layout.views {
   'use strict';
 
   var stateConfig = ($stateProvider: ng.ui.IStateProvider) => {

@@ -1,6 +1,6 @@
 /// <reference path="../../../<%= typingNesting %>typings/tsd.d.ts" />
 
-module <%= prefix %>.<%= cameledName %> {
+namespace <%= prefix %>.<%= cameledName %> {
   'use strict';
 
   export const Namespace = '<%= prefix %>.<%= cameledName %>';

@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../../typings/tsd.d.ts" />
 
-module <%= prompts.prefix %>.core {
+namespace <%= prompts.prefix %>.core {
   'use strict';
 
   export var Namespace = '<%= prompts.prefix %>.core';

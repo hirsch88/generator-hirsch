@@ -3,7 +3,7 @@
 /**
  * Defines the AngularJS Modules and configures them
  */
-module <%= prompts.prefix %>.core.config {
+namespace <%= prompts.prefix %>.core.config {
   'use strict';
 
   /**

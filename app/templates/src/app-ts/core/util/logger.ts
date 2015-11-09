@@ -7,7 +7,7 @@ interface Function {
   name?: string;
 }
 
-module <%= prompts.prefix %>.core.util {
+namespace <%= prompts.prefix %>.core.util {
   'use strict';
 
   export interface ILoggerFactory {

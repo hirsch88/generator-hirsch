@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../../../typings/tsd.d.ts" />
 
-module <%= prompts.prefix %>.core.router {
+namespace <%= prompts.prefix %>.core.router {
 
   export interface IRouterService {
     /**
