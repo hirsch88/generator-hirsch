@@ -3,7 +3,7 @@
  */
 /// <reference path="../../../../typings/tsd.d.ts" />
 
-module my.core.constants {
+namespace my.core.constants {
   'use strict';
 
   export interface IAppConfig {

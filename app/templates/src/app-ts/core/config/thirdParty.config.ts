@@ -1,6 +1,6 @@
 /// <reference path="../../../../typings/tsd.d.ts" />
 
-module <%= prompts.prefix %>.core.config {
+namespace <%= prompts.prefix %>.core.config {
   'use strict';
 
   var translateConfig = ($translateProvider: ng.translate.ITranslateProvider) => {

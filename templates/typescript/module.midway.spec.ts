@@ -1,6 +1,6 @@
 /// <reference path="../../../<%= typingNesting %>typings/tsd.d.ts" />
 
-module <%= prefix %>.<%= cameledName %>.test {
+namespace <%= prefix %>.<%= cameledName %>.test {
   'use strict';
 
   describe(`Midway: ${Namespace}.`, () => {

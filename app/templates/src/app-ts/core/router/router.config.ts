@@ -3,13 +3,13 @@
 /**
  *  Extension for 3rd party type definition file.
  */
-declare module angular.ui {
+declare namespace angular.ui {
   interface IState {
     includes?(name: string): void;
   }
 }
 
-module <%= prompts.prefix %>.core.router {
+namespace <%= prompts.prefix %>.core.router {
 
   // this variable is to prevent an issue with the default routes;
   // if the initial request to the application is for an invalid route

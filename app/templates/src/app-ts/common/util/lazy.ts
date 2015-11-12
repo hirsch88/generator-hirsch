@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../../../typings/tsd.d.ts"/>
 
-module <%= prompts.prefix %>.common.util {
+namespace <%= prompts.prefix %>.common.util {
   'use strict';
 
   export class Lazy<T> {

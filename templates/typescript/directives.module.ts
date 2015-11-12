@@ -1,9 +1,9 @@
 ﻿/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts" />
 
-module <%= prefix %>.<%= module %>.<%= $namespace %> {
+namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
-  export var Namespace = '<%= prefix %>.<%= module %>.<%= $namespace %>';
+  export const Namespace = '<%= prefix %>.<%= module %>.<%= $namespace %>';
 
   angular
     .module(Namespace, [<% for (var i = 0, l = components.length; i < l; i++) { %>
@@ -11,7 +11,7 @@ module <%= prefix %>.<%= module %>.<%= $namespace %> {
       `${Namespace}.<%= classedName %>`
     ]);
 
-  export var ID = {<% for (var i = 0, l = components.length; i < l; i++) { %>
+  export const ID = {<% for (var i = 0, l = components.length; i < l; i++) { %>
     <%= components[i] %>Controller: `${Namespace}.<%= components[i] %>Controller`, <% } %>
     <%= classedName %>Controller: `${Namespace}.<%= classedName %>Controller`
   };

@@ -1,6 +1,6 @@
 /// <reference path="../../../../typings/tsd.d.ts" />
 
-module <%= prompts.prefix %>.layout.directives {
+namespace <%= prompts.prefix %>.layout.directives {
   'use strict';
 
   /**
