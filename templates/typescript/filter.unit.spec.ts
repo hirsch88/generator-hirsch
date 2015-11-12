@@ -1,15 +1,15 @@
 /// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts" />
 
-module <%= prefix %>.<%= module %>.<%= $namespace %>.test {
+namespace <%= prefix %>.<%= module %>.<%= $namespace %>.test {
   'use strict';
 
-  describe(`Unit: ${Namespace}.<%= classedName %>Filter`, () => {
+  describe(`Unit: ${Namespace}.<%= classedName %>`, () => {
 
-    beforeEach(module(Namespace));
+    beforeEach(angular.mock.module(`${Namespace}.<%= classedName %>`));
 
-    var <%= cameledName %>: I<%= classedName %>Filter;
-    beforeEach(inject($filter => <%= cameledName %> = $filter(ID.<%= classedName %>Filter)));
+    let <%= cameledName %>Filter: I<%= classedName %>;
+    beforeEach(inject($filter => <%= cameledName %>Filter = $filter(ID.<%= classedName %>)));
 
-    it('should contain a <%= cameledName %> filter', () => should.exist(<%= cameledName %>));
+    it('should contain a <%= cameledName %> filter', () => should.exist(<%= cameledName %>Filter));
   });
 }

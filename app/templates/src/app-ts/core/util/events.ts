@@ -3,7 +3,7 @@
 /**
  * Event bus. Use this class to register events and trigger them from anywhere.
  */
-module <%= prompts.prefix %>.core.util {
+namespace <%= prompts.prefix %>.core.util {
   'use strict';
 
   export interface IAppEvents {

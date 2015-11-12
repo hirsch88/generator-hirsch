@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../../../typings/tsd.d.ts" />
 
-module <%= prompts.prefix %>.core.router {
+namespace <%= prompts.prefix %>.core.router {
   'use strict';
 
   var run = (logger: util.ILoggerFactory, $timeout: ng.ITimeoutService, routerService: IRouterService) => {

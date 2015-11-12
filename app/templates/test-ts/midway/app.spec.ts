@@ -1,6 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts"/>
 
-module <%= prompts.prefix %>.test {
+namespace <%= prompts.prefix %>.test {
   'use strict';
 
   describe('Midway: Testing Modules', () => {

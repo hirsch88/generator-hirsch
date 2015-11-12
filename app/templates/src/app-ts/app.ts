@@ -1,6 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts"/>
 
-module <%= prompts.prefix %> {
+namespace <%= prompts.prefix %> {
   'use strict';
 
   angular
