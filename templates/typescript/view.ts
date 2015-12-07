@@ -20,21 +20,21 @@ namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   stateConfig.$inject = ['$stateProvider'];
 
   export class <%= classedName %>Controller {
-    prop: string;
-    asyncProp: ng.IPromise<string[]>;
-  
-    static $inject = [];
+    public prop: string;
+    public asyncProp: ng.IPromise<string[]>;
+
+    public static $inject = [];
     constructor() {
       this.prop = '';
 
       this.activate();
     }
 
-    method = (param: string) => {
+    public method = (param: string) => {
       return param;
     };
 
-    action = () => {
+    public action = () => {
       // TODO: perform some action
     };
 
@@ -46,7 +46,7 @@ namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
 
   angular
     .module(`${Namespace}.<%= classedName %>`, [
-      'ui.router.state'  
+      'ui.router.state'
     ])
     .config(stateConfig)
     .controller(ID.<%= classedName %>Controller, <%= classedName %>Controller);

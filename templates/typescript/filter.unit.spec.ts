@@ -8,7 +8,7 @@ namespace <%= prefix %>.<%= module %>.<%= $namespace %>.test {
     beforeEach(angular.mock.module(`${Namespace}.<%= classedName %>`));
 
     let <%= cameledName %>Filter: I<%= classedName %>;
-    beforeEach(inject($filter => <%= cameledName %>Filter = $filter(ID.<%= classedName %>)));
+    beforeEach(inject(($filter: ng.IFilterService) => <%= cameledName %>Filter = <I<%= classedName %>> $filter(ID.<%= classedName %>)));
 
     it('should contain a <%= cameledName %> filter', () => should.exist(<%= cameledName %>Filter));
   });

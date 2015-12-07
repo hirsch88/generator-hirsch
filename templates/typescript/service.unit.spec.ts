@@ -6,7 +6,7 @@ namespace <%= prefix %>.<%= module %>.<%= $namespace %>.test {
   describe(`Unit: ${Namespace}.<%= classedName %>`, () => {
 
     beforeEach(angular.mock.module(ID.<%= classedName %>));
-    
+
     let service: I<%= classedName %>;
     beforeEach(angular.mock.inject([ID.<%= classedName %>, s => service = s]));
 

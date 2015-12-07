@@ -6,7 +6,7 @@ namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   export const Namespace = '<%= prefix %>.<%= module %>.<%= $namespace %>';
 
   export const ID = {<% for (var i = 0, l = components.length; i < l; i++) { %>
-    <%= components[i] %>: `${Namespace}.<%= components[i] %>`, <% } %>
+    <%= components[i] %>: `${Namespace}.<%= components[i] %>`,<% } %>
     <%= classedName %>: `${Namespace}.<%= classedName %>`
   };
 }

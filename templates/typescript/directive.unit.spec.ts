@@ -12,7 +12,7 @@ namespace <%= prefix %>.<%= module %>.<%= $namespace %>.test {
     beforeEach(angular.mock.inject(_$rootScope_ => $rootScope = _$rootScope_));<% if (hasController) { %>
 
     let controller: <%= classedName %>Controller;
-    beforeEach(inject($controller => controller = $controller(ID.<%= classedName %>Controller)));
+    beforeEach(inject(($controller: ng.IControllerService) => controller = $controller(ID.<%= classedName %>Controller)));
 
     it('should contain a <%= classedName %> controller', () => should.exist(controller));<% } %>
   });
