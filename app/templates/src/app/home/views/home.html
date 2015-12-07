@@ -18,6 +18,7 @@
       </pre>
       <div class="col-sm-8">
         <h1>{{home.title}}</h1>
+
         <p>You just used the hirsch generator to scaffold your new application</p>
       </div>
     </div>
@@ -42,7 +43,6 @@
       <div class="col-sm-8"><p style="padding-top: 10px;">
         Adds a new constant to your project</p></div>
     </div>
-
 
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">yo hirsch:view myNewView</pre>
@@ -82,17 +82,16 @@
     </div>
 
     <div class="row">
-<pre class="col-sm-4" style="font-family: monospace">gulp help /*OR*/ gulp list
-</pre>
+      <pre class="col-sm-4" style="font-family: monospace">gulp help /*OR*/ gulp list</pre>
       <div class="col-sm-8"><p style="padding-top: 10px;">
         Generates new config constant file in your project.</p></div>
     </div>
 
     <div class="row">
-      <pre class="col-sm-4" style="font-family: monospace">gulp build-config [OPTION]
- -d, --dev, --development
- -p, --prod, --production
- --otherEnvName</pre>
+      <pre class="col-sm-4" style="font-family: monospace">gulp build-config --env [ENVIRONMENT]
+ --env d, --env dev, --env development
+--env p, --env prod, --env production
+ --env otherEnvName</pre>
       <div class="col-sm-8"><p style="padding-top: 10px;">
         Generate new config constant form the given environment</p></div>
     </div>
@@ -157,7 +156,8 @@ gulp serve-dist
     <div class="row">
       <pre class="col-sm-4" style="font-family: monospace">gulp dist</pre>
       <div class="col-sm-8"><p style="padding-top: 10px;">
-        This generates a minified app with the production environment(can changed by parameter) into the dist folder</p></div>
+        This generates a minified app with the production environment(can changed by parameter) into the dist folder</p>
+      </div>
     </div>
 
   </div>

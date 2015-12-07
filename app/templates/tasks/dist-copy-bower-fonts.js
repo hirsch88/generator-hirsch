@@ -13,5 +13,5 @@ gulp.task('dist-copy-bower-fonts', function () {
   return gulp
     .src(projectConfig.bower.files.fonts)
     .pipe(header(projectConfig.banner, { pkg: projectConfig.pkg }))
-    .pipe(gulp.dest(path.join(projectConfig.path.distDir, projectConfig.path.asset.fontDir)));
+    .pipe(gulp.dest(path.join(projectConfig.path.distDir, projectConfig.path.assets.fontDir)));
 });

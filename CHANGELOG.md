@@ -1,3 +1,26 @@
+1.0.1 / 2015-08-28
+==================
+
+  * Updated router
+  * Added sourcemaps for less and sass
+  * Added gulp task bootlint and htmllint
+  * Fixed some typos
+  
+1.0.0-rc.23 / 2015-07-24
+==================
+
+  * Updated build-config task
+  * Added bluebird promises
+  * Added sass posibility
+  * Fixed .gitignore: added dist folder 
+  * Fixed some typos
+
+1.0.0-rc.22 / 2015-07-17
+==================
+
+  * Added TypeScript Pull-Request
+
+
 1.0.0-rc.21 / 2015-07-02
 ==================
 

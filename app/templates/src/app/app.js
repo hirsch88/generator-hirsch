@@ -10,7 +10,6 @@
 
       // Third-Party Libs
       'ui.router',
-      'ui.bootstrap',
       'pascalprecht.translate',
 
       // Configs, middleware, run...

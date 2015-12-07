@@ -13,14 +13,16 @@
     $stateProvider
       .state('admin.<%= module %><%= classedName %>', {
         url:           '/<%= url %>',
-        session:       true,
-        navigationKey: '<%= module %>',
         views:         {
           'content': {
             templateUrl:  util.templateUrl('<%= prefix %>.<%= module %>.views.<%= classedName %>'),
             controller:   '<%= prefix %><%= classedName %>Controller',
             controllerAs: '<%= prefix %><%= classedName %>'
           }
+        },
+        data: {
+          session:       true,
+          navigationKey: '<%= module %>'
         }
       });
   }

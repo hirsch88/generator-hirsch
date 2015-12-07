@@ -11,7 +11,7 @@ var path = require('path');
 gulp.task('dist-index-inject', ['dist-index-copy'], function () {
 
   var source = [];
-  source.push(path.join(projectConfig.path.distDir, projectConfig.path.asset.css));
+  source.push(path.join(projectConfig.path.distDir, projectConfig.path.assets.css));
   source.push(path.join(projectConfig.path.distDir, projectConfig.path.appDir, '**/*.js'));
 
   var bowerFiles = [];

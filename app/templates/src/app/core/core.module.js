@@ -6,7 +6,8 @@
       '<%= prompts.prefix %>.core.constants',
       '<%= prompts.prefix %>.core.configs',
       '<%= prompts.prefix %>.core.utils',
-      '<%= prompts.prefix %>.core.router'
+      '<%= prompts.prefix %>.core.router',
+      '<%= prompts.prefix %>.core.middleware'
     ]);
 
 })();

@@ -66,11 +66,36 @@ var HirschGenerator = yeoman.generators.Base.extend({
     });
 
     prompts.push({
+      type:    'list',
+      name:    'cssExtension',
+      message: 'Do you want to use {less} or Sass? ',
+      choices: ['{less}', 'Sass'],
+      default: '{less}'
+    });
+
+
+    prompts.push({
+      type: 'confirm',
+      name: 'styleSourcemaps',
+      message: 'Do you want to use sourcemaps for your less/scss file?',
+      default: true
+    });
+
+     prompts.push({
+      type: 'confirm',
+      name: 'autoPrefixr',
+      message: 'Do you want to automatically generate missing css-prefixes?',
+      default: true
+    });
+
+
+    prompts.push({
       type: 'confirm',
       name: 'useTypescript',
       message: 'Do you want to use TypeScript?',
       default: false
     });
+
 
     prompts.push({
       when: function(props) {
@@ -89,7 +114,12 @@ var HirschGenerator = yeoman.generators.Base.extend({
         }
       }
 
+      this.cssExtension = props.cssExtension;
+      this.useLess = props.cssExtension === '{less}';
+      this.useSass = props.cssExtension === 'Sass';
       this.prefix = props.prefix;
+      this.styleSourcemaps = props.styleSourcemaps;
+      this.autoPrefixr = props.autoPrefixr;
       this.description = props.description;
       this.author = props.author;
       this.useTypescript = props.useTypescript;
@@ -173,6 +203,11 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.projectConfig.prompts.description = this.description;
     this.projectConfig.prompts.author = this.author;
     this.projectConfig.prompts.useTypescript = this.useTypescript;
+    this.projectConfig.prompts.cssExtension = this.cssExtension;
+    this.projectConfig.prompts.styleSourcemaps = this.styleSourcemaps;
+    this.projectConfig.prompts.autoPrefixr = this.autoPrefixr;
+    this.projectConfig.prompts.useLess = this.useLess;
+    this.projectConfig.prompts.useSass = this.useSass;
     this.projectConfig.prompts.typingsPath = this.typingsPath;
   },
 
@@ -196,16 +231,21 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.mkdir('src/app/core');
     this.mkdir('src/assets');
     this.mkdir('src/assets/config');
-    this.mkdir('src/assets/medias');
+    this.mkdir('src/assets/media');
     this.mkdir('src/assets/fonts');
-    this.mkdir('src/assets/less');
     this.mkdir('src/assets/i18n');
     this.mkdir('src/lib');
     this.mkdir('test');
     this.mkdir('test/lib');
     this.mkdir('test/unit');
-    this.mkdir('test/midway');
     this.mkdir('test/e2e');
+
+    if(this.useLess){
+      this.mkdir('src/assets/less');
+    }else{
+      this.mkdir('src/assets/sass');
+    }
+
   },
 
   packageFiles: function() {
@@ -217,6 +257,13 @@ var HirschGenerator = yeoman.generators.Base.extend({
   taskRunner: function() {
     this.template('_gulpfile.js', 'gulpfile.js', this.projectConfig);
     this.copyTpl(this.projectConfig.path.taskDir, '*.js!');
+
+    if(this.useLess){
+        this.copyTpl(this.projectConfig.path.taskDir, 'css!', 'less.js!');
+    }else{
+        this.copyTpl(this.projectConfig.path.taskDir, 'css!', 'sass.js!');
+    }
+
 
     if(this.projectConfig.prompts.useTypescript) {
       this.copyTpl(this.projectConfig.path.taskDir, 'ts!', '*.js!');
@@ -240,8 +287,17 @@ var HirschGenerator = yeoman.generators.Base.extend({
   },
 
   assets: function() {
-    this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path
-      .assetsDir);
+    this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assets.configDir);
+    this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assets.fontDir);
+    this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assets.mediaDir);
+    this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assets.i18nDir);
+
+    if(this.useLess){
+        this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assets.lessDir);
+    }else{
+        this.copyDir(this.projectConfig.path.srcDir, this.projectConfig.path.assets.sassDir);
+    }
+
   },
 
   testRunnerFiles: function() {
@@ -256,7 +312,6 @@ var HirschGenerator = yeoman.generators.Base.extend({
     this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.app.main);
     if(!this.projectConfig.prompts.useTypescript) {
       this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.app.util);
-      this.copyTpl(this.projectConfig.path.srcDir, this.projectConfig.path.appDir, 'app.router.js');
     }
   },
 
@@ -308,6 +363,7 @@ var HirschGenerator = yeoman.generators.Base.extend({
   },
 
   end: function() {
+    hirschUtils.hirschPlay();
     this.log('');
     this.log(hirschUtils.hirschSay());
     this.log('Go to your project folder and run ' + chalk.bold.yellow(
