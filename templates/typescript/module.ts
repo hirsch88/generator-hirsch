@@ -1,5 +1,3 @@
-/// <reference path="../../../<%= typingNesting %>typings/tsd.d.ts" />
-
 namespace <%= prefix %>.<%= cameledName %> {
   'use strict';
 

@@ -1,6 +1,4 @@
-﻿/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts"/>
-
-namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
+﻿namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
   export interface I<%= classedName %> {

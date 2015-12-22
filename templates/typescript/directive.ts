@@ -1,5 +1,3 @@
-/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts" />
-
 namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';<% if (hasTemplate) { %>
 
