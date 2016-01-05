@@ -1,21 +1,19 @@
-﻿/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts" />
-
-namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
+﻿namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';
 
-  export const Namespace = '<%= prefix %>.<%= module %>.<%= $namespace %>';
+  export const NAMESPACE = '<%= prefix %>.<%= module %>.<%= $namespace %>';
 
   angular
-    .module(Namespace, [
+    .module(NAMESPACE, [
       'ui.router',
       'ui.router.router',
       'ui.router.state'<% for (var i = 0, l = components.length; i < l; i++) { %>,
-      `${Namespace}.<%= components[i] %>`<% } %>,
-      `${Namespace}.<%= classedName %>`
+      `${NAMESPACE}.<%= components[i] %>`<% } %>,
+      `${NAMESPACE}.<%= classedName %>`
     ]);
 
   export const ID = {<% for (var i = 0, l = components.length; i < l; i++) { %>
-    <%= components[i] %>Controller: `${Namespace}.<%= components[i] %>Controller`, <% } %>
-    <%= classedName %>Controller: `${Namespace}.<%= classedName %>Controller`
+    <%= components[i] %>Controller: `${NAMESPACE}.<%= components[i] %>Controller`,<% } %>
+    <%= classedName %>Controller: `${NAMESPACE}.<%= classedName %>Controller`
   };
 }

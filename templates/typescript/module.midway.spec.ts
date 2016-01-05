@@ -1,9 +1,7 @@
-/// <reference path="../../../<%= typingNesting %>typings/tsd.d.ts" />
-
 namespace <%= prefix %>.<%= cameledName %>.test {
   'use strict';
 
-  describe(`Midway: ${Namespace}.`, () => {
+  describe(`Midway: ${NAMESPACE}.`, () => {
     var app: ng.IModule;
     var appDeps: string[];
     var module: ng.IModule;
@@ -12,17 +10,17 @@ namespace <%= prefix %>.<%= cameledName %>.test {
     before(() => {
       app = angular.module('<%= prefix %>');
       appDeps = app.value('<%= prefix %>').requires;
-      module = angular.module(Namespace);
+      module = angular.module(NAMESPACE);
     });
 
     it('should be registered', () => should.exist(module));
 
-    it('should be registered in the app module', () => expect(appHasModule(Namespace)).to.equal(true));
+    it('should be registered in the app module', () => expect(appHasModule(NAMESPACE)).to.equal(true));
 
     describe('Dependencies: ', () => {
       var deps: string[];
       var hasModule = m => deps.indexOf(m) >= 0;
-      before(() => deps = module.value(Namespace).requires);
+      before(() => deps = module.value(NAMESPACE).requires);
 
       // it('should have <%= prefix %>.<%= cameledName %>.Nobody as a dependency', () => expect(hasModule('<%= prefix %>.<%= cameledName %>.Nobody')).to.equal(true));
     });

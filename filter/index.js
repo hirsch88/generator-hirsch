@@ -18,7 +18,7 @@ Generator.prototype.init = function () {
   this.readModules();
 };
 
-Generator.prototype.prompting = function () {
+Generator.prototype.modulePrompting = function () {
   this.modulePrompt();
 };
 

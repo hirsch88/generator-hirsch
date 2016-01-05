@@ -1,36 +1,34 @@
-/// <reference path="../../../../<%= typingNesting %>typings/tsd.d.ts" />
-
 namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   'use strict';<% if (hasTemplate) { %>
 
   const templateUrl = '<%= templateUrl %>';<% } %>
-  
-  export class <%= classedName %>Directive implements angular.IDirective {
-    restrict = '<%= restrict %>';<% if (hasTemplate) { %>
-    templateUrl = templateUrl;<% } %><% if (hasController) { %>
-    controller = ID.<%= classedName %>Controller;
-    controllerAs = 'vm';
-    bindToController = true;<% } %><% if (hasLinkFnc) { %>
 
-    link = (scope: ng.IScope,
+  export class <%= classedName %>Directive implements angular.IDirective {
+    public restrict = '<%= restrict %>';<% if (hasTemplate) { %>
+    public templateUrl = templateUrl;<% } %><% if (hasController) { %>
+    public controller = ID.<%= classedName %>Controller;
+    public controllerAs = 'vm';
+    public bindToController = true;<% } %><% if (hasLinkFnc) { %>
+
+    public link = (scope: ng.IScope,
             instanceElement: ng.IAugmentedJQuery,
             instanceAttributes: ng.IAttributes<% if (hasController) { %>,
             controller: <%= classedName %>Controller<% } %>) => {
       // TODO: link logic
     };<% } %><% if (hasTemplate) { %>
 
-    static getTemplateUrl = () => templateUrl;<% } %>
+    public static getTemplateUrl = () => templateUrl;<% } %>
   }<% if (hasController) { %>
 
   export class <%= classedName %>Controller {
-    static $inject = [];
+    public static $inject = [];
     constructor() {
       // TODO
     }
   }<% } %>
 
   angular
-    .module(`${Namespace}.<%= classedName %>`, [])
+    .module(`${NAMESPACE}.<%= classedName %>`, [])
     .directive('<%= prefix %><%= classedName %>', () => new <%= classedName %>Directive())<% if (hasController) { %>
     .controller(ID.<%= classedName %>Controller, <%= classedName %>Controller)<% } %>;
 }
