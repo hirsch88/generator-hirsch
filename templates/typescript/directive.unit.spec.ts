@@ -1,10 +1,10 @@
 namespace <%= prefix %>.<%= module %>.<%= $namespace %>.test {
   'use strict';
 
-  describe(`Unit: ${Namespace}.<%= classedName %>Directive`, () => {
+  describe(`Unit: ${NAMESPACE}.<%= classedName %>Directive`, () => {
     let $compile: ng.ICompileService, $rootScope: ng.IRootScopeService;
 
-    beforeEach(angular.mock.module(`${Namespace}.<%= classedName %>`));
+    beforeEach(angular.mock.module(`${NAMESPACE}.<%= classedName %>`));
 
     /* tslint:disable:variable-name */
     beforeEach(angular.mock.inject(_$compile_ => $compile = _$compile_));

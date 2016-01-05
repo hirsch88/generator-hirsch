@@ -43,7 +43,7 @@ namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   }
 
   angular
-    .module(`${Namespace}.<%= classedName %>`, [
+    .module(`${NAMESPACE}.<%= classedName %>`, [
       'ui.router.state'
     ])
     .config(stateConfig)

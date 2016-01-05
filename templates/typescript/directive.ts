@@ -28,7 +28,7 @@ namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   }<% } %>
 
   angular
-    .module(`${Namespace}.<%= classedName %>`, [])
+    .module(`${NAMESPACE}.<%= classedName %>`, [])
     .directive('<%= prefix %><%= classedName %>', () => new <%= classedName %>Directive())<% if (hasController) { %>
     .controller(ID.<%= classedName %>Controller, <%= classedName %>Controller)<% } %>;
 }

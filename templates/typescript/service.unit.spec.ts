@@ -1,7 +1,7 @@
 namespace <%= prefix %>.<%= module %>.<%= $namespace %>.test {
   'use strict';
 
-  describe(`Unit: ${Namespace}.<%= classedName %>`, () => {
+  describe(`Unit: ${ID.<%= classedName %>}`, () => {
 
     beforeEach(angular.mock.module(ID.<%= classedName %>));
 

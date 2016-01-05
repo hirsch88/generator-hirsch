@@ -1,9 +1,9 @@
 namespace <%= prefix %>.<%= module %>.<%= $namespace %>.test {
   'use strict';
 
-  describe(`Unit: ${Namespace}.<%= classedName %>`, () => {
+  describe(`Unit: ${NAMESPACE}.<%= classedName %>`, () => {
 
-    beforeEach(angular.mock.module(`${Namespace}.<%= classedName %>`));
+    beforeEach(angular.mock.module(`${NAMESPACE}.<%= classedName %>`));
 
     let <%= cameledName %>Filter: I<%= classedName %>;
     beforeEach(inject(($filter: ng.IFilterService) => <%= cameledName %>Filter = <I<%= classedName %>> $filter(ID.<%= classedName %>)));

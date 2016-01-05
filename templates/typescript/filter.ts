@@ -18,6 +18,6 @@ namespace <%= prefix %>.<%= module %>.<%= $namespace %> {
   <%= cameledName %>Filter.$inject = [];
 
   angular
-    .module(`${Namespace}.<%= classedName %>`, [])
+    .module(`${NAMESPACE}.<%= classedName %>`, [])
     .filter(ID.<%= classedName %>, <%= cameledName %>Filter);
 }
